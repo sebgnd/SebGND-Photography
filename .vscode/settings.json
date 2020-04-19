@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "askForPassword": true,
+            "database": "photography",
+            "dialect": "MySQL",
+            "name": "SebGND Photography",
+            "port": 3306,
+            "server": "localhost",
+            "username": "root"
+        }
+    ]
+}

@@ -1,0 +1,89 @@
+@font-face {
+    font-family: "CooperHewitt Medium";
+    src: url("../fonts/CooperHewitt-Medium.ttf");
+  }
+  
+  @font-face {
+    font-family: "../CooperHewitt MediumItalic";
+    src: url("../fonts/CooperHewitt-MediumItalic.ttf");
+  }
+  
+  @font-face {
+    font-family: "CooperHewitt Light";
+    src: url("../fonts/CooperHewitt-Light.ttf");
+  }
+  
+  @font-face {
+    font-family: "CooperHewitt SemiboldItalic";
+    src: url("../fonts/CooperHewitt-SemiboldItalic.ttf");
+  }
+  
+  @font-face {
+    font-family: "CooperHewitt Semibold";
+    src: url("../fonts/CooperHewitt-Semibold.ttf");
+  }
+  
+  h1 {
+    font-size: 2em;
+    font-family:"CooperHewitt Semibold";
+  }
+  
+  h2 {
+    font-size: 1.4em;
+    font-family: "CooperHewitt Semibold";
+  }
+  
+  h3 {
+    font-size: 1.2em;
+    font-family: "CooperHewitt Medium";
+  }
+  
+  h4 {
+    font-size: 1.2em;
+    font-family: "CooperHewitt Light";
+  }
+  
+  p {
+    font-size: 1em;
+    font-family: "CooperHewitt Medium";
+  }
+  
+  .small {
+    font-size: .7em;
+  }
+  
+  /** GENERAL **/
+  
+  body, html {
+    padding: 0;
+    margin: 0;
+  }
+  
+  body {
+    position: relative;
+    font-size: 16px;
+    min-height: 100vh;
+  }
+  
+  @media (max-width: 500px) {
+    body {
+      font-size: 13px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 1em;
+    font-family: "CooperHewitt Medium";
+    color: inherit;
+  }
+  
+  a:visited {
+    color: inherit;
+  }
+
+  .global {
+    padding-bottom: 82px;
+    padding-top: 81px;
+    overflow: hidden;
+  }

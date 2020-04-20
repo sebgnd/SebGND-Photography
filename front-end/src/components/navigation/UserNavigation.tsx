@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import { Button } from '../reusable/button';
 import './user-navigation.css';
 
-class UserNavigation extends Component {
+class UserNavigation extends Component<RouteComponentProps, {}> {
+    changePage(url: string) {
+        this.props.history.push(url);
+    }
 
     public render() {
         return (
             <nav>
                 <div className="side-menu" id="left">
-                    <Link to="">Home</Link>
-                    <Link to="galleries">Galleries</Link>
+                    <div className="item">
+                        <Button variant="light" onClick={() => this.changePage('/')}>Home</Button>
+                    </div>
+                    <div className="item">
+                        <Button variant="light" onClick={() => this.changePage('/galleries')}>Galleries</Button>
+                    </div>
                 </div>
                 <Link to="" id="center-menu"><img src="images/logo.png" alt="logo"/></Link>
                 <div className="side-menu" id="right">
-                    <Link to="recent">Recent</Link>
-                    <Link to="contact">Contact</Link>
+                    <div className="item">
+                        <Button variant="light" onClick={() => this.changePage('/recent')}>Recent</Button>
+                    </div>
+                    <div className="item">
+                        <Button variant="light" onClick={() => this.changePage('/contact')}>Contact</Button>
+                    </div>
                 </div>
             </nav>
         );
     }
 }
 
-export default UserNavigation;
+export default withRouter(UserNavigation);

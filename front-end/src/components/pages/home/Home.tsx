@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom'; 
 import styled from 'styled-components';
 
-import { Button, ButtonLink } from '../../reusable/button';
+import { Button, RoundButton } from '../../reusable/button';
 import GalleryButton from '../../reusable/gallery-button';
 import { SingleImage, RecentImage, ViewerImage } from '../../reusable/image';
 
@@ -14,7 +15,7 @@ const Container = styled.div`
     display: block;
 `
 
-class Home extends Component {
+class Home extends Component<RouteComponentProps, {}> {
 
     fetchGalleries() {
 
@@ -33,14 +34,11 @@ class Home extends Component {
         return (
             <>
                 <Container>
-                        <ViewerImage image={placeHolderImage} />
-                        <SingleImage image={placeHolderImage} galleryName="architecture" />
-                        <RecentImage image={placeHolderImage} galleryName="architecture" galleryDisplayName="Architecture" />
-                        <GalleryButton image={placeHolderImage} galleryName="architecture" galleryDisplayName="Architecture" />
+                    <ViewerImage image={placeHolderImage} />
                 </Container>
             </>
         )
     }
 }
 
-export default Home;
+export default withRouter(Home);

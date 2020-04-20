@@ -1,7 +1,7 @@
-import Button from './Button';
-import ButtonLink from './ButtonLink';
+import Button from './regular/Button';
+import RoundButton from './round/RoundButton';
 
 export {
     Button,
-    ButtonLink
+    RoundButton
 }

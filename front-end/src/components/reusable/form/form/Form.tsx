@@ -5,7 +5,7 @@ interface IFormProps {
     action: string;
     method: string;
     fields: IField[];
-    onSubmit?(): void;
+    onSubmit?(event: FormEvent<HTMLFormElement>): void;
 }
 
 interface IFormState {
@@ -63,10 +63,16 @@ const withoutSpecialCharacter = (content: string): string | null => {
 class Form extends Component<IFormProps, IFormState> {
     constructor(props: IFormProps) {
         super(props);
+
+        const errors = new Map<string, string | null>();
+        this.props.fields.forEach((field: IField) => {
+            errors.set(field.id, null);
+        })
+
         this.state = {
             values: new Map<string, string>(),
             submitted: false,
-            errors: new Map<string, string>()
+            errors
         };
         this.setValue = this.setValue.bind(this);
     }
@@ -85,18 +91,22 @@ class Form extends Component<IFormProps, IFormState> {
 
     handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        if (this.props.onSubmit) {
+            this.props.onSubmit(event);
+        }
     }
 
     validate(value: string, rules: IRule): string | null {
-        let error: string | null = null;
-        if (rules.maxLength) {
-            error = maxLength(value, rules.maxLength);
-        } else if (rules.notEmpty) {
-            error = notEmpty(value);
-        } else if (rules.withoutSpecialCharacters) {
-            error = withoutSpecialCharacter(value);
+        if (rules.notEmpty) {
+            return notEmpty(value);
         }
-        return error;
+        if (rules.maxLength) {
+            return maxLength(value, rules.maxLength);
+        }
+        if (rules.withoutSpecialCharacters) {
+            return withoutSpecialCharacter(value);
+        }
+        return null;
     }
 
     handleBlur(event: TextFieldEvent) {
@@ -105,6 +115,7 @@ class Form extends Component<IFormProps, IFormState> {
 
         if (field) {
             const error: string | null = this.validate(value, field.rules);
+            console.log()
             this.setState({ errors: new Map<string, string | null>(this.state.errors).set(name, error) });
         }
     }
@@ -118,7 +129,14 @@ class Form extends Component<IFormProps, IFormState> {
             <FormContext.Provider value={context}>
                 <form onSubmit={(e: FormEvent<HTMLFormElement>) => this.handleSubmit(e)} action={this.props.action} method={this.getMethod()}>
                     {this.props.fields.map((field: IField) => {
-                        return <TextField key={`${field.id}-input`} errorMessage={this.state.errors.get(field.id)} id={field.id} type={field.fieldType} label={field.label} placeholder={field.placeholder} />
+                        return <TextField 
+                                    onBlur={(e: TextFieldEvent) => this.handleBlur(e)} 
+                                    key={`${field.id}-input`} 
+                                    errorMessage={this.state.errors.get(field.id)} 
+                                    id={field.id} type={field.fieldType} 
+                                    label={field.label} 
+                                    placeholder={field.placeholder}
+                                    hideContent={field.hideContent} />
                     })}
                     <button type="submit">Submit</button>
                 </form>

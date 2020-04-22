@@ -40,9 +40,9 @@ class Home extends Component<RouteComponentProps, {}> {
         const fields: IField[] = [
             {
                 fieldType: 'textinput',
-                id: 'test',
-                placeholder: 'Ceci est un test',
-                label: 'Ceci est un label',
+                id: 'name',
+                placeholder: 'Your name ...',
+                hideContent: true,
                 rules: {
                     maxLength: 25,
                     notEmpty: true
@@ -52,9 +52,11 @@ class Home extends Component<RouteComponentProps, {}> {
                 fieldType: 'textarea',
                 id: 'test-area',
                 placeholder: 'Ceci est un autre test',
+                hideContent: true,
                 rules: {
-                    maxLength: 25,
-                    notEmpty: true
+                    maxLength: 500,
+                    notEmpty: true,
+                    withoutSpecialCharacters: true
                 }
             }
         ]

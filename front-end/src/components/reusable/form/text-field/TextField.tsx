@@ -12,6 +12,8 @@ export const TYPES = ['textinput', 'textarea'];
 interface ITextFieldProp {
     id: string;
     type: string;
+    onBlur?(e: TextFieldEvent): void;
+    onChange?(e: TextFieldEvent): void;
     label?: string;
     placeholder?: string;
     hideContent?: boolean;
@@ -30,10 +32,20 @@ class TextField extends Component<ITextFieldProp, {}> {
         return TYPES.includes(this.props.type) ? this.props.type : TYPES[0];
     }
 
+    handleBlur(event: TextFieldEvent) {
+        if (this.props.onBlur) {
+            this.props.onBlur(event);
+        }
+    }
+
     handleChange(event: TextFieldEvent, context?: IFormContext) {
         const { id } = this.props;
         const value = event.currentTarget.value;
         context?.setValue(id, value);
+
+        if (this.props.onChange) {
+            this.props.onChange(event);
+        }
     }
 
     render() {
@@ -52,11 +64,24 @@ class TextField extends Component<ITextFieldProp, {}> {
                                 </MarginLeft>
                             )}
                             <MarginTop amount={5}>
-                                {type === TYPES[0] && (
-                                    <StyledInput name={id} id={id} error={error} placeholder={placeholder} type={this.getTextType()} onChange={(e: FormEvent<HTMLInputElement>) => this.handleChange(e, context)}/>
+                                {this.getFieldType() === TYPES[0] && (
+                                    <StyledInput 
+                                        name={id} 
+                                        id={id} 
+                                        error={error} 
+                                        placeholder={placeholder} 
+                                        type={this.getTextType()} 
+                                        onBlur={(e: FormEvent<HTMLInputElement>) => this.handleBlur(e)} 
+                                        onChange={(e: FormEvent<HTMLInputElement>) => this.handleChange(e, context)}/>
                                 )}
-                                {type === TYPES[1] && (
-                                    <StyledTextArea name={id} id={id} error={error} placeholder={placeholder} onChange={(e: FormEvent<HTMLTextAreaElement>) => this.handleChange(e, context)}/>
+                                {this.getFieldType() === TYPES[1] && (
+                                    <StyledTextArea 
+                                        name={id} 
+                                        id={id} 
+                                        error={error} 
+                                        placeholder={placeholder} 
+                                        onBlur={(e: FormEvent<HTMLTextAreaElement>) => this.handleBlur(e)}
+                                        onChange={(e: FormEvent<HTMLTextAreaElement>) => this.handleChange(e, context)}/>
                                 )}
                             </MarginTop>
                         </Margin>

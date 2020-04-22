@@ -14,12 +14,12 @@ interface ITextFieldProp {
     type: string;
     label?: string;
     placeholder?: string;
-    errorMessage?: string;
     hideContent?: boolean;
     required?: boolean;
+    errorMessage?: string | null;
 }
 
-type GenericFormEvent = FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElement>;
+export type TextFieldEvent = FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElement>;
 
 class TextField extends Component<ITextFieldProp, {}> {
     getTextType() {
@@ -30,7 +30,7 @@ class TextField extends Component<ITextFieldProp, {}> {
         return TYPES.includes(this.props.type) ? this.props.type : TYPES[0];
     }
 
-    handleChange(event: GenericFormEvent, context?: IFormContext) {
+    handleChange(event: TextFieldEvent, context?: IFormContext) {
         const { id } = this.props;
         const value = event.currentTarget.value;
         context?.setValue(id, value);
@@ -38,7 +38,7 @@ class TextField extends Component<ITextFieldProp, {}> {
 
     render() {
         const { id, label, placeholder } = this.props;
-        const error = false;
+        const error = this.props.errorMessage !== null;
         const type = this.getFieldType();
 
         return (
@@ -53,10 +53,10 @@ class TextField extends Component<ITextFieldProp, {}> {
                             )}
                             <MarginTop amount={5}>
                                 {type === TYPES[0] && (
-                                    <StyledInput id={id} error={error} placeholder={placeholder} type={this.getTextType()} onChange={(e: FormEvent<HTMLInputElement>) => this.handleChange(e, context)}/>
+                                    <StyledInput name={id} id={id} error={error} placeholder={placeholder} type={this.getTextType()} onChange={(e: FormEvent<HTMLInputElement>) => this.handleChange(e, context)}/>
                                 )}
                                 {type === TYPES[1] && (
-                                    <StyledTextArea id={id} error={error} placeholder={placeholder} onChange={(e: FormEvent<HTMLTextAreaElement>) => this.handleChange(e, context)}/>
+                                    <StyledTextArea name={id} id={id} error={error} placeholder={placeholder} onChange={(e: FormEvent<HTMLTextAreaElement>) => this.handleChange(e, context)}/>
                                 )}
                             </MarginTop>
                         </Margin>

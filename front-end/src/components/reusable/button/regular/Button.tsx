@@ -1,40 +1,29 @@
 import React, { Component } from 'react';
-import RegularButton from './button-style';
+import StyledButton from './button-style';
 
-type ButtonProp = {
+interface IButtonProp {
     onClick: () => void;
     variant: string;
+    size: string;
 }
 
-type ButtonState = {
-    variant: string;
-}
+const VARIANTS = ['classic', 'light'];
 
-class Button extends Component<ButtonProp, ButtonState> {
-    private readonly availableVariant: string[] = ['classic', 'light'];
+const SIZES = ['medium', 'small', 'big'];
 
-    constructor(props: ButtonProp) {
-        super(props);
-        this.state = {
-            variant: ''
-        }
-    }
-
+class Button extends Component<IButtonProp, {}> {
     setVariant(variant: string) {
-        if (this.availableVariant.includes(variant)) {
-            this.setState({ variant });
-        } else {
-            this.setState({ variant: 'classic' })
-        }
+        return VARIANTS.includes(variant) ? variant : VARIANTS[0];
     }
 
-    componentDidMount() {
-        this.setVariant(this.props.variant);
+    setSize(size: string) {
+        return SIZES.includes(size) ? size : SIZES[0];
     }
 
     render() {
+        const { variant, size, onClick } = this.props;
         return (
-            <RegularButton variant={this.state.variant} onClick={() => this.props.onClick()}>{this.props.children}</RegularButton>
+            <StyledButton size={this.setSize(size)} variant={this.setVariant(variant)} onClick={() => onClick()}>{this.props.children}</StyledButton>
         )
     }
 }

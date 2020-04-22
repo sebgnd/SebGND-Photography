@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Paths from '../../../../data/Paths';
 import Image from './../../../../data/Image';
 
-import './image.css';
+import { RecentImageContainer, InfoFlex, ImageContainer, FillerImage, AdaptedImage, ButtonContainerWidthWidth } from './recent-image-style';
+import { InlineBlock, FloatLeft, FloatRight, Text, MarginLeft, MarginRight } from '../../regular/style';
+import { Button } from '../../button';
 
-type RecentImageProp = {
+interface IRecentImageProp extends RouteComponentProps {
     // Image information
     image: Image;
 
@@ -18,35 +20,61 @@ type RecentImageProp = {
 // TODO: Figure out if image is landscape or portrait
 // TODO: Get the right path for the image from files server -> imageSource
 
-class RecentImage extends Component<RecentImageProp, {}> {
+class RecentImage extends Component<IRecentImageProp, {}> {
+    goToGallery(name: string) {
+        const galleryLink = `gallery/${name}`;
+        this.props.history.push(galleryLink);
+    }
+
+    goToImage(id: number, fromGallery: string) {
+        const imageLink = `viewer/${fromGallery}/${id.toString()}`;
+        this.props.history.push(imageLink);
+    }
+
     render() {
+        const { image, galleryDisplayName, galleryName } = this.props;
         // Image information
-        const formatedDate = this.props.image.getFormatedDate();
-        const id = this.props.image.getId().toString();
-        const imageType = this.props.image.isPortrait() ? 'portrait' : 'landscape';
+        const formatedDate = image.getFormatedDate();
+        const id = image.getId().toString();
+        const imageType = image.isPortrait() ? 'portrait' : 'landscape';
         
         // Links to other pages
-        const galleryLink = `gallery/${this.props.galleryName}`;
-        const imageLink = `viewer/${this.props.galleryName}/${id}`;
+        const galleryLink = `gallery/${galleryName}`;
+        const imageLink = `viewer/${galleryName}/${id}`;
         const imageSource = Paths.smallImage();
         
         return (
-            <div className="recent-image-container">
-                <div className="info">
-                    <Link className="category" to={galleryLink}>{this.props.galleryDisplayName}</Link>
-                    <h3 className="date">{formatedDate}</h3>
-                </div>
-                <div className="image">
-                    <Link to={imageLink}>
-                        { this.props.image.isPortrait() && (
-                                <img className={`${imageType}-fill`} src={imageSource} alt={id}></img>
+            <InlineBlock>
+                <RecentImageContainer>
+                    <InfoFlex>
+                        <InlineBlock>
+                            <FloatLeft>
+                                <MarginLeft amount={20}>
+                                    <Button variant="light" size="small" onClick={() => this.goToGallery(galleryName)}>{galleryDisplayName}</Button>
+                                </MarginLeft>
+                            </FloatLeft>
+                        </InlineBlock>
+                        <InlineBlock>
+                            <FloatRight>
+                                <MarginRight amount={20}>
+                                    <Text size="small" color="#7E7E7E" weight="bold">{formatedDate}</Text>
+                                </MarginRight>
+                            </FloatRight>
+                        </InlineBlock>
+                    </InfoFlex>
+                    
+                    <ImageContainer>
+                        <ButtonContainerWidthWidth width="100%" onClick={() => this.goToImage(image.getId(), galleryName)}>
+                            { image.isPortrait() && (
+                                <FillerImage src={imageSource} alt={id} />
                             )}
-                        <img className={imageType} src={imageSource} alt={id}/>
-                    </Link>
-                </div>
-            </div>
+                            <AdaptedImage type={imageType} src={imageSource} alt={id} />
+                        </ButtonContainerWidthWidth>
+                    </ImageContainer>
+                </RecentImageContainer>
+            </InlineBlock>
         )
     }
 }
 
-export default RecentImage;
+export default withRouter(RecentImage);

@@ -5,20 +5,10 @@ const GalleryButtonWrapper = styled('div')`
     display: inline-block;
 `;
 
-const GalleryButtonContainer = styled('button')`
-    max-width: 400px;
-    min-width: 100px;
-    position: relative;
-    overflow: visible;
-    margin-bottom: 25px;
-    margin-right: 25px;
-    border: none;
-    background-color: transparent;
-    :hover {
-        cursor: pointer;
-    }
-    :focus {
-        outline: none;
+const GalleryButtonContainer = styled('div')`
+    display: inline-block;
+    :hover #gallery-name {
+        bottom: -35px;
     }
 `;
 
@@ -40,20 +30,16 @@ const Img = styled('img')`
 `;
 
 const GalleryNameContainer = styled('div')`
-    position: absolute;
-    right: -25px;
-    bottom: -25px;
+    display: inline-block;
     background-color: white;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-    min-width: 75%;
-    max-width: 95%;
     text-align: center;
+    width: 100%;
     color: black;
     transform: none;
     transition: transform .5s, bottom .5s, box-shadow .5s;
     ${GalleryButtonContainer}:hover & {
-        bottom: -40px;
         transform: scale(1.05);
     }
 `;

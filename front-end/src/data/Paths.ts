@@ -7,7 +7,7 @@ abstract class Paths {
     // Paths to different images format
 
     static smallImage(image?: Image, galleryName?: string) {
-        return 'https://via.placeholder.com/800x450'
+        return 'https://via.placeholder.com/450x800'
     }
 
     static mediumImage(image?: Image, galleryName?: string) {

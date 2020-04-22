@@ -13,19 +13,19 @@ class UserNavigation extends Component<RouteComponentProps, {}> {
             <nav>
                 <div className="side-menu" id="left">
                     <div className="item">
-                        <Button variant="light" onClick={() => this.changePage('/')}>Home</Button>
+                        <Button size="normal" variant="light" onClick={() => this.changePage('/')}>Home</Button>
                     </div>
                     <div className="item">
-                        <Button variant="light" onClick={() => this.changePage('/galleries')}>Galleries</Button>
+                        <Button size="normal"  variant="light" onClick={() => this.changePage('/galleries')}>Galleries</Button>
                     </div>
                 </div>
                 <Link to="" id="center-menu"><img src="images/logo.png" alt="logo"/></Link>
                 <div className="side-menu" id="right">
                     <div className="item">
-                        <Button variant="light" onClick={() => this.changePage('/recent')}>Recent</Button>
+                        <Button size="normal"  variant="light" onClick={() => this.changePage('/recent')}>Recent</Button>
                     </div>
                     <div className="item">
-                        <Button variant="light" onClick={() => this.changePage('/contact')}>Contact</Button>
+                        <Button size="normal"  variant="light" onClick={() => this.changePage('/contact')}>Contact</Button>
                     </div>
                 </div>
             </nav>

@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, FormEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom'; 
 import styled from 'styled-components';
 
 import { Button, RoundButton } from '../../reusable/button';
 import GalleryButton from '../../reusable/gallery-button';
 import { SingleImage, RecentImage, ViewerImage } from '../../reusable/image';
+import { Form, Field } from '../../reusable/form'
 
 import Paths from './../../../data/Paths';
 import Image from './../../../data/Image';
@@ -29,12 +30,20 @@ class Home extends Component<RouteComponentProps, {}> {
 
     }
 
+    handleChange(event: FormEvent<HTMLInputElement>) {
+        
+    }
+
     render() {
-        const placeHolderImage = new Image(1, 1920, 1080, new Date());
+        const placeHolderImage = new Image(1, 1080, 1920, new Date());
         return (
             <>
                 <Container>
-                    <ViewerImage image={placeHolderImage} />
+                    <Form method="POST" action="test" onSubmit={() => console.log('Form submitted') }>
+                        <Field type="textinput" id="test" label="test" placeholder="Please enter the test" />
+                        <Field type="textinput" id="another" label="test" placeholder="Please enter another test" />
+                        <Field type="textarea" id="anotherone" label="anotherone" placeholder="Please enter" />
+                    </Form>
                 </Container>
             </>
         )

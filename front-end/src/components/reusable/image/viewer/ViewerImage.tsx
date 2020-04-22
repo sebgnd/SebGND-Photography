@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Image from '../../../../data/Image';
 import Paths from '../../../../data/Paths';
+
 import { ViewerImageWrapper, ViewerImageContainer, Img, ImageInfo } from './viewer-style';
-import { Text } from '../../regular/style';
+import { Text, InlineBlock, Margin, MarginRight, MarginBottom, Relative, Absolute } from '../../regular/style';
 
-type ViewerImageProp = {
+interface IViewerImageProp {
     image: Image;
-
 }
 
-class ViewerImage extends Component<ViewerImageProp, {}> {
+class ViewerImage extends Component<IViewerImageProp, {}> {
     fetchExif(id: number) {
 
     }
@@ -20,14 +20,22 @@ class ViewerImage extends Component<ViewerImageProp, {}> {
         const imageSource = Paths.mediumImage();
 
         return (
-            <ViewerImageWrapper>
-                <ViewerImageContainer>
-                    <Img src={imageSource} alt={this.props.image.getId().toString()} />
-                    <ImageInfo>
-                        <Text size="medium" color="black" weight="normal">{imageInfo}</Text>
-                    </ImageInfo>
-                </ViewerImageContainer>
-            </ViewerImageWrapper>
+            <InlineBlock>
+                <Margin amount={10}>
+                    <MarginRight amount={25}>
+                        <MarginBottom amount={25}>
+                            <Relative>
+                                <Img src={imageSource} alt={this.props.image.getId().toString()} />
+                                <Absolute bottom={-25} right={-25}>
+                                    <ImageInfo>
+                                        <Text size="medium" color="black" weight="normal">{imageInfo}</Text>
+                                    </ImageInfo>
+                                </Absolute>
+                            </Relative>
+                        </MarginBottom>
+                    </MarginRight>
+                </Margin>
+            </InlineBlock>
         )
     }
 }

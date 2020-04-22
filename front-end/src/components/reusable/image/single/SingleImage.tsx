@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { SingleImageContainer, Img } from './single-style';
+import { SingleImageContainer, Img, CustomFont } from './single-style';
+import { Margin, ButtonContainer, SizedContainer } from '../../regular/style';
 
 import Image from '../../../../data/Image';
 import Paths from '../../../../data/Paths';
 
-type SingleImageProp = RouteComponentProps & {
+interface ISingleImageProp extends RouteComponentProps {
     // Image information
     image: Image;
 
@@ -15,7 +16,7 @@ type SingleImageProp = RouteComponentProps & {
 
 // TODO: Get the right path for the image from files server -> imageSource
 
-class SingleImage extends Component<SingleImageProp, {}> {
+class SingleImage extends Component<ISingleImageProp, {}> {
     goToImage(gallery: string, image: Image) {
         const id = image.getId().toString();
         const imageLink = `viewer/${this.props.galleryName}/${id}`;
@@ -26,9 +27,15 @@ class SingleImage extends Component<SingleImageProp, {}> {
         const imageSource = Paths.mediumThumbnailImage(); // TODO: Get the right path for the image from files server.
 
         return (
-            <SingleImageContainer onClick={() => this.goToImage(galleryName, image)}>
-                <Img src={imageSource} alt={image.getId().toString()}/>
-            </SingleImageContainer>
+            <SizedContainer height={[195, 470]} width={[195, 470]}>
+                <Margin amount={10}>
+                    <ButtonContainer>
+                        <SingleImageContainer onClick={() => this.goToImage(galleryName, image)}>
+                            <Img src={imageSource} alt={image.getId().toString()}/>
+                        </SingleImageContainer>
+                    </ButtonContainer>
+                </Margin>
+            </SizedContainer>
         )
     }
 }

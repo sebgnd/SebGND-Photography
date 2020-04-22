@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Button, RoundButton } from '../../reusable/button';
 import GalleryButton from '../../reusable/gallery-button';
 import { SingleImage, RecentImage, ViewerImage } from '../../reusable/image';
-import { Form, Field } from '../../reusable/form'
+import { Form, TextField } from '../../reusable/form'
 
 import Paths from './../../../data/Paths';
 import Image from './../../../data/Image';
@@ -40,9 +40,9 @@ class Home extends Component<RouteComponentProps, {}> {
             <>
                 <Container>
                     <Form method="POST" action="test" onSubmit={() => console.log('Form submitted') }>
-                        <Field type="textinput" id="test" label="test" placeholder="Please enter the test" />
-                        <Field type="textinput" id="another" label="test" placeholder="Please enter another test" />
-                        <Field type="textarea" id="anotherone" label="anotherone" placeholder="Please enter" />
+                        <TextField type="textinput" id="test" label="test" placeholder="Please enter the test" />
+                        <TextField type="textinput" id="another" label="test" placeholder="Please enter another test" />
+                        <TextField type="textarea" id="anotherone" label="anotherone" placeholder="Please enter" />
                     </Form>
                 </Container>
             </>

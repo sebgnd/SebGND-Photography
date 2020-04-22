@@ -1,7 +1,7 @@
 import Form from './form/Form';
-import Field from './field/Field';
+import TextField from './text-field/Field';
 
 export {
     Form,
-    Field
+    TextField
 }

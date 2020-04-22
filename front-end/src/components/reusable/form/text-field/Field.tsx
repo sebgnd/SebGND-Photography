@@ -9,7 +9,7 @@ import { IFormContext, FormContext } from '../form/Form';
 
 export const TYPES = ['textinput', 'textarea'];
 
-interface IFieldProp {
+interface ITextFieldProp {
     id: string;
     type: string;
     label?: string;
@@ -21,7 +21,7 @@ interface IFieldProp {
 
 type GenericFormEvent = FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElement>;
 
-class Field extends Component<IFieldProp, {}> {
+class TextField extends Component<ITextFieldProp, {}> {
     getTextType() {
         return this.props.hideContent ? 'password' : 'text';
     }
@@ -67,4 +67,4 @@ class Field extends Component<IFieldProp, {}> {
     }
 } 
 
-export default Field;
+export default TextField;

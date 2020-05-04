@@ -1,7 +1,8 @@
 // Style
 import { StyledInput } from './text-input-style';
-import { StyledTextArea } from '../text-area/text-area-style';
+import { StyledTextArea } from './text-area-style';
 import { Margin, MarginTop, Block, MarginLeft } from '../../regular/style';
+import { Label } from '../label/Label';
 
 // Date / Logic
 import React, { Component, FormEvent } from 'react';
@@ -12,8 +13,8 @@ type TextFieldEvent = FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElemen
 
 interface ITextFieldProps {
     id: string;
-    error: boolean;
     type: string;
+    error?: boolean;
     onBlur?(e: TextFieldEvent): void;
     onChange?(e: TextFieldEvent): void;
     label?: string;
@@ -47,18 +48,18 @@ class TextField extends Component<ITextFieldProps, {}> {
         const { id, label, placeholder, hideContent, error } = this.props;
         return (
                 <Block>
-                    <Margin amount={10}>
+                    <Margin amount={50}>
                         {label && (
                             <MarginLeft amount={5}>
-                                <label htmlFor={id}>{label}</label>
+                                <Label htmlFor={id}>{label}</Label>
                             </MarginLeft>
                         )}
-                        <MarginTop amount={5}>
+                        <MarginTop amount={10}>
                             {this.getFieldType() === TYPES[0] && (
                                 <StyledInput 
                                     name={id} 
                                     id={id} 
-                                    error={error} 
+                                    error={error ? error : false} 
                                     placeholder={placeholder} 
                                     type={hideContent ? "password" : "text"} 
                                     onBlur={(e: FormEvent<HTMLInputElement>) => this.handleBlur(e)} 
@@ -68,7 +69,7 @@ class TextField extends Component<ITextFieldProps, {}> {
                                 <StyledTextArea 
                                     name={id} 
                                     id={id} 
-                                    error={error} 
+                                    error={error ? error : false} 
                                     placeholder={placeholder} 
                                     onBlur={(e: FormEvent<HTMLTextAreaElement>) => this.handleBlur(e)}
                                     onChange={(e: FormEvent<HTMLTextAreaElement>) => this.handleChange(e)}/>

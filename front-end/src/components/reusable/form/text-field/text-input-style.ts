@@ -6,15 +6,18 @@ export const StyledInput = styled('input')<{ error: boolean }>`
     display: block;
     padding: 15px;
     height: 20px;
-    resize: none;
     border-radius: 7px;
     transform: none;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.10);
     transition: box-shadow .5s, background-color .25s, border .25s;
+    font-size: 0.8em;
     :hover {
         box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
     }
     :focus {
         outline: 0;
+    }
+    ::placeholder {
+        font-family: "CooperHewitt Medium";
     }
 `

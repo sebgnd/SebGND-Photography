@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Button, RoundButton } from '../../reusable/button';
 import GalleryButton from '../../reusable/gallery-button';
 import { SingleImage, RecentImage, ViewerImage } from '../../reusable/image';
-import { Form, TextField, IField } from '../../reusable/form'
+import { TextField } from '../../reusable/form'
 
 import Paths from '../../../helper/Paths';
 import Image from '../../../helper/Image';
@@ -36,35 +36,13 @@ class Home extends Component<RouteComponentProps, {}> {
 
     render() {
         const placeHolderImage = new Image(1, 1080, 1920, new Date());
-
-        const fields: IField[] = [
-            {
-                fieldType: 'textinput',
-                id: 'name',
-                placeholder: 'Your name ...',
-                hideContent: true,
-                rules: {
-                    maxLength: 25,
-                    notEmpty: true
-                }
-            },
-            {
-                fieldType: 'textarea',
-                id: 'test-area',
-                placeholder: 'Ceci est un autre test',
-                hideContent: true,
-                rules: {
-                    maxLength: 500,
-                    notEmpty: true,
-                    withoutSpecialCharacters: true
-                }
-            }
-        ]
-
         return (
             <>
                 <Container>
-                    <Form method="POST" action="test" onSubmit={() => console.log('Form submitted')} fields={fields} />
+                    <form method="POST" action="test" onSubmit={() => console.log('Form submitted')}>
+                        <TextField id="test1" type="text-input" placeholder="Test" />
+                        <TextField id="test2" type="text-area" placeholder="Test" label="Un label" />
+                    </form>
                 </Container>
             </>
         )

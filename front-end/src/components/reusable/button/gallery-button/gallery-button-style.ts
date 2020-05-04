@@ -37,6 +37,7 @@ const GalleryNameContainer = styled('div')`
     text-align: center;
     width: 100%;
     color: black;
+    
     transform: none;
     transition: transform .5s, bottom .5s, box-shadow .5s;
     ${GalleryButtonContainer}:hover & {

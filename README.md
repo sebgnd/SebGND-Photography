@@ -1,4 +1,4 @@
-'# SebGND-Photography' 
+# SebGND-Photography
 
 ## TODO:
 1. Remake validation

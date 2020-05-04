@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Image from '../../../../data/Image';
-import Paths from '../../../../data/Paths';
+import Image from '../../../../helper/Image';
+import Paths from '../../../../helper/Paths';
 
 import { ViewerImageWrapper, ViewerImageContainer, Img, ImageInfo } from './viewer-style';
 import { Text, InlineBlock, Margin, MarginRight, MarginBottom, Relative, Absolute } from '../../regular/style';

@@ -12,7 +12,7 @@ import Viewer from './pages/viewer/Viewer';
 import UserNavigation from './navigation/UserNavigation';
 
 // Utils
-import Paths from '../data/Paths';
+import Paths from '../helper/Paths';
 
 class App extends React.Component {
 

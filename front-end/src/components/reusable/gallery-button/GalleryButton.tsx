@@ -3,8 +3,8 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { GalleryButtonContainer, GalleryImage, Img, GalleryNameContainer } from './gallery-button-style';
 import { Text, InlineBlock, Margin, MarginBottom, MarginRight, SizedContainer, Relative, ButtonContainer, AbsoluteWithWidth } from '../regular/style';
 
-import Image from '../../../data/Image';
-import Paths from '../../../data/Paths';
+import Image from '../../../helper/Image';
+import Paths from '../../../helper/Paths';
 
 interface IGalleryButtonProp extends RouteComponentProps {
     galleryDisplayName: string;

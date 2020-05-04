@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import Paths from '../../../../data/Paths';
-import Image from './../../../../data/Image';
+import Paths from '../../../../helper/Paths';
+import Image from '../../../../helper/Image';
 
 import { RecentImageContainer, InfoFlex, ImageContainer, FillerImage, AdaptedImage, ButtonContainerWidthWidth } from './recent-image-style';
 import { InlineBlock, FloatLeft, FloatRight, Text, MarginLeft, MarginRight } from '../../regular/style';

@@ -7,8 +7,8 @@ import GalleryButton from '../../reusable/gallery-button';
 import { SingleImage, RecentImage, ViewerImage } from '../../reusable/image';
 import { Form, TextField, IField } from '../../reusable/form'
 
-import Paths from './../../../data/Paths';
-import Image from './../../../data/Image';
+import Paths from '../../../helper/Paths';
+import Image from '../../../helper/Image';
 
 import './home.css';
 

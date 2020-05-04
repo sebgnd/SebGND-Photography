@@ -1,9 +1,5 @@
-import Form, { IField as IFieldExport }  from './form/Form';
-import TextField from './text-field/TextField';
+import TextField from './input/TextField';
 
 export {
-    Form,
     TextField
 }
-
-export type IField = IFieldExport;

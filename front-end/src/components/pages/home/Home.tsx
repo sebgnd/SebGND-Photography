@@ -2,8 +2,7 @@ import React, { Component, FormEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom'; 
 import styled from 'styled-components';
 
-import { Button, RoundButton } from '../../reusable/button';
-import GalleryButton from '../../reusable/gallery-button';
+import { Button, RoundButton, GalleryButton } from '../../reusable/button';
 import { SingleImage, RecentImage, ViewerImage } from '../../reusable/image';
 import { TextField } from '../../reusable/form'
 
@@ -39,10 +38,8 @@ class Home extends Component<RouteComponentProps, {}> {
         return (
             <>
                 <Container>
-                    <form method="POST" action="test" onSubmit={() => console.log('Form submitted')}>
-                        <TextField id="test1" type="text-input" placeholder="Test" />
-                        <TextField id="test2" type="text-area" placeholder="Test" label="Un label" />
-                    </form>
+                    <GalleryButton image={placeHolderImage} galleryDisplayName="Test" galleryName="test" />
+                    <ViewerImage image={placeHolderImage} />
                 </Container>
             </>
         )

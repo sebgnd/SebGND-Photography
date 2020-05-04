@@ -4,7 +4,9 @@ import Paths from '../../../../helper/Paths';
 import Image from '../../../../helper/Image';
 
 import { RecentImageContainer, InfoFlex, ImageContainer, FillerImage, AdaptedImage, ButtonContainerWidthWidth } from './recent-image-style';
-import { InlineBlock, FloatLeft, FloatRight, Text, MarginLeft, MarginRight } from '../../regular/style';
+import { InlineBlock } from '../../regular/container';
+import { Text } from '../../regular/text';
+import { FloatLeft, FloatRight, MarginLeft, MarginRight } from '../../regular/positionning';
 import { Button } from '../../button';
 
 interface IRecentImageProp extends RouteComponentProps {

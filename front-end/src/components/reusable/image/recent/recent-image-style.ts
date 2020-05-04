@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { ButtonContainer } from '../../regular/style';
+import { ButtonContainer } from '../../regular/container';
 
 export const ButtonContainerWidthWidth = styled(ButtonContainer)<{ width: string }>`
     width: ${props => props.width};

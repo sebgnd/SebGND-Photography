@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { SingleImageContainer, Img, CustomFont } from './single-style';
-import { Margin, ButtonContainer, SizedContainer } from '../../regular/style';
+import { Margin } from '../../regular/positionning';
+import { ButtonContainer, SizedContainer } from '../../regular/container';
 
 import Image from '../../../../helper/Image';
 import Paths from '../../../../helper/Paths';

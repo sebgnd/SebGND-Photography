@@ -1,7 +1,8 @@
 // Style
 import { StyledInput } from './text-input-style';
 import { StyledTextArea } from './text-area-style';
-import { Margin, MarginTop, Block, MarginLeft } from '../../regular/style';
+import { Margin, MarginTop, MarginLeft } from '../../regular/positionning';
+import { Block } from '../../regular/container';
 import { Label } from '../label/Label';
 
 // Date / Logic

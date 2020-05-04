@@ -1,25 +1,5 @@
 import styled, { css } from 'styled-components';
 
-export const Text = styled('p')<{ size: string, color: string, weight: string }>`
-    font-family: "CooperHewitt Medium";
-    font-size: ${props => (props.size == 'small' ? .8 : 1)}em !important;
-    margin: ${props => (props.size == 'small' ? 3 : 10)}px;
-    color: ${props => props.color};
-    font-weight: ${props => props.weight};
-`
-
-export const Title = styled('h1')<{ color: string }>`
-    font-family: "CooperHewitt Medium";
-    font-size: 2em;
-    color: ${props => props.color};
-`
-
-export const SubTitle = styled('h2')<{ color: string }>`
-    font-family: "CooperHewitt Medium";
-    font-size: 1.4em;
-    color: ${props => props.color};
-`
-
 export const FloatRight = styled('div')`
     float: right;
 `
@@ -31,15 +11,6 @@ export const FloatLeft = styled('div')`
 export const Relative = styled('div')`
     position: relative;
 `
-
-export const InlineBlock = styled('div')`
-    display: inline-block;
-`;
-
-export const Block = styled('div')`
-    display: block;
-`;
-
 
 export const MarginLeft = styled('div')<{ amount: number }>`
     margin-left: ${props => props.amount}px;
@@ -69,27 +40,6 @@ export const Margin = styled('div')<{ amount: number }>`
 export const MarginAuto = styled('div')`
     margin: auto;
 `;
-
-export const ButtonContainer = styled('button')`
-    text-decoration: none;
-    border: none;
-    padding: 0;
-    background-color: transparent;
-    :focus {
-        outline: 0;
-    }
-    :hover {
-        cursor: pointer;
-    }
-`
-
-export const SizedContainer = styled('div')<{ height: number[], width: number[] }>`
-    display: inline-block;
-    max-height: ${props => props.height[1]}px;
-    min-height: ${props => props.height[0]}px;
-    max-width: ${props => props.width[1]}px;
-    min-width: ${props => props.width[0]}px;
-`
 
 export const Absolute = styled('div')<{ top?: number, bottom?: number, left?: number, right?: number }>`
     position: absolute;
@@ -126,18 +76,3 @@ export const AbsoluteWithWidth = styled('div')<{ top?: number, bottom?: number, 
         right: ${props.right}px;
     `}
 `
-
-export const Flex = styled('div')<{ alignItems: string, justifyContent: string, wrap?: boolean }>`
-    display: flex;
-    align-items: ${props => props.alignItems};
-    justify-content: ${props => props.justifyContent};
-    flex-wrap: ${props => props.wrap ? "wrap" : "nowrap"};
-`;
-
-export const FlexColumn = styled('div')`
-    flex-direction: column;
-`; 
-
-export const FlexRow = styled('div')`
-    flex-direction: row;
-`;

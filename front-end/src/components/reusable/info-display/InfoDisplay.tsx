@@ -7,7 +7,11 @@ interface IInfoDisplayProps {
 }
 
 class InfoDisplay extends Component<{}, {}> {
-
+    render() {
+        return (
+            
+        )
+    }
 }
 
 export default InfoDisplay;

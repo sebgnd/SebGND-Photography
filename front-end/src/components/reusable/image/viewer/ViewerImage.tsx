@@ -13,7 +13,7 @@ interface IViewerImageProp {
 
 class ViewerImage extends Component<IViewerImageProp, {}> {
     fetchExif(id: number) {
-
+        
     }
 
     render() {

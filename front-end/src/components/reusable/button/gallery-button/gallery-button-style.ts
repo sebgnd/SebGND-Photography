@@ -1,12 +1,21 @@
 import styled, { css } from 'styled-components';
 
-const GalleryButtonWrapper = styled('div')`
+const GalleryButtonContainer = styled('div')`
     margin: 10px;
     display: inline-block;
 `;
 
-const GalleryButtonContainer = styled('div')`
+const GalleryButtonWrapper = styled('div')` /////////
     display: inline-block;
+    margin-bottom: 25px;
+    margin-right: 25px;
+
+    max-height: 400px;
+    min-height: 100px;
+    max-width: 400px;
+    min-width: 400px;
+    position: relative;
+
     :hover #gallery-name {
         bottom: -35px;
     }
@@ -19,7 +28,7 @@ const GalleryImage = styled('div')`
     display: flex;
     transform: none;
     transition: transform .5s, box-shadow .5s;
-    ${GalleryButtonContainer}:hover & {
+    ${GalleryButtonWrapper}:hover & {
         transform: scale(1.05);
     }
 `;
@@ -29,7 +38,7 @@ const Img = styled('img')`
     width: 100%;
 `;
 
-const GalleryNameContainer = styled('div')`
+const GalleryName = styled('div')`
     display: inline-block;
     background-color: white;
     border-radius: 5px;
@@ -38,15 +47,17 @@ const GalleryNameContainer = styled('div')`
     width: 100%;
     color: black;
     
+    position: absolute;
+    right: -25px;
+    bottom: -25px;
+    min-width: 75%;
+    max-width: 95px;
+
     transform: none;
     transition: transform .5s, bottom .5s, box-shadow .5s;
-    ${GalleryButtonContainer}:hover & {
+    ${GalleryButtonWrapper}:hover & {
         transform: scale(1.05);
     }
-`;
-
-const GalleryName = styled('p')`
-    margin: 15px;
 `;
 
 export {
@@ -54,6 +65,5 @@ export {
     GalleryButtonWrapper,
     GalleryImage,
     Img,
-    GalleryNameContainer,
     GalleryName
 }

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { SingleImageContainer, Img, CustomFont } from './single-style';
-import { Margin } from '../../regular/positionning';
-import { ButtonContainer, SizedContainer } from '../../regular/container';
+import { ImageContainer, Img, SingleImageContainer } from './single-style';
+import { ButtonContainer } from '../../regular/container';
 
 import Image from '../../../../helper/Image';
 import Paths from '../../../../helper/Paths';
@@ -28,15 +27,13 @@ class SingleImage extends Component<ISingleImageProp, {}> {
         const imageSource = Paths.mediumThumbnailImage(); // TODO: Get the right path for the image from files server.
 
         return (
-            <SizedContainer height={[195, 470]} width={[195, 470]}>
-                <Margin amount={10}>
-                    <ButtonContainer>
-                        <SingleImageContainer onClick={() => this.goToImage(galleryName, image)}>
-                            <Img src={imageSource} alt={image.getId().toString()}/>
-                        </SingleImageContainer>
-                    </ButtonContainer>
-                </Margin>
-            </SizedContainer>
+            <SingleImageContainer>
+                <ButtonContainer>
+                    <ImageContainer onClick={() => this.goToImage(galleryName, image)}>
+                        <Img src={imageSource} alt={image.getId().toString()}/>
+                    </ImageContainer>
+                </ButtonContainer>
+            </SingleImageContainer>
         )
     }
 }

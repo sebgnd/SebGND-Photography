@@ -3,10 +3,8 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Paths from '../../../../helper/Paths';
 import Image from '../../../../helper/Image';
 
-import { RecentImageContainer, InfoFlex, ImageContainer, FillerImage, AdaptedImage, ButtonContainerWidthWidth } from './recent-image-style';
-import { InlineBlock } from '../../regular/container';
+import { RecentImageContainer, Info, ImageContainer, FillerImage, AdaptedImage, ButtonContainerWidthWidth, GalleryName, InfoContainer, Date } from './recent-image-style';
 import { Text } from '../../regular/text';
-import { FloatLeft, FloatRight, MarginLeft, MarginRight } from '../../regular/positionning';
 import { Button } from '../../button';
 
 interface IRecentImageProp extends RouteComponentProps {
@@ -46,35 +44,30 @@ class RecentImage extends Component<IRecentImageProp, {}> {
         const imageSource = Paths.smallImage();
         
         return (
-            <InlineBlock>
-                <RecentImageContainer>
-                    <InfoFlex>
-                        <InlineBlock>
-                            <FloatLeft>
-                                <MarginLeft amount={20}>
-                                    <Button variant="light" size="small" onClick={() => this.goToGallery(galleryName)}>{galleryDisplayName}</Button>
-                                </MarginLeft>
-                            </FloatLeft>
-                        </InlineBlock>
-                        <InlineBlock>
-                            <FloatRight>
-                                <MarginRight amount={20}>
-                                    <Text size="small" color="#7E7E7E" weight="bold">{formatedDate}</Text>
-                                </MarginRight>
-                            </FloatRight>
-                        </InlineBlock>
-                    </InfoFlex>
-                    
-                    <ImageContainer>
-                        <ButtonContainerWidthWidth width="100%" onClick={() => this.goToImage(image.getId(), galleryName)}>
-                            { image.isPortrait() && (
-                                <FillerImage src={imageSource} alt={id} />
-                            )}
-                            <AdaptedImage type={imageType} src={imageSource} alt={id} />
-                        </ButtonContainerWidthWidth>
-                    </ImageContainer>
-                </RecentImageContainer>
-            </InlineBlock>
+            <RecentImageContainer>
+                <Info>
+                    <InfoContainer>
+                        <GalleryName>
+                            <Button variant="light" size="small" onClick={() => this.goToGallery(galleryName)}>{galleryDisplayName}</Button>
+                        </GalleryName>
+                    </InfoContainer>
+
+                    <InfoContainer>
+                        <Date>
+                            <Text size="small" color="#7E7E7E" weight="bold">{formatedDate}</Text>
+                        </Date>
+                    </InfoContainer>
+                </Info>
+                
+                <ImageContainer>
+                    <ButtonContainerWidthWidth width="100%" onClick={() => this.goToImage(image.getId(), galleryName)}>
+                        { image.isPortrait() && (
+                            <FillerImage src={imageSource} alt={id} />
+                        )}
+                        <AdaptedImage type={imageType} src={imageSource} alt={id} />
+                    </ButtonContainerWidthWidth>
+                </ImageContainer>
+            </RecentImageContainer>
         )
     }
 }

@@ -38,8 +38,7 @@ class Home extends Component<RouteComponentProps, {}> {
         return (
             <>
                 <Container>
-                    <GalleryButton image={placeHolderImage} galleryDisplayName="Test" galleryName="test" />
-                    <ViewerImage image={placeHolderImage} />
+                    <GalleryButton image={placeHolderImage} galleryDisplayName="Test" galleryName="test"/>
                 </Container>
             </>
         )

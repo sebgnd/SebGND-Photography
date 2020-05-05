@@ -1,12 +1,9 @@
 // Style
-import { StyledInput } from './text-input-style';
-import { StyledTextArea } from './text-area-style';
-import { Margin, MarginTop, MarginLeft } from '../../regular/positionning';
-import { Block } from '../../regular/container';
+import { StyledInput, StyledTextArea, TextFieldContainer, LabelContainer } from './text-field-style';
 import { Label } from '../label/Label';
 
 // Date / Logic
-import React, { Component, FormEvent } from 'react';
+import React, { Component, FormEvent, Fragment } from 'react';
 
 const TYPES: string[] = ['text-input', 'text-area'];
 
@@ -48,36 +45,32 @@ class TextField extends Component<ITextFieldProps, {}> {
     render() {
         const { id, label, placeholder, hideContent, error } = this.props;
         return (
-                <Block>
-                    <Margin amount={50}>
+                <TextFieldContainer>
                         {label && (
-                            <MarginLeft amount={5}>
+                            <LabelContainer>
                                 <Label htmlFor={id}>{label}</Label>
-                            </MarginLeft>
+                            </LabelContainer>
                         )}
-                        <MarginTop amount={10}>
-                            {this.getFieldType() === TYPES[0] && (
-                                <StyledInput 
-                                    name={id} 
-                                    id={id} 
-                                    error={error ? error : false} 
-                                    placeholder={placeholder} 
-                                    type={hideContent ? "password" : "text"} 
-                                    onBlur={(e: FormEvent<HTMLInputElement>) => this.handleBlur(e)} 
-                                    onChange={(e: FormEvent<HTMLInputElement>) => this.handleChange(e)}/>
-                            )}
-                            {this.getFieldType() === TYPES[1] && (
-                                <StyledTextArea 
-                                    name={id} 
-                                    id={id} 
-                                    error={error ? error : false} 
-                                    placeholder={placeholder} 
-                                    onBlur={(e: FormEvent<HTMLTextAreaElement>) => this.handleBlur(e)}
-                                    onChange={(e: FormEvent<HTMLTextAreaElement>) => this.handleChange(e)}/>
-                            )}
-                        </MarginTop>
-                    </Margin>
-                </Block>
+                        {this.getFieldType() === TYPES[0] && (
+                            <StyledInput 
+                                name={id} 
+                                id={id} 
+                                error={error ? error : false} 
+                                placeholder={placeholder} 
+                                type={hideContent ? "password" : "text"} 
+                                onBlur={(e: FormEvent<HTMLInputElement>) => this.handleBlur(e)} 
+                                onChange={(e: FormEvent<HTMLInputElement>) => this.handleChange(e)}/>
+                        )}
+                        {this.getFieldType() === TYPES[1] && (
+                            <StyledTextArea 
+                                name={id} 
+                                id={id} 
+                                error={error ? error : false} 
+                                placeholder={placeholder} 
+                                onBlur={(e: FormEvent<HTMLTextAreaElement>) => this.handleBlur(e)}
+                                onChange={(e: FormEvent<HTMLTextAreaElement>) => this.handleChange(e)}/>
+                        )}
+                </TextFieldContainer>
             )
     }
 } 

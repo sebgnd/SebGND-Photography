@@ -6,6 +6,7 @@ export const ButtonContainerWidthWidth = styled(ButtonContainer)<{ width: string
 `
 
 export const RecentImageContainer = styled('div')`
+    display: inline-block;
     position: relative;
     width: 850px;
     border-radius: 15px;
@@ -21,7 +22,7 @@ export const RecentImageContainer = styled('div')`
     }
 `;
 
-export const InfoFlex = styled('div')`
+export const Info = styled('div')`
     height: 50px;
     display: flex;
     justify-content: space-between;
@@ -69,3 +70,17 @@ export const AdaptedImage = styled('img')<{ type: string }>`
         transform: translateX(-50%) translateY(-50%);
     ` }
 `;
+
+export const InfoContainer = styled('div')`
+    display: inline-block;
+`
+
+export const GalleryName = styled('div')`
+    float: left;
+    margin-left: 20px;
+`
+
+export const Date = styled('div')`
+    float: right;
+    margin-right: 20px;
+`

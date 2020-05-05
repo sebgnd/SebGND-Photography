@@ -6,6 +6,9 @@ import { Button, RoundButton, GalleryButton } from '../../reusable/button';
 import { SingleImage, RecentImage, ViewerImage } from '../../reusable/image';
 import { TextField } from '../../reusable/form'
 
+import { TextContainer } from '../../reusable/regular/container';
+import { Text } from '../../reusable/regular/text';
+
 import Paths from '../../../helper/Paths';
 import Image from '../../../helper/Image';
 
@@ -38,7 +41,11 @@ class Home extends Component<RouteComponentProps, {}> {
         return (
             <>
                 <Container>
-                    <GalleryButton image={placeHolderImage} galleryDisplayName="Test" galleryName="test"/>
+                    <TextContainer>
+                        <Text size="big" weight="normal">
+                            My name is Sebastien Gnd and i am a French amateur photographer based in Limoges, France. My passion for photography dates back to 2016 when I was in high school. My other passions include technology, video games, cars, cinema … I am studying in Computer Science.
+                        </Text>
+                    </TextContainer>
                 </Container>
             </>
         )

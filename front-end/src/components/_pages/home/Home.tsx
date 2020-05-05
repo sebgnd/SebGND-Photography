@@ -2,12 +2,12 @@ import React, { Component, FormEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom'; 
 import styled from 'styled-components';
 
-import { Button, RoundButton, GalleryButton } from '../../reusable/button';
-import { SingleImage, RecentImage, ViewerImage } from '../../reusable/image';
-import { TextField } from '../../reusable/form'
+import { Button, RoundButton, GalleryButton } from '../../button';
+import { SingleImage, RecentImage, ViewerImage } from '../../image';
+import { TextField } from '../../form'
 
-import { TextContainer } from '../../reusable/regular/container';
-import { Text } from '../../reusable/regular/text';
+import { TextContainer } from '../../regular/container';
+import { Text } from '../../regular/text';
 
 import Paths from '../../../helper/Paths';
 import Image from '../../../helper/Image';

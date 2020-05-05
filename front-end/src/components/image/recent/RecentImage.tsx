@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import Paths from '../../../../helper/Paths';
-import Image from '../../../../helper/Image';
+import Paths from '../../../helper/Paths';
+import Image from '../../../helper/Image';
 
 import { RecentImageContainer, Info, ImageContainer, FillerImage, AdaptedImage, ButtonContainerWidthWidth, GalleryName, InfoContainer, Date } from './recent-image-style';
 import { Text } from '../../regular/text';

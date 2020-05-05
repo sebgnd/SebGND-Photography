@@ -3,12 +3,12 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 // Components
-import Home from './pages/home/Home';
-import Contact from './pages/contact/Contact';
-import Recent from './pages/recent/Recent';
-import Categories from './pages/categories/Categories';
-import Gallery from './pages/gallery/Gallery';
-import Viewer from './pages/viewer/Viewer';
+import Home from './_pages/home/Home';
+import Contact from './_pages/contact/Contact';
+import Recent from './_pages/recent/Recent';
+import Categories from './_pages/categories/Categories';
+import Gallery from './_pages/gallery/Gallery';
+import Viewer from './_pages/viewer/Viewer';
 import UserNavigation from './navigation/UserNavigation';
 
 // Utils

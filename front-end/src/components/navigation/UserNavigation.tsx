@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
-import { Button } from '../reusable/button';
+import { Button } from '../button';
 import './user-navigation.css';
 
 class UserNavigation extends Component<RouteComponentProps, {}> {

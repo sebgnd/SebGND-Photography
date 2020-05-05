@@ -4,8 +4,8 @@ import { GalleryButtonContainer, GalleryImage, Img, GalleryName, GalleryButtonWr
 import { Text } from '../../regular/text';
 import { ButtonContainer } from '../../regular/container';
 
-import Image from '../../../../helper/Image';
-import Paths from '../../../../helper/Paths';
+import Image from '../../../helper/Image';
+import Paths from '../../../helper/Paths';
 
 interface IGalleryButtonProp extends RouteComponentProps {
     galleryDisplayName: string;

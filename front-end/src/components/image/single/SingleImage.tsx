@@ -3,8 +3,8 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { ImageContainer, Img, SingleImageContainer } from './single-style';
 import { ButtonContainer } from '../../regular/container';
 
-import Image from '../../../../helper/Image';
-import Paths from '../../../../helper/Paths';
+import Image from '../../../helper/Image';
+import Paths from '../../../helper/Paths';
 
 interface ISingleImageProp extends RouteComponentProps {
     // Image information

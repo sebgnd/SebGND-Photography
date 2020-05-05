@@ -22,6 +22,7 @@ class SingleImage extends Component<ISingleImageProp, {}> {
         const imageLink = `viewer/${this.props.galleryName}/${id}`;
         this.props.history.push(imageLink);
     }
+    
     render() {
         const { image, galleryName } = this.props;
         const imageSource = Paths.mediumThumbnailImage(); // TODO: Get the right path for the image from files server.

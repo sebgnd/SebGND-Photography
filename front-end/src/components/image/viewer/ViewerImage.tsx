@@ -10,10 +10,6 @@ interface IViewerImageProp {
 }
 
 class ViewerImage extends Component<IViewerImageProp, {}> {
-    fetchExif(id: number) {
-        
-    }
-
     render() {
         //const imageInfo = this.props.image.toExifString();
         const imageInfo = this.props.image.toExifString();

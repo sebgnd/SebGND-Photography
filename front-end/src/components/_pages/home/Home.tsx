@@ -43,7 +43,9 @@ class Home extends Component<RouteComponentProps, {}> {
         return (
             <Fragment>
                 <Landing />
-                <div style={{height: '1000px', backgroundColor: 'black'}} />
+                <div style={{height: '3000px', backgroundColor: 'black'}} />
+                <Landing />
+                <div style={{height: '3000px', backgroundColor: 'black'}} />
             </Fragment>
         )
     }

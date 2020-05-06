@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const ParallaxContainer = styled('div')<{ backgroundImage: string, top: number }>`
+export const ParallaxContainer = styled('div')<{ backgroundImage: string }>`
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;

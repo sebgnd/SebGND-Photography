@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useRef } from 'react';
+import React, { Component, useEffect, useRef, useState, RefObject } from 'react';
 import { ParallaxContainer } from './parallax.style';
 import { throttle } from 'lodash';
 
@@ -7,16 +7,33 @@ interface ParallaxProp {
     speed: number;
 }
 
-const Parallax: FunctionComponent<ParallaxProp> = (props) => {
-    const { img, speed } = props;
-    const parallaxElemRef = useRef<HTMLDivElement>(null);
-    const throttleTime: number = 1;
-    let divHeight: number = 0;
-    let topOffset: number = 0;
+interface ParallaxState {
+    backgroundPositionY: string;
+}
 
-    const isElementVisible = () => {
-        if (parallaxElemRef && parallaxElemRef.current) {
-            const position: DOMRect = parallaxElemRef.current.getBoundingClientRect();
+class Parallax extends Component<ParallaxProp, ParallaxState> {
+    private parallaxElemRef: RefObject<HTMLDivElement>;
+    private throttleTime: number;
+    private topOffset: number;
+
+    constructor(props: ParallaxProp) {
+        super(props);
+
+        this.topOffset = 0;
+        this.parallaxElemRef = React.createRef();
+        this.throttleTime = 5;
+
+        this.handleResize = this.handleResize.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+
+        this.state = {
+            backgroundPositionY: ""
+        }
+    }
+
+    isElementVisible() {
+        if (this.parallaxElemRef && this.parallaxElemRef.current) {
+            const position: DOMRect = this.parallaxElemRef.current.getBoundingClientRect();
             if (position.top < window.innerHeight && position.bottom >= 0) {
                 return true;
             }
@@ -24,29 +41,54 @@ const Parallax: FunctionComponent<ParallaxProp> = (props) => {
         return false;
     }
 
-    const handleScroll = throttle(() => {
-        if (isElementVisible()) {
-            const bottomPageOffset = window.scrollY + window.innerHeight;
-            const offset = bottomPageOffset - parallaxElemRef.current!.offsetTop;
-            const newTop = topOffset - offset * speed;
-            parallaxElemRef.current!.style.backgroundPositionY = `${newTop}px`;
+    updatePosition() {
+        if (!this.isElementVisible()) {
+            return;
         }
-    }, throttleTime);
+        const bottomPageOffset = window.scrollY + window.innerHeight;
+        const offset = bottomPageOffset - this.parallaxElemRef.current!.offsetTop;
+        const newTop = this.topOffset - offset * this.props.speed;
+        this.setState({ backgroundPositionY: `${newTop}px` });
+    }
 
-    useEffect(() => {
-        divHeight = parallaxElemRef.current!.offsetHeight;
-        topOffset = divHeight! * speed;
-        parallaxElemRef.current!.style.backgroundPositionY = `${topOffset!}`;
+    getTopOffset() {
+        return this.parallaxElemRef.current!.clientHeight * this.props.speed;
+    }
 
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        }
-    }, [])
+    handleScroll() {
+        this.updatePosition();
+    }
 
-    return (
-        <ParallaxContainer ref={parallaxElemRef} backgroundImage={img} top={topOffset} />
-    )
+    handleResize() {
+        this.topOffset = this.getTopOffset();
+        this.updatePosition();
+    }
+
+    addEventListener() {
+        window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('resize', this.handleResize);
+    }
+
+    removeEventListener() {
+        window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('resize', this.handleResize);
+    }
+
+    componentDidMount() {
+        this.topOffset = this.getTopOffset();
+        this.addEventListener();
+    }
+
+    componentWillUnmount() {
+        this.removeEventListener();
+    }
+
+    render() {
+        const { img } = this.props;
+        return (
+            <ParallaxContainer ref={this.parallaxElemRef} style={{...this.state}} backgroundImage={img} />
+        )
+    }
 }
 
 export default Parallax;

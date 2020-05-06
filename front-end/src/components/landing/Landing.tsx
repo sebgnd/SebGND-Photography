@@ -5,7 +5,7 @@ import { LandingContainer } from './landing.style';
 const Landing: FunctionComponent = () => {
     return (
         <LandingContainer>
-            <Parallax img="images/parallax-1.jpg" speed={1} />
+            <Parallax img="images/parallax-1.jpg" speed={0.5} />
         </LandingContainer>
     )
 }

@@ -11,7 +11,8 @@ type TextFieldEvent = FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElemen
 
 interface TextFieldProps {
     id: string;
-    type: string;
+    inputType: string;
+    value?: string;
     error?: boolean;
     onBlur?(e: TextFieldEvent): void;
     onChange?(e: TextFieldEvent): void;
@@ -23,11 +24,11 @@ interface TextFieldProps {
 }
 
 const TextField: FunctionComponent<TextFieldProps> = (props) => {
-    const { id, label, placeholder, hideContent, error, onBlur, onChange, type } = props;
+    const { id, label, placeholder, hideContent, error, onBlur, onChange, inputType } = props;
 
     const getFieldType = () => {
-        if (TYPES.includes(type)) {
-            return type;
+        if (TYPES.includes(inputType)) {
+            return inputType;
         }
         return TYPES[0];
     }

@@ -1,4 +1,4 @@
-import React, { Component, FormEvent } from 'react';
+import React, { Component, FormEvent, Fragment } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom'; 
 import styled from 'styled-components';
 
@@ -8,6 +8,8 @@ import { TextField } from '../../form'
 
 import { TextContainer } from '../../regular/container';
 import { Text } from '../../regular/text';
+
+import Landing from '../../landing/Landing';
 
 import Paths from '../../../helper/Paths';
 import Image from '../../../helper/Image';
@@ -39,11 +41,10 @@ class Home extends Component<RouteComponentProps, {}> {
     render() {
         const placeHolderImage = new Image(1, 1080, 1920, new Date());
         return (
-            <>
-                <Container>
-                    <GalleryButton image={placeHolderImage} galleryDisplayName="Test" galleryName="test" />
-                </Container>
-            </>
+            <Fragment>
+                <Landing />
+                <div style={{height: '1000px', backgroundColor: 'black'}} />
+            </Fragment>
         )
     }
 }

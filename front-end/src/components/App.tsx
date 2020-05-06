@@ -19,6 +19,7 @@ class App extends React.Component {
     public render() {
         return (
             <BrowserRouter>
+                <UserNavigation />
                 <Switch>
                     <Route exact={true} path={Paths.home()}>
                         <Home />

@@ -25,7 +25,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
     }
 
     const { image, galleryDisplayName, galleryName } = props;
-    const formatedDate: string = image.getFormatedDate();
+    const formattedDate: string = image.getFormatedDate();
     const id: string = image.getId().toString();
     const imageType: string = image.isPortrait() ? 'portrait' : 'landscape';
     const imageSource = Paths.smallImage();
@@ -41,7 +41,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
 
                 <InfoContainer>
                     <Date>
-                        <Text size="small" color="#7E7E7E" weight="bold">{formatedDate}</Text>
+                        <Text size="small" color="#7E7E7E" weight="bold">{formattedDate}</Text>
                     </Date>
                 </InfoContainer>
             </Info>

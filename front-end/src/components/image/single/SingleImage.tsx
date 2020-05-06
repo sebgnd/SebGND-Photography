@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { FunctionComponent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { ImageContainer, Img, SingleImageContainer } from './single-style';
 import { ButtonContainer } from '../../regular/container';
@@ -6,37 +6,30 @@ import { ButtonContainer } from '../../regular/container';
 import Image from '../../../helper/Image';
 import Paths from '../../../helper/Paths';
 
-interface ISingleImageProp extends RouteComponentProps {
-    // Image information
+interface SingleImageProp extends RouteComponentProps {
     image: Image;
-
-    // Gallery information
     galleryName: string;
 }
 
-// TODO: Get the right path for the image from files server -> imageSource
-
-class SingleImage extends Component<ISingleImageProp, {}> {
-    goToImage(gallery: string, image: Image) {
+const SingleImage: FunctionComponent<SingleImageProp> = (props) => {
+    const goToImage = (gallery: string, image: Image) => {
         const id = image.getId().toString();
-        const imageLink = `viewer/${this.props.galleryName}/${id}`;
-        this.props.history.push(imageLink);
+        const imageLink = `viewer/${props.galleryName}/${id}`;
+        props.history.push(imageLink);
     }
     
-    render() {
-        const { image, galleryName } = this.props;
-        const imageSource = Paths.mediumThumbnailImage(); // TODO: Get the right path for the image from files server.
+    const { image, galleryName } = props;
+    const imageSource = Paths.mediumThumbnailImage();
 
-        return (
-            <SingleImageContainer>
-                <ButtonContainer>
-                    <ImageContainer onClick={() => this.goToImage(galleryName, image)}>
-                        <Img src={imageSource} alt={image.getId().toString()}/>
-                    </ImageContainer>
-                </ButtonContainer>
-            </SingleImageContainer>
+    return (
+        <SingleImageContainer>
+            <ButtonContainer>
+                <ImageContainer onClick={() => goToImage(galleryName, image)}>
+                    <Img src={imageSource} alt={image.getId().toString()}/>
+                </ImageContainer>
+            </ButtonContainer>
+        </SingleImageContainer>
         )
-    }
 }
 
 export default withRouter(SingleImage);

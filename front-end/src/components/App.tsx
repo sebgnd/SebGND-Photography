@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 
 // Components
-import Home from './_pages/home/Home';
-import Contact from './_pages/contact/Contact';
-import Recent from './_pages/recent/Recent';
-import Categories from './_pages/categories/Categories';
-import Gallery from './_pages/gallery/Gallery';
-import Viewer from './_pages/viewer/Viewer';
-import UserNavigation from './navigation/user/UserNavigation';
+import Home from './_containers/Home/Home';
+import Contact from './_containers/Contact/Contact';
+import Recent from './_containers/Recent/Recent';
+import Categories from './_containers/Galleries/Categories';
+import Gallery from './_containers/Gallery/Gallery';
+import Viewer from './_containers/Viewer/Viewer';
+import UserNavigation from './Navigation/UserNavigation/UserNavigation';
 
 // Utils
 import Paths from '../helper/Paths';

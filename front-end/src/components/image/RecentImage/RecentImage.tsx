@@ -6,7 +6,7 @@ import Gallery from '../../../helper/Gallery';
 
 import { RecentImageContainer, Info, ImageContainer, FillerImage, AdaptedImage, ButtonContainerWidthWidth, GalleryName, InfoContainer, Date } from './recent-image-style';
 import { Text } from '../../regular/text';
-import { Button } from '../../button';
+import { Button } from '../../Button';
 
 interface RecentImageProp extends RouteComponentProps {
     image: Image;

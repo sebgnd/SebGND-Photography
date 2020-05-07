@@ -1,6 +1,6 @@
-import Button from './regular/Button';
-import RoundButton from './round/RoundButton';
-import GalleryButton from './gallery-button/GalleryButton';
+import Button from './Button/Button';
+import RoundButton from './RoundButton/RoundButton';
+import GalleryButton from './GalleryButton/GalleryButton';
 
 export {
     Button,

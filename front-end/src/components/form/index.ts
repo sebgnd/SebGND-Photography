@@ -1,4 +1,4 @@
-import TextField from './text-field/TextField';
+import TextField from './TextField/TextField';
 
 export {
     TextField

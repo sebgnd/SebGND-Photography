@@ -1,6 +1,6 @@
 // Style
 import { StyledInput, StyledTextArea, TextFieldContainer, LabelContainer } from './text-field-style';
-import { Label } from '../label/Label';
+import { Label } from '../Label/Label';
 
 // Date / Logic
 import React, { FunctionComponent, FormEvent, Fragment } from 'react';

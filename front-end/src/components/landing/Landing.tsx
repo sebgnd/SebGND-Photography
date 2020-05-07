@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import Parallax from '../parallax/Parallax';
+import Parallax from '../Parallax/Parallax';
 import { LandingContainer } from './landing.style';
 
 const Landing: FunctionComponent = () => {

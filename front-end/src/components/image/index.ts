@@ -1,6 +1,6 @@
-import SingleImage from './single/SingleImage';
-import RecentImage from './recent/RecentImage';
-import ViewerImage from './viewer/ViewerImage';
+import SingleImage from './SingleImage/SingleImage';
+import RecentImage from './RecentImage/RecentImage';
+import ViewerImage from './ViewerImage/ViewerImage';
 
 export {
     SingleImage,

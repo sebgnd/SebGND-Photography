@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useRef, useState, RefObject } from 'react';
-import { ParallaxContainer } from './parallax.style';
+import { ParallaxContainer, Relative } from './parallax.style';
 import { throttle } from 'lodash';
 
 import ParallaxContent from './ParallaxContent';
@@ -11,12 +11,14 @@ interface ParallaxProp {
 
 interface ParallaxState {
     backgroundPositionY: string;
+    backgroundSize: string;
 }
 
 class Parallax extends Component<ParallaxProp, ParallaxState> {
     private parallaxElemRef: RefObject<HTMLDivElement>;
     private throttleTime: number;
     private topOffset: number;
+    private height: number;
 
     constructor(props: ParallaxProp) {
         super(props);
@@ -24,12 +26,14 @@ class Parallax extends Component<ParallaxProp, ParallaxState> {
         this.topOffset = 0;
         this.parallaxElemRef = React.createRef();
         this.throttleTime = 5;
+        this.height = 0;
 
         this.handleResize = this.handleResize.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
 
         this.state = {
-            backgroundPositionY: ""
+            backgroundPositionY: '',
+            backgroundSize: 'cover'
         }
     }
 
@@ -43,6 +47,16 @@ class Parallax extends Component<ParallaxProp, ParallaxState> {
         return false;
     }
 
+    updateBackgroundSize() {
+        const elementHeight = this.parallaxElemRef.current!.scrollHeight;
+
+        if (elementHeight > window.innerHeight) {
+            this.setState({ backgroundSize: `auto ${elementHeight}px` });
+        } else {
+            this.setState({ backgroundSize: 'cover' });
+        }
+    }
+
     updatePosition() {
         if (!this.isElementVisible()) {
             return;
@@ -54,7 +68,7 @@ class Parallax extends Component<ParallaxProp, ParallaxState> {
     }
 
     getTopOffset() {
-        return this.parallaxElemRef.current!.clientHeight * this.props.speed;
+        return window.innerHeight * this.props.speed;
     }
 
     handleScroll() {
@@ -63,6 +77,7 @@ class Parallax extends Component<ParallaxProp, ParallaxState> {
 
     handleResize() {
         this.topOffset = this.getTopOffset();
+        this.updateBackgroundSize();
         this.updatePosition();
     }
 
@@ -78,6 +93,11 @@ class Parallax extends Component<ParallaxProp, ParallaxState> {
 
     componentDidMount() {
         this.topOffset = this.getTopOffset();
+        this.height = this.parallaxElemRef.current!.clientHeight;
+        this.parallaxElemRef.current!.style.backgroundPositionY = `${this.topOffset}px`;
+        if (this.height > window.innerHeight) {
+            this.parallaxElemRef.current!.style.backgroundSize = `auto ${this.height}`;
+        }
         this.addEventListener();
     }
 

@@ -2,6 +2,8 @@ import React, { Component, useEffect, useRef, useState, RefObject } from 'react'
 import { ParallaxContainer } from './parallax.style';
 import { throttle } from 'lodash';
 
+import ParallaxContent from './ParallaxContent';
+
 interface ParallaxProp {
     img: string;
     speed: number;
@@ -86,7 +88,11 @@ class Parallax extends Component<ParallaxProp, ParallaxState> {
     render() {
         const { img } = this.props;
         return (
-            <ParallaxContainer ref={this.parallaxElemRef} style={{...this.state}} backgroundImage={img} />
+            <ParallaxContainer ref={this.parallaxElemRef} style={{...this.state}} backgroundImage={img}>
+                <ParallaxContent>
+                    {this.props.children}
+                </ParallaxContent>
+            </ParallaxContainer>
         )
     }
 }

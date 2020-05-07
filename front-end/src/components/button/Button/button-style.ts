@@ -22,7 +22,8 @@ const StyledButton = styled('button')<{ variant: string, size: string }>`
   font-size: ${props => getFontSize(props.size)}em;
   font-weight: ${props => props.variant === 'light' ? 'bold' : 'normal'};
   padding: ${props => props.variant === 'light' ? '5px' : '15px 35px'};
-  height: ${props => props.variant === 'light' ? 'auto' : '50px'};
+  min-height: ${props => props.variant === 'light' ? 'auto' : '50px'};
+  height: auto;
 
   :focus {
     outline: 0;

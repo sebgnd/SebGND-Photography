@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Landing from '../../Landing/Landing';
 import GalleriesPreview from '../../GalleriesPreview/GalleriesPreview';
+import About from '../../About/About';
 import Image from '../../../helper/Image';
 
 import './home.css';
@@ -36,6 +37,7 @@ class Home extends Component<RouteComponentProps, {}> {
             <Fragment>
                 <Landing />
                 <GalleriesPreview />
+                <About />
             </Fragment>
         )
     }

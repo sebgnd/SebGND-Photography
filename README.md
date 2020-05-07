@@ -8,3 +8,4 @@
 1. Create Landing component
 1. Create GalleryPreview component
 1. Create About component
+1. Add UserLayout / AdminLayout

@@ -9,7 +9,7 @@ import Recent from './_pages/recent/Recent';
 import Categories from './_pages/categories/Categories';
 import Gallery from './_pages/gallery/Gallery';
 import Viewer from './_pages/viewer/Viewer';
-import UserNavigation from './navigation/UserNavigation';
+import UserNavigation from './navigation/user/UserNavigation';
 
 // Utils
 import Paths from '../helper/Paths';

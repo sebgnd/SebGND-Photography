@@ -2,16 +2,8 @@ import React, { Component, FormEvent, Fragment } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom'; 
 import styled from 'styled-components';
 
-import { Button, RoundButton, GalleryButton } from '../../Button';
-import { SingleImage, RecentImage, ViewerImage } from '../../Image';
-import { TextField } from '../../Form'
-
-import { TextContainer } from '../../regular/container';
-import { Text } from '../../regular/text';
-
 import Landing from '../../Landing/Landing';
-
-import Paths from '../../../helper/Paths';
+import GalleriesPreview from '../../GalleriesPreview/GalleriesPreview';
 import Image from '../../../helper/Image';
 
 import './home.css';
@@ -43,10 +35,7 @@ class Home extends Component<RouteComponentProps, {}> {
         return (
             <Fragment>
                 <Landing />
-                <div style={{height: '1000px', backgroundColor: 'black'}} />
-                <Landing />
-                <div style={{height: '100px', backgroundColor: 'black'}} />
-                <Landing />
+                <GalleriesPreview />
             </Fragment>
         )
     }

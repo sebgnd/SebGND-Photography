@@ -7,8 +7,7 @@ const GalleryButtonContainer = styled('div')`
 
 const GalleryButtonWrapper = styled('div')` /////////
     display: inline-block;
-    margin-bottom: 25px;
-    margin-right: 25px;
+    margin: 25px;
 
     max-height: 400px;
     min-height: 100px;

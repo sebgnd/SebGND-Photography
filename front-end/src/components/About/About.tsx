@@ -13,11 +13,11 @@ const About: FunctionComponent = () => {
                 </TitleContainer>
                 <MainContent>
                     <AboutMe>
-                        <p>
+                        <Text>
                             My name is Sebastien Gnd and i am a French amateur photographer based in Limoges, France. 
                             My passion for photography dates back to 2016 when I was in high school. My other passions 
                             include technology, video games, cars, cinema … I am studying in Computer Science.
-                        </p>
+                        </Text>
                     </AboutMe>
                     <Gear>
                         <Text size="medium" color="black" weight="normal"> 

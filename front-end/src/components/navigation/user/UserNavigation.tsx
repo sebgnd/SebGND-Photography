@@ -14,7 +14,7 @@ class UserNavigation extends Component<RouteComponentProps, {}> {
             <nav>
                 <div className="side-menu" id="left">
                     <NavigationItem name="Home" url="/" />
-                    <NavigationItem name="Galleries" url="/galleries" />
+                    <NavigationItem name="Galleries" url="/gallery" />
                 </div>
                 <Logo imgSrc="images/logo.png" imgAlt="logo" url="/" />
                 <div className="side-menu" id="right">

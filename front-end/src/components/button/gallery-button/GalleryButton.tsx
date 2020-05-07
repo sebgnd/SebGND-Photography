@@ -6,19 +6,19 @@ import { ButtonContainer } from '../../regular/container';
 
 import Image from '../../../helper/Image';
 import Paths from '../../../helper/Paths';
+import Gallery from '../../../helper/Gallery';
 
 interface GalleryButtonProp extends RouteComponentProps {
-    galleryDisplayName: string;
-    galleryName: string;
+    gallery: Gallery;
     image: Image;
 }
 
 const GalleryButton: FunctionComponent<GalleryButtonProp> = (props) => {
     const imageSource = Paths.mediumThumbnailImage(); 
-    const { galleryName, image, galleryDisplayName } = props;
+    const { gallery, image } = props;
 
     const goToGallery = () => {
-        const url = Paths.galleryWithName(props.galleryName);
+        const url = Paths.galleryWithId(gallery.getId());
         props.history.push(url);
     }
 
@@ -32,7 +32,7 @@ const GalleryButton: FunctionComponent<GalleryButtonProp> = (props) => {
                     </GalleryImage>
 
                     <GalleryName id="gallery-name">
-                        <Text size="medium" color="black" weight="normal">{galleryDisplayName}</Text>
+                        <Text size="medium" color="black" weight="normal">{gallery.getDisplayName()}</Text>
                     </GalleryName>
 
                 </ButtonContainer>

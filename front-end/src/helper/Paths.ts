@@ -42,11 +42,11 @@ abstract class Paths {
     }
 
     // Name of the gallery
-    static galleryWithName(name?: string) {
-        if (name) {
-            return `/gallery/${name}`;
+    static galleryWithId(id?: string) {
+        if (id) {
+            return `/gallery/${id}`;
         }
-        return '/gallery/:name'
+        return '/gallery/:id'
     }
 
     static recent() {

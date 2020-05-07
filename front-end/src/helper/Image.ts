@@ -1,4 +1,4 @@
-class Image {
+export default class Image {
 
     // Id in the database
     private id: number;
@@ -71,5 +71,3 @@ class Image {
         return this.id;
     }
 }
-
-export default Image;

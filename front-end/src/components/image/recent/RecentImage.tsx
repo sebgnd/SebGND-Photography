@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Paths from '../../../helper/Paths';
 import Image from '../../../helper/Image';
+import Gallery from '../../../helper/Gallery';
 
 import { RecentImageContainer, Info, ImageContainer, FillerImage, AdaptedImage, ButtonContainerWidthWidth, GalleryName, InfoContainer, Date } from './recent-image-style';
 import { Text } from '../../regular/text';
@@ -9,13 +10,12 @@ import { Button } from '../../button';
 
 interface RecentImageProp extends RouteComponentProps {
     image: Image;
-    galleryDisplayName: string;
-    galleryName: string;
+    gallery: Gallery;
 }
 
 const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
-    const goToGallery = (name: string) => {
-        const galleryLink = `gallery/${name}`;
+    const goToGallery = (id: string) => {
+        const galleryLink = `gallery/${id}`;
         props.history.push(galleryLink);
     }
 
@@ -24,7 +24,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
         props.history.push(imageLink);
     }
 
-    const { image, galleryDisplayName, galleryName } = props;
+    const { image, gallery } = props;
     const formattedDate: string = image.getFormatedDate();
     const id: string = image.getId().toString();
     const imageType: string = image.isPortrait() ? 'portrait' : 'landscape';
@@ -35,7 +35,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
             <Info>
                 <InfoContainer>
                     <GalleryName>
-                        <Button variant="light" size="small" onClick={() => goToGallery(galleryName)}>{galleryDisplayName}</Button>
+                        <Button variant="light" size="small" onClick={() => goToGallery(gallery.getId())}>{gallery.getDisplayName()}</Button>
                     </GalleryName>
                 </InfoContainer>
 
@@ -47,7 +47,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
             </Info>
             
             <ImageContainer>
-                <ButtonContainerWidthWidth width="100%" onClick={() => goToImage(image.getId(), galleryName)}>
+                <ButtonContainerWidthWidth width="100%" onClick={() => goToImage(image.getId(), gallery.getId())}>
                     { image.isPortrait() && (
                         <FillerImage src={imageSource} alt={id} />
                     )}

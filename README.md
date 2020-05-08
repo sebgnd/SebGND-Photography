@@ -7,3 +7,4 @@
     1. Do responsive size on GalleryButton
 1. Add UserLayout / AdminLayout
 1. Check other solution for ParallaxContent -> dont render for every scroll
+1. Change variable names on Parallax component

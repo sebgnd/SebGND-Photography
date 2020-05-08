@@ -6,13 +6,13 @@ import { Button } from '../Button';
 
 const Landing: FunctionComponent = () => {
     return (
-        <LandingContainer>
-            <Parallax img="images/parallax-1.jpg" speed={0.5}>
+        <Parallax img="images/parallax-1.jpg" speed={0.5}>
+            <LandingContainer>
                 <LandingButtonContainer>
-                        <Button variant="classic" size="medium" onClick={() => {}}>See this photo</Button>
-                    </LandingButtonContainer>
-            </Parallax>
-        </LandingContainer>
+                    <Button variant="classic" size="medium" onClick={() => {}}>See this photo</Button>
+                </LandingButtonContainer>
+            </LandingContainer>
+        </Parallax>
     )
 }
 

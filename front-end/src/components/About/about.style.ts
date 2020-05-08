@@ -54,6 +54,11 @@ export const AboutMe = styled(TextContainer)`
     }
 `;
 
+export const ContactButtonContainer = styled('div')`
+    margin: auto;
+    text-align: center;
+`
+
 export const Gear = styled(TextContainer)`
     width: 20%;
 

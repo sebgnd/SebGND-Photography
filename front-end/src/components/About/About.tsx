@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-import Parallax from '../Parallax/Parallax';
+import Parallax from '../UI/Parallax/Parallax';
 import styles from './About.module.css';
-import { Button } from '../Button';
+import { Button } from '../UI/Button';
 import { Title, Text } from '../Styled/text';
 
 import Paths from '../../helper/Paths';

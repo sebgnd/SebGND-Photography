@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { ButtonContainer } from '../../Styled/container';
+import { ButtonContainer } from '../../../Styled/container';
 
 import styles from './SingleImage.module.css';
 
-import Image from '../../../helper/Image';
-import Gallery from '../../../helper/Gallery';
-import Paths from '../../../helper/Paths';
+import Image from '../../../../helper/Image';
+import Gallery from '../../../../helper/Gallery';
+import Paths from '../../../../helper/Paths';
 
 interface SingleImageProp extends RouteComponentProps {
     image: Image;

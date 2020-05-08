@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Gallery from '../../../helper/Gallery';
-import { GalleryButton } from '../../Button';
+import { GalleryButton } from '../../UI/Button';
 import styles from './GalleriesPreviewList.module.css';
 
 interface GalleryPreviewListProps {

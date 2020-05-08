@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import { Text } from '../../Styled/text';
+import { Text } from '../../../Styled/text';
 
 import styles from './ViewerImage.module.css';
 
-import Image from '../../../helper/Image';
-import Paths from '../../../helper/Paths';
+import Image from '../../../../helper/Image';
+import Paths from '../../../../helper/Paths';
 
 interface ViewerImageProp {
     image: Image;

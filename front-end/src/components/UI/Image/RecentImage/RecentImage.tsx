@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import Paths from '../../../helper/Paths';
-import Image from '../../../helper/Image';
-import Gallery from '../../../helper/Gallery';
+import Paths from '../../../../helper/Paths';
+import Image from '../../../../helper/Image';
+import Gallery from '../../../../helper/Gallery';
 
 import AdaptedImage from './AdaptedImage';
-import { Text } from '../../Styled/text';
-import { ButtonContainerWidthWidth } from '../../Styled/container';
+import { Text } from '../../../Styled/text';
+import { ButtonContainerWidthWidth } from '../../../Styled/container';
 import { Button } from '../../Button';
 
 import styles from './RecentImage.module.css';

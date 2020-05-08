@@ -1,7 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Fragment } from 'react';
 
-import { Button, RoundButton, GalleryButton } from '../../Button';
-import { RecentImage, SingleImage, ViewerImage } from '../../Image';
+import { Button, RoundButton, GalleryButton } from '../../UI/Button';
+import { RecentImage, SingleImage, ViewerImage } from '../../UI/Image';
 
 import Image from '../../../helper/Image';
 import Gallery from '../../../helper/Gallery';
@@ -11,7 +11,12 @@ const Playground: FunctionComponent = () => {
     const placeholderGallery = new Gallery('test', 'Test', placeholderImage);
 
     return (
-        <ViewerImage image={placeholderImage}/>
+        <Fragment>
+            <ViewerImage image={placeholderImage}/>
+            <RecentImage image={placeholderImage} gallery={placeholderGallery} />
+            <SingleImage image={placeholderImage} gallery={placeholderGallery} />
+            <GalleryButton gallery={placeholderGallery} />
+        </Fragment>
     )
 }
 

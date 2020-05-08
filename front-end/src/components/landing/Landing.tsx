@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import Parallax from '../Parallax/Parallax';
+import Parallax from '../UI/Parallax/Parallax';
 import styles from './Landing.module.css';
-import { Button } from '../Button';
+import { Button } from '../UI/Button';
 
 const Landing: FunctionComponent = () => {
     return (

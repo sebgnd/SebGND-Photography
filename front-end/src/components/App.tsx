@@ -9,7 +9,7 @@ import Categories from './_containers/Galleries/Categories';
 import Gallery from './_containers/Gallery/Gallery';
 import Viewer from './_containers/Viewer/Viewer';
 import Playground from './_containers/Playground/Playground';
-import UserNavigation from './Navigation/UserNavigation/UserNavigation';
+import UserNavigation from './UI/Navigation/UserNavigation/UserNavigation';
 
 // Utils
 import Paths from '../helper/Paths';

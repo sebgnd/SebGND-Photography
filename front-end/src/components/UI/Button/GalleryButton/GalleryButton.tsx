@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { Text } from '../../Styled/text';
-import { ButtonContainer } from '../../Styled/container';
+import { Text } from '../../../Styled/text';
+import { ButtonContainer } from '../../../Styled/container';
 
 import styles from './GalleryButton.module.css';
 
-import Paths from '../../../helper/Paths';
-import Gallery from '../../../helper/Gallery';
+import Paths from '../../../../helper/Paths';
+import Gallery from '../../../../helper/Gallery';
 
 interface GalleryButtonProp extends RouteComponentProps {
     gallery: Gallery;

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom'
-import { Button } from '../Button';
+import { Button } from '../UI/Button';
 import GalleryPreviewList from './GalleryPreviewList/GalleryPreviewList';
 import { Title } from '../Styled/text';
 import styles from './GalleriesPreview.module.css';

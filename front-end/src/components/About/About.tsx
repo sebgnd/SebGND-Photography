@@ -1,11 +1,18 @@
 import React, { FunctionComponent } from 'react';
-import Parallax from '../Parallax/Parallax';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
+import Parallax from '../Parallax/Parallax';
 import { AboutContainer, TitleContainer, MainContent, AboutMe, Gear, ContactButtonContainer } from './about.style';
 import { Button } from '../Button';
 import { Title, Text } from '../regular/text';
 
-const About: FunctionComponent = () => {
+import Paths from '../../helper/Paths';
+
+const About: FunctionComponent<RouteComponentProps> = (props) => {
+    const goToContact = () => {
+        const contactLink = Paths.contact();
+        props.history.push(contactLink);
+    }
     return (
             <Parallax img="images/parallax-2.jpg" speed={0.5} >
                 <AboutContainer>
@@ -20,7 +27,7 @@ const About: FunctionComponent = () => {
                                 include technology, video games, cars, cinema … I am studying in Computer Science.
                             </Text>
                             <ContactButtonContainer>
-                                <Button variant="clasic" size="medium" onClick={() => {}}>Contact me</Button>
+                                <Button variant="clasic" size="medium" onClick={goToContact}>Contact me</Button>
                             </ContactButtonContainer>
                         </AboutMe>
                         <Gear>
@@ -39,4 +46,4 @@ const About: FunctionComponent = () => {
     )
 }
 
-export default About;
+export default withRouter(About);

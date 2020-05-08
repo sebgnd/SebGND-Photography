@@ -1,14 +1,11 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom'
- 
 import { Button } from '../Button';
 import GalleryPreviewList from './GalleryPreviewList/GalleryPreviewList';
-import { Title } from '../regular/text';
-import { GalleriesPreviewContainer, Row, TitleContainer, ButtonContainer } from './galleries-preview.style';
-
+import { Title } from '../Styled/text';
+import styles from './GalleriesPreview.module.css';
 import Gallery from '../../helper/Gallery';
 import Paths from '../../helper/Paths';
-import Image from '../../helper/Image';
 
 interface GalleriesPreviewProps extends RouteComponentProps {
     galleries: Gallery[];
@@ -21,21 +18,21 @@ const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {
     }
 
     return (
-        <GalleriesPreviewContainer>
-            <Row>
-                <TitleContainer>
+        <div className={styles.galleriesPreviewContainer}>
+            <div className={styles.row}>
+                <div className={styles.titleContainer}>
                     <Title color="black">Galleries</Title>
-                </TitleContainer>
-            </Row>
-            <Row>
+                </div>
+            </div>
+            <div className={styles.row}>
                 <GalleryPreviewList galleries={props.galleries} />
-            </Row>
-            <Row>
-                <ButtonContainer>
+            </div>
+            <div className={styles.row}>
+                <div className={styles.buttonContainer}>
                     <Button size="medium" variant="classic" onClick={goToGalleries}>See all galleries</Button>
-                </ButtonContainer>
-            </Row>
-        </GalleriesPreviewContainer>
+                </div>
+            </div>
+        </div>
     )
 }
 

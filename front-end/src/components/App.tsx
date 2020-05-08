@@ -8,6 +8,7 @@ import Recent from './_containers/Recent/Recent';
 import Categories from './_containers/Galleries/Categories';
 import Gallery from './_containers/Gallery/Gallery';
 import Viewer from './_containers/Viewer/Viewer';
+import Playground from './_containers/Playground/Playground';
 import UserNavigation from './Navigation/UserNavigation/UserNavigation';
 
 // Utils
@@ -37,6 +38,9 @@ class App extends React.Component {
                     </Route>
                     <Route exact={true} path={Paths.viewer()}>
                         <Viewer />
+                    </Route>
+                    <Route exact={true} path="/playground">
+                        <Playground />
                     </Route>
                 </Switch>
             </BrowserRouter>

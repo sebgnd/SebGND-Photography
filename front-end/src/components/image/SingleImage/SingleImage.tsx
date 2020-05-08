@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { ImageContainer, Img, SingleImageContainer } from './single-style';
-import { ButtonContainer } from '../../regular/container';
+import { ButtonContainer } from '../../Styled/container';
+
+import styles from './SingleImage.module.css';
 
 import Image from '../../../helper/Image';
 import Gallery from '../../../helper/Gallery';
@@ -23,13 +24,13 @@ const SingleImage: FunctionComponent<SingleImageProp> = (props) => {
     }
 
     return (
-        <SingleImageContainer>
+        <div className={styles.singleImageContainer}>
             <ButtonContainer>
-                <ImageContainer onClick={() => goToImage()}>
-                    <Img src={imageSource} alt={image.getId().toString()}/>
-                </ImageContainer>
+                <div className={styles.imageContainer} onClick={() => goToImage()}>
+                    <img className={styles.image} src={imageSource} alt={image.getId().toString()}/>
+                </div>
             </ButtonContainer>
-        </SingleImageContainer>
+        </div>
         )
 }
 

@@ -1,0 +1,20 @@
+.galleriesPreviewContainer {
+    background-color: white;
+    display: block;
+    width: 100%;
+}
+
+.row {
+    text-align: center;
+    width: 100%;
+}
+
+.titleContainer {
+    margin: 10px 0px;
+    width: 100%;
+    text-align: center;
+}
+
+.buttonContainer {
+    margin: 40px 0px;
+}

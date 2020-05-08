@@ -1,8 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { GalleryButtonContainer, GalleryImage, Img, GalleryName, GalleryButtonWrapper } from './gallery-button-style';
-import { Text } from '../../regular/text';
-import { ButtonContainer } from '../../regular/container';
+
+import { Text } from '../../Styled/text';
+import { ButtonContainer } from '../../Styled/container';
+
+import styles from './GalleryButton.module.css';
 
 import Paths from '../../../helper/Paths';
 import Gallery from '../../../helper/Gallery';
@@ -21,21 +23,20 @@ const GalleryButton: FunctionComponent<GalleryButtonProp> = (props) => {
     }
 
     return (
-        <GalleryButtonContainer>
-            <GalleryButtonWrapper>
+        <div className={styles.galleryButtonContainer}>
+            <div className={styles.galleryButtonWrapper}>
                 <ButtonContainer onClick={() => goToGallery()}>
+                    <div className={styles.galleryImage}>
+                        <img className={styles.image} src={imageSource} alt={gallery.getThumbnail().getId().toString()} />
+                    </div>
 
-                    <GalleryImage>
-                        <Img src={imageSource} alt={gallery.getThumbnail().getId().toString()} />
-                    </GalleryImage>
-
-                    <GalleryName id="gallery-name">
+                    <div id="gallery-name" className={styles.galleryName}>
                         <Text size="medium" color="black" weight="normal">{gallery.getDisplayName()}</Text>
-                    </GalleryName>
+                    </div>
 
                 </ButtonContainer>
-            </GalleryButtonWrapper>
-        </GalleryButtonContainer>
+            </div>
+        </div>
     )
 }
 

@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { RoundButton, Icon, IconContainer } from './round-button-style';
+import styles from './RoundButton.module.css';
 
 interface ArrowButtonProp {
     onClick: () => void;
@@ -8,13 +8,13 @@ interface ArrowButtonProp {
 
 const ArrowButton: FunctionComponent<ArrowButtonProp> = (props) => {
     return (
-        <RoundButton onClick={props.onClick}>
-            <IconContainer>
-                <Icon>
+        <button className={styles.roundButton} onClick={props.onClick}>
+            <div className={styles.iconContainer}>
+                <div className={styles.icon}>
                     {props.children}
-                </Icon>
-            </IconContainer>
-        </RoundButton>
+                </div>
+            </div>
+        </button>
     )
 }
 

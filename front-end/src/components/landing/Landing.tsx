@@ -1,17 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import Parallax from '../Parallax/Parallax';
-import { LandingContainer, ParallaxContent, LandingButtonContainer } from './landing.style';
-
+import styles from './Landing.module.css';
 import { Button } from '../Button';
 
 const Landing: FunctionComponent = () => {
     return (
         <Parallax img="images/parallax-1.jpg" speed={0.5}>
-            <LandingContainer>
-                <LandingButtonContainer>
+            <div className={styles.landingContainer}>
+                <div className={styles.landingButtonContainer}>
                     <Button variant="classic" size="medium" onClick={() => {}}>See this photo</Button>
-                </LandingButtonContainer>
-            </LandingContainer>
+                </div>
+            </div>
         </Parallax>
     )
 }

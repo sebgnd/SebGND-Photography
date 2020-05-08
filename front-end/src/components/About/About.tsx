@@ -3,8 +3,9 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import Parallax from '../Parallax/Parallax';
 import { AboutContainer, TitleContainer, MainContent, AboutMe, Gear, ContactButtonContainer } from './about.style';
+import styles from './About.module.css';
 import { Button } from '../Button';
-import { Title, Text } from '../regular/text';
+import { Title, Text } from '../Styled/text';
 
 import Paths from '../../helper/Paths';
 
@@ -15,22 +16,22 @@ const About: FunctionComponent<RouteComponentProps> = (props) => {
     }
     return (
             <Parallax img="images/parallax-2.jpg" speed={0.5} >
-                <AboutContainer>
-                    <TitleContainer>
+                <div className={styles.aboutContainer}>
+                    <div className={styles.titleContainer}>
                         <Title color="black">About me and my gear</Title>
-                    </TitleContainer>
-                    <MainContent>
-                        <AboutMe>
+                    </div>
+                    <div className={styles.aboutContent}>
+                        <div className={`${styles.textContainer} ${styles.aboutMe}`}>
                             <Text size="medium" color="black" weight="normal"> 
                                 My name is Sebastien Gnd and i am a French amateur photographer based in Limoges, France. 
                                 My passion for photography dates back to 2016 when I was in high school. My other passions 
                                 include technology, video games, cars, cinema … I am studying in Computer Science.
                             </Text>
-                            <ContactButtonContainer>
+                            <div className={styles.contactButtonContainer}>
                                 <Button variant="clasic" size="medium" onClick={goToContact}>Contact me</Button>
-                            </ContactButtonContainer>
-                        </AboutMe>
-                        <Gear>
+                            </div>
+                        </div>
+                        <div className={`${styles.textContainer} ${styles.gear}`}>
                             <Text size="medium" color="black" weight="normal"> 
                                 - Canon 70D - Sigma 18-35 f1.8 <br />
                                 - Sigma 50-100 f1.8 <br />
@@ -39,9 +40,9 @@ const About: FunctionComponent<RouteComponentProps> = (props) => {
                                 - Lowepro Protactict 450 backpack <br />
                                 - Hoya ND1000 (72 - 82 mm) <br />
                             </Text>
-                        </Gear>
-                    </MainContent>
-                </AboutContainer>
+                        </div>
+                    </div>
+                </div>
             </Parallax>
     )
 }

@@ -1,12 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+
 import Paths from '../../../helper/Paths';
 import Image from '../../../helper/Image';
 import Gallery from '../../../helper/Gallery';
 
-import { RecentImageContainer, Info, ImageContainer, FillerImage, AdaptedImage, ButtonContainerWidthWidth, GalleryName, InfoContainer, Date } from './recent-image-style';
-import { Text } from '../../regular/text';
+import AdaptedImage from './AdaptedImage';
+import { Text } from '../../Styled/text';
+import { ButtonContainerWidthWidth } from '../../Styled/container';
 import { Button } from '../../Button';
+
+import styles from './RecentImage.module.css';
 
 interface RecentImageProp extends RouteComponentProps {
     image: Image;
@@ -31,30 +35,30 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
     const imageSource = Paths.smallImage();
     
     return (
-        <RecentImageContainer>
-            <Info>
-                <InfoContainer>
-                    <GalleryName>
+        <div className={styles.recentImageContainer}>
+            <div className={styles.info}>
+                <div className={styles.infoContainer}>
+                    <div className={styles.galleryName}>
                         <Button variant="light" size="small" onClick={() => goToGallery(gallery.getId())}>{gallery.getDisplayName()}</Button>
-                    </GalleryName>
-                </InfoContainer>
+                    </div>
+                </div>
 
-                <InfoContainer>
-                    <Date>
+                <div className={styles.infoContainer}>
+                    <div className={styles.date}>
                         <Text size="small" color="#7E7E7E" weight="bold">{formattedDate}</Text>
-                    </Date>
-                </InfoContainer>
-            </Info>
+                    </div>
+                </div>
+            </div>
             
-            <ImageContainer>
+            <div className={styles.imageContainer}>
                 <ButtonContainerWidthWidth width="100%" onClick={() => goToImage(image.getId(), gallery.getId())}>
                     { image.isPortrait() && (
-                        <FillerImage src={imageSource} alt={id} />
+                        <img className={styles.fillerImage} src={imageSource} alt={id} />
                     )}
                     <AdaptedImage type={imageType} src={imageSource} alt={id} />
                 </ButtonContainerWidthWidth>
-            </ImageContainer>
-        </RecentImageContainer>
+            </div>
+        </div>
     )
 }
 

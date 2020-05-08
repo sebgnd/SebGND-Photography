@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useRef, useState, RefObject } from 'react';
-import { ParallaxContainer, Relative } from './parallax.style';
+import ParallaxContainer from './ParallaxContainer';
 import { throttle } from 'lodash';
 
 interface ParallaxProp {

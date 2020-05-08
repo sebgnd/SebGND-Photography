@@ -1,0 +1,56 @@
+.galleryButtonContainer{
+    margin: 10px;
+    display: inline-block;
+}
+
+.galleryButtonWrapper {
+    display: inline-block;
+    margin: 25px;
+    max-height: 400px;
+    min-height: 100px;
+    max-width: 400px;
+    min-width: 100px;
+    position: relative;
+}
+
+.galleryImage {
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    display: flex;
+    transform: none;
+    transition: transform .5s, box-shadow .5s;
+}
+
+.image {
+    height: 100%;
+    width: 100%;
+}
+
+.galleryName {
+    display: inline-block;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    width: 100%;
+    color: black;
+    
+    position: absolute;
+    right: -25px;
+    bottom: -25px;
+    min-width: 75%;
+    max-width: 95px;
+
+    transform: none;
+    transition: transform .5s, bottom .5s, box-shadow .5s;
+}
+
+.galleryButtonWrapper:hover .galleryImage {
+    transform: scale(1.05);
+}
+
+.galleryButtonWrapper:hover .galleryName {
+    bottom: -35px;
+    transform: scale(1.05);
+}

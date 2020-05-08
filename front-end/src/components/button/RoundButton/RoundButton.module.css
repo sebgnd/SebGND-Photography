@@ -1,0 +1,36 @@
+.roundButton {
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+    display: inline-block;
+    font-size: 2em;
+    transform: none;
+    border: none;
+    transition: .25s transform;
+    overflow: hidden;
+}
+
+.roundButton:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.roundButton:focus {
+    outline: none;
+}
+
+.iconContainer {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+.icon {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

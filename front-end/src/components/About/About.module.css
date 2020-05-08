@@ -1,0 +1,82 @@
+.aboutContainer {
+    height: auto;
+    box-sizing: content-box;
+}
+
+.titleContainer {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0px;
+}
+
+.aboutContent {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 100%;
+    padding-bottom: 65px;
+}
+
+.textContainer {
+    font-size: 1.15em;
+    vertical-align: top;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+    display: inline-block;
+    margin: 0 4vw;
+    text-align: left;
+    padding: 50px;
+    line-height: 2.3em;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 1500px) {
+    .textContainer {
+        margin: 0 1vw;
+    }
+}
+
+@media (max-width: 1000px) {
+    .textContainer {
+        margin: 25px auto;
+    }
+}
+
+.aboutMe {
+    width: 35%;
+}
+
+@media (max-width: 1500px) {
+    .aboutMe {
+        width: 45%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .aboutMe {
+        width: 65%;
+    }
+}
+
+.gear {
+    width: 20%;
+}
+
+@media (max-width: 1500px) {
+    .gear {
+        width: 30%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .gear {
+        width: 65%;
+    }
+}
+
+.contactButtonContainer {
+    margin: auto;
+    text-align: center;
+}

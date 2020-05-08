@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react';
+import { Text } from '../../Styled/text';
+
+import styles from './ViewerImage.module.css';
+
 import Image from '../../../helper/Image';
 import Paths from '../../../helper/Paths';
-
-import { ViewerImageWrapper, ViewerImageContainer, Img, ImageInfo } from './viewer-style';
-import { Text } from '../../regular/text';
 
 interface ViewerImageProp {
     image: Image;
@@ -14,14 +15,14 @@ const ViewerImage: FunctionComponent<ViewerImageProp> = (props) => {
     const imageSource = Paths.mediumImage();
 
     return (
-        <ViewerImageContainer>
-            <ViewerImageWrapper>
-                <Img src={imageSource} alt={props.image.getId().toString()} />
-                <ImageInfo>
+        <div className={styles.viewerImageContainer}>
+            <div className={styles.viewerImageWrapper}>
+                <img className={styles.image} src={imageSource} alt={props.image.getId().toString()} />
+                <div className={styles.imageInfo}>
                     <Text size="medium" color="black" weight="normal">{imageInfo}</Text>
-                </ImageInfo>
-            </ViewerImageWrapper>
-        </ViewerImageContainer>
+                </div>
+            </div>
+        </div>
     )
 }
 

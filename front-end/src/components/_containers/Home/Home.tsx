@@ -29,15 +29,7 @@ class Home extends Component<{}, {}> {
 
     }
 
-    handleClick() {
-        
-    }
-
     componentDidMount() {
-        
-    }
-
-    handleChange(event: FormEvent<HTMLInputElement>) {
         
     }
 

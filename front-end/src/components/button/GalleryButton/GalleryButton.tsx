@@ -4,18 +4,16 @@ import { GalleryButtonContainer, GalleryImage, Img, GalleryName, GalleryButtonWr
 import { Text } from '../../regular/text';
 import { ButtonContainer } from '../../regular/container';
 
-import Image from '../../../helper/Image';
 import Paths from '../../../helper/Paths';
 import Gallery from '../../../helper/Gallery';
 
 interface GalleryButtonProp extends RouteComponentProps {
     gallery: Gallery;
-    image: Image;
 }
 
 const GalleryButton: FunctionComponent<GalleryButtonProp> = (props) => {
     const imageSource = Paths.mediumThumbnailImage(); 
-    const { gallery, image } = props;
+    const { gallery } = props;
 
     const goToGallery = () => {
         const url = Paths.galleryWithId(gallery.getId());
@@ -28,7 +26,7 @@ const GalleryButton: FunctionComponent<GalleryButtonProp> = (props) => {
                 <ButtonContainer onClick={() => goToGallery()}>
 
                     <GalleryImage>
-                        <Img src={imageSource} alt={image.getId().toString()} />
+                        <Img src={imageSource} alt={gallery.getThumbnail().getId().toString()} />
                     </GalleryImage>
 
                     <GalleryName id="gallery-name">

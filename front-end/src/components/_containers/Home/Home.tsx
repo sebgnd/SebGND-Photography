@@ -1,30 +1,40 @@
 import React, { Component, FormEvent, Fragment } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom'; 
 import styled from 'styled-components';
 
 import Landing from '../../Landing/Landing';
 import GalleriesPreview from '../../GalleriesPreview/GalleriesPreview';
 import About from '../../About/About';
+
 import Image from '../../../helper/Image';
+import Gallery from '../../../helper/Gallery';
 
 import './home.css';
 
 const Container = styled.div`
     display: block;
 `
+const placeHolderImage = new Image(1, 1920 , 1080, new Date());
+const placeholderGallery = new Gallery('test', 'Test', placeHolderImage);
 
-class Home extends Component<RouteComponentProps, {}> {
+interface HomeState {
+    galleries: Gallery[]
+}
+
+class Home extends Component<{}, {}> {
+    state = {
+        galleries: [placeholderGallery, placeholderGallery, placeholderGallery]
+    }
 
     fetchGalleries() {
 
     }
 
     handleClick() {
-        console.log('Test');
+
     }
 
     componentDidMount() {
-
+        
     }
 
     handleChange(event: FormEvent<HTMLInputElement>) {
@@ -32,15 +42,14 @@ class Home extends Component<RouteComponentProps, {}> {
     }
 
     render() {
-        const placeHolderImage = new Image(1, 1080, 1920, new Date());
         return (
             <Fragment>
                 <Landing />
-                <GalleriesPreview />
+                <GalleriesPreview galleries={this.state.galleries} />
                 <About />
             </Fragment>
         )
     }
 }
 
-export default withRouter(Home);
+export default Home;

@@ -1,15 +1,18 @@
 import React, { FunctionComponent } from 'react';
 
-import { GalleryButton, Button } from '../Button';
+import { Button } from '../Button';
+import GalleryPreviewList from './GalleryPreviewList/GalleryPreviewList';
 import { Title } from '../regular/text';
 import { GalleriesPreviewContainer, Row, TitleContainer, ButtonContainer } from './galleries-preview.style';
 
 import Gallery from '../../helper/Gallery';
 import Image from '../../helper/Image';
 
-const GalleriesPreview: FunctionComponent = () => {
-    const placeholderImage = new Image(1, 1080, 1920, new Date());
-    const placeholderGallery = new Gallery("test", "Test");
+interface GalleriesPreviewProps {
+    galleries: Gallery[];
+}
+
+const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {
     return (
         <GalleriesPreviewContainer>
             <Row>
@@ -18,9 +21,7 @@ const GalleriesPreview: FunctionComponent = () => {
                 </TitleContainer>
             </Row>
             <Row>
-                <GalleryButton gallery={placeholderGallery} image={placeholderImage} />
-                <GalleryButton gallery={placeholderGallery} image={placeholderImage} />
-                <GalleryButton gallery={placeholderGallery} image={placeholderImage} />
+                <GalleryPreviewList galleries={props.galleries} />
             </Row>
             <Row>
                 <ButtonContainer>

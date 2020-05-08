@@ -12,7 +12,7 @@ const GalleryButtonWrapper = styled('div')` /////////
     max-height: 400px;
     min-height: 100px;
     max-width: 400px;
-    min-width: 400px;
+    min-width: 100px;
     position: relative;
 
     :hover #gallery-name {

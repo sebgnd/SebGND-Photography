@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import Parallax from '../Parallax/Parallax';
-import { AboutContainer, TitleContainer, MainContent, AboutMe, Gear, ContactButtonContainer } from './about.style';
 import styles from './About.module.css';
 import { Button } from '../Button';
 import { Title, Text } from '../Styled/text';

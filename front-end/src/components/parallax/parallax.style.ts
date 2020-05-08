@@ -9,7 +9,6 @@ export const ParallaxContainer = styled('div')<{ backgroundImage: string }>`
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-position-y: 40px;
     position: relative;
     background-image: url(${props => props.backgroundImage});
     height: 100%;

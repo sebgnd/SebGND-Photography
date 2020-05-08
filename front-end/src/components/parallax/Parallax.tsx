@@ -61,14 +61,19 @@ class Parallax extends Component<ParallaxProp, ParallaxState> {
         if (!this.isElementVisible()) {
             return;
         }
-        const bottomPageOffset = window.scrollY + window.innerHeight;
-        const offset = bottomPageOffset - this.parallaxElemRef.current!.offsetTop;
-        const newTop = this.topOffset - offset * this.props.speed;
+        const newTop = this.getNewTop();
         this.setState({ backgroundPositionY: `${newTop}px` });
     }
 
     getTopOffset() {
         return window.innerHeight * this.props.speed;
+    }
+
+    getNewTop() {
+        const bottomPageOffset = window.scrollY + window.innerHeight;
+        const intoElementOffset = bottomPageOffset - this.parallaxElemRef.current!.offsetTop;
+        const newTop = this.topOffset - intoElementOffset * this.props.speed;
+        return newTop;
     }
 
     handleScroll() {
@@ -94,10 +99,12 @@ class Parallax extends Component<ParallaxProp, ParallaxState> {
     componentDidMount() {
         this.topOffset = this.getTopOffset();
         this.height = this.parallaxElemRef.current!.clientHeight;
-        this.parallaxElemRef.current!.style.backgroundPositionY = `${this.topOffset}px`;
+
         if (this.height > window.innerHeight) {
             this.parallaxElemRef.current!.style.backgroundSize = `auto ${this.height}`;
         }
+        this.parallaxElemRef.current!.style.backgroundPositionY = `${this.getNewTop()}px`;
+        
         this.addEventListener();
     }
 

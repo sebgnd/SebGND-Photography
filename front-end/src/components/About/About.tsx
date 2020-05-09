@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
 import Parallax from '../UI/Parallax/Parallax';
@@ -13,6 +13,7 @@ const About: FunctionComponent<RouteComponentProps> = (props) => {
         const contactLink = Paths.contact();
         props.history.push(contactLink);
     }
+
     return (
             <div className={styles.aboutContainer}>
                 <div className={styles.titleContainer}>
@@ -44,4 +45,4 @@ const About: FunctionComponent<RouteComponentProps> = (props) => {
     )
 }
 
-export default withRouter(About);
+export default withRouter(React.memo(About));

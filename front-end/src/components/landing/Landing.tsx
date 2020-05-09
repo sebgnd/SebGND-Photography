@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import styles from './Landing.module.css';
 import { Button } from '../UI/Button';
 
@@ -12,4 +12,4 @@ const Landing: FunctionComponent = () => {
     )
 }
 
-export default Landing;
+export default React.memo(Landing);

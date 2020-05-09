@@ -7,6 +7,7 @@ import About from '../../About/About';
 
 import Image from '../../../helper/Image';
 import Gallery from '../../../helper/Gallery';
+import Parallax from '../../UI/Parallax/Parallax';
 
 import './home.css';
 
@@ -36,9 +37,13 @@ class Home extends Component<{}, {}> {
     render() {
         return (
             <Fragment>
-                <Landing />
+                <Parallax img="images/parallax-1.jpg" speed={0.5}>
+                    <Landing />
+                </Parallax>
                 <GalleriesPreview galleries={this.state.galleries} />
-                <About />
+                <Parallax img="images/parallax-2.jpg" speed={0.5} >
+                    <About />
+                </Parallax>
             </Fragment>
         )
     }

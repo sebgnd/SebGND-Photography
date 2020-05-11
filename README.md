@@ -1,6 +1,8 @@
 # SebGND-Photography
 
 ## TODO:
+
+### FRONT-END:
 1. Add comments
 1. Add throttle to parallax scroll / resize listener\
 1. Create Footer component
@@ -16,3 +18,15 @@
     1. Single Gallery Page
         1. ImageList Component
 1. Add UserLayout / AdminLayout
+
+
+### BACK-END:
+1. Galleries
+    1. With limit '/limit/:amount'
+    1. One gallery '/:id'
+    1. All '/'
+
+1. Images
+    1. From a gallery '/gallery/:id'
+    1. Get one image '/:id'
+    1. With offset and limit '/' 

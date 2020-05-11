@@ -7,7 +7,7 @@ import Image from '../../../helper/Image';
 import Gallery from '../../../helper/Gallery';
 
 const Playground: FunctionComponent = () => {
-    const placeHolderImage = new Image(1, 1920 , 1080, new Date());
+    const placeHolderImage = new Image(1, 'test', new Date());
     const placeholderGallery = new Gallery('test', 'Test', placeHolderImage);
 
     return (

@@ -1,7 +1,11 @@
 import Gallery from './Gallery';
+import Paths from './Paths';
+
+const sizeOf = require('image-size');
 
 export default class Image {
     private id: number;
+    private galleryId: string;
     
     // Exif data
     private aperture: string | null = null;
@@ -11,14 +15,18 @@ export default class Image {
     private uploadDate: Date;
 
     // Height and width of the image in px
-    private width: number;
-    private height: number;
+    //private width: number;
+    //private height: number;
 
-    constructor(id: number, width: number, height: number, uploadDate: Date) {
+    constructor(id: number, galleryId: string, uploadDate: Date) {
         this.id = id;
         this.uploadDate = uploadDate;
-        this.width = width;
-        this.height = height;
+        this.galleryId = galleryId;
+        this.setSize();
+    }
+
+    private setSize() {
+        
     }
 
     setAperture(aperture: string) {
@@ -38,11 +46,11 @@ export default class Image {
     } 
 
     isPortrait() {
-        return this.height > this.width;
+        return true;
     }
 
     isLandscape() {
-        return this.width >= this.height;
+        return true;
     }
 
     hasExif() {

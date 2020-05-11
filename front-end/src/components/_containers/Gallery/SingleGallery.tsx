@@ -4,7 +4,7 @@ import ImageList from '../../ImageList/ImageList';
 import Image from '../../../helper/Image';
 import Gallery from '../../../helper/Gallery';
 
-const placeHolderImage = new Image(1, 1920 , 1080, new Date());
+const placeHolderImage = new Image(1, 'test', new Date());
 const placeholderGallery = new Gallery('test', 'Test', placeHolderImage);
 
 interface SingleGalleryState {

@@ -6,24 +6,24 @@ abstract class Paths {
 
     // Paths to different images format
 
-    static smallImage(image?: Image, galleryName?: string) {
-        return 'https://via.placeholder.com/450x800'
+    static smallImage(imgId?: number, galleryId?: string) {
+        return `http://localhost:8000/image/${galleryId}/small_res/${imgId}`
     }
 
-    static mediumImage(image?: Image, galleryName?: string) {
-        return 'https://via.placeholder.com/1920x1080'
+    static mediumImage(imgId?: number, galleryId?: string) {
+        return `http://localhost:8000/image/${galleryId}/medium_res/${imgId}`;
     }
 
-    static fullImage(image?: Image, galleryName?: string) {
-        return 'https://via.placeholder.com/3840x2160'
+    static fullImage(imgId?: number, galleryId?: string) {
+        return `http://localhost:8000/image/${galleryId}/full_res/${imgId}`;
     }
 
-    static smallThumbnailImage(image?: Image, galleryName?: string) {
-        return 'https://via.placeholder.com/80'
+    static smallThumbnailImage(imgId?: number, galleryId?: string) {
+        return `http://localhost:8000/image/${galleryId}/thumbnail_small/${imgId}`;
     }
 
-    static mediumThumbnailImage(image?: Image, galleryName?: string) {
-        return 'https://via.placeholder.com/450'
+    static mediumThumbnailImage(imgId?: number, galleryId?: string) {
+        return `http://localhost:8000/image/${galleryId}/thumbnail_medium/${imgId}`;
     }
 
     // Paths to other pages

@@ -4,9 +4,8 @@ import GalleriesList from '../../GalleriesList/GalleriesList';
 import Gallery from '../../../helper/Gallery';
 import Image from '../../../helper/Image';
 
-const placeholderGallery = new Gallery('test', 'Test');
-const placeHolderImage = new Image(1, 1920 , 1080, new Date(), placeholderGallery);
-placeholderGallery.setThumbnail(placeHolderImage);
+const placeHolderImage = new Image(1, 1920 , 1080, new Date());
+const placeholderGallery = new Gallery('test', 'Test', placeHolderImage);
 
 interface GalleriesState {
     galleries: Gallery[];

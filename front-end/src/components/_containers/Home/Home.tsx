@@ -12,9 +12,8 @@ import Parallax from '../../UI/Parallax/Parallax';
 const Container = styled.div`
     display: block;
 `
-const placeholderGallery = new Gallery('test', 'Test');
-const placeHolderImage = new Image(1, 1920 , 1080, new Date(), placeholderGallery);
-placeholderGallery.setThumbnail(placeHolderImage);
+const placeHolderImage = new Image(1, 1920 , 1080, new Date());
+const placeholderGallery = new Gallery('test', 'Test', placeHolderImage);
 
 interface HomeState {
     galleries: Gallery[]

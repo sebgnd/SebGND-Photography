@@ -8,6 +8,7 @@ import styles from './GalleryButton.module.css';
 
 import Paths from '../../../../helper/Paths';
 import Gallery from '../../../../helper/Gallery';
+import Image from '../../../../helper/Image';
 
 interface GalleryButtonProp extends RouteComponentProps {
     gallery: Gallery;

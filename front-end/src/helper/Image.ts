@@ -2,7 +2,6 @@ import Gallery from './Gallery';
 
 export default class Image {
     private id: number;
-    private gallery: Gallery;
     
     // Exif data
     private aperture: string | null = null;
@@ -15,12 +14,11 @@ export default class Image {
     private width: number;
     private height: number;
 
-    constructor(id: number, width: number, height: number, uploadDate: Date, gallery: Gallery) {
+    constructor(id: number, width: number, height: number, uploadDate: Date) {
         this.id = id;
         this.uploadDate = uploadDate;
         this.width = width;
         this.height = height;
-        this.gallery = gallery;
     }
 
     setAperture(aperture: string) {
@@ -47,10 +45,6 @@ export default class Image {
         return this.width >= this.height;
     }
 
-    isThumbnail() {
-        return this.getId() === this.gallery.getThumbnail().getId();
-    }
-
     hasExif() {
         return this.aperture !== null 
             && this.iso !== null 
@@ -71,14 +65,6 @@ export default class Image {
             month: 'long',
             day: 'numeric',
         });
-    }
-
-    getGalleryId() {
-        return this.gallery.getId();
-    }
-
-    getGalleryDisplayName() {
-        return this.gallery.getDisplayName();
     }
 
     getId() {

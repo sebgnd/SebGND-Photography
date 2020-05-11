@@ -10,16 +10,17 @@ import Paths from '../../../../helper/Paths';
 
 interface SingleImageProp extends RouteComponentProps {
     image: Image;
+    gallery: Gallery;
 }
 
 const SingleImage: FunctionComponent<SingleImageProp> = (props) => {
-    const { image } = props;
+    const { image, gallery } = props;
     const imageSource = Paths.mediumThumbnailImage();
 
     const goToImage = () => {
         const id = image.getId().toString();
-        const gallertId = image.getGalleryId();
-        const imageLink = `viewer/${gallertId}/${id}`;
+        const gallertId = gallery.getId();
+        const imageLink = `/viewer/${gallertId}/${id}`;
         props.history.push(imageLink);
     }
 

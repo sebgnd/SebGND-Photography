@@ -14,7 +14,7 @@ const GalleriesList: FunctionComponent<GalleriesListProps> = ({ galleries }) => 
             {galleries.map(gallery => {
                 return (
                     <div className={styles.galleryButtonContainer}>
-                        <GalleryButton gallery={gallery} />
+                        <GalleryButton gallery={gallery}/>
                     </div>
                 )
             })}

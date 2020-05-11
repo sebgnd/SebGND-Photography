@@ -9,8 +9,6 @@ import Image from '../../../helper/Image';
 import Gallery from '../../../helper/Gallery';
 import Parallax from '../../UI/Parallax/Parallax';
 
-import './home.css';
-
 const Container = styled.div`
     display: block;
 `
@@ -21,7 +19,7 @@ interface HomeState {
     galleries: Gallery[]
 }
 
-class Home extends Component<{}, {}> {
+class Home extends Component<{}, HomeState> {
     state = {
         galleries: [placeholderGallery, placeholderGallery, placeholderGallery]
     }

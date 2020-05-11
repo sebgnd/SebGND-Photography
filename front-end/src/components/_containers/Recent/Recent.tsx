@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './recent.css';
 
 class Recent extends Component {
 

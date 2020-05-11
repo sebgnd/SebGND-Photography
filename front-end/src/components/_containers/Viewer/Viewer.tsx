@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './viewer.css';
 
 class Viewer extends Component {
     render() {

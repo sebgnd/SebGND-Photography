@@ -4,6 +4,7 @@
 1. Add comments
 1. Add throttle to parallax scroll / resize listener\
 1. Create Footer component
+1. Fix typos => GalleryList (instead of GalleriesList ...)
 1. Finish User Website (without api call, only presentation)
     1. Recent Page
         1. RecentImageList component

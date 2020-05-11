@@ -7,14 +7,15 @@ import Image from '../../../helper/Image';
 import Gallery from '../../../helper/Gallery';
 
 const Playground: FunctionComponent = () => {
-    const placeholderImage = new Image(1, 1080, 1920, new Date());
-    const placeholderGallery = new Gallery('test', 'Test', placeholderImage);
+    const placeholderGallery = new Gallery('test', 'Test');
+    const placeHolderImage = new Image(1, 1920 , 1080, new Date(), placeholderGallery);
+    placeholderGallery.setThumbnail(placeHolderImage);
 
     return (
         <Fragment>
-            <ViewerImage image={placeholderImage}/>
-            <RecentImage image={placeholderImage} gallery={placeholderGallery} />
-            <SingleImage image={placeholderImage} gallery={placeholderGallery} />
+            <ViewerImage image={placeHolderImage}/>
+            <RecentImage image={placeHolderImage} gallery={placeholderGallery} />
+            <SingleImage image={placeHolderImage} />
             <GalleryButton gallery={placeholderGallery} />
         </Fragment>
     )

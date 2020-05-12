@@ -18,11 +18,15 @@ export default class Image {
     //private width: number;
     //private height: number;
 
-    constructor(id: number, galleryId: string, uploadDate: Date) {
+    constructor(id: number = 0, galleryId: string = '', uploadDate: Date = new Date()) {
         this.id = id;
         this.uploadDate = uploadDate;
         this.galleryId = galleryId;
         this.setSize();
+    }
+
+    getGalleryId() {
+        return this.galleryId;
     }
 
     private setSize() {

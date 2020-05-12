@@ -5,7 +5,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Home from './_containers/Home/Home';
 import Contact from './_containers/Contact/Contact';
 import Recent from './_containers/Recent/Recent';
-import Categories from './_containers/Galleries/Galleries';
+import Galleries from './_containers/Galleries/Galleries';
 import Gallery from './_containers/Gallery/SingleGallery';
 import Viewer from './_containers/Viewer/Viewer';
 import Playground from './_containers/Playground/Playground';
@@ -31,10 +31,9 @@ class App extends React.Component {
                         <Recent />
                     </Route>
                     <Route exact={true} path={Paths.gallery()}>
-                        <Categories />
+                        <Galleries />
                     </Route>
-                    <Route exact={true} path={Paths.galleryWithId()}>
-                        <Gallery />
+                    <Route exact={true} path={Paths.galleryWithId()} component={Gallery}>
                     </Route>
                     <Route exact={true} path={Paths.viewer()}>
                         <Viewer />

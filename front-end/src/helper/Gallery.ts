@@ -5,7 +5,7 @@ export default class Gallery {
     private displayName: string;
     private thumbnail: Image;
 
-    constructor(id: string, displayName: string, thumbnail: Image) {
+    constructor(id: string = '', displayName: string = '', thumbnail: Image = new Image()) {
         this.id = id;
         this.displayName = displayName;
         this.thumbnail = thumbnail;

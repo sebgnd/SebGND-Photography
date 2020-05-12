@@ -15,7 +15,7 @@ interface SingleImageProp extends RouteComponentProps {
 
 const SingleImage: FunctionComponent<SingleImageProp> = (props) => {
     const { image, gallery } = props;
-    const imageSource = Paths.mediumThumbnailImage();
+    const imageSource = Paths.mediumThumbnailImage(image.getId(), image.getGalleryId());
 
     const goToImage = () => {
         const id = image.getId().toString();

@@ -5,30 +5,35 @@ import Jimp from 'jimp';
 export default class Image {
     private id: number;
     private galleryId: string;
-    private thumbnail: boolean = false;
+    private thumbnail: boolean;
     
-    private aperture: string | null = null;
-    private iso: number | null = null;
-    private shutterSpeed: string | null = null;
-    private focalLength: string | null = null;
+    private aperture: string | undefined = undefined;
+    private iso: number | undefined = undefined;
+    private shutterSpeed: string | undefined = undefined;
+    private focalLength: string | undefined = undefined;
     private uploadDate: Date;
 
     private fullImageUrl: string;
     private width: number = 0;
     private height: number = 0;
 
-    constructor(id: number, galleryId: string, uploadDate: Date) {
+    constructor(id: number = 1, galleryId: string = 'gallery', uploadDate: Date = new Date(), isThumbnail: boolean = false) {
         this.id = id;
         this.uploadDate = uploadDate;
         this.galleryId = galleryId;
         this.fullImageUrl = Paths.fullImage(id, galleryId);
-        this.setImageSize();
+        this.thumbnail = isThumbnail;
     }
 
-    async setImageSize() {
-        const image = await Jimp.read(this.fullImageUrl);
-        this.width = image.bitmap.width;
-        this.height = image.bitmap.height;
+    clone() {
+        const newImage: Image = new Image(this.id, this.galleryId, new Date(this.uploadDate), this.thumbnail);
+
+        newImage.setAperture(this.aperture);
+        newImage.setFocalLength(this.focalLength);
+        newImage.setISO(this.iso);
+        newImage.setShutterSpeed(this.shutterSpeed);
+        
+        return newImage;
     }
 
     setIsThumbnail(thumbnail: boolean) {
@@ -43,19 +48,19 @@ export default class Image {
         return this.galleryId;
     }
 
-    setAperture(aperture: string) {
+    setAperture(aperture?: string) {
         this.aperture = aperture;
     }
 
-    setISO(iso: number) {
+    setISO(iso?: number) {
         this.iso = iso;
     }
 
-    setShutterSpeed(shutterSpeed: string) {
+    setShutterSpeed(shutterSpeed?: string) {
         this.shutterSpeed = shutterSpeed;
     }
 
-    setFocalLength(focalLength: string) {
+    setFocalLength(focalLength?: string) {
         this.focalLength = focalLength;
     } 
 

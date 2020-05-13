@@ -6,10 +6,14 @@ export default class Gallery {
     private thumbnail: Image;
     private images: Image[] = [];
 
-    constructor(id: string, displayName: string, thumbnail: Image) {
+    constructor(id: string = 'gallery', displayName: string = 'Gallery', thumbnail: Image = new Image()) {
         this.id = id;
         this.displayName = displayName;
         this.thumbnail = thumbnail;
+    }
+
+    getImages() {
+        return this.images;
     }
 
     addImage(image: Image) {
@@ -26,5 +30,13 @@ export default class Gallery {
 
     getId() {
         return this.id;
+    }
+     
+    clone() {
+        const newGallery: Gallery = new Gallery(this.id, this.displayName, this.thumbnail.clone());
+        this.images.forEach(image => {
+            newGallery.addImage(image);
+        });
+        return newGallery;
     }
 }

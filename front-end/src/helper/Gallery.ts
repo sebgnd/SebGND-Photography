@@ -1,42 +1,52 @@
 import Image from './Image';
 
 export default class Gallery {
-    private id: string;
-    private displayName: string;
-    private thumbnail: Image;
-    private images: Image[] = [];
+    private _id: string;
+    private _displayName: string;
+    private _thumbnail: Image;
+    private _images: Image[] = [];
 
     constructor(id: string = 'gallery', displayName: string = 'Gallery', thumbnail: Image = new Image()) {
-        this.id = id;
-        this.displayName = displayName;
-        this.thumbnail = thumbnail;
+        this._id = id;
+        this._displayName = displayName;
+        this._thumbnail = thumbnail;
     }
 
-    getImages() {
-        return this.images;
+    static formatGallery(galleryJson: any): Gallery {
+        const { id: galleryId, displayName } = galleryJson;
+        let thumbnail = new Image();
+        if (galleryJson.thumbnail) {
+            const { id: thumbnailId, uploadDate, isThumbnail } = galleryJson.thumbnail;
+            thumbnail = new Image(thumbnailId, galleryId, new Date(uploadDate), isThumbnail);
+        }
+        return new Gallery()
+    }
+
+    clone(): Gallery {
+        const newGallery: Gallery = new Gallery(this.id, this.displayName, this.thumbnail.clone());
+        this.images.forEach(image => {
+            newGallery.addImage(image);
+        });
+        return newGallery;
     }
 
     addImage(image: Image) {
         this.images.push(image);
     }
 
-    getThumbnail() {
-        return this.thumbnail;
+    get images(): Image[] {
+        return this._images;
     }
 
-    getDisplayName() {
-        return this.displayName;
+    get thumbnail(): Image {
+        return this._thumbnail;
     }
 
-    getId() {
-        return this.id;
+    get displayName(): string {
+        return this._displayName;
     }
-     
-    clone() {
-        const newGallery: Gallery = new Gallery(this.id, this.displayName, this.thumbnail.clone());
-        this.images.forEach(image => {
-            newGallery.addImage(image);
-        });
-        return newGallery;
+
+    get id(): string {
+        return this._id;
     }
 }

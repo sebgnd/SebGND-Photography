@@ -3,90 +3,54 @@ import Paths from './Paths';
 import Jimp from 'jimp';
 
 export default class Image {
-    private id: number;
-    private galleryId: string;
-    private thumbnail: boolean;
+    private _id: number;
+    private _galleryId: string;
+    private _isThumbnail: boolean;
     
-    private aperture: string | undefined = undefined;
-    private iso: number | undefined = undefined;
-    private shutterSpeed: string | undefined = undefined;
-    private focalLength: string | undefined = undefined;
-    private uploadDate: Date;
+    private _aperture: string | undefined = undefined;
+    private _iso: number | undefined = undefined;
+    private _shutterSpeed: string | undefined = undefined;
+    private _focalLength: string | undefined = undefined;
+    private _uploadDate: Date;
 
-    private fullImageUrl: string;
-    private width: number = 0;
-    private height: number = 0;
+    private _fullImageUrl: string;
+    private _width: number = 0;
+    private _height: number = 0;
 
     constructor(id: number = 1, galleryId: string = 'gallery', uploadDate: Date = new Date(), isThumbnail: boolean = false) {
-        this.id = id;
-        this.uploadDate = uploadDate;
-        this.galleryId = galleryId;
-        this.fullImageUrl = Paths.fullImage(id, galleryId);
-        this.thumbnail = isThumbnail;
+        this._id = id;
+        this._uploadDate = uploadDate;
+        this._galleryId = galleryId;
+        this._fullImageUrl = Paths.fullImage(id, galleryId);
+        this._isThumbnail = isThumbnail;
     }
 
-    clone() {
-        const newImage: Image = new Image(this.id, this.galleryId, new Date(this.uploadDate), this.thumbnail);
+    clone(): Image {
+        const newImage: Image = new Image(this.id, this.galleryId, new Date(this.uploadDate), this.isThumbnail);
 
-        newImage.setAperture(this.aperture);
-        newImage.setFocalLength(this.focalLength);
-        newImage.setISO(this.iso);
-        newImage.setShutterSpeed(this.shutterSpeed);
+        newImage.aperture = this.aperture;
+        newImage.focalLength = this.focalLength;
+        newImage.iso = this.iso;
+        newImage.shutterSpeed = this.shutterSpeed;
         
         return newImage;
     }
 
-    setIsThumbnail(thumbnail: boolean) {
-        this.thumbnail = thumbnail;
-    }
-
-    isThumbnail() {
-        return this.isThumbnail;
-    }
-
-    getGalleryId() {
-        return this.galleryId;
-    }
-
-    setAperture(aperture?: string) {
-        this.aperture = aperture;
-    }
-
-    setISO(iso?: number) {
-        this.iso = iso;
-    }
-
-    setShutterSpeed(shutterSpeed?: string) {
-        this.shutterSpeed = shutterSpeed;
-    }
-
-    setFocalLength(focalLength?: string) {
-        this.focalLength = focalLength;
-    } 
-
-    isPortrait() {
-        return true;
-    }
-
-    isLandscape() {
-        return true;
-    }
-
-    hasExif() {
+    hasExif(): boolean {
         return this.aperture !== null 
             && this.iso !== null 
             && this.shutterSpeed !== null 
             && this.focalLength !== null;
     }
 
-    toExifString() {
+    toExifString(): string {
         if (this.hasExif()) {
             return `ISO: ${this.iso?.toString()}, ${this.shutterSpeed}, ${this.aperture}, ${this.focalLength}`;
         }
         return 'No information'
     }
 
-    getFormatedDate() {
+    getFormatedDate(): string {
         return this.uploadDate.toLocaleDateString('en-us', {
             year: 'numeric',
             month: 'long',
@@ -94,7 +58,47 @@ export default class Image {
         });
     }
 
-    getId() {
-        return this.id;
+    isPortrait(): boolean {
+        return true;
     }
+
+    isLandscape(): boolean {
+        return true;
+    }
+
+    get isThumbnail(): boolean {
+        return this.isThumbnail;
+    }
+
+    get id(): number {
+        return this._id;
+    }
+
+    get galleryId(): string {
+        return this._galleryId;
+    }
+
+    get uploadDate(): Date {
+        return this._uploadDate;
+    }
+
+    set isThumbnail(thumbnail: boolean) {
+        this._isThumbnail = thumbnail;
+    }
+
+    set aperture(aperture: string) {
+        this._aperture = aperture;
+    }
+
+    set iso(iso: number) {
+        this._iso = iso;
+    }
+
+    set shutterSpeed(shutterSpeed: string) {
+        this._shutterSpeed = shutterSpeed;
+    }
+
+    set focalLength(focalLength: string) {
+        this._focalLength = focalLength;
+    } 
 }

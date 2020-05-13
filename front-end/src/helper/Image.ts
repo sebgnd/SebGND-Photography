@@ -1,36 +1,46 @@
 import Gallery from './Gallery';
 import Paths from './Paths';
-
-const sizeOf = require('image-size');
+import Jimp from 'jimp';
 
 export default class Image {
     private id: number;
     private galleryId: string;
+    private thumbnail: boolean = false;
     
-    // Exif data
     private aperture: string | null = null;
     private iso: number | null = null;
     private shutterSpeed: string | null = null;
     private focalLength: string | null = null;
     private uploadDate: Date;
 
-    // Height and width of the image in px
-    //private width: number;
-    //private height: number;
+    private fullImageUrl: string;
+    private width: number = 0;
+    private height: number = 0;
 
-    constructor(id: number = 0, galleryId: string = '', uploadDate: Date = new Date()) {
+    constructor(id: number, galleryId: string, uploadDate: Date) {
         this.id = id;
         this.uploadDate = uploadDate;
         this.galleryId = galleryId;
-        this.setSize();
+        this.fullImageUrl = Paths.fullImage(id, galleryId);
+        this.setImageSize();
+    }
+
+    async setImageSize() {
+        const image = await Jimp.read(this.fullImageUrl);
+        this.width = image.bitmap.width;
+        this.height = image.bitmap.height;
+    }
+
+    setIsThumbnail(thumbnail: boolean) {
+        this.thumbnail = thumbnail;
+    }
+
+    isThumbnail() {
+        return this.isThumbnail;
     }
 
     getGalleryId() {
         return this.galleryId;
-    }
-
-    private setSize() {
-        
     }
 
     setAperture(aperture: string) {

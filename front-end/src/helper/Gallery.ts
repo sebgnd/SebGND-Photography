@@ -4,11 +4,16 @@ export default class Gallery {
     private id: string;
     private displayName: string;
     private thumbnail: Image;
+    private images: Image[] = [];
 
-    constructor(id: string = '', displayName: string = '', thumbnail: Image = new Image()) {
+    constructor(id: string, displayName: string, thumbnail: Image) {
         this.id = id;
         this.displayName = displayName;
         this.thumbnail = thumbnail;
+    }
+
+    addImage(image: Image) {
+        this.images.push(image);
     }
 
     getThumbnail() {

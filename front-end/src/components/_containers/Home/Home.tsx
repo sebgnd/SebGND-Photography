@@ -43,14 +43,13 @@ class Home extends Component<{}, HomeState> {
     async fetchGalleries() {
         try {
             const data: any | null = await HttpRequest.getData('http://localhost:8000/galleries/limit/3');
-            const galleries: Gallery[] = [];
 
             if (!this.handleFetchError(data)) {
-                for (let i = 0; i < data.length; i++) {
-                    const thumbnail: Image = new Image(data[i].thumbnail.id, data[i].id, new Date(data[i].thumbnail.uploadDate));
-                    const gallery: Gallery = new Gallery(data[i].id, data[i].displayName, thumbnail);
-                    galleries.push(gallery);
-                }
+                const galleries: Gallery[] = data.map((gallery: Gallery) => {
+                    const thumbnail: Image = new Image(gallery.thumbnail.id, gallery.id, new Date(gallery.thumbnail.uploadDate));
+                    const formattedGallery: Gallery = new Gallery(gallery.id, gallery.displayName, thumbnail);
+                    return formattedGallery;
+                });
                 this.setState({ loading: false, galleries });
             }
         } catch (e) {

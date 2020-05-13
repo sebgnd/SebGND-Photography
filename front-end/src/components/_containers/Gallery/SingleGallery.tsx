@@ -45,18 +45,17 @@ class SingleGallery extends Component<RouteComponentProps<RouteParams>, SingleGa
     async fetchGallery(galleryId: string) {
         try {
             const data: any | null = await HttpRequest.getData(`http://localhost:8000/images/gallery/${galleryId}`);
-
             if (!data) {
                 this.setState({ error: true, loading: false });
                 return;
             }
             
-            if (this.handleFetchError(data)) {
+            if (!this.handleFetchError(data)) {
                 const gallery = new Gallery(data.id, data.displayName);
-                for (let i = 0; i < data.images.length; i++) {
-                    const image = new Image(data.images[i].id, data.images[i].galleryId, new Date(data.images[i].uploadDate));
-                    gallery.addImage(image);
-                }
+                data.images.forEach((image: any) => {
+                    const formattedImage = new Image(image.id, image.galleryId, new Date(image.uploadDate));
+                    gallery.addImage(formattedImage);
+                })
                 this.setState({ error: false, loading: false, gallery });
             }
         } catch (e) {

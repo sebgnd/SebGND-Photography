@@ -56,10 +56,10 @@ class Recent extends Component<{}, RecentState> {
             const { nbImagesLoaded } = this.state;
 
             if (!this.handleFetchError(data)) {
-                for (let i = 0; i < data.length; i++) {
-                    const image: Image = new Image(data[i].id, data[i].galleryId, new Date(data[i].uploadDate));
+                data.forEach((image: any) => {
+                    const formattedImage: Image = new Image(image.id, image.galleryId, new Date(image.uploadDate));
                     images.push(image);
-                }
+                });
                 this.setState({ nbImagesLoaded: nbImagesLoaded + data.length, loading: false });
             }
         } catch (e) {

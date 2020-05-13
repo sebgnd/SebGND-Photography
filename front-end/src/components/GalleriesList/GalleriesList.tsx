@@ -13,8 +13,8 @@ const GalleriesList: FunctionComponent<GalleriesListProps> = ({ galleries }) => 
         <div className={styles.listContainer}>
             {galleries.map(gallery => {
                 return (
-                    <div key={gallery.getId()} className={styles.galleryButtonContainer}>
-                        <GalleryButton key={gallery.getId()} gallery={gallery}/>
+                    <div key={gallery.id} className={styles.galleryButtonContainer}>
+                        <GalleryButton key={gallery.id} gallery={gallery}/>
                     </div>
                 )
             })}

@@ -13,7 +13,7 @@ const GalleryPreviewList: FunctionComponent<GalleryPreviewListProps> = ({ galler
         <div className={styles.listContainer}>
             {galleries.map((gallery) => {
                 return (
-                    <div key={gallery.getId()} className={styles.buttonContainer}>
+                    <div key={gallery.id} className={styles.buttonContainer}>
                         <GalleryButton gallery={gallery} />
                     </div>
                 )

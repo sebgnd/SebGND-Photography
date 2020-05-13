@@ -16,10 +16,10 @@ interface GalleryButtonProp extends RouteComponentProps {
 
 const GalleryButton: FunctionComponent<GalleryButtonProp> = (props) => {
     const { gallery } = props;
-    const imageSource = Paths.mediumThumbnailImage(gallery.getThumbnail().getId(), gallery.getId()); 
+    const imageSource = Paths.mediumThumbnailImage(gallery.thumbnail.id, gallery.id); 
 
     const goToGallery = () => {
-        const url = Paths.galleryWithId(gallery.getId());
+        const url = Paths.galleryWithId(gallery.id);
         props.history.push(url);
     }
 
@@ -28,11 +28,11 @@ const GalleryButton: FunctionComponent<GalleryButtonProp> = (props) => {
             <div className={styles.galleryButtonWrapper}>
                 <ButtonContainer onClick={() => goToGallery()}>
                     <div className={styles.galleryImage}>
-                        <img className={styles.image} src={imageSource} alt={gallery.getThumbnail().getId().toString()} />
+                        <img className={styles.image} src={imageSource} alt={gallery.thumbnail.id.toString()} />
                     </div>
 
                     <div id="gallery-name" className={styles.galleryName}>
-                        <Text size="medium" color="black" weight="normal">{gallery.getDisplayName()}</Text>
+                        <Text size="medium" color="black" weight="normal">{gallery.displayName}</Text>
                     </div>
 
                 </ButtonContainer>

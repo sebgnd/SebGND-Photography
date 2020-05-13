@@ -19,18 +19,16 @@ interface RecentImageProp extends RouteComponentProps {
 
 const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
     const goToGallery = (id: string) => {
-        const galleryLink = `gallery/${id}`;
-        props.history.push(galleryLink);
+        props.history.push(`gallery/${id}`);
     }
 
     const goToImage = (id: number, fromGallery: string) => {
-        const imageLink = `viewer/${fromGallery}/${id.toString()}`;
-        props.history.push(imageLink);
+        props.history.push(`viewer/${fromGallery}/${id.toString()}`);
     }
 
     const { image, gallery } = props;
     const formattedDate: string = image.getFormatedDate();
-    const id: string = image.getId().toString();
+    const id: string = image.id.toString();
     const imageType: string = image.isPortrait() ? 'portrait' : 'landscape';
     const imageSource = Paths.smallImage();
     
@@ -39,7 +37,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
             <div className={styles.info}>
                 <div className={styles.infoContainer}>
                     <div className={styles.galleryName}>
-                        <Button variant="light" size="small" onClick={() => goToGallery(gallery.getId())}>{gallery.getDisplayName()}</Button>
+                        <Button variant="light" size="small" onClick={() => goToGallery(gallery.id)}>{gallery.displayName}</Button>
                     </div>
                 </div>
 
@@ -51,7 +49,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
             </div>
             
             <div className={styles.imageContainer}>
-                <ButtonContainerWidthWidth width="100%" onClick={() => goToImage(image.getId(), gallery.getId())}>
+                <ButtonContainerWidthWidth width="100%" onClick={() => goToImage(image.id, gallery.id)}>
                     { image.isPortrait() && (
                         <img className={styles.fillerImage} src={imageSource} alt={id} />
                     )}

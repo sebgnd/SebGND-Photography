@@ -14,20 +14,17 @@ interface SingleImageProp extends RouteComponentProps {
 
 const SingleImage: FunctionComponent<SingleImageProp> = (props) => {
     const { image } = props;
-    const imageSource = Paths.mediumThumbnailImage(image.getId(), image.getGalleryId());
+    const imageSource = Paths.mediumThumbnailImage(image.id, image.galleryId);
 
     const goToImage = () => {
-        const id = image.getId().toString();
-        const gallertId = image.getGalleryId();
-        const imageLink = `/viewer/${gallertId}/${id}`;
-        props.history.push(imageLink);
+        props.history.push(`/viewer/${image.galleryId}/${image.id.toString()}`);
     }
 
     return (
         <div className={styles.singleImageContainer}>
             <ButtonContainer>
                 <div className={styles.imageContainer} onClick={() => goToImage()}>
-                    <img className={styles.image} src={imageSource} alt={image.getId().toString()}/>
+                    <img className={styles.image} src={imageSource} alt={image.id.toString()}/>
                 </div>
             </ButtonContainer>
         </div>

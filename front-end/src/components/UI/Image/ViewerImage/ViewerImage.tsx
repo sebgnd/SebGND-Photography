@@ -17,7 +17,7 @@ const ViewerImage: FunctionComponent<ViewerImageProp> = (props) => {
     return (
         <div className={styles.viewerImageContainer}>
             <div className={styles.viewerImageWrapper}>
-                <img className={styles.image} src={imageSource} alt={props.image.getId().toString()} />
+                <img className={styles.image} src={imageSource} alt={props.image.id.toString()} />
                 <div className={styles.imageInfo}>
                     <Text size="medium" color="black" weight="normal">{imageInfo}</Text>
                 </div>

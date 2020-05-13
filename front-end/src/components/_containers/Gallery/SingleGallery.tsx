@@ -52,7 +52,7 @@ class SingleGallery extends Component<RouteComponentProps<RouteParams>, SingleGa
 
     render() {
         return (
-            <ImageList images={this.state.gallery.getImages()} galleryDisplayName={this.state.gallery.getDisplayName()}/>
+            <ImageList images={this.state.gallery.images} galleryDisplayName={this.state.gallery.displayName}/>
         )
     }
 }

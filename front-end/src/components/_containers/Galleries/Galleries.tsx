@@ -26,7 +26,8 @@ class Galleries extends Component {
                 const galleries: Gallery[] = [];
                 for (let i = 0; i < result.length; i++) {
                     const thumbnail = new Image(result[i].thumbnail.id, result[i].id, new Date(result[i].thumbnail.uploadDate));
-                    galleries.push(new Gallery(result[i].id, result[i].displayName, thumbnail));
+                    const gallery = new Gallery(result[i].id, result[i].displayName, thumbnail);
+                    galleries.push(gallery);
                 }
                 this.setState({ loading: false, galleries });
             })

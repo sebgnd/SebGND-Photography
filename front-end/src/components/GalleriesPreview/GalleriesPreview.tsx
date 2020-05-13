@@ -13,8 +13,7 @@ interface GalleriesPreviewProps extends RouteComponentProps {
 
 const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {
     const goToGalleries = () => {
-        const galleriesLink = Paths.gallery();
-        props.history.push(galleriesLink);
+        props.history.push(Paths.gallery());
     }
 
     return (

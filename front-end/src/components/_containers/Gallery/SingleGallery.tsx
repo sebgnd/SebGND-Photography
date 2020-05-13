@@ -4,6 +4,7 @@ import ImageList from '../../ImageList/ImageList';
 
 import Image from '../../../helper/Image';
 import Gallery from '../../../helper/Gallery';
+import HttpRequest from '../../../helper/HttpRequest';
 
 const placeHolderImage = new Image(1, 'test', new Date());
 const placeholderGallery = new Gallery('test', 'Test', placeHolderImage);
@@ -25,25 +26,42 @@ class SingleGallery extends Component<RouteComponentProps<RouteParams>, SingleGa
         loading: true
     }
 
-    async getData(url: string) {
-        const result: Response = await fetch(url);
-        const data: any | null = result.ok ? await result.json() : null;
-        return data;
+    setError(errorMessage: string) {
+        this.setState({ error: true, loading: false });
+    }
+
+    handleFetchError(data: any | null): boolean {
+        if (!data) {
+            this.setError('Something unexptected happened. Please try again later.');
+            return true;
+        }
+        if (data.error) {
+            this.setError(data.error.message);
+            return true;
+        }
+        return false;
     }
 
     async fetchGallery(galleryId: string) {
-        const data: any | null = await this.getData(`http://localhost:8000/images/gallery/${galleryId}`);
+        try {
+            const data: any | null = await HttpRequest.getData(`http://localhost:8000/images/gallery/${galleryId}`);
 
-        if (!data) {
-            this.setState({ error: true, loading: false });
-            return;
+            if (!data) {
+                this.setState({ error: true, loading: false });
+                return;
+            }
+            
+            if (this.handleFetchError(data)) {
+                const gallery = new Gallery(data.id, data.displayName);
+                for (let i = 0; i < data.images.length; i++) {
+                    const image = new Image(data.images[i].id, data.images[i].galleryId, new Date(data.images[i].uploadDate));
+                    gallery.addImage(image);
+                }
+                this.setState({ error: false, loading: false, gallery });
+            }
+        } catch (e) {
+            this.setError('Something unexpected happened. Please try again later');
         }
-        console.log(data);
-        const gallery = new Gallery(data.id, data.displayName);
-        for (let i = 0; i < data.images.length; i++) {
-            gallery.addImage(new Image(data.images[i].id, data.images[i].galleryId, new Date(data.images[i].uploadDate)));
-        }
-        this.setState({ error: false, loading: false, gallery })
     }
 
     componentDidMount() {

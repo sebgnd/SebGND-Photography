@@ -1,5 +1,6 @@
 import React, { Component, FormEvent, Fragment } from 'react';
 import styled from 'styled-components';
+import Parallax from '../../UI/Parallax/Parallax';
 
 import Landing from '../../Landing/Landing';
 import GalleriesPreview from '../../GalleriesPreview/GalleriesPreview';
@@ -7,11 +8,8 @@ import About from '../../About/About';
 
 import Image from '../../../helper/Image';
 import Gallery from '../../../helper/Gallery';
-import Parallax from '../../UI/Parallax/Parallax';
+import HttpRequest from '../../../helper/HttpRequest';
 
-const Container = styled.div`
-    display: block;
-`
 interface HomeState {
     galleries: Gallery[];
     error: boolean;
@@ -26,27 +24,38 @@ class Home extends Component<{}, HomeState> {
         loading: true,
     }
 
-    async getData(url: string) {
-        const result: Response = await fetch('http://localhost:8000/galleries/limit/3');
-        const data: any | null = result.ok ? await result.json() : null;
-        return data;
+    setError(errorMessage: string) {
+        this.setState({ error: true, loading: false });
+    }
+
+    handleFetchError(data: any | null): boolean {
+        if (!data) {
+            this.setError('Something unexptected happened. Please try again later.');
+            return true;
+        }
+        if (data.error) {
+            this.setError(data.error.message);
+            return true;
+        }
+        return false;
     }
 
     async fetchGalleries() {
-        const data = await this.getData('http://localhost:8000/galleries/limit/3');
+        try {
+            const data: any | null = await HttpRequest.getData('http://localhost:8000/galleries/limit/3');
+            const galleries: Gallery[] = [];
 
-        if (!data) {
-            this.setState({ error: true, loading: false });
-            return;
+            if (!this.handleFetchError(data)) {
+                for (let i = 0; i < data.length; i++) {
+                    const thumbnail: Image = new Image(data[i].thumbnail.id, data[i].id, new Date(data[i].thumbnail.uploadDate));
+                    const gallery: Gallery = new Gallery(data[i].id, data[i].displayName, thumbnail);
+                    galleries.push(gallery);
+                }
+                this.setState({ loading: false, galleries });
+            }
+        } catch (e) {
+            this.setError('Something unexptected happened. Please try again later');
         }
-
-        const galleries: Gallery[] = [];
-        for (let i = 0; i < data.length; i++) {
-            const thumbnail: Image = new Image(data[i].thumbnail.id, data[i].id, new Date(data[i].thumbnail.uploadDate));
-            const gallery: Gallery = new Gallery(data[i].id, data[i].displayName, thumbnail);
-            galleries.push(gallery);
-        }
-        this.setState({ loading: false, galleries });
     }
 
     componentDidMount() {

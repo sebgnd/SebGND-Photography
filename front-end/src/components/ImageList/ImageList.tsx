@@ -9,16 +9,16 @@ import styles from './ImageList.module.css';
 
 interface ImageListProps {
     images: Image[];
-    gallery: Gallery;
+    galleryDisplayName: string;
 }
 
-const ImageList: FunctionComponent<ImageListProps> = ({ images, gallery }) => {
+const ImageList: FunctionComponent<ImageListProps> = ({ images, galleryDisplayName }) => {
     return (
         <Fragment>
-            <GalleryTitle title={gallery.getDisplayName()} />
+            <GalleryTitle title={galleryDisplayName} />
             <div className={styles.listContainer}>
                 {images.map(image => {
-                    return <SingleImage key={image.getId()} image={image} gallery={gallery}/>
+                    return <SingleImage key={image.getId()} image={image}/>
                 })}
             </div>
         </Fragment>

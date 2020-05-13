@@ -14,7 +14,7 @@ const Playground: FunctionComponent = () => {
         <Fragment>
             <ViewerImage image={placeHolderImage}/>
             <RecentImage image={placeHolderImage} gallery={placeholderGallery} />
-            <SingleImage image={placeHolderImage} gallery={placeholderGallery} />
+            <SingleImage image={placeHolderImage} />
             <GalleryButton gallery={placeholderGallery} />
         </Fragment>
     )

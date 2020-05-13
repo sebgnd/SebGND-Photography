@@ -14,7 +14,6 @@ interface RouteParams {
 
 interface SingleGalleryState {
     gallery: Gallery;
-    images: Image[];
     error: boolean,
     loading: boolean
 }
@@ -22,44 +21,38 @@ interface SingleGalleryState {
 class SingleGallery extends Component<RouteComponentProps<RouteParams>, SingleGalleryState> {
     state = {  
         gallery: new Gallery(),
-        images: [],
         error: false,
         loading: true
     }
 
-    fetchImages(id: string) {
-        fetch(`http://localhost:8000/images/gallery/${id}`)
-        .then(res => {
-            if (res.status !== 200) {
-                this.setState({ error: true, loading: false });
-                return;
-            }
-            return res.json();
-        })
-        .then(result => {
-            const images: Image[] = [];
-            let gallery: Gallery = new Gallery();
-            for (let i = 0; i < result.length; i++) {
-                if (!gallery) {
-                    gallery = new Gallery(result[i].gallery.id, result[i].gallery.displayName);
-                }
-                images.push(new Image(result[i].id, result[i].gallery.id, new Date(result[i].uploadDate)));
-            }
-            this.setState({ loading: false, images, gallery });
-        })
-        .catch(err => {
+    async getData(url: string) {
+        const result: Response = await fetch(url);
+        const data: any | null = result.ok ? await result.json() : null;
+        return data;
+    }
+
+    async fetchGallery(galleryId: string) {
+        const data: any | null = await this.getData(`http://localhost:8000/images/gallery/${galleryId}`);
+
+        if (!data) {
             this.setState({ error: true, loading: false });
-        })
+            return;
+        }
+        console.log(data);
+        const gallery = new Gallery(data.id, data.displayName);
+        for (let i = 0; i < data.images.length; i++) {
+            gallery.addImage(new Image(data.images[i].id, data.images[i].galleryId, new Date(data.images[i].uploadDate)));
+        }
+        this.setState({ error: false, loading: false, gallery })
     }
 
     componentDidMount() {
-        const galleryId = this.props.match.params.id;
-        this.fetchImages(galleryId);
+        this.fetchGallery(this.props.match.params.id);
     }
 
     render() {
         return (
-            <ImageList images={this.state.images} gallery={this.state.gallery}/>
+            <ImageList images={this.state.gallery.getImages()} galleryDisplayName={this.state.gallery.getDisplayName()}/>
         )
     }
 }

@@ -26,26 +26,27 @@ class Home extends Component<{}, HomeState> {
         loading: true,
     }
 
-    fetchGalleries() {
-        fetch('http://localhost:8000/galleries/limit/3')
-            .then(res => {
-                if (res.status !== 200) {
-                    this.setState({ error: true, loading: false });
-                    return;
-                }
-                return res.json();
-            })
-            .then(result => {
-                const galleries: Gallery[] = [];
-                for (let i = 0; i < result.length; i++) {
-                    const thumbnail = new Image(result[i].thumbnail.id, result[i].id, new Date(result[i].thumbnail.uploadDate));
-                    galleries.push(new Gallery(result[i].id, result[i].displayName, thumbnail));
-                }
-                this.setState({ loading: false, galleries });
-            })
-            .catch(err => {
-                this.setState({ error: true, loading: false });
-            })
+    async getData(url: string) {
+        const result: Response = await fetch('http://localhost:8000/galleries/limit/3');
+        const data: any | null = result.ok ? await result.json() : null;
+        return data;
+    }
+
+    async fetchGalleries() {
+        const data = await this.getData('http://localhost:8000/galleries/limit/3');
+
+        if (!data) {
+            this.setState({ error: true, loading: false });
+            return;
+        }
+
+        const galleries: Gallery[] = [];
+        for (let i = 0; i < data.length; i++) {
+            const thumbnail: Image = new Image(data[i].thumbnail.id, data[i].id, new Date(data[i].thumbnail.uploadDate));
+            const gallery: Gallery = new Gallery(data[i].id, data[i].displayName, thumbnail);
+            galleries.push(gallery);
+        }
+        this.setState({ loading: false, galleries });
     }
 
     componentDidMount() {

@@ -17,7 +17,7 @@ export default class Image {
     private _width: number = 0;
     private _height: number = 0;
 
-    constructor(id: number = 1, galleryId: string = 'gallery', uploadDate: Date = new Date(), isThumbnail: boolean = false) {
+    constructor(id: number = -1, galleryId: string = 'gallery', uploadDate: Date = new Date(), isThumbnail: boolean = false) {
         this._id = id;
         this._uploadDate = uploadDate;
         this._galleryId = galleryId;

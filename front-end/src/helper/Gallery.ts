@@ -12,14 +12,14 @@ export default class Gallery {
         this._thumbnail = thumbnail;
     }
 
-    static formatGallery(galleryJson: any): Gallery {
+    static format(galleryJson: any): Gallery {
         const { id: galleryId, displayName } = galleryJson;
         let thumbnail = new Image();
         if (galleryJson.thumbnail) {
             const { id: thumbnailId, uploadDate, isThumbnail } = galleryJson.thumbnail;
             thumbnail = new Image(thumbnailId, galleryId, new Date(uploadDate), isThumbnail);
         }
-        return new Gallery()
+        return new Gallery(galleryId, displayName, thumbnail);
     }
 
     clone(): Gallery {

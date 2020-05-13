@@ -25,6 +25,10 @@ export default class Image {
         this._isThumbnail = isThumbnail;
     }
 
+    static format(imageJson: any) {
+        // TODO: Implement
+    }
+
     clone(): Image {
         const newImage: Image = new Image(this.id, this.galleryId, new Date(this.uploadDate), this.isThumbnail);
 

@@ -26,7 +26,13 @@ export default class Image {
 
     static format(json: any): Image {
         const { id, uploadDate } = json;
-        return new Image(id, new Date(uploadDate));
+        const image: Image = new Image(id, new Date(uploadDate));
+        if (json.category) {
+            const { id: categoryId, displayName } = json.category;
+            const category = new Category(categoryId, displayName);
+            image.category = category;
+        }
+        return image;
     }
 
     hasExif(): boolean {
@@ -82,4 +88,8 @@ export default class Image {
     set focalLength(focalLength: string) {
         this._focalLength = focalLength;
     } 
+
+    set category(category: Category) {
+        this._category = category;
+    }
 }

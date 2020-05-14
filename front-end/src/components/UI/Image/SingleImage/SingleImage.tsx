@@ -14,7 +14,7 @@ interface SingleImageProp extends RouteComponentProps {
 
 const SingleImage: FunctionComponent<SingleImageProp> = ({ image, history }) => {
     const categoryId = image.category.id;
-    const imageSource = Paths.mediumThumbnailImage(image.id, categoryId);
+    const imageSource = image.getUrl('thumbnail_medium');
 
     const goToImage = () => {
         history.push(`/viewer/${categoryId}/${image.id.toString()}`);

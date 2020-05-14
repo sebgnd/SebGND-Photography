@@ -15,7 +15,7 @@ interface GalleryButtonProp extends RouteComponentProps {
 }
 
 const GalleryButton: FunctionComponent<GalleryButtonProp> = ({ image, history }) => {
-    const imageSource = Paths.mediumThumbnailImage(image.id, image.category.id); 
+    const imageSource = image.getUrl('thumbnail_medium'); 
 
     const goToGallery = () => {
         const url = Paths.galleryWithId(image.category.id);

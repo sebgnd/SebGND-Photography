@@ -27,7 +27,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = ({ image, history }) => 
 
     const formattedDate: string = image.getFormatedDate();
     const imageType: string = image.isPortrait() ? 'portrait' : 'landscape';
-    const imageSource = Paths.smallImage(image.id, image.category.id);
+    const imageSource: string = image.getUrl('small_res');
     
     return (
         <div className={styles.recentImageContainer}>

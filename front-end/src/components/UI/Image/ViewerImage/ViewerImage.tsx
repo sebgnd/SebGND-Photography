@@ -12,7 +12,7 @@ interface ViewerImageProp {
 
 const ViewerImage: FunctionComponent<ViewerImageProp> = ({ image }) => {
     const imageInfo = image.toExifString();
-    const imageSource = Paths.mediumImage(image.id, image.category.id);
+    const imageSource = image.getUrl('medium_res');
 
     return (
         <div className={styles.viewerImageContainer}>

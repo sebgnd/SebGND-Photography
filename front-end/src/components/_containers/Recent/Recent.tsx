@@ -68,8 +68,17 @@ class Recent extends Component<{}, RecentState> {
         }
     }
 
+    handleScroll() {
+
+    }
+
     componentDidMount() {
         this.fetchImages(0);
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
     }
 
     render() {

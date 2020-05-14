@@ -1,11 +1,5 @@
-import Gallery from './Gallery';
-import Paths from './Paths';
-import Jimp from 'jimp';
-
 export default class Image {
     private _id: number;
-    private _galleryId: string;
-    private _isThumbnail: boolean;
     
     private _aperture: string | undefined = undefined;
     private _iso: number | undefined = undefined;
@@ -13,31 +7,21 @@ export default class Image {
     private _focalLength: string | undefined = undefined;
     private _uploadDate: Date;
 
-    private _fullImageUrl: string;
     private _width: number = 0;
     private _height: number = 0;
 
-    constructor(id: number = -1, galleryId: string = 'gallery', uploadDate: Date = new Date(), isThumbnail: boolean = false) {
+    constructor(id: number, uploadDate: Date = new Date()) {
         this._id = id;
         this._uploadDate = uploadDate;
-        this._galleryId = galleryId;
-        this._fullImageUrl = Paths.fullImage(id, galleryId);
-        this._isThumbnail = isThumbnail;
+    }
+
+    clone(): Image {
+        const image: Image = { ...this, uploadDate: new Date(this.uploadDate) };
+        return image;
     }
 
     static format(imageJson: any) {
         // TODO: Implement
-    }
-
-    clone(): Image {
-        const newImage: Image = new Image(this.id, this.galleryId, new Date(this.uploadDate), this.isThumbnail);
-
-        newImage.aperture = this.aperture;
-        newImage.focalLength = this.focalLength;
-        newImage.iso = this.iso;
-        newImage.shutterSpeed = this.shutterSpeed;
-        
-        return newImage;
     }
 
     hasExif(): boolean {
@@ -70,24 +54,12 @@ export default class Image {
         return true;
     }
 
-    get isThumbnail(): boolean {
-        return this.isThumbnail;
-    }
-
     get id(): number {
         return this._id;
     }
 
-    get galleryId(): string {
-        return this._galleryId;
-    }
-
     get uploadDate(): Date {
         return this._uploadDate;
-    }
-
-    set isThumbnail(thumbnail: boolean) {
-        this._isThumbnail = thumbnail;
     }
 
     set aperture(aperture: string) {

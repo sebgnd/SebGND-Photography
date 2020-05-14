@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
-import GalleryThumbnail from '../../../helper/gallery/GalleryThumbnail';
+import Image from '../../../helper/image/Image';
 import { GalleryButton } from '../../UI/Button';
 import styles from './GalleriesPreviewList.module.css';
 
 interface GalleryPreviewListProps {
-    thumbnails: GalleryThumbnail[]
+    thumbnails: Image[]
 }
 
 const GalleryPreviewList: FunctionComponent<GalleryPreviewListProps> = ({ thumbnails }) => {
@@ -14,7 +14,7 @@ const GalleryPreviewList: FunctionComponent<GalleryPreviewListProps> = ({ thumbn
             {thumbnails.map((thumbnail) => {
                 return (
                     <div key={thumbnail.id} className={styles.buttonContainer}>
-                        <GalleryButton image={thumbnail.image} category={thumbnail.category} />
+                        <GalleryButton image={thumbnail} />
                     </div>
                 )
             })}

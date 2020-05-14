@@ -7,14 +7,14 @@ import Image from '../../../helper/image/Image';
 import Category from '../../../helper/Category';
 
 const Playground: FunctionComponent = () => {
-    const placeHolderImage = new Image(1, new Date());
     const placehodlerCategory = new Category('test', 'Test');
+    const placeHolderImage = new Image(1, new Date(), placehodlerCategory);
 
     return (
         <Fragment>
             <ViewerImage image={placeHolderImage} />
-            <RecentImage image={placeHolderImage} category={placehodlerCategory} />
-            <SingleImage image={placeHolderImage} category={placehodlerCategory} />
+            <RecentImage image={placeHolderImage} />
+            <SingleImage image={placeHolderImage} />
         </Fragment>
     )
 }

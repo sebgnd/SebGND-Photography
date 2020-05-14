@@ -5,21 +5,19 @@ import { ButtonContainer } from '../../../Styled/container';
 import styles from './SingleImage.module.css';
 
 import Image from '../../../../helper/image/Image';
-import Gallery from '../../../../helper/gallery/AbstractGallery';
 import Paths from '../../../../helper/Paths';
 import Category from '../../../../helper/Category';
 
 interface SingleImageProp extends RouteComponentProps {
     image: Image;
-    category: Category;
 }
 
-const SingleImage: FunctionComponent<SingleImageProp> = (props) => {
-    const { image, category } = props;
-    const imageSource = Paths.mediumThumbnailImage(image.id, category.id);
+const SingleImage: FunctionComponent<SingleImageProp> = ({ image, history }) => {
+    const categoryId = image.category.id;
+    const imageSource = Paths.mediumThumbnailImage(image.id, categoryId);
 
     const goToImage = () => {
-        props.history.push(`/viewer/${category.id}/${image.id.toString()}`);
+        history.push(`/viewer/${categoryId}/${image.id.toString()}`);
     }
 
     return (

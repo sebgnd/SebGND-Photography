@@ -10,14 +10,14 @@ interface ViewerImageProp {
     image: Image;
 }
 
-const ViewerImage: FunctionComponent<ViewerImageProp> = (props) => {
-    const imageInfo = props.image.toExifString();
-    const imageSource = Paths.mediumImage();
+const ViewerImage: FunctionComponent<ViewerImageProp> = ({ image }) => {
+    const imageInfo = image.toExifString();
+    const imageSource = Paths.mediumImage(image.id, image.category.id);
 
     return (
         <div className={styles.viewerImageContainer}>
             <div className={styles.viewerImageWrapper}>
-                <img className={styles.image} src={imageSource} alt={props.image.id.toString()} />
+                <img className={styles.image} src={imageSource} alt={image.id.toString()} />
                 <div className={styles.imageInfo}>
                     <Text size="medium" color="black" weight="normal">{imageInfo}</Text>
                 </div>

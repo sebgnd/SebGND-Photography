@@ -14,29 +14,27 @@ import Category from '../../../../helper/Category';
 
 interface RecentImageProp extends RouteComponentProps {
     image: Image;
-    category: Category;
 }
 
-const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
+const RecentImage: FunctionComponent<RecentImageProp> = ({ image, history }) => {
     const goToGallery = (id: string) => {
-        props.history.push(`gallery/${id}`);
+        history.push(`gallery/${id}`);
     }
 
-    const goToImage = (id: number, fromGallery: string) => {
-        props.history.push(`viewer/${fromGallery}/${id.toString()}`);
+    const goToImage = (id: number, fromCategory: string) => {
+        history.push(`viewer/${fromCategory}/${id.toString()}`);
     }
 
-    const { image, category } = props;
     const formattedDate: string = image.getFormatedDate();
     const imageType: string = image.isPortrait() ? 'portrait' : 'landscape';
-    const imageSource = Paths.smallImage();
+    const imageSource = Paths.smallImage(image.id, image.category.id);
     
     return (
         <div className={styles.recentImageContainer}>
             <div className={styles.info}>
                 <div className={styles.infoContainer}>
                     <div className={styles.galleryName}>
-                        <Button variant="light" size="small" onClick={() => goToGallery(category.id)}>{category.displayName}</Button>
+                        <Button variant="light" size="small" onClick={() => goToGallery(image.category.id)}>{image.category.displayName}</Button>
                     </div>
                 </div>
 
@@ -48,7 +46,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
             </div>
             
             <div className={styles.imageContainer}>
-                <ButtonContainerWidthWidth width="100%" onClick={() => goToImage(image.id, category.id)}>
+                <ButtonContainerWidthWidth width="100%" onClick={() => goToImage(image.id, image.category.id)}>
                     { image.isPortrait() && (
                         <img className={styles.fillerImage} src={imageSource} alt={image.id.toString()} />
                     )}

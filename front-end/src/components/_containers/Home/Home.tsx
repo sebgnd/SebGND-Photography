@@ -7,12 +7,11 @@ import GalleriesPreview from '../../GalleriesPreview/GalleriesPreview';
 import About from '../../About/About';
 
 import Image from '../../../helper/image/Image';
-import GalleryThumbnail from '../../../helper/gallery/GalleryThumbnail';
 import HttpRequest from '../../../helper/http/HttpRequest';
 import Category from '../../../helper/Category';
 
 interface HomeState {
-    thumbnails: GalleryThumbnail[];
+    thumbnails: Image[];
     error: boolean;
     loading: boolean
 }
@@ -46,7 +45,11 @@ class Home extends Component<{}, HomeState> {
             const data: any | null = await HttpRequest.getData('http://localhost:8000/categories/limit/3');
 
             if (!this.handleFetchError(data)) {
-                const thumbnails: GalleryThumbnail[] = data.map((category: any) => GalleryThumbnail.format(category));
+                const thumbnails: Image[] = data.map((category: any) => {
+                    const _category = new Category(category.id, category.displayName);
+                    const image = new Image(category.thumbnail.id, new Date(category.thumbnail.uploadDate), _category);
+                    return image;
+                });
                 this.setState({ loading: false, thumbnails });
             }
         } catch (e) {

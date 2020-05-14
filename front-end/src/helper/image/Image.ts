@@ -65,6 +65,10 @@ export default class Image {
         return true;
     }
 
+    get category(): Category {
+        return this._category;
+    }
+
     get id(): number {
         return this._id;
     }

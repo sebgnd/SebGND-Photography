@@ -2,10 +2,9 @@ import React, { FunctionComponent, Fragment } from 'react';
 import { SingleImage } from '../UI/Image';
 import GalleryTitle from './GalleryTitle/GalleryTitle';
 
-import Image from '../../helper/image/Image';
-import Gallery from '../../helper/gallery/AbstractGallery';
-
 import styles from './ImageList.module.css';
+
+import Image from '../../helper/image/Image';
 import Category from '../../helper/Category';
 
 interface ImageListProps {
@@ -19,7 +18,7 @@ const ImageList: FunctionComponent<ImageListProps> = ({ images, category }) => {
             <GalleryTitle title={category.displayName} />
             <div className={styles.listContainer}>
                 {images.map(image => {
-                    return <SingleImage key={image.id} category={category} image={image}/>
+                    return <SingleImage key={image.id} image={image}/>
                 })}
             </div>
         </Fragment>

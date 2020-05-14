@@ -7,18 +7,19 @@ import GalleriesPreview from '../../GalleriesPreview/GalleriesPreview';
 import About from '../../About/About';
 
 import Image from '../../../helper/image/Image';
-import GalleryPreview from '../../../helper/gallery/GalleryPreview';
+import GalleryThumbnail from '../../../helper/gallery/GalleryThumbnail';
 import HttpRequest from '../../../helper/http/HttpRequest';
+import Category from '../../../helper/Category';
 
 interface HomeState {
-    galleries: GalleryPreview[];
+    thumbnails: GalleryThumbnail[];
     error: boolean;
     loading: boolean
 }
 
 class Home extends Component<{}, HomeState> {
     state = {
-        galleries: [],
+        thumbnails: [],
         error: false,
         errorMessage: '',
         loading: true,
@@ -45,8 +46,8 @@ class Home extends Component<{}, HomeState> {
             const data: any | null = await HttpRequest.getData('http://localhost:8000/categories/limit/3');
 
             if (!this.handleFetchError(data)) {
-                const galleries: GalleryPreview[] = data.map((gallery: any) => GalleryPreview.format(gallery));
-                this.setState({ loading: false, galleries });
+                const thumbnails: GalleryThumbnail[] = data.map((category: any) => GalleryThumbnail.format(category));
+                this.setState({ loading: false, thumbnails });
             }
         } catch (e) {
             this.setError('Something unexptected happened. Please try again later');
@@ -63,7 +64,7 @@ class Home extends Component<{}, HomeState> {
                 <Parallax img="images/parallax-1.jpg" speed={0.5}>
                     <Landing />
                 </Parallax>
-                <GalleriesPreview galleries={this.state.galleries} />
+                <GalleriesPreview thumbnails={this.state.thumbnails} />
                 <Parallax img="images/parallax-2.jpg" speed={0.5} >
                     <About />
                 </Parallax>

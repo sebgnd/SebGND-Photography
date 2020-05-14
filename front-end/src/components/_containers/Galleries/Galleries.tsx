@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import GalleriesList from '../../GalleriesList/GalleriesList';
 
-import GalleryPreview from '../../../helper/gallery/GalleryPreview';
-import Image from '../../../helper/image/Image';
+import GalleryThumbnail from '../../../helper/gallery/GalleryThumbnail';
 import HttpRequest from '../../../helper/http/HttpRequest';
 
 interface GalleriesState {
-    galleries: GalleryPreview[];
+    galleries: GalleryThumbnail[];
     error: boolean,
     loading: boolean,
     errorMessage: string
@@ -14,7 +13,7 @@ interface GalleriesState {
 
 class Galleries extends Component {
     state = {
-        galleries: [],
+        thumbnails: [],
         error: false,
         loading: true,
         errorMessage: ''
@@ -41,8 +40,8 @@ class Galleries extends Component {
             const data: any | null = await HttpRequest.getData('http://localhost:8000/categories');
 
             if (!this.handleFetchError(data)) {
-                const galleries: GalleryPreview[] = data.map((gallery: any) => GalleryPreview.format(gallery));
-                this.setState({ loading: false, galleries });
+                const thumbnails: GalleryThumbnail[] = data.map((category: any) => GalleryThumbnail.format(category));
+                this.setState({ loading: false, thumbnails });
             }
         } catch (e) {
             this.setError('Something unexpected happened. Please try again later.');
@@ -55,7 +54,7 @@ class Galleries extends Component {
 
     render() {
         return (
-            <GalleriesList galleries={this.state.galleries} />
+            <GalleriesList thumbnails={this.state.thumbnails} />
         )
     }
 }

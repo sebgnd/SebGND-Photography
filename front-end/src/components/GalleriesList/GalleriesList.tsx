@@ -1,20 +1,20 @@
 import React, { FunctionComponent } from 'react';
-import GalleryPreview from '../../helper/gallery/GalleryPreview';
+import GalleryThumbnail from '../../helper/gallery/GalleryThumbnail';
 import { GalleryButton } from '../UI/Button';
 
 import styles from './GalleriesList.module.css';
 
 interface GalleriesListProps {
-    galleries: GalleryPreview[];
+    thumbnails: GalleryThumbnail[];
 }
 
-const GalleriesList: FunctionComponent<GalleriesListProps> = ({ galleries }) => {
+const GalleriesList: FunctionComponent<GalleriesListProps> = ({ thumbnails }) => {
     return (
         <div className={styles.listContainer}>
-            {galleries.map(gallery => {
+            {thumbnails.map(thumbnail => {
                 return (
-                    <div key={gallery.id} className={styles.galleryButtonContainer}>
-                        <GalleryButton key={gallery.id} image={gallery.thumbnail} category={gallery.category} />
+                    <div key={thumbnail.id} className={styles.galleryButtonContainer}>
+                        <GalleryButton key={thumbnail.id} image={thumbnail.image} category={thumbnail.category} />
                     </div>
                 )
             })}

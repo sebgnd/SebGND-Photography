@@ -4,8 +4,6 @@ import { Button, RoundButton, GalleryButton } from '../../UI/Button';
 import { RecentImage, SingleImage, ViewerImage } from '../../UI/Image';
 
 import Image from '../../../helper/image/Image';
-import ImageWithCategory from '../../../helper/image/ImageWithCategory';
-import GalleryPreview from '../../../helper/gallery/GalleryPreview';
 import Category from '../../../helper/Category';
 
 const Playground: FunctionComponent = () => {

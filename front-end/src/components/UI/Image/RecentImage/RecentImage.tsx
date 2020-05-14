@@ -3,7 +3,6 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import Paths from '../../../../helper/Paths';
 import Image from '../../../../helper/image/Image';
-import ImageWithCategory from '../../../../helper/image/ImageWithCategory';
 
 import AdaptedImage from './AdaptedImage';
 import { Text } from '../../../Styled/text';

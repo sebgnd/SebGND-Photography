@@ -1,5 +1,8 @@
+import Category from "../Category";
+
 export default class Image {
     private _id: number;
+    private _category: Category;
     
     private _aperture: string | undefined = undefined;
     private _iso: number | undefined = undefined;
@@ -10,9 +13,10 @@ export default class Image {
     private _width: number = 0;
     private _height: number = 0;
 
-    constructor(id: number, uploadDate: Date = new Date()) {
+    constructor(id: number, uploadDate: Date = new Date(), category: Category = new Category()) {
         this._id = id;
         this._uploadDate = uploadDate;
+        this._category = category;
     }
 
     clone(): Image {

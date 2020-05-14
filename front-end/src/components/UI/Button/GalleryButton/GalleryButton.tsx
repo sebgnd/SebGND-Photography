@@ -7,7 +7,6 @@ import { ButtonContainer } from '../../../Styled/container';
 import styles from './GalleryButton.module.css';
 
 import Paths from '../../../../helper/Paths';
-import GalleryPreview from '../../../../helper/gallery/GalleryPreview';
 import Image from '../../../../helper/image/Image';
 import Category from '../../../../helper/Category';
 

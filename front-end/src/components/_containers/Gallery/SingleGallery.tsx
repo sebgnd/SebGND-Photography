@@ -3,7 +3,6 @@ import { RouteComponentProps } from 'react-router-dom';
 import ImageList from '../../ImageList/ImageList';
 
 import Image from '../../../helper/image/Image';
-import Gallery from '../../../helper/gallery/Gallery';
 import HttpRequest from '../../../helper/http/HttpRequest';
 import Category from '../../../helper/Category';
 
@@ -51,8 +50,8 @@ class SingleGallery extends Component<RouteComponentProps<RouteParams>, SingleGa
             }
             
             if (!this.handleFetchError(data)) {
-                const images = data.images.map((image: any) => Image.format(image));
                 const category = new Category(data.id, data.displayName);
+                const images = data.images.map((image: any) => new Image(image.id, new Date(image.uploadDate), category));
                 this.setState({ error: false, loading: false, images, category });
             }
         } catch (e) {

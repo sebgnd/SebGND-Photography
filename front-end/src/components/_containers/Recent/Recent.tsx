@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Button } from '../../UI/Button';
-
-import ImageWithCategory from '../../../helper/image/ImageWithCategory';
 import HttpRequest from '../../../helper/http/HttpRequest';
+import Image from '../../../helper/image/Image';
+import Category from '../../../helper/Category';
 
 interface RecentState {
-    images: ImageWithCategory[];
+    images: Image[];
     error: boolean;
     loading: boolean;
     errorMessage: string;
@@ -52,13 +52,14 @@ class Recent extends Component<{}, RecentState> {
 
         try {
             const data: any | null = await HttpRequest.getData(`http://localhost:8000/images/${offset}/${NB_IMAGE_PER_FETCH}`);
-            const images: ImageWithCategory[] = [...this.state.images];
+            const images: Image[] = [...this.state.images];
             const { nbImagesLoaded } = this.state;
 
             if (!this.handleFetchError(data)) {
-                data.forEach((image: any) => {
-                    const formattedImage: ImageWithCategory = ImageWithCategory.format(image);
-                    images.push(formattedImage);
+                data.forEach((curImage: any) => {
+                    const category: Category = new Category(curImage.category.id, curImage.category.displayName); 
+                    const image: Image = new Image(curImage.id, new Date(curImage.uploadDate), category);
+                    images.push(image);
                 });
                 this.setState({ nbImagesLoaded: nbImagesLoaded + data.length, loading: false });
             }

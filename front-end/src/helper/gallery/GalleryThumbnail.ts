@@ -2,28 +2,28 @@ import Image from '../image/Image';
 import AbstractGallery from './AbstractGallery';
 import Category from '../Category';
 
-export default class GalleryPreview extends AbstractGallery {
-    private _thumbnail: Image;
+export default class GalleryThumbnail extends AbstractGallery {
+    private _image: Image;
 
-    constructor(category: Category, thumbnail: Image) {
+    constructor(category: Category, image: Image) {
         super(category);
-        this._thumbnail = thumbnail;
+        this._image = image;
     }
 
-    static format(json: any): GalleryPreview {
+    static format(json: any): GalleryThumbnail {
         // TODO: Implement checking json format => throw wrong format error
         const { id, displayName } = json;
         const { id: thumbnailId, uploadDate } = json.thumbnail;
         const category = new Category(id, displayName);
         const thumbnail = new Image(thumbnailId, new Date(uploadDate));
-        return new GalleryPreview(category, thumbnail);
+        return new GalleryThumbnail(category, thumbnail);
     }
 
     get id(): string {
         return this.category.id;
     }
 
-    get thumbnail(): Image {
-        return this._thumbnail;
+    get image(): Image {
+        return this._image;
     }
 }

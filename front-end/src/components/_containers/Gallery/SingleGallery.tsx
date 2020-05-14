@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import ImageList from '../../ImageList/ImageList';
 
-import Image from '../../../helper/Image';
-import Gallery from '../../../helper/Gallery';
-import HttpRequest from '../../../helper/HttpRequest';
-
-const placeHolderImage = new Image(1, 'test', new Date());
-const placeholderGallery = new Gallery('test', 'Test', placeHolderImage);
+import Image from '../../../helper/image/Image';
+import Gallery from '../../../helper/gallery/Gallery';
+import HttpRequest from '../../../helper/http/HttpRequest';
+import Category from '../../../helper/Category';
 
 interface RouteParams {
     id: string;
 }
 
 interface SingleGalleryState {
-    gallery: Gallery;
+    category: Category;
+    images: Image[];
     error: boolean,
     loading: boolean
 }
 
 class SingleGallery extends Component<RouteComponentProps<RouteParams>, SingleGalleryState> {
     state = {  
-        gallery: new Gallery(),
+        category: new Category(),
+        images: [],
         error: false,
         loading: true
     }
@@ -44,19 +44,16 @@ class SingleGallery extends Component<RouteComponentProps<RouteParams>, SingleGa
 
     async fetchGallery(galleryId: string) {
         try {
-            const data: any | null = await HttpRequest.getData(`http://localhost:8000/images/gallery/${galleryId}`);
+            const data: any | null = await HttpRequest.getData(`http://localhost:8000/images/category/${galleryId}`);
             if (!data) {
                 this.setState({ error: true, loading: false });
                 return;
             }
             
             if (!this.handleFetchError(data)) {
-                const gallery = new Gallery(data.id, data.displayName);
-                data.images.forEach((image: any) => {
-                    const formattedImage = new Image(image.id, image.galleryId, new Date(image.uploadDate));
-                    gallery.addImage(formattedImage);
-                })
-                this.setState({ error: false, loading: false, gallery });
+                const images = data.images.map((image: any) => Image.format(image));
+                const category = new Category(data.id, data.displayName);
+                this.setState({ error: false, loading: false, images, category });
             }
         } catch (e) {
             this.setError('Something unexpected happened. Please try again later');
@@ -69,7 +66,7 @@ class SingleGallery extends Component<RouteComponentProps<RouteParams>, SingleGa
 
     render() {
         return (
-            <ImageList images={this.state.gallery.images} galleryDisplayName={this.state.gallery.displayName}/>
+            <ImageList images={this.state.images} category={this.state.category}/>
         )
     }
 }

@@ -3,7 +3,7 @@ import { Text } from '../../../Styled/text';
 
 import styles from './ViewerImage.module.css';
 
-import Image from '../../../../helper/Image';
+import Image from '../../../../helper/image/Image';
 import Paths from '../../../../helper/Paths';
 
 interface ViewerImageProp {

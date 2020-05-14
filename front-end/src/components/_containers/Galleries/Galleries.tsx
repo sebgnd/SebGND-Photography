@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import GalleriesList from '../../GalleriesList/GalleriesList';
 
-import Gallery from '../../../helper/Gallery';
-import Image from '../../../helper/Image';
-import HttpRequest from '../../../helper/HttpRequest';
+import GalleryPreview from '../../../helper/gallery/GalleryPreview';
+import Image from '../../../helper/image/Image';
+import HttpRequest from '../../../helper/http/HttpRequest';
 
 interface GalleriesState {
-    galleries: Gallery[];
+    galleries: GalleryPreview[];
     error: boolean,
     loading: boolean,
     errorMessage: string
@@ -38,14 +38,10 @@ class Galleries extends Component {
 
     async fetchGalleries() {
         try {
-            const data: any | null = await HttpRequest.getData('http://localhost:8000/galleries');
+            const data: any | null = await HttpRequest.getData('http://localhost:8000/categories');
 
             if (!this.handleFetchError(data)) {
-                const galleries: Gallery[] = data.map((gallery: any) => {
-                    const thumbnail = new Image(gallery.thumbnail.id, gallery.id, new Date(gallery.thumbnail.uploadDate));
-                    const formattedGallery = new Gallery(gallery.id, gallery.displayName, thumbnail);
-                    return formattedGallery;
-                })
+                const galleries: GalleryPreview[] = data.map((gallery: any) => GalleryPreview.format(gallery));
                 this.setState({ loading: false, galleries });
             }
         } catch (e) {

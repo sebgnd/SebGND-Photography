@@ -6,12 +6,12 @@ import Landing from '../../Landing/Landing';
 import GalleriesPreview from '../../GalleriesPreview/GalleriesPreview';
 import About from '../../About/About';
 
-import Image from '../../../helper/Image';
-import Gallery from '../../../helper/Gallery';
-import HttpRequest from '../../../helper/HttpRequest';
+import Image from '../../../helper/image/Image';
+import GalleryPreview from '../../../helper/gallery/GalleryPreview';
+import HttpRequest from '../../../helper/http/HttpRequest';
 
 interface HomeState {
-    galleries: Gallery[];
+    galleries: GalleryPreview[];
     error: boolean;
     loading: boolean
 }
@@ -42,14 +42,10 @@ class Home extends Component<{}, HomeState> {
 
     async fetchGalleries() {
         try {
-            const data: any | null = await HttpRequest.getData('http://localhost:8000/galleries/limit/3');
+            const data: any | null = await HttpRequest.getData('http://localhost:8000/categories/limit/3');
 
             if (!this.handleFetchError(data)) {
-                const galleries: Gallery[] = data.map((gallery: Gallery) => {
-                    const thumbnail: Image = new Image(gallery.thumbnail.id, gallery.id, new Date(gallery.thumbnail.uploadDate));
-                    const formattedGallery: Gallery = new Gallery(gallery.id, gallery.displayName, thumbnail);
-                    return formattedGallery;
-                });
+                const galleries: GalleryPreview[] = data.map((gallery: any) => GalleryPreview.format(gallery));
                 this.setState({ loading: false, galleries });
             }
         } catch (e) {

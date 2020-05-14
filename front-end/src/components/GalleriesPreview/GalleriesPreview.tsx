@@ -4,11 +4,11 @@ import { Button } from '../UI/Button';
 import GalleryPreviewList from './GalleryPreviewList/GalleryPreviewList';
 import { Title } from '../Styled/text';
 import styles from './GalleriesPreview.module.css';
-import Gallery from '../../helper/Gallery';
+import GalleryPreview from '../../helper/gallery/GalleryPreview';
 import Paths from '../../helper/Paths';
 
 interface GalleriesPreviewProps extends RouteComponentProps {
-    galleries: Gallery[];
+    galleries: GalleryPreview[];
 }
 
 const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {

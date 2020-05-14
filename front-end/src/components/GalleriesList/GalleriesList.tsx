@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import Gallery from '../../helper/Gallery';
+import GalleryPreview from '../../helper/gallery/GalleryPreview';
 import { GalleryButton } from '../UI/Button';
 
 import styles from './GalleriesList.module.css';
 
 interface GalleriesListProps {
-    galleries: Gallery[];
+    galleries: GalleryPreview[];
 }
 
 const GalleriesList: FunctionComponent<GalleriesListProps> = ({ galleries }) => {
@@ -14,7 +14,7 @@ const GalleriesList: FunctionComponent<GalleriesListProps> = ({ galleries }) => 
             {galleries.map(gallery => {
                 return (
                     <div key={gallery.id} className={styles.galleryButtonContainer}>
-                        <GalleryButton key={gallery.id} gallery={gallery}/>
+                        <GalleryButton key={gallery.id} image={gallery.thumbnail} category={gallery.category} />
                     </div>
                 )
             })}

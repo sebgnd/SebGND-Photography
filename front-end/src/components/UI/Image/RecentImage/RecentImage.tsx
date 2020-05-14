@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import Paths from '../../../../helper/Paths';
-import Image from '../../../../helper/Image';
-import Gallery from '../../../../helper/Gallery';
+import Image from '../../../../helper/image/Image';
+import ImageWithCategory from '../../../../helper/image/ImageWithCategory';
 
 import AdaptedImage from './AdaptedImage';
 import { Text } from '../../../Styled/text';
@@ -11,10 +11,11 @@ import { ButtonContainerWidthWidth } from '../../../Styled/container';
 import { Button } from '../../Button';
 
 import styles from './RecentImage.module.css';
+import Category from '../../../../helper/Category';
 
 interface RecentImageProp extends RouteComponentProps {
     image: Image;
-    gallery: Gallery;
+    category: Category;
 }
 
 const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
@@ -26,9 +27,8 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
         props.history.push(`viewer/${fromGallery}/${id.toString()}`);
     }
 
-    const { image, gallery } = props;
+    const { image, category } = props;
     const formattedDate: string = image.getFormatedDate();
-    const id: string = image.id.toString();
     const imageType: string = image.isPortrait() ? 'portrait' : 'landscape';
     const imageSource = Paths.smallImage();
     
@@ -37,7 +37,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
             <div className={styles.info}>
                 <div className={styles.infoContainer}>
                     <div className={styles.galleryName}>
-                        <Button variant="light" size="small" onClick={() => goToGallery(gallery.id)}>{gallery.displayName}</Button>
+                        <Button variant="light" size="small" onClick={() => goToGallery(category.id)}>{category.displayName}</Button>
                     </div>
                 </div>
 
@@ -49,11 +49,11 @@ const RecentImage: FunctionComponent<RecentImageProp> = (props) => {
             </div>
             
             <div className={styles.imageContainer}>
-                <ButtonContainerWidthWidth width="100%" onClick={() => goToImage(image.id, gallery.id)}>
+                <ButtonContainerWidthWidth width="100%" onClick={() => goToImage(image.id, category.id)}>
                     { image.isPortrait() && (
-                        <img className={styles.fillerImage} src={imageSource} alt={id} />
+                        <img className={styles.fillerImage} src={imageSource} alt={image.id.toString()} />
                     )}
-                    <AdaptedImage type={imageType} src={imageSource} alt={id} />
+                    <AdaptedImage type={imageType} src={imageSource} alt={image.id.toString()} />
                 </ButtonContainerWidthWidth>
             </div>
         </div>

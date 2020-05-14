@@ -5,13 +5,17 @@ import Image from '../image/Image';
 export default class Gallery extends AbstractGallery {
     private _images: Image[];
 
-    constructor(category: Category, images: Image[] = []) {
+    constructor(category: Category = new Category(), images: Image[] = []) {
         super(category);
         this._images = images;
     }
 
     get images(): Image[] {
         return this._images;
+    }
+
+    get id(): string {
+        return this.category.id;
     }
 
     static format(json: any): Gallery {

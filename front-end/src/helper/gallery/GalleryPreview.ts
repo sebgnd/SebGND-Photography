@@ -19,6 +19,10 @@ export default class GalleryPreview extends AbstractGallery {
         return new GalleryPreview(category, thumbnail);
     }
 
+    get id(): string {
+        return this.category.id;
+    }
+
     get thumbnail(): Image {
         return this._thumbnail;
     }

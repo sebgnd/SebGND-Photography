@@ -7,19 +7,21 @@ import { ButtonContainer } from '../../../Styled/container';
 import styles from './GalleryButton.module.css';
 
 import Paths from '../../../../helper/Paths';
-import Gallery from '../../../../helper/Gallery';
-import Image from '../../../../helper/Image';
+import GalleryPreview from '../../../../helper/gallery/GalleryPreview';
+import Image from '../../../../helper/image/Image';
+import Category from '../../../../helper/Category';
 
 interface GalleryButtonProp extends RouteComponentProps {
-    gallery: Gallery;
+    image: Image;
+    category: Category;
 }
 
 const GalleryButton: FunctionComponent<GalleryButtonProp> = (props) => {
-    const { gallery } = props;
-    const imageSource = Paths.mediumThumbnailImage(gallery.thumbnail.id, gallery.id); 
+    const { category, image } = props;
+    const imageSource = Paths.mediumThumbnailImage(image.id, category.id); 
 
     const goToGallery = () => {
-        const url = Paths.galleryWithId(gallery.id);
+        const url = Paths.galleryWithId(category.id);
         props.history.push(url);
     }
 
@@ -28,11 +30,11 @@ const GalleryButton: FunctionComponent<GalleryButtonProp> = (props) => {
             <div className={styles.galleryButtonWrapper}>
                 <ButtonContainer onClick={() => goToGallery()}>
                     <div className={styles.galleryImage}>
-                        <img className={styles.image} src={imageSource} alt={gallery.thumbnail.id.toString()} />
+                        <img className={styles.image} src={imageSource} alt={image.id.toString()} />
                     </div>
 
                     <div id="gallery-name" className={styles.galleryName}>
-                        <Text size="medium" color="black" weight="normal">{gallery.displayName}</Text>
+                        <Text size="medium" color="black" weight="normal">{category.displayName}</Text>
                     </div>
 
                 </ButtonContainer>

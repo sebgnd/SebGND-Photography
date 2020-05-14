@@ -73,19 +73,19 @@ export default class Image {
         return this._uploadDate;
     }
 
-    set aperture(aperture: string) {
+    set aperture(aperture: string | undefined) {
         this._aperture = aperture;
     }
 
-    set iso(iso: number) {
+    set iso(iso: number | undefined) {
         this._iso = iso;
     }
 
-    set shutterSpeed(shutterSpeed: string) {
+    set shutterSpeed(shutterSpeed: string | undefined) {
         this._shutterSpeed = shutterSpeed;
     }
 
-    set focalLength(focalLength: string) {
+    set focalLength(focalLength: string | undefined) {
         this._focalLength = focalLength;
     } 
 

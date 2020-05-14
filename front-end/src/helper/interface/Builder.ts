@@ -1,3 +1,3 @@
-export default interface Builder {
-    build(): void;
+export default interface Builder<T> {
+    build(): T;
 }

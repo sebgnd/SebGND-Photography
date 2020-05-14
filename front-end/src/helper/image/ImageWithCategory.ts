@@ -1,4 +1,4 @@
-import Category from "./Category";
+import Category from "../Category";
 import Image from "./Image";
 
 export default class ImageWithCategory extends Image {

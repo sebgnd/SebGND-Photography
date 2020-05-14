@@ -7,23 +7,38 @@ abstract class Paths {
     // Paths to different images format
 
     static smallImage(imgId?: number, galleryId?: string) {
-        return `http://localhost:8000/image/${galleryId}/small_res/${imgId}`
+        if (imgId && galleryId) {
+            return `http://localhost:8000/image/${galleryId}/small_res/${imgId}`
+        }
+        return 'https://via.placeholder.com/900x450';
     }
 
     static mediumImage(imgId?: number, galleryId?: string) {
-        return `http://localhost:8000/image/${galleryId}/medium_res/${imgId}`;
+        if (imgId && galleryId) {
+            return `http://localhost:8000/image/${galleryId}/medium_res/${imgId}`;
+        }
+        return 'https://via.placeholder.com/1920x1080';
     }
 
     static fullImage(imgId?: number, galleryId?: string) {
-        return `http://localhost:8000/image/${galleryId}/full_res/${imgId}`;
+        if (imgId && galleryId) {
+            return `http://localhost:8000/image/${galleryId}/full_res/${imgId}`;
+        }
+        return 'https://via.placeholder.com/3840x2160';
     }
 
     static smallThumbnailImage(imgId?: number, galleryId?: string) {
-        return `http://localhost:8000/image/${galleryId}/thumbnail_small/${imgId}`;
+        if (imgId && galleryId) {
+            return `http://localhost:8000/image/${galleryId}/thumbnail_small/${imgId}`;
+        }
+        return 'https://via.placeholder.com/80';
     }
 
     static mediumThumbnailImage(imgId?: number, galleryId?: string) {
-        return `http://localhost:8000/image/${galleryId}/thumbnail_medium/${imgId}`;
+        if (imgId && galleryId) {
+            return `http://localhost:8000/image/${galleryId}/thumbnail_medium/${imgId}`;
+        }
+        return 'https://via.placeholder.com/450';
     }
 
     // Paths to other pages

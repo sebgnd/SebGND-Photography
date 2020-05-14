@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GalleriesList from '../../GalleriesList/GalleriesList';
+import GalleriesList from '../../GalleryList/GalleryList';
 
 import Image from '../../../helper/image/Image';
 import Category from '../../../helper/Category';

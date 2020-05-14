@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Image from '../../../helper/image/Image';
 import { GalleryButton } from '../../UI/Button';
-import styles from './GalleriesPreviewList.module.css';
+import styles from './GalleryPreviewList.module.css';
 
 interface GalleryPreviewListProps {
     thumbnails: Image[]

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Parallax from '../../UI/Parallax/Parallax';
 
 import Landing from '../../Landing/Landing';
-import GalleriesPreview from '../../GalleriesPreview/GalleriesPreview';
+import GalleriesPreview from '../../GalleryPreview/GalleryPreview';
 import About from '../../About/About';
 
 import Image from '../../../helper/image/Image';

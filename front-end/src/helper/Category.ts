@@ -7,6 +7,11 @@ export default class Category {
         this._displayName = displayName;
     }
 
+    static format(json: any): Category {
+        const { id, displayName } = json;
+        return new Category(id, displayName);
+    }
+
     clone(): Category {
         return { ...this };
     }

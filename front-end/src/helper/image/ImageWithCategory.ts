@@ -9,6 +9,13 @@ export default class ImageWithCategory extends Image {
         this._category = category;
     }
 
+    static format(json: any): ImageWithCategory {
+        const { id, uploadDate } = json;
+        const { id: categoryId, displayName } = json.category;
+        const category = new Category(categoryId, displayName);
+        return new ImageWithCategory(id, new Date(uploadDate), category);
+    }
+
     get category(): Category {
         return this._category;
     }

@@ -20,8 +20,9 @@ export default class Image {
         return image;
     }
 
-    static format(imageJson: any) {
-        // TODO: Implement
+    static format(json: any): Image {
+        const { id, uploadDate } = json;
+        return new Image(id, new Date(uploadDate));
     }
 
     hasExif(): boolean {

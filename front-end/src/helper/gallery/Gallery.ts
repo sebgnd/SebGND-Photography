@@ -14,6 +14,14 @@ export default class Gallery extends AbstractGallery {
         return this._images;
     }
 
+    static format(json: any): Gallery {
+        // TODO: Implement checking json format => throw wrong format error
+        const { id, displayName } = json;
+        const category = new Category(id, displayName);
+        const images = json.images.map((image: any) => new Image(image.id, new Date(image.uploadDate)));
+        return new Gallery(category, images);
+    }
+
     add(image: Image) {
         this._images.push(image);
     }

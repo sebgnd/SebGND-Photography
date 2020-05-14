@@ -6,7 +6,7 @@ import Home from './_containers/Home/Home';
 import Contact from './_containers/Contact/Contact';
 import Recent from './_containers/Recent/Recent';
 import Galleries from './_containers/Galleries/Galleries';
-import Gallery from './_containers/Gallery/SingleGallery';
+import Gallery from './_containers/Gallery/Gallery';
 import Viewer from './_containers/Viewer/Viewer';
 import Playground from './_containers/Playground/Playground';
 import UserNavigation from './UI/Navigation/UserNavigation/UserNavigation';

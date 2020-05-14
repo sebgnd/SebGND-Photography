@@ -10,14 +10,14 @@ interface RouteParams {
     id: string;
 }
 
-interface SingleGalleryState {
+interface GalleryState {
     category: Category;
     images: Image[];
     error: boolean,
     loading: boolean
 }
 
-class SingleGallery extends Component<RouteComponentProps<RouteParams>, SingleGalleryState> {
+class Gallery extends Component<RouteComponentProps<RouteParams>, GalleryState> {
     state = {  
         category: new Category(),
         images: [],
@@ -70,4 +70,4 @@ class SingleGallery extends Component<RouteComponentProps<RouteParams>, SingleGa
     }
 }
 
-export default SingleGallery;
+export default Gallery;

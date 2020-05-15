@@ -3,7 +3,7 @@ INSERT INTO `cameras` (`id`, `name`) VALUES
 (2, 'SM-G965F'),
 (3, 'Canon EOS 7D Mark II');
 
-INSERT INTO `galleries` (`id`, `displayName`) VALUES
+INSERT INTO `categories` (`id`, `displayName`) VALUES
 ('architecture', 'Architecture'),
 ('astrophotography', 'Astrophotography'),
 ('cars', 'Cars'),
@@ -20,7 +20,7 @@ INSERT INTO `lenses` (`id`, `name`, `displayName`) VALUES
 (6, '11-20mm', 'Tokina AT-X 11-20mm F2.8 PRO DX'),
 (7, 'EF35mm f/2 IS USM', 'Canon EF35mm f/2 IS USM');
 
-INSERT INTO `images` (`id`, `cameraId`, `lenseId`, `iso`, `shutterSpeed`, `aperture`, `focalLength`, `uploadDate`, `galleryId`) VALUES
+INSERT INTO `images` (`id`, `cameraId`, `lenseId`, `iso`, `shutterSpeed`, `aperture`, `focalLength`, `uploadDate`, `categoryId`) VALUES
 (86, 1, 1, 100, '1/125s', 'f/10.0', '31mm', '2019-06-24 14:45:55', 'landscape'),
 (88, 1, 1, 100, '1/160s', 'f/1.8', '18mm', '2019-06-24 14:49:41', 'cars'),
 (90, 1, 3, 100, '1/2000s', 'f/2.8', '70mm', '2019-06-24 14:51:02', 'cars'),

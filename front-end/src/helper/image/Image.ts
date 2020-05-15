@@ -1,4 +1,4 @@
-import Category from "../Category";
+import Category from "../category/Category";
 import ImageBuilder from './ImageBuilder';
 
 export default class Image {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from '../../UI/Button';
 import HttpRequest from '../../../helper/http/HttpRequest';
 import Image from '../../../helper/image/Image';
-import Category from '../../../helper/Category';
+import Category from '../../../helper/category/Category';
 
 interface RecentState {
     images: Image[];

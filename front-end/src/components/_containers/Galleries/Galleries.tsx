@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import GalleriesList from '../../GalleryList/GalleryList';
 
 import Image from '../../../helper/image/Image';
-import Category from '../../../helper/Category';
+import Category from '../../../helper/category/Category';
 import HttpRequest from '../../../helper/http/HttpRequest';
 
 interface GalleriesState {

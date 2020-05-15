@@ -8,7 +8,7 @@ import About from '../../About/About';
 
 import Image from '../../../helper/image/Image';
 import HttpRequest from '../../../helper/http/HttpRequest';
-import Category from '../../../helper/Category';
+import Category from '../../../helper/category/Category';
 
 interface HomeState {
     thumbnails: Image[];

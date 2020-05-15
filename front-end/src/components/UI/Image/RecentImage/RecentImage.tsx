@@ -10,7 +10,7 @@ import { ButtonContainerWidthWidth } from '../../../Styled/container';
 import { Button } from '../../Button';
 
 import styles from './RecentImage.module.css';
-import Category from '../../../../helper/Category';
+import Category from '../../../../helper/category/Category';
 
 interface RecentImageProp extends RouteComponentProps {
     image: Image;

@@ -1,5 +1,5 @@
 import HttpRequest from '../http/HttpRequest';
-import Category from '../Category';
+import Category from '../category/Category';
 import Image from './Image';
 
 export default class ImageService {

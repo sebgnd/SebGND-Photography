@@ -6,7 +6,7 @@ import styles from './SingleImage.module.css';
 
 import Image from '../../../../helper/image/Image';
 import Paths from '../../../../helper/Paths';
-import Category from '../../../../helper/Category';
+import Category from '../../../../helper/category/Category';
 
 interface SingleImageProp extends RouteComponentProps {
     image: Image;

@@ -4,7 +4,7 @@ import { Button, RoundButton, GalleryButton } from '../../UI/Button';
 import { RecentImage, SingleImage, ViewerImage } from '../../UI/Image';
 
 import Image from '../../../helper/image/Image';
-import Category from '../../../helper/Category';
+import Category from '../../../helper/category/Category';
 
 const Playground: FunctionComponent = () => {
     const placehodlerCategory = new Category('test', 'Test');

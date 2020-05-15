@@ -5,7 +5,7 @@ import GalleryTitle from './GalleryTitle/GalleryTitle';
 import styles from './ImageList.module.css';
 
 import Image from '../../helper/image/Image';
-import Category from '../../helper/Category';
+import Category from '../../helper/category/Category';
 
 interface ImageListProps {
     images: Image[];

@@ -1,6 +1,6 @@
 import Builder from '../interface/Builder';
 import Image from './Image';
-import Category from '../Category';
+import Category from '../category/Category';
 
 export default class ImageBuilder implements Builder<Image> {
     private _id: number;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button } from '../../UI/Button';
 import HttpRequest from '../../../helper/http/HttpRequest';
 import Image from '../../../helper/image/Image';
-import Category from '../../../helper/category/Category';
+import ImageService from '../../../helper/image/ImageService';
 
 interface RecentState {
     images: Image[];
@@ -14,10 +14,10 @@ interface RecentState {
 }
 
 const NB_IMAGE_PER_FETCH: number = 5;
+const MIN_TIME_BETWEEN_FETCH: number = 1000;
 
 class Recent extends Component<{}, RecentState> {
-    private canLoad: boolean = true;
-
+    enableLoadTimeout: number = -1;
     state = {
         images: [],
         error: false,
@@ -27,44 +27,30 @@ class Recent extends Component<{}, RecentState> {
         nbImagesLoaded: 0,
     }
 
-    setError(errorMessage: string) {
-        this.setState({ error: true, loading: false });
-    }
-
-    handleFetchError(data: any | null): boolean {
-        if (!data) {
-            this.setError('Something unexptected happened. Please try again later.');
-            return true;
-        }
-        if (data.error) {
-            this.setError(data.error.message);
-            return true;
-        }
-        return false;
-    }
 
     // TODO: When fetching new images => set loading to true
     // TODO: Can load new image every second
-    async fetchImages(offset: number) {
-        if (!this.canLoad) {
+    async fetchImages() {
+        if (!this.state.canLoad) {
             return;
         }
 
+        const imageService = new ImageService();
         try {
-            const data: any | null = await HttpRequest.getData(`http://localhost:8000/images/${offset}/${NB_IMAGE_PER_FETCH}`);
-            const images: Image[] = [...this.state.images];
-            const { nbImagesLoaded } = this.state;
+            this.setState({ loading: true });
+            const { nbImagesLoaded, images } = this.state;
+            const newImages: Image[] = await imageService.getKImagesFromOffset(NB_IMAGE_PER_FETCH, nbImagesLoaded);
 
-            if (!this.handleFetchError(data)) {
-                data.forEach((curImage: any) => {
-                    const category: Category = new Category(curImage.category.id, curImage.category.displayName); 
-                    const image: Image = new Image(curImage.id, new Date(curImage.uploadDate), category);
-                    images.push(image);
-                });
-                this.setState({ nbImagesLoaded: nbImagesLoaded + data.length, loading: false });
-            }
+            this.setState({ 
+                loading: false, 
+                error: false, 
+                canLoad: false, 
+                images: [...images, ...newImages], 
+                nbImagesLoaded: nbImagesLoaded + newImages.length 
+            });
+
         } catch (e) {
-            this.setError('Something unexpected happened. Try again later.');
+            this.setState({ loading: false, error: true, errorMessage: e.message});
         }
     }
 
@@ -73,17 +59,28 @@ class Recent extends Component<{}, RecentState> {
     }
 
     componentDidMount() {
-        this.fetchImages(0);
+        this.fetchImages();
         window.addEventListener('scroll', this.handleScroll);
     }
 
-    componentWillUnmount() {
+    componentDidUpdate(prevProps: {}, prevState: RecentState) {
+        if (prevState.canLoad !== this.state.canLoad) {
+            this.enableLoadTimeout = setTimeout(() => {
+                this.setState({ canLoad: true })
+            }, MIN_TIME_BETWEEN_FETCH);
+        }
+    }
+
+    componentWillUnmount() {   
         window.removeEventListener('scroll', this.handleScroll);
+        if (this.enableLoadTimeout !== -1) {
+            clearTimeout(this.enableLoadTimeout);
+        }
     }
 
     render() {
         return (
-            <Button variant="classic" size="medium" onClick={() => this.fetchImages(this.state.nbImagesLoaded)}>Load</Button>
+            <Button variant="classic" size="medium" onClick={() => this.fetchImages()}>Load</Button>
         )
     }
 }

@@ -1,4 +1,5 @@
 import Category from "../Category";
+import ImageBuilder from './ImageBuilder';
 
 export default class Image {
     readonly RESOLUTION_TYPES = [
@@ -33,14 +34,21 @@ export default class Image {
     }
 
     static format(json: any): Image {
-        const { id, uploadDate } = json;
-        const image: Image = new Image(id, new Date(uploadDate));
+        const uploadDate = new Date(json.uploadDate);
+        const imageBuilder = new ImageBuilder(json.id, uploadDate);
+
+        imageBuilder.setAperture(json.aperture)
+            .setFocalLength(json.focalLength)
+            .setIso(json.iso)
+            .setShutterSpeed(json.shutterSpeed);
+
         if (json.category) {
-            const { id: categoryId, displayName } = json.category;
-            const category = new Category(categoryId, displayName);
-            image.category = category;
+            const { id, displayName } = json.category;
+            const category = new Category(id, displayName);
+            imageBuilder.setCategory(category);
         }
-        return image;
+
+        return imageBuilder.build();
     }
 
     hasExif(): boolean {

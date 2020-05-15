@@ -15,10 +15,10 @@ export default class ImageBuilder implements Builder<Image> {
     private _width: number = 0;
     private _height: number = 0;
 
-    constructor(id: number, uploadDate: Date, category: Category) {
+    constructor(id: number, uploadDate: Date) {
         this._id = id;
         this._uploadDate = uploadDate;
-        this._category = category;
+        this._category = new Category();
     }
 
     setIso(iso: number) {
@@ -38,6 +38,11 @@ export default class ImageBuilder implements Builder<Image> {
 
     setFocalLength(focalLength?: string) {
         this._focalLength = focalLength;
+        return this;
+    }
+
+    setCategory(category: Category) {
+        this._category = category;
         return this;
     }
 

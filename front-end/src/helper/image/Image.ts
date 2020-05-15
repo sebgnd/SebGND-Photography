@@ -1,15 +1,15 @@
 import Category from "../category/Category";
 import ImageBuilder from './ImageBuilder';
 
-export default class Image {
-    readonly RESOLUTION_TYPES = [
-        'full_res',
-        'medium_res',
-        'small_res',
-        'thumbnail_medium',
-        'thumbnail_small'
-    ];
+const RESOLUTION_TYPES = [
+    'full_res',
+    'medium_res',
+    'small_res',
+    'thumbnail_medium',
+    'thumbnail_small'
+];
 
+export default class Image {
     private _id: number;
     private _category: Category;
     
@@ -74,7 +74,7 @@ export default class Image {
     }
 
     getUrl(resolutionType: string) {
-        if (this.RESOLUTION_TYPES.includes(resolutionType)) {
+        if (RESOLUTION_TYPES.includes(resolutionType)) {
             return `http://localhost:8000/image/${this.category.id}/${resolutionType}/${this.id}`;
         }
         return `http://localhost:8000/image/${this.category.id}/medium_res/${this.id}`;

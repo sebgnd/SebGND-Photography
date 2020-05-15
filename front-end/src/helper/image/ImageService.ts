@@ -3,15 +3,11 @@ import Category from '../category/Category';
 import Image from './Image';
 
 export default class ImageService {
-    getImagesFromCategory(id: string): Image[] {
+    async getImagesFromCategory(id: string): Promise<Image[]> {
         try {
-            const data: any | null = HttpRequest.getData(`http://localhost:8000/images/category/${id}`);      
+            const data: any = await HttpRequest.getData(`http://localhost:8000/images/category/${id}`);    
+            return data.map((image: any) => Image.format(image));
             
-            if (this.dataContainsError(data)) {
-                throw this.getError(data);
-            }
-            return data.images.map((image: any) => Image.format(image));
-
         } catch (e) {
             throw e;
         }
@@ -19,25 +15,11 @@ export default class ImageService {
 
     getKImagesFromOffset(offset: number, k: number): Image[] {
         try {
-            const data: any | null = HttpRequest.getData(`http://localhost:8000/images/${offset}/${k}`);           
-            
-            if (this.dataContainsError(data)) {
-                throw this.getError(data);
-            }
+            const data: any = HttpRequest.getData(`http://localhost:8000/images/${offset}/${k}`);         
             return data.map((image: any) => Image.format(image));
 
         } catch (e) {
             throw e;
         }
-    }
-
-    private getError(data: any | null): Error | null {
-        if (!data) return new Error('Something unexptected happened. Please try again later.');
-        if (data.error) return new Error(data.error.message);
-        return null;
-    }
-
-    private dataContainsError(data: any | null): boolean {
-        return !data || data.error;
     }
 }

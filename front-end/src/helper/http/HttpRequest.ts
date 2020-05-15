@@ -1,11 +1,15 @@
 export default class HttpRequest {
-    static async getData(url: string): Promise<any | null> {
+    static async getData(url: string): Promise<any> {
         try {
             const response: Response = await fetch(url);
             if (response.status === 200) {
-                return await response.json();
+                const data = await response.json();
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+                return data;
             }
-            return null; 
+            throw new Error('Something unexpected happened. Please try again later.'); 
         } catch (e) {
             throw e;
         }

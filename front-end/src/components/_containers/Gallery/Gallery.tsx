@@ -5,6 +5,8 @@ import ImageList from '../../ImageList/ImageList';
 import Image from '../../../helper/image/Image';
 import HttpRequest from '../../../helper/http/HttpRequest';
 import Category from '../../../helper/category/Category';
+import CategoryService from '../../../helper/category/CategoryService';
+import ImageService from '../../../helper/image/ImageService';
 
 interface RouteParams {
     id: string;
@@ -24,38 +26,17 @@ class Gallery extends Component<RouteComponentProps<RouteParams>, GalleryState> 
         error: false,
         loading: true
     }
-
-    setError(errorMessage: string) {
-        this.setState({ error: true, loading: false });
-    }
-
-    handleFetchError(data: any | null): boolean {
-        if (!data) {
-            this.setError('Something unexptected happened. Please try again later.');
-            return true;
-        }
-        if (data.error) {
-            this.setError(data.error.message);
-            return true;
-        }
-        return false;
-    }
-
-    async fetchGallery(galleryId: string) {
+    async fetchGallery(categoryId: string) {
+        const categoryService = new CategoryService();
+        const imageService = new ImageService();
         try {
-            const data: any | null = await HttpRequest.getData(`http://localhost:8000/images/category/${galleryId}`);
-            if (!data) {
-                this.setState({ error: true, loading: false });
-                return;
-            }
-            
-            if (!this.handleFetchError(data)) {
-                const category = new Category(data.id, data.displayName);
-                const images = data.images.map((image: any) => new Image(image.id, new Date(image.uploadDate), category));
-                this.setState({ error: false, loading: false, images, category });
-            }
+            const category: Category = await categoryService.get(categoryId);
+            const images: Image[] = await imageService.getImagesFromCategory(categoryId);
+
+            this.setState({ error: false, loading: false, images, category });
+
         } catch (e) {
-            this.setError('Something unexpected happened. Please try again later');
+            this.setState({ error: true, loading: false });
         }
     }
 

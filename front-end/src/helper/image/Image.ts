@@ -22,7 +22,7 @@ export default class Image {
     private _width: number = 0;
     private _height: number = 0;
 
-    constructor(id: number, uploadDate: Date = new Date(), category: Category = new Category()) {
+    constructor(id: number = -1, uploadDate: Date = new Date(), category: Category = new Category()) {
         this._id = id;
         this._uploadDate = uploadDate;
         this._category = category;

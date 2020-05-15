@@ -13,9 +13,9 @@ export default class ImageService {
         }
     }
 
-    getKImagesFromOffset(offset: number, k: number): Image[] {
+    async getKImagesFromOffset(k: number, offset: number): Promise<Image[]> {
         try {
-            const data: any = HttpRequest.getData(`http://localhost:8000/images/${offset}/${k}`);         
+            const data: any = await HttpRequest.getData(`http://localhost:8000/images/${offset}/${k}`);         
             return data.map((image: any) => Image.format(image));
 
         } catch (e) {

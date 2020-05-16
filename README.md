@@ -19,6 +19,7 @@
         
 1. Add UserLayout / AdminLayout
 1. Find how to represent the thumbnail (For Home and Galleries component)
+1. Check destroy return value
 
 ### Backend:
 1. Update the api
@@ -32,9 +33,6 @@ Endpoints | Description
 /categories | Get all categories (id, displayName, thumbnail)
 /categories/{id} | Get specific categories (id, displayName, thumbnail)
 /categories/limit/{n} | Get n categories
-
-    
-1. Check destroy return value
 
 ## New API:
 Endpoints | Description

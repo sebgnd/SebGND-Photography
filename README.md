@@ -19,10 +19,10 @@
         
 1. Add UserLayout / AdminLayout
 1. Find how to represent the thumbnail (For Home and Galleries component)
-1. Check destroy return value
 
 ### Backend:
 1. Update the api
+1. Check destroy return value
 
 ## Current API:
 Endpoints | Description

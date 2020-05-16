@@ -10,7 +10,6 @@ interface RecentState {
     loading: boolean;
     errorMessage: string;
     nbImagesLoaded: number;
-    canLoad: boolean;
 }
 
 const NB_IMAGE_PER_FETCH: number = 5;
@@ -22,12 +21,11 @@ class Recent extends Component<{}, RecentState> {
         this.fetchImages = this.fetchImages.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
     }
-    enableLoadTimeout: number = -1;
+
     state = {
         images: [],
         error: false,
-        loading: true,
-        canLoad: true,
+        loading: false,
         errorMessage: '',
         nbImagesLoaded: 0,
     }
@@ -36,7 +34,7 @@ class Recent extends Component<{}, RecentState> {
     // TODO: When fetching new images => set loading to true
     // TODO: Can load new image every second
     async fetchImages() {
-        if (!this.state.canLoad) {
+        if (this.state.loading) {
             return;
         }
 
@@ -48,8 +46,7 @@ class Recent extends Component<{}, RecentState> {
 
             this.setState({ 
                 loading: false, 
-                error: false, 
-                canLoad: false, 
+                error: false,
                 images: [...images, ...newImages], 
                 nbImagesLoaded: nbImagesLoaded + newImages.length 
             });
@@ -74,19 +71,8 @@ class Recent extends Component<{}, RecentState> {
         window.addEventListener('scroll', this.handleScroll);
     }
 
-    componentDidUpdate(prevProps: {}, prevState: RecentState) {
-        if (prevState.canLoad !== this.state.canLoad && !this.state.canLoad) {
-            this.enableLoadTimeout = setTimeout(() => {
-                this.setState({ canLoad: true })
-            }, MIN_TIME_BETWEEN_FETCH);
-        }
-    }
-
     componentWillUnmount() {   
         window.removeEventListener('scroll', this.handleScroll);
-        if (this.enableLoadTimeout !== -1) {
-            clearTimeout(this.enableLoadTimeout);
-        }
     }
 
     render() {

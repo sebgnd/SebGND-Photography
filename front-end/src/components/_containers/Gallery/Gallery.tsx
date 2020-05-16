@@ -26,6 +26,7 @@ class Gallery extends Component<RouteComponentProps<RouteParams>, GalleryState> 
         error: false,
         loading: true
     }
+    
     async fetchGallery(categoryId: string) {
         const categoryService = new CategoryService();
         const imageService = new ImageService();
@@ -33,7 +34,12 @@ class Gallery extends Component<RouteComponentProps<RouteParams>, GalleryState> 
             const category: Category = await categoryService.get(categoryId);
             const images: Image[] = await imageService.getImagesFromCategory(categoryId);
 
-            this.setState({ error: false, loading: false, images, category });
+            this.setState({ 
+                error: false, 
+                loading: false, 
+                images, 
+                category 
+            });
 
         } catch (e) {
             this.setState({ error: true, loading: false });

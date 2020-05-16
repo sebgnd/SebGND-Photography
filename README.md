@@ -19,6 +19,7 @@
         
 1. Add UserLayout / AdminLayout
 1. Find how to represent the thumbnail (For Home and Galleries component)
+1. Optimize render for RecentImage
 
 ### Backend:
 1. Update the api

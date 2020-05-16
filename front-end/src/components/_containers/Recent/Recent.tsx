@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Button } from '../../UI/Button';
-import HttpRequest from '../../../helper/http/HttpRequest';
+import React, { Component, Fragment } from 'react';
+import Loader from '../../UI/Loader/Loader';
 import Image from '../../../helper/image/Image';
+import RecentList from '../../RecentList/RecentList';
 import ImageService from '../../../helper/image/ImageService';
 
 interface RecentState {
@@ -14,9 +14,14 @@ interface RecentState {
 }
 
 const NB_IMAGE_PER_FETCH: number = 5;
-const MIN_TIME_BETWEEN_FETCH: number = 1000;
+const MIN_TIME_BETWEEN_FETCH: number = 500;
 
 class Recent extends Component<{}, RecentState> {
+    constructor(props = {}) {
+        super(props)
+        this.fetchImages = this.fetchImages.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
+    }
     enableLoadTimeout: number = -1;
     state = {
         images: [],
@@ -55,7 +60,13 @@ class Recent extends Component<{}, RecentState> {
     }
 
     handleScroll() {
+        const scrollYBottom = Math.round(window.scrollY + window.innerHeight);
+        const pageHeight = document.body.scrollHeight;
+        const offsetThreshold = 50;
 
+        if (scrollYBottom > pageHeight - offsetThreshold) {
+            this.fetchImages();
+        }
     }
 
     componentDidMount() {
@@ -64,7 +75,7 @@ class Recent extends Component<{}, RecentState> {
     }
 
     componentDidUpdate(prevProps: {}, prevState: RecentState) {
-        if (prevState.canLoad !== this.state.canLoad) {
+        if (prevState.canLoad !== this.state.canLoad && !this.state.canLoad) {
             this.enableLoadTimeout = setTimeout(() => {
                 this.setState({ canLoad: true })
             }, MIN_TIME_BETWEEN_FETCH);
@@ -80,7 +91,12 @@ class Recent extends Component<{}, RecentState> {
 
     render() {
         return (
-            <Button variant="classic" size="medium" onClick={() => this.fetchImages()}>Load</Button>
+            <Fragment>
+                <RecentList images={this.state.images} />
+                { this.state.loading && (
+                    <Loader />
+                )}
+            </Fragment>
         )
     }
 }

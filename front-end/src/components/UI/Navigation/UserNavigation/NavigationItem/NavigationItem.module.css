@@ -1,19 +1,11 @@
 .navItem {
     font-family: "CooperHewitt Medium";
-    display: inline-block;
     text-decoration: none;
     color: #858585;
-    margin: 28px 7%;
     transition: color .4s;
     font-size: 1.2em;
 }
 
 .navItem:hover {
     color: black;
-}
-
-@media (max-width: 1500px) {
-    .navItem {
-        margin: 28px 4%;
-    }
 }

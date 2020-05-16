@@ -1,15 +1,14 @@
-# SebGND-Photography
+# SebGND Photography
 
-## TODO:
+## Todos:
 
-### FRONT-END:
+### Frontend:
 1. Add comments
-1. Add throttle to parallax scroll / resize listener\
 1. Create Footer component
 
-1. Finish User Website (without api call, only presentation)
+1. Finish User Website
     1. Recent Page
-        1. RecentImageList component
+        1. Make Loader in the center of the page
         
     1. Contact Page
         1. SocialMedia Component
@@ -19,19 +18,33 @@
         
         
 1. Add UserLayout / AdminLayout
+1. Find how to represent the thumbnail (For Home and Galleries component)
 
-1. See which implementation is better for gallery preview (list of gallery with thumbnail or list of images representing thumbnails)
+### Backend:
+1. Update the api
 
+## Current API:
+Endpoints | Description
+----------|------------
+/images | Get all images (exif, id, category, lense, camera)
+/images/{id} | Get specific image (same info as the /images but for only one image)
+/images/{limit}/{n} | Get n images at limit offset (same info as the /images but for only n image)
+ | 
+/categories | Get all categories (id, displayName, thumbnail)
+/categories/{id} | Get specific categories (id, displayName, thumbnail)
+/categories/limit/{n} | Get n categories
 
-### BACK-END:
-1. Galleries
-    1. With limit '/limit/:amount'
-    1. One gallery '/:id'
-    1. All '/'
-
-1. Images
-    1. From a gallery '/gallery/:id'
-    1. Get one image '/:id'
-    1. With offset and limit '/' 
     
 1. Check destroy return value
+
+## New API:
+Endpoints | Description
+----------|------------
+/images | Get all the images (exif, id, category, lense, camera)
+/images/{id} | Get specific image (same info as the /images but for only one image)
+/images/{id}/lense | Get only lense info for specific image
+/images/{id}/camera | Get only camera info for specific image
+ | 
+/categories | Get all categories (id, displayName, thumbnail)
+/categories/{id} | Get specific categories (id, displayName, thumbnail)
+/categories/{id}/images | Get images for the specified category (exif, id, category, lense, camera)

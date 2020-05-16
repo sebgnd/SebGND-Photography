@@ -83,11 +83,11 @@ export default class Image {
     }
 
     isPortrait(): boolean {
-        return true;
+        return this._height > this._width;
     }
 
     isLandscape(): boolean {
-        return true;
+        return this._width > this._height;
     }
 
     // Getters

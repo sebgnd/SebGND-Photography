@@ -43,6 +43,6 @@ Endpoints | Description
 /images/{id}/lense | Get only lense info for specific image
 /images/{id}/camera | Get only camera info for specific image
 /categories | Get all categories (id, displayName, thumbnail)
-/categories?offset={offset}&k={k} / Get k categories from offset
+/categories?offset={offset}&k={k} | Get k categories from offset
 /categories/{id} | Get specific categories (id, displayName, thumbnail)
 /categories/{id}/images | Get images for the specified category (exif, id, category, lense, camera)

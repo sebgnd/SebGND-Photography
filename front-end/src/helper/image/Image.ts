@@ -36,11 +36,13 @@ export default class Image {
     static format(json: any): Image {
         const uploadDate = new Date(json.uploadDate);
         const imageBuilder = new ImageBuilder(json.id, uploadDate);
-
+        
         imageBuilder.setAperture(json.aperture)
             .setFocalLength(json.focalLength)
             .setIso(json.iso)
-            .setShutterSpeed(json.shutterSpeed);
+            .setShutterSpeed(json.shutterSpeed)
+            .setHeight(json.height)
+            .setWidth(json.width);
 
         if (json.category) {
             const { id, displayName } = json.category;
@@ -88,6 +90,8 @@ export default class Image {
         return true;
     }
 
+    // Getters
+
     get category(): Category {
         return this._category;
     }
@@ -99,6 +103,8 @@ export default class Image {
     get uploadDate(): Date {
         return this._uploadDate;
     }
+
+    // Setters
 
     set aperture(aperture: string | undefined) {
         this._aperture = aperture;
@@ -115,6 +121,14 @@ export default class Image {
     set focalLength(focalLength: string | undefined) {
         this._focalLength = focalLength;
     } 
+
+    set height(height: number) {
+        this._height = height;
+    }
+
+    set width(width: number) {
+        this._width = width;
+    }
 
     set category(category: Category) {
         this._category = category;

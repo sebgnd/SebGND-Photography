@@ -46,12 +46,24 @@ export default class ImageBuilder implements Builder<Image> {
         return this;
     }
 
+    setHeight(height: number) {
+        this._height = height;
+        return this;
+    }
+
+    setWidth(width: number) {
+        this._width = width;
+        return this;
+    }
+
     build(): Image {
         const image = new Image(this._id, this._uploadDate, this._category);
         image.aperture = this._aperture;
         image.focalLength = this._focalLength;
         image.shutterSpeed = this._shutterSpeed;
         image.iso = this._iso;
+        image.width = this._width;
+        image.height = this._height;
         return image;
     }
 

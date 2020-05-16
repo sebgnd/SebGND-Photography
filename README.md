@@ -29,7 +29,6 @@ Endpoints | Description
 /images | Get all images (exif, id, category, lense, camera)
 /images/{id} | Get specific image (same info as the /images but for only one image)
 /images/{limit}/{n} | Get n images at limit offset (same info as the /images but for only n image)
- | 
 /categories | Get all categories (id, displayName, thumbnail)
 /categories/{id} | Get specific categories (id, displayName, thumbnail)
 /categories/limit/{n} | Get n categories
@@ -44,7 +43,6 @@ Endpoints | Description
 /images/{id} | Get specific image (same info as the /images but for only one image)
 /images/{id}/lense | Get only lense info for specific image
 /images/{id}/camera | Get only camera info for specific image
- | 
 /categories | Get all categories (id, displayName, thumbnail)
 /categories/{id} | Get specific categories (id, displayName, thumbnail)
 /categories/{id}/images | Get images for the specified category (exif, id, category, lense, camera)

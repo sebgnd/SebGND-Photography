@@ -12,9 +12,6 @@ const Playground: FunctionComponent = () => {
 
     return (
         <Fragment>
-            <ViewerImage image={placeHolderImage} />
-            <RecentImage image={placeHolderImage} />
-            <SingleImage image={placeHolderImage} />
         </Fragment>
     )
 }

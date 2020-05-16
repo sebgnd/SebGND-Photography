@@ -90,6 +90,13 @@ export default class Image {
         return this._width > this._height;
     }
 
+    getImageType(): string {
+        if (this.isPortrait()) {
+            return 'portrait';
+        }
+        return 'landscape';
+    }
+
     // Getters
 
     get category(): Category {

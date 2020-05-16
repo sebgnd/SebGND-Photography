@@ -14,7 +14,12 @@ const GalleriesList: FunctionComponent<GalleriesListProps> = ({ thumbnails }) =>
             {thumbnails.map(thumbnail => {
                 return (
                     <div key={thumbnail.id} className={styles.galleryButtonContainer}>
-                        <GalleryButton key={thumbnail.id} image={thumbnail} />
+                        <GalleryButton
+                            src={thumbnail.getUrl('thumbnail_medium')}
+                            imageId={thumbnail.id.toString()}
+                            categoryId={thumbnail.category.id}
+                            categoryDisplayName={thumbnail.category.displayName}   
+                        />
                     </div>
                 )
             })}

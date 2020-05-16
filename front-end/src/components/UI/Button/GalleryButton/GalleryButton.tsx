@@ -11,14 +11,15 @@ import Image from '../../../../helper/image/Image';
 import Category from '../../../../helper/category/Category';
 
 interface GalleryButtonProp extends RouteComponentProps {
-    image: Image;
+    src: string;
+    imageId: string;
+    categoryId: string;
+    categoryDisplayName: string;
 }
 
-const GalleryButton: FunctionComponent<GalleryButtonProp> = ({ image, history }) => {
-    const imageSource = image.getUrl('thumbnail_medium'); 
-
+const GalleryButton: FunctionComponent<GalleryButtonProp> = ({ src, imageId, categoryId, categoryDisplayName, history }) => {
     const goToGallery = () => {
-        const url = Paths.galleryWithId(image.category.id);
+        const url = Paths.galleryWithId(categoryId);
         history.push(url);
     }
 
@@ -27,11 +28,11 @@ const GalleryButton: FunctionComponent<GalleryButtonProp> = ({ image, history })
             <div className={styles.galleryButtonWrapper}>
                 <ButtonContainer onClick={() => goToGallery()}>
                     <div className={styles.galleryImage}>
-                        <img className={styles.image} src={imageSource} alt={image.id.toString()} />
+                        <img className={styles.image} src={src} alt={imageId} />
                     </div>
 
                     <div id="gallery-name" className={styles.galleryName}>
-                        <Text size="medium" color="black" weight="normal">{image.category.displayName}</Text>
+                        <Text size="medium" color="black" weight="normal">{categoryDisplayName}</Text>
                     </div>
 
                 </ButtonContainer>

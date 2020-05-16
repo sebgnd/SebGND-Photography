@@ -18,7 +18,12 @@ const ImageList: FunctionComponent<ImageListProps> = ({ images, category }) => {
             <GalleryTitle title={category.displayName} />
             <div className={styles.listContainer}>
                 {images.map(image => {
-                    return <SingleImage key={image.id} image={image}/>
+                    return <SingleImage 
+                                key={image.id} 
+                                src={image.getUrl('thumbnail_medium')} 
+                                imageId={image.id.toString()}
+                                categoryId={image.category.id} 
+                            />
                 })}
             </div>
         </Fragment>

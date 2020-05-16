@@ -11,7 +11,15 @@ const RecentList: FunctionComponent<RecentListProp> = ({ images }) => {
     return (
         <div className={styles.recentListContainer}>
             { images.map(image => {
-                return <RecentImage key={image.id} image={image} />
+                return <RecentImage 
+                            key={image.id} 
+                            src={image.getUrl('small_res')} 
+                            date={image.getFormatedDate()} 
+                            imageType={image.getImageType()} 
+                            imageId={image.id.toString()} 
+                            categoryId={image.category.id} 
+                            categoryDisplayName={image.category.displayName}
+                        />
             }) }
         </div>
     )

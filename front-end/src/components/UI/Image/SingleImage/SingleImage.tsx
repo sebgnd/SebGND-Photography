@@ -9,22 +9,21 @@ import Paths from '../../../../helper/Paths';
 import Category from '../../../../helper/category/Category';
 
 interface SingleImageProp extends RouteComponentProps {
-    image: Image;
+    src: string;
+    imageId: string;
+    categoryId: string;
 }
 
-const SingleImage: FunctionComponent<SingleImageProp> = ({ image, history }) => {
-    const categoryId = image.category.id;
-    const imageSource = image.getUrl('thumbnail_medium');
-
+const SingleImage: FunctionComponent<SingleImageProp> = ({ src, imageId, categoryId, history }) => {
     const goToImage = () => {
-        history.push(`/viewer/${categoryId}/${image.id.toString()}`);
+        history.push(`/viewer/${categoryId}/${imageId}`);
     }
 
     return (
         <div className={styles.singleImageContainer}>
-            <ButtonContainer>
-                <div className={styles.imageContainer} onClick={() => goToImage()}>
-                    <img className={styles.image} src={imageSource} alt={image.id.toString()}/>
+            <ButtonContainer onClick={() => goToImage()}>
+                <div className={styles.imageContainer}>
+                    <img className={styles.image} src={src} alt={imageId}/>
                 </div>
             </ButtonContainer>
         </div>

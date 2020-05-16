@@ -14,7 +14,12 @@ const GalleryPreviewList: FunctionComponent<GalleryPreviewListProps> = ({ thumbn
             {thumbnails.map((thumbnail) => {
                 return (
                     <div key={thumbnail.id} className={styles.buttonContainer}>
-                        <GalleryButton image={thumbnail} />
+                        <GalleryButton 
+                            src={thumbnail.getUrl('thumbnail_medium')}
+                            imageId={thumbnail.id.toString()}
+                            categoryId={thumbnail.category.id}
+                            categoryDisplayName={thumbnail.category.displayName}    
+                        />
                     </div>
                 )
             })}

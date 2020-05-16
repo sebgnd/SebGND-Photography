@@ -7,17 +7,16 @@ import Image from '../../../../helper/image/Image';
 import Paths from '../../../../helper/Paths';
 
 interface ViewerImageProp {
-    image: Image;
+    src: string;
+    imageId: string;
+    imageInfo: string;
 }
 
-const ViewerImage: FunctionComponent<ViewerImageProp> = ({ image }) => {
-    const imageInfo = image.toExifString();
-    const imageSource = image.getUrl('medium_res');
-
+const ViewerImage: FunctionComponent<ViewerImageProp> = ({ imageInfo, imageId, src }) => {
     return (
         <div className={styles.viewerImageContainer}>
             <div className={styles.viewerImageWrapper}>
-                <img className={styles.image} src={imageSource} alt={image.id.toString()} />
+                <img className={styles.image} src={src} alt={imageId} />
                 <div className={styles.imageInfo}>
                     <Text size="medium" color="black" weight="normal">{imageInfo}</Text>
                 </div>

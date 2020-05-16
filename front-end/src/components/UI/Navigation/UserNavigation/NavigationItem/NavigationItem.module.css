@@ -4,8 +4,39 @@
     color: #858585;
     transition: color .4s;
     font-size: 1.2em;
+    box-sizing: border-box;
+}
+
+.navItem:visited {
+    color: #858585;
 }
 
 .navItem:hover {
     color: black;
+}
+
+@media (max-width: 850px) {
+    .navItem {
+        color: black;
+        width: 100%;
+        text-align: center;
+        background-color: white;
+        padding: 15px;
+        transition: background-color .4s;
+        border-top: 1px solid #F2F2F2;
+    }
+
+    .navItem:visited {
+        color: black;
+    }
+    
+
+    .navItem:hover {
+        background-color: #F2F2F2;
+        cursor: pointer;
+    }
+
+    .navItem a {
+        margin: auto;
+    }
 }

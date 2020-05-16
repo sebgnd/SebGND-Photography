@@ -9,9 +9,7 @@ interface NavigationItemProps {
 
 const NavigationItem: FunctionComponent<NavigationItemProps> = ({ name, url }) => {
     return (
-        <div className={styles.navItem}>
-            <Link to={url}>{name}</Link>
-        </div>
+        <Link className={styles.navItem} to={url}>{name}</Link>
     )
 }   
 

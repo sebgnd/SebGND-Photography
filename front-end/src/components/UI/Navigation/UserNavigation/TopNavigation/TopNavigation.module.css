@@ -1,0 +1,25 @@
+.top {
+    z-index: 500;
+    height: 81px;
+    top: 0;
+    padding: 10px 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.35);
+}
+
+.sideMenu {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-basis: 40%;
+}
+
+@media (max-width: 850px) {
+    .sideMenu {
+        display: none;
+    }
+
+    .top {
+        box-shadow: none;
+    }
+}

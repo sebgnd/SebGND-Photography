@@ -1,0 +1,17 @@
+.separator {
+    height: 1px;
+    display: inline-block;
+    background-color: black;
+}
+
+.big {
+    width: 80%;
+}
+
+.medium {
+    width: 50%;
+}
+
+.small {
+    width: 30%;
+}

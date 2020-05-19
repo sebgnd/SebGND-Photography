@@ -41,7 +41,7 @@ Endpoints | Description
 Endpoints | Description
 ----------|------------
 /files/image/{gallery}/{type}/{id} | Get all the images (exif, id, category, lense, camera)
-/images?offset={offset}&k={k} / Get k images from offset
+/images?offset={offset}&k={k} | Get k images from offset
 /images/{id} | Get specific image (same info as the /images but for only one image)
 /images/{id}/lense | Get only lense info for specific image
 /images/{id}/camera | Get only camera info for specific image

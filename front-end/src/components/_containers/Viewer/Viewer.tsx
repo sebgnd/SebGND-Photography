@@ -5,7 +5,7 @@ import ImageService from '../../../helper/image/ImageService';
 import { ViewerImage } from '../../UI/Image';
 
 interface RouteParams {
-    name: string;
+    category: string;
     id: string;
 }
 
@@ -43,12 +43,8 @@ class Viewer extends Component<RouteComponentProps<RouteParams>, ViewerState> {
 
     componentDidMount() {
         const imgId = this.props.match.params.id;
-        const categoryId = this.props.match.params.name;
+        const categoryId = this.props.match.params.category;
         this.fetchImage(categoryId, parseInt(imgId));
-    }
-
-    componentDidUpdate() {
-        console.log(this.state.image);
     }
 
     render() {

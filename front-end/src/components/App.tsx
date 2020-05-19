@@ -21,23 +21,13 @@ class App extends React.Component {
             <BrowserRouter>
                 <UserNavigation />
                 <Switch>
-                    <Route exact={true} path={Paths.home()}>
-                        <Home />
-                    </Route>
-                    <Route exact={true} path={Paths.contact()}>
-                        <Contact />
-                    </Route>
-                    <Route exact={true} path={Paths.recent()}> 
-                        <Recent />
-                    </Route>
-                    <Route exact={true} path={Paths.gallery()}>
-                        <Galleries />
-                    </Route>
-                    <Route exact={true} path={Paths.galleryWithId()} component={Gallery} />
-                    <Route exact={true} path={Paths.viewer()} component={Viewer} />
-                    <Route exact={true} path="/playground">
-                        <Playground />
-                    </Route>
+                    <Route exact={true} path="/" component={Home} />
+                    <Route exact={true} path="/contact" component={Contact} />
+                    <Route exact={true} path="/recent" component={Recent} /> 
+                    <Route exact={true} path="/gallery" component={Galleries} />
+                    <Route exact={true} path="/gallery/:id" component={Gallery} />
+                    <Route exact={true} path="/viewer/:category/:id" component={Viewer} />
+                    <Route exact={true} path="/playground" component={Playground} />
                 </Switch>
             </BrowserRouter>
         );

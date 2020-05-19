@@ -44,11 +44,13 @@ class Recent extends Component<{}, RecentState> {
             const { nbImagesLoaded, images } = this.state;
             const newImages: Image[] = await imageService.getKImagesFromOffset(NB_IMAGE_PER_FETCH, nbImagesLoaded);
 
-            this.setState({ 
-                loading: false, 
-                error: false,
-                images: [...images, ...newImages], 
-                nbImagesLoaded: nbImagesLoaded + newImages.length 
+            this.setState(prevState => {
+                return {
+                    loading: false, 
+                    error: false,
+                    images: [...prevState.images, ...newImages], 
+                    nbImagesLoaded: prevState.nbImagesLoaded + newImages.length 
+                }
             });
 
         } catch (e) {

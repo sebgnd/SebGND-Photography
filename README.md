@@ -24,7 +24,8 @@
 1. Remove navigation bar when clicked outside and on NavigationItem
 
 ### Backend:
-1. Check destroy return value
+1. Check destroy return value 
+1. Add option to get next and previous image when get single image by id (query params: sameCategory and nextAndPrev)
 
 ## Current API:
 Endpoints | Description

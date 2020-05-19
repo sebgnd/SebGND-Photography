@@ -22,4 +22,14 @@ export default class ImageService {
             throw e;
         }
     }
+
+    async get(id: number): Promise<Image> {
+        try {
+            const data: any = await HttpRequest.getData(`http://localhost:8000/images/${id}`);         
+            return Image.format(data);
+
+        } catch (e) {
+            throw e;
+        }
+    }
 }

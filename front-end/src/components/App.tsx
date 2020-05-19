@@ -33,11 +33,8 @@ class App extends React.Component {
                     <Route exact={true} path={Paths.gallery()}>
                         <Galleries />
                     </Route>
-                    <Route exact={true} path={Paths.galleryWithId()} component={Gallery}>
-                    </Route>
-                    <Route exact={true} path={Paths.viewer()}>
-                        <Viewer />
-                    </Route>
+                    <Route exact={true} path={Paths.galleryWithId()} component={Gallery} />
+                    <Route exact={true} path={Paths.viewer()} component={Viewer} />
                     <Route exact={true} path="/playground">
                         <Playground />
                     </Route>

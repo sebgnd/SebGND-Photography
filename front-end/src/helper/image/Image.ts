@@ -13,10 +13,10 @@ export default class Image {
     private _id: number;
     private _category: Category;
     
-    private _aperture: string | undefined = undefined;
-    private _iso: number | undefined = undefined;
-    private _shutterSpeed: string | undefined = undefined;
-    private _focalLength: string | undefined = undefined;
+    private _aperture: string | undefined;
+    private _iso: number | undefined;
+    private _shutterSpeed: string | undefined;
+    private _focalLength: string | undefined;
     private _uploadDate: Date;
 
     private _width: number = 0;
@@ -54,17 +54,17 @@ export default class Image {
     }
 
     hasExif(): boolean {
-        return this.aperture !== null 
-            && this.iso !== null 
-            && this.shutterSpeed !== null 
-            && this.focalLength !== null;
+        return this._aperture !== undefined 
+            && this._iso !== undefined 
+            && this._shutterSpeed !== undefined 
+            && this._focalLength !== undefined;
     }
 
     toExifString(): string {
         if (this.hasExif()) {
-            return `ISO: ${this.iso?.toString()}, ${this.shutterSpeed}, ${this.aperture}, ${this.focalLength}`;
+            return `ISO: ${this._iso?.toString()}, ${this._shutterSpeed}, ${this._aperture}, ${this._focalLength}`;
         }
-        return 'No information'
+        return 'No information.'
     }
 
     getFormatedDate(): string {

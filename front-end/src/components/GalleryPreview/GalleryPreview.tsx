@@ -6,11 +6,11 @@ import { Title } from '../Styled/text';
 
 import styles from './GalleryPreview.module.css';
 
-import Image from '../../helper/image/Image';
+import Category from '../../helper/category/Category';
 import Paths from '../../helper/Paths';
 
 interface GalleriesPreviewProps extends RouteComponentProps {
-    thumbnails: Image[];
+    categories: Category[];
 }
 
 const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {
@@ -26,7 +26,7 @@ const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {
                 </div>
             </div>
             <div className={styles.row}>
-                <GalleryPreviewList thumbnails={props.thumbnails} />
+                <GalleryPreviewList categories={props.categories} />
             </div>
             <div className={styles.row}>
                 <div className={styles.buttonContainer}>

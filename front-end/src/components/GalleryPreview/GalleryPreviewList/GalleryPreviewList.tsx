@@ -1,24 +1,23 @@
 import React, { FunctionComponent } from 'react';
-import Image from '../../../helper/image/Image';
+import Category from '../../../helper/category/Category';
 import { GalleryButton } from '../../UI/Button';
 import styles from './GalleryPreviewList.module.css';
 
 interface GalleryPreviewListProps {
-    thumbnails: Image[]
+    categories: Category[]
 }
 
-const GalleryPreviewList: FunctionComponent<GalleryPreviewListProps> = ({ thumbnails }) => {
-
+const GalleryPreviewList: FunctionComponent<GalleryPreviewListProps> = ({ categories }) => {
     return (
         <div className={styles.listContainer}>
-            {thumbnails.map((thumbnail) => {
+            {categories.map((category) => {
                 return (
-                    <div key={thumbnail.id} className={styles.buttonContainer}>
+                    <div key={category.id} className={styles.buttonContainer}>
                         <GalleryButton 
-                            src={thumbnail.getUrl('thumbnail_medium')}
-                            imageId={thumbnail.id.toString()}
-                            categoryId={thumbnail.category.id}
-                            categoryDisplayName={thumbnail.category.displayName}    
+                            src={category.getThumbnailUrl('thumbnail_medium')}
+                            imageId={category.thumbnailId.toString()}
+                            categoryId={category.id}
+                            categoryDisplayName={category.displayName}    
                         />
                     </div>
                 )

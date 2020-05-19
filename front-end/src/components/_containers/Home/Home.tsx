@@ -9,51 +9,40 @@ import About from '../../About/About';
 import Image from '../../../helper/image/Image';
 import HttpRequest from '../../../helper/http/HttpRequest';
 import Category from '../../../helper/category/Category';
+import CategoryService from '../../../helper/category/CategoryService';
 
 interface HomeState {
-    thumbnails: Image[];
+    categories: Category[];
     error: boolean;
-    loading: boolean
+    loading: boolean;
+    errorMessage: string;
 }
 
 class Home extends Component<{}, HomeState> {
     state = {
-        thumbnails: [],
+        categories: [],
         error: false,
         errorMessage: '',
         loading: true,
     }
 
-    setError(errorMessage: string) {
-        this.setState({ error: true, loading: false });
-    }
-
-    handleFetchError(data: any | null): boolean {
-        if (!data) {
-            this.setError('Something unexptected happened. Please try again later.');
-            return true;
-        }
-        if (data.error) {
-            this.setError(data.error.message);
-            return true;
-        }
-        return false;
-    }
-
     async fetchGalleries() {
         try {
-            const data: any | null = await HttpRequest.getData('http://localhost:8000/categories/limit/3');
+            const categoryService = new CategoryService();
+            const categories: Category[] = await categoryService.getK(3);
+            
+            this.setState({
+                error: false,
+                loading: false,
+                categories
+            });
 
-            if (!this.handleFetchError(data)) {
-                const thumbnails: Image[] = data.map((category: any) => {
-                    const _category = new Category(category.id, category.displayName);
-                    const image = new Image(category.thumbnail.id, new Date(category.thumbnail.uploadDate), _category);
-                    return image;
-                });
-                this.setState({ loading: false, thumbnails });
-            }
         } catch (e) {
-            this.setError('Something unexptected happened. Please try again later');
+            this.setState({
+                error: true,
+                loading: false,
+                errorMessage: e.message
+            });
         }
     }
 
@@ -67,7 +56,7 @@ class Home extends Component<{}, HomeState> {
                 <Parallax img="images/parallax-1.jpg" speed={0.5}>
                     <Landing />
                 </Parallax>
-                <GalleriesPreview thumbnails={this.state.thumbnails} />
+                <GalleriesPreview categories={this.state.categories} />
                 <Parallax img="images/parallax-2.jpg" speed={0.5} >
                     <About />
                 </Parallax>

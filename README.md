@@ -24,20 +24,9 @@
 1. Remove navigation bar when clicked outside and on NavigationItem
 
 ### Backend:
-1. Update the api
 1. Check destroy return value
 
 ## Current API:
-Endpoints | Description
-----------|------------
-/images | Get all images (exif, id, category, lense, camera)
-/images/{id} | Get specific image (same info as the /images but for only one image)
-/images/{limit}/{n} | Get n images at limit offset (same info as the /images but for only n image)
-/categories | Get all categories (id, displayName, thumbnail)
-/categories/{id} | Get specific categories (id, displayName, thumbnail)
-/categories/limit/{n} | Get n categories
-
-## New API:
 Endpoints | Description
 ----------|------------
 /files/image/{gallery}/{type}/{id} | Get all the images (exif, id, category, lense, camera)

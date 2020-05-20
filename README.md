@@ -25,7 +25,7 @@
 
 ### Backend:
 1. Check destroy return value 
-1. Add option to get next and previous image when get single image by id (query params: sameCategory and nextAndPrev)
+1. Fix sameCategory and withAdjacent boolean values when fetching single image and saying withAdhacent=false
 
 ## Current API:
 Endpoints | Description

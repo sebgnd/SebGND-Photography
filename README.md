@@ -21,7 +21,7 @@
 1. Find how to represent the thumbnail (For Home and Galleries component)
 1. Optimize render for RecentImage
 1. Create backdrop
-1. Remove navigation bar when clicked outside and on NavigationItem
+1. Remove navigation bar when clicked outside
 
 ### Backend:
 1. Check destroy return value 

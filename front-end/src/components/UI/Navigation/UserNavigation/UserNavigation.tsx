@@ -32,7 +32,7 @@ class UserNavigation extends Component<RouteComponentProps, UserNavigationState>
         return (
             <nav>
                 <TopNavigation onToggleMobile={this.toggleMobileNav} />
-                <MobileNavigation opened={this.state.mobileNavOpened} />
+                <MobileNavigation clicked={this.toggleMobileNav} opened={this.state.mobileNavOpened} />
             </nav>
         );
     }

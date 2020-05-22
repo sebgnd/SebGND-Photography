@@ -5,11 +5,12 @@ import styles from './NavigationItem.module.css';
 interface NavigationItemProps {
     name: string;
     url: string;
+    onClick?: () => void;
 }
 
-const NavigationItem: FunctionComponent<NavigationItemProps> = ({ name, url }) => {
+const NavigationItem: FunctionComponent<NavigationItemProps> = ({ name, url, onClick }) => {
     return (
-        <Link className={styles.navItem} to={url}>{name}</Link>
+        <Link onClick={onClick} className={styles.navItem} to={url}>{name}</Link>
     )
 }   
 

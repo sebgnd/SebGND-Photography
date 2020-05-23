@@ -13,10 +13,11 @@
     1. Contact Page
         1. SocialMedia Component
         1. ContactForm Component
+    
+    1. Recent Page / Gallery Page
+        1. Add router to show Slider on top of page with backdrop
         
-    1. Viewer Page
-        
-        
+1. Remove automatic redirect on GalleryButton / RecentImage / SingleImage
 1. Add UserLayout / AdminLayout
 1. Find how to represent the thumbnail (For Home and Galleries component)
 1. Optimize render for RecentImage

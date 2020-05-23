@@ -23,6 +23,7 @@
 1. Optimize render for RecentImage
 1. Create backdrop
 1. Remove navigation bar when clicked outside
+1. Look at HOC for Gallery and Recent (both loads images and will have current, nextId, prevId => load on scroll for recent ?)
 
 ### Backend:
 1. Check destroy return value 

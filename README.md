@@ -27,7 +27,7 @@
 
 ### Backend:
 1. Check destroy return value 
-1. Fix sameCategory and withAdjacent boolean values when fetching single image and saying withAdhacent=false
+1. CreatedAt and UpdatedAt don't work
 
 ## Current API:
 Endpoints | Description

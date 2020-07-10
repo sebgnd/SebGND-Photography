@@ -78,3 +78,11 @@ INSERT INTO `images` (`id`, `cameraId`, `lenseId`, `iso`, `shutterSpeed`, `apert
 (163, 1, 6, 100, '30/1s', 'f/16.0', '13mm', '2019-09-10 09:10:27', 'landscape'),
 (164, 1, 6, 100, '1/8s', 'f/16.0', '14mm', '2019-09-10 17:36:49', 'landscape'),
 (165, 1, 5, 100, '8/10s', 'f/13.0', '18mm', '2019-09-13 16:58:06', 'landscape');
+
+INSERT INTO `categorythumbnails` ( `categoryId`, `imageId`) VALUES
+('architecture', 136),
+('landscape', 165),
+('cars', 90),
+('astrophotography', 92),
+('photo_manipulation', 93),
+('sport', 122),

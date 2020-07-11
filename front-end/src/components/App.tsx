@@ -25,7 +25,7 @@ class App extends React.Component {
                     <Route exact={true} path="/contact" component={Contact} />
                     <Route exact={true} path="/recent" component={Recent} /> 
                     <Route exact={true} path="/gallery" component={Galleries} />
-                    <Route exact={true} path="/gallery/:id" component={Gallery} />
+                    <Route path="/gallery/:id" component={Gallery} />
                     <Route exact={true} path="/viewer/:category/:id" component={Viewer} />
                     <Route exact={true} path="/playground" component={Playground} />
                 </Switch>

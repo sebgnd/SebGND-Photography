@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import Loader from '../../UI/Loader/Loader';
+import Spinner from '../../UI/Spinner/Spinner';
 import Image from '../../../helper/image/Image';
 import RecentList from '../../RecentList/RecentList';
 import ImageService from '../../../helper/image/ImageService';
+import { runInThisContext } from 'vm';
 
 interface RecentState {
     images: Image[];
@@ -20,6 +21,7 @@ class Recent extends Component<{}, RecentState> {
         super(props)
         this.fetchImages = this.fetchImages.bind(this);
         this.handleScroll = this.handleScroll.bind(this);
+        this.setState = this.setState.bind(this);
     }
 
     state = {
@@ -30,9 +32,6 @@ class Recent extends Component<{}, RecentState> {
         nbImagesLoaded: 0,
     }
 
-
-    // TODO: When fetching new images => set loading to true
-    // TODO: Can load new image every second
     async fetchImages() {
         if (this.state.loading) {
             return;
@@ -44,14 +43,16 @@ class Recent extends Component<{}, RecentState> {
             const { nbImagesLoaded, images } = this.state;
             const newImages: Image[] = await imageService.getKFromOffset(NB_IMAGE_PER_FETCH, nbImagesLoaded);
 
-            this.setState(prevState => {
-                return {
-                    loading: false, 
-                    error: false,
-                    images: [...prevState.images, ...newImages], 
-                    nbImagesLoaded: prevState.nbImagesLoaded + newImages.length 
-                }
-            });
+            setTimeout(() => {
+                this.setState(prevState => {
+                    return {
+                        loading: false, 
+                        error: false,
+                        images: [...prevState.images, ...newImages], 
+                        nbImagesLoaded: prevState.nbImagesLoaded + newImages.length 
+                    }
+                });
+            }, 250)
 
         } catch (e) {
             this.setState({ loading: false, error: true, errorMessage: e.message});
@@ -82,7 +83,7 @@ class Recent extends Component<{}, RecentState> {
             <Fragment>
                 <RecentList images={this.state.images} />
                 { this.state.loading && (
-                    <Loader />
+                    <Spinner center={true} />
                 )}
             </Fragment>
         )

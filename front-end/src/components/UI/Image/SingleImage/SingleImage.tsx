@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, MouseEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { ButtonContainer } from '../../../Styled/container';
 
@@ -12,22 +12,24 @@ interface SingleImageProp extends RouteComponentProps {
     src: string;
     imageId: string;
     categoryId: string;
+    onClick?: (event: MouseEvent, imageId: string, categoryId: string) => void;
 }
 
-const SingleImage: FunctionComponent<SingleImageProp> = ({ src, imageId, categoryId, history }) => {
-    const goToImage = () => {
-        history.push(`/viewer/${categoryId}/${imageId}`);
+const SingleImage: FunctionComponent<SingleImageProp> = ({ src, imageId, categoryId, onClick }) => {
+    const handleClick = (event: MouseEvent) => {
+        if (onClick) {
+            onClick(event, imageId, categoryId);
+        }
     }
-
     return (
         <div className={styles.singleImageContainer}>
-            <ButtonContainer onClick={() => goToImage()}>
+            <ButtonContainer onClick={handleClick}>
                 <div className={styles.imageContainer}>
                     <img className={styles.image} src={src} alt={imageId}/>
                 </div>
             </ButtonContainer>
         </div>
-        )
+    )
 }
 
 export default withRouter(SingleImage);

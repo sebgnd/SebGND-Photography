@@ -3,7 +3,7 @@
     100% { transform: rotate(360deg); }
 }
 
-.loader {
+.spinner {
     display: inline-block;
     width: 60px;
     height: 60px;
@@ -11,4 +11,10 @@
     border-top-color: #6b6b6b;
     border-radius: 50%;
     animation: spin 1s ease-in-out infinite;
+    margin: 15px;
+}
+
+.spinnerContainer {
+    width: 100%;
+    text-align: center;
 }

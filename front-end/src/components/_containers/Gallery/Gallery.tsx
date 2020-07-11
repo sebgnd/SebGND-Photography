@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import React, { Component, MouseEvent } from 'react';
+import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
 import ImageList from '../../ImageList/ImageList';
+import Viewer from '../../Viewer/Viewer';
 
 import Image from '../../../helper/image/Image';
-import HttpRequest from '../../../helper/http/HttpRequest';
 import Category from '../../../helper/category/Category';
 import CategoryService from '../../../helper/category/CategoryService';
 import ImageService from '../../../helper/image/ImageService';
@@ -20,6 +20,12 @@ interface GalleryState {
 }
 
 class Gallery extends Component<RouteComponentProps<RouteParams>, GalleryState> {
+    constructor(props: RouteComponentProps<RouteParams>) {
+        super(props);
+
+        this.handleImageClick = this.handleImageClick.bind(this);
+    }
+
     state = {  
         category: new Category(),
         images: [],
@@ -46,15 +52,33 @@ class Gallery extends Component<RouteComponentProps<RouteParams>, GalleryState> 
         }
     }
 
+    handleImageClick(event: MouseEvent, imageId: string, categoryId: string) {
+        this.props.history.push(`/gallery/${categoryId}/${imageId}`);
+    }
+
     componentDidMount() {
         this.fetchGallery(this.props.match.params.id);
     }
 
     render() {
         return (
-            <ImageList images={this.state.images} category={this.state.category}/>
+            <>
+                <ImageList 
+                    images={this.state.images} 
+                    category={this.state.category}
+                    onImageClick={this.handleImageClick}
+                />
+                {/*
+                    <Switch>
+                        <Route exact={true} path="/gallery/:id/:imageId">
+                            <Viewer />
+                        </Route>
+                    </Switch>
+                */}
+            </>
+
         )
     }
 }
 
-export default Gallery;
+export default withRouter(Gallery);

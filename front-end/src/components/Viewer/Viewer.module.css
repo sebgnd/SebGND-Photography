@@ -1,0 +1,14 @@
+.viewerContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.arrow {
+    flex-basis: 10%;
+}
+
+.image {
+    flex-basis: 80%;
+}

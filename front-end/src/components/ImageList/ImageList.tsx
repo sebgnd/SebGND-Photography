@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Fragment } from 'react';
+import React, { FunctionComponent, Fragment, MouseEvent } from 'react';
 import { SingleImage } from '../UI/Image';
 import GalleryTitle from './GalleryTitle/GalleryTitle';
 
@@ -10,9 +10,10 @@ import Category from '../../helper/category/Category';
 interface ImageListProps {
     images: Image[];
     category: Category;
+    onImageClick: (event: MouseEvent, imageId: string, categoryId: string) => void;
 }
 
-const ImageList: FunctionComponent<ImageListProps> = ({ images, category }) => {
+const ImageList: FunctionComponent<ImageListProps> = ({ images, category, onImageClick }) => {
     return (
         <Fragment>
             <GalleryTitle title={category.displayName} />
@@ -22,7 +23,8 @@ const ImageList: FunctionComponent<ImageListProps> = ({ images, category }) => {
                                 key={image.id} 
                                 src={image.getUrl('thumbnail_medium')} 
                                 imageId={image.id.toString()}
-                                categoryId={image.category.id} 
+                                categoryId={image.category.id}
+                                onClick={onImageClick}
                             />
                 })}
             </div>

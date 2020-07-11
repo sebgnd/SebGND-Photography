@@ -6,10 +6,10 @@ export default class ImageBuilder implements Builder<Image> {
     private _id: number;
     private _category: Category;
     
-    private _aperture: string | undefined = undefined;
-    private _iso: number | undefined = undefined;
-    private _shutterSpeed: string | undefined = undefined;
-    private _focalLength: string | undefined = undefined;
+    private _aperture: string | null = null;
+    private _iso: number | null = null;
+    private _shutterSpeed: string | null = null;
+    private _focalLength: string | null = null;
     private _uploadDate: Date;
 
     private _width: number = 0;
@@ -26,7 +26,7 @@ export default class ImageBuilder implements Builder<Image> {
         return this;
     }
 
-    setAperture(aperture?: string) {
+    setAperture(aperture: string) {
         this._aperture = aperture;
         return this;
     }
@@ -36,7 +36,7 @@ export default class ImageBuilder implements Builder<Image> {
         return this;
     }
 
-    setFocalLength(focalLength?: string) {
+    setFocalLength(focalLength: string) {
         this._focalLength = focalLength;
         return this;
     }
@@ -57,7 +57,7 @@ export default class ImageBuilder implements Builder<Image> {
     }
 
     build(): Image {
-        const image = new Image(this._id, this._uploadDate, this._category);
+        const image = new Image(this._id, this._category, this._uploadDate);
         image.aperture = this._aperture;
         image.focalLength = this._focalLength;
         image.shutterSpeed = this._shutterSpeed;

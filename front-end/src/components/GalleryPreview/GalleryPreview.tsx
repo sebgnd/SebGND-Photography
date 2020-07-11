@@ -8,9 +8,10 @@ import styles from './GalleryPreview.module.css';
 
 import Category from '../../helper/category/Category';
 import Paths from '../../helper/Paths';
+import CategoryThumbnail from '../../helper/category/CategoryThumbnail';
 
 interface GalleriesPreviewProps extends RouteComponentProps {
-    categories: Category[];
+    thumbnails: CategoryThumbnail[];
 }
 
 const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {
@@ -26,7 +27,7 @@ const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {
                 </div>
             </div>
             <div className={styles.row}>
-                <GalleryPreviewList categories={props.categories} />
+                <GalleryPreviewList thumbnails={props.thumbnails} />
             </div>
             <div className={styles.row}>
                 <div className={styles.buttonContainer}>

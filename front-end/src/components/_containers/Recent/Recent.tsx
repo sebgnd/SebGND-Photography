@@ -42,7 +42,7 @@ class Recent extends Component<{}, RecentState> {
         try {
             this.setState({ loading: true });
             const { nbImagesLoaded, images } = this.state;
-            const newImages: Image[] = await imageService.getKImagesFromOffset(NB_IMAGE_PER_FETCH, nbImagesLoaded);
+            const newImages: Image[] = await imageService.getKFromOffset(NB_IMAGE_PER_FETCH, nbImagesLoaded);
 
             this.setState(prevState => {
                 return {
@@ -63,7 +63,7 @@ class Recent extends Component<{}, RecentState> {
         const pageHeight = document.body.scrollHeight;
         const offsetThreshold = 50;
 
-        if (scrollYBottom > pageHeight - offsetThreshold) {
+        if (scrollYBottom > pageHeight - offsetThreshold && !this.state.loading) {
             this.fetchImages();
         }
     }

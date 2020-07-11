@@ -10,7 +10,7 @@ interface RouteParams {
 }
 
 interface ViewerState {
-    image: Image;
+    image: Image | null;
     error: boolean;
     loading: boolean;
 }
@@ -21,7 +21,7 @@ class Viewer extends Component<RouteComponentProps<RouteParams>, ViewerState> {
         this.state = {
             error: false,
             loading: true,
-            image: new Image()
+            image: null
         }
     }
 
@@ -50,7 +50,7 @@ class Viewer extends Component<RouteComponentProps<RouteParams>, ViewerState> {
     render() {
         return (
             <Fragment>
-                {!this.state.loading ? (
+                {(!this.state.loading && this.state.image) ? (
                     <ViewerImage src={this.state.image.getUrl('medium_res')} imageId={this.state.image.id.toString()} imageInfo={this.state.image.toExifString()} />
                 ) : (
                     null

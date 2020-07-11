@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import GalleriesList from '../../GalleryList/GalleryList';
+import GalleryList from '../../GalleryList/GalleryList';
 
 import Image from '../../../helper/image/Image';
 import Category from '../../../helper/category/Category';
 import HttpRequest from '../../../helper/http/HttpRequest';
 import CategoryService from '../../../helper/category/CategoryService';
+import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
 
 interface GalleriesState {
-    categories: Category[];
+    thumbnails: CategoryThumbnail[];
     error: boolean,
     loading: boolean,
     errorMessage: string
@@ -15,7 +16,7 @@ interface GalleriesState {
 
 class Galleries extends Component {
     state = {
-        categories: [],
+        thumbnails: [],
         error: false,
         loading: true,
         errorMessage: ''
@@ -24,12 +25,12 @@ class Galleries extends Component {
     async fetchGalleries() {
         try {
             const categoryService = new CategoryService();
-            const categories = await categoryService.getAll();
+            const thumbnails: CategoryThumbnail[] = await categoryService.getAllThumbnail();
             
             this.setState({
                 error: false,
                 loading: false,
-                categories
+                thumbnails
             })
 
         } catch (e) {
@@ -47,7 +48,7 @@ class Galleries extends Component {
 
     render() {
         return (
-            <GalleriesList categories={this.state.categories} />
+            <GalleryList thumbnails={this.state.thumbnails} />
         )
     }
 }

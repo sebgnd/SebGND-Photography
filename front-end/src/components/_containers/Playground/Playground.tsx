@@ -8,7 +8,7 @@ import Category from '../../../helper/category/Category';
 
 const Playground: FunctionComponent = () => {
     const placehodlerCategory = new Category('test', 'Test');
-    const placeHolderImage = new Image(1, new Date(), placehodlerCategory);
+    const placeHolderImage = new Image(1, placehodlerCategory, new Date());
 
     return (
         <Fragment>

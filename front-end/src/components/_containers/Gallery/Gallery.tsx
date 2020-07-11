@@ -32,7 +32,7 @@ class Gallery extends Component<RouteComponentProps<RouteParams>, GalleryState> 
         const imageService = new ImageService();
         try {
             const category: Category = await categoryService.get(categoryId);
-            const images: Image[] = await imageService.getImagesFromCategory(categoryId);
+            const images: Image[] = await imageService.getFromCategory(categoryId);
 
             this.setState({ 
                 error: false, 

@@ -3,9 +3,9 @@ import Category from '../category/Category';
 import Image from './Image';
 
 export default class ImageService {
-    async getImagesFromCategory(id: string): Promise<Image[]> {
+    async getFromCategory(id: string): Promise<Image[]> {
         try {
-            const data: any = await HttpRequest.getData(`http://localhost:8000/images/category/${id}`);    
+            const data: any = await HttpRequest.getData(`http://localhost:8000/categories/${id}/images`);    
             return data.map((image: any) => Image.format(image));
             
         } catch (e) {
@@ -13,9 +13,9 @@ export default class ImageService {
         }
     }
 
-    async getKImagesFromOffset(k: number, offset: number): Promise<Image[]> {
+    async getKFromOffset(k: number, offset: number): Promise<Image[]> {
         try {
-            const data: any = await HttpRequest.getData(`http://localhost:8000/images/${offset}/${k}`);         
+            const data: any = await HttpRequest.getData(`http://localhost:8000/images?offset=${offset}&k=${k}`);         
             return data.map((image: any) => Image.format(image));
 
         } catch (e) {

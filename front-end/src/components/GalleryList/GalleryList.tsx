@@ -4,22 +4,23 @@ import { GalleryButton } from '../UI/Button';
 
 import styles from './GalleryList.module.css';
 import Category from '../../helper/category/Category';
+import CategoryThumbnail from '../../helper/category/CategoryThumbnail';
 
 interface GalleriesListProps {
-    categories: Category[];
+    thumbnails: CategoryThumbnail[];
 }
 
-const GalleriesList: FunctionComponent<GalleriesListProps> = ({ categories }) => {
+const GalleriesList: FunctionComponent<GalleriesListProps> = ({ thumbnails }) => {
     return (
         <div className={styles.listContainer}>
-            {categories.map(category => {
+            {thumbnails.map(thumbnail => {
                 return (
-                    <div key={category.id} className={styles.galleryButtonContainer}>
+                    <div key={thumbnail.category.id} className={styles.galleryButtonContainer}>
                         <GalleryButton
-                            src={category.getThumbnailUrl('thumbnail_medium')}
-                            imageId={category.thumbnailId.toString()}
-                            categoryId={category.id}
-                            categoryDisplayName={category.displayName}   
+                            src={thumbnail.getUrl('thumbnail_medium')}
+                            imageId={thumbnail.image ? thumbnail.image.id.toString() : '-1'}
+                            categoryId={thumbnail.category.id}
+                            categoryDisplayName={thumbnail.category.displayName}   
                         />
                     </div>
                 )

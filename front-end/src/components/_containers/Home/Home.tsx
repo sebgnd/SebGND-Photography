@@ -9,10 +9,11 @@ import About from '../../About/About';
 import Image from '../../../helper/image/Image';
 import HttpRequest from '../../../helper/http/HttpRequest';
 import Category from '../../../helper/category/Category';
+import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
 import CategoryService from '../../../helper/category/CategoryService';
 
 interface HomeState {
-    categories: Category[];
+    thumbnails: CategoryThumbnail[];
     error: boolean;
     loading: boolean;
     errorMessage: string;
@@ -20,7 +21,7 @@ interface HomeState {
 
 class Home extends Component<{}, HomeState> {
     state = {
-        categories: [],
+        thumbnails: [],
         error: false,
         errorMessage: '',
         loading: true,
@@ -29,12 +30,12 @@ class Home extends Component<{}, HomeState> {
     async fetchGalleries() {
         try {
             const categoryService = new CategoryService();
-            const categories: Category[] = await categoryService.getK(3);
-            
+            const thumbnails: CategoryThumbnail[] = await categoryService.getKThumbnail(3);
+
             this.setState({
                 error: false,
                 loading: false,
-                categories
+                thumbnails
             });
 
         } catch (e) {
@@ -56,7 +57,7 @@ class Home extends Component<{}, HomeState> {
                 <Parallax img="images/parallax-1.jpg" speed={0.5}>
                     <Landing />
                 </Parallax>
-                <GalleriesPreview categories={this.state.categories} />
+                <GalleriesPreview thumbnails={this.state.thumbnails} />
                 <Parallax img="images/parallax-2.jpg" speed={0.5} >
                     <About />
                 </Parallax>

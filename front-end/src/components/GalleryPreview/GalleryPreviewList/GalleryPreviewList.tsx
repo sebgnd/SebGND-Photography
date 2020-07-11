@@ -2,22 +2,23 @@ import React, { FunctionComponent } from 'react';
 import Category from '../../../helper/category/Category';
 import { GalleryButton } from '../../UI/Button';
 import styles from './GalleryPreviewList.module.css';
+import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
 
 interface GalleryPreviewListProps {
-    categories: Category[]
+    thumbnails: CategoryThumbnail[]
 }
 
-const GalleryPreviewList: FunctionComponent<GalleryPreviewListProps> = ({ categories }) => {
+const GalleryPreviewList: FunctionComponent<GalleryPreviewListProps> = ({ thumbnails }) => {
     return (
         <div className={styles.listContainer}>
-            {categories.map((category) => {
+            {thumbnails.map((thumbnail) => {
                 return (
-                    <div key={category.id} className={styles.buttonContainer}>
+                    <div key={thumbnail.category.id} className={styles.buttonContainer}>
                         <GalleryButton 
-                            src={category.getThumbnailUrl('thumbnail_medium')}
-                            imageId={category.thumbnailId.toString()}
-                            categoryId={category.id}
-                            categoryDisplayName={category.displayName}    
+                            src={thumbnail.getUrl('thumbnail_medium')}
+                            imageId={thumbnail.image ? thumbnail.image.id.toString() : '-1'}
+                            categoryId={thumbnail.category.id}
+                            categoryDisplayName={thumbnail.category.displayName}    
                         />
                     </div>
                 )

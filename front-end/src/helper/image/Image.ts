@@ -13,19 +13,26 @@ export default class Image {
     private _id: number;
     private _category: Category;
     
-    private _aperture: string | undefined;
-    private _iso: number | undefined;
-    private _shutterSpeed: string | undefined;
-    private _focalLength: string | undefined;
+    private _aperture: string | null;
+    private _iso: number | null;
+    private _shutterSpeed: string | null;
+    private _focalLength: string | null;
     private _uploadDate: Date;
 
     private _width: number = 0;
     private _height: number = 0;
 
-    constructor(id: number = -1, uploadDate: Date = new Date(), category: Category = new Category()) {
+    constructor(id: number, category: Category, uploadDate: Date) {
         this._id = id;
         this._uploadDate = uploadDate;
         this._category = category;
+
+        this._aperture = null;
+        this._iso = null;
+        this._shutterSpeed = null;
+        this._focalLength = null;
+        this._width = 0;
+        this._height = 0;
     }
 
     clone(): Image {
@@ -54,10 +61,10 @@ export default class Image {
     }
 
     hasExif(): boolean {
-        return this._aperture !== undefined 
-            && this._iso !== undefined 
-            && this._shutterSpeed !== undefined 
-            && this._focalLength !== undefined;
+        return this._aperture !== null 
+            && this._iso !== null 
+            && this._shutterSpeed !== null 
+            && this._focalLength !== null;
     }
 
     toExifString(): string {
@@ -77,9 +84,9 @@ export default class Image {
 
     getUrl(resolutionType: string) {
         if (RESOLUTION_TYPES.includes(resolutionType)) {
-            return `http://localhost:8000/image/${this.category.id}/${resolutionType}/${this.id}`;
+            return `http://localhost:8000/file/image/${resolutionType}/${this.id}`;
         }
-        return `http://localhost:8000/image/${this.category.id}/medium_res/${this.id}`;
+        return `http://localhost:8000/file/image/medium_res/${this.id}`;
     }
 
     isPortrait(): boolean {
@@ -113,19 +120,19 @@ export default class Image {
 
     // Setters
 
-    set aperture(aperture: string | undefined) {
+    set aperture(aperture: string | null) {
         this._aperture = aperture;
     }
 
-    set iso(iso: number | undefined) {
+    set iso(iso: number | null) {
         this._iso = iso;
     }
 
-    set shutterSpeed(shutterSpeed: string | undefined) {
+    set shutterSpeed(shutterSpeed: string | null) {
         this._shutterSpeed = shutterSpeed;
     }
 
-    set focalLength(focalLength: string | undefined) {
+    set focalLength(focalLength: string | null) {
         this._focalLength = focalLength;
     } 
 

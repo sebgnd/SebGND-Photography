@@ -3,7 +3,8 @@ import Spinner from '../../UI/Spinner/Spinner';
 import Image from '../../../helper/image/Image';
 import RecentList from '../../RecentList/RecentList';
 import ImageService from '../../../helper/image/ImageService';
-import { runInThisContext } from 'vm';
+import withEndScroll, { EndScrollProps } from '../../HOC/withEndScroll';
+import { isCompositeComponent } from 'react-dom/test-utils';
 
 interface RecentState {
     images: Image[];
@@ -14,13 +15,12 @@ interface RecentState {
 }
 
 const NB_IMAGE_PER_FETCH: number = 5;
-const MIN_TIME_BETWEEN_FETCH: number = 500;
+const MIN_TIME_BETWEEN_FETCH: number = 250;
 
-class Recent extends Component<{}, RecentState> {
-    constructor(props = {}) {
+class Recent extends Component<EndScrollProps, RecentState> {
+    constructor(props: EndScrollProps) {
         super(props)
         this.fetchImages = this.fetchImages.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
         this.setState = this.setState.bind(this);
     }
 
@@ -52,30 +52,25 @@ class Recent extends Component<{}, RecentState> {
                         nbImagesLoaded: prevState.nbImagesLoaded + newImages.length 
                     }
                 });
-            }, 250)
+            }, MIN_TIME_BETWEEN_FETCH)
 
         } catch (e) {
             this.setState({ loading: false, error: true, errorMessage: e.message});
         }
     }
 
-    handleScroll() {
-        const scrollYBottom = Math.round(window.scrollY + window.innerHeight);
-        const pageHeight = document.body.scrollHeight;
-        const offsetThreshold = 50;
-
-        if (scrollYBottom > pageHeight - offsetThreshold && !this.state.loading) {
-            this.fetchImages();
-        }
-    }
-
     componentDidMount() {
         this.fetchImages();
-        window.addEventListener('scroll', this.handleScroll);
     }
 
-    componentWillUnmount() {   
-        window.removeEventListener('scroll', this.handleScroll);
+    componentDidUpdate(prevProps: EndScrollProps, prevState: RecentState) {
+        const { endWindowReached } = this.props;
+        
+        if (endWindowReached !== prevProps.endWindowReached && endWindowReached) {
+            if (this.state === prevState) {
+                this.fetchImages();
+            }
+        }
     }
 
     render() {
@@ -90,4 +85,8 @@ class Recent extends Component<{}, RecentState> {
     }
 }
 
-export default Recent;
+const log = () => {
+    console.log('Trigger');
+}
+
+export default withEndScroll(Recent);

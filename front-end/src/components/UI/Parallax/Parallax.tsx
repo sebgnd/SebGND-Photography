@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useRef, useState, RefObject } from 'react';
+import React, { Component, useEffect, useRef, useState, RefObject, FunctionComponent } from 'react';
 import ParallaxContainer from './ParallaxContainer';
 import { throttle } from 'lodash';
 
@@ -7,37 +7,27 @@ interface ParallaxProp {
     speed: number;
 }
 
-interface ParallaxState {
+interface BackgroundStyle {
     backgroundPositionY: string;
     backgroundSize: string;
 }
 
-class Parallax extends Component<ParallaxProp, ParallaxState> {
-    private parallaxElemRef: RefObject<HTMLDivElement>;
-    private throttleTime: number;
-    private topOffset: number;
-    private height: number;
 
-    constructor(props: ParallaxProp) {
-        super(props);
+const Parallax: FunctionComponent<ParallaxProp> = ({ img, speed, children }) => {
+    const parallaxElemRef = useRef<HTMLDivElement>(null);
+    const topOffset = useRef<number>(0);
+    const height = useRef<number>(0);
 
-        this.topOffset = 0;
-        this.parallaxElemRef = React.createRef();
-        this.throttleTime = 5;
-        this.height = 0;
+    const [backgroundStyle, setBackgroundStyle] = useState<BackgroundStyle>({
+        backgroundPositionY: '',
+        backgroundSize: 'cover'
+    });
 
-        this.handleResize = this.handleResize.bind(this);
-        this.handleScroll = this.handleScroll.bind(this);
+    const throttleTime: number = 7;
 
-        this.state = {
-            backgroundPositionY: '',
-            backgroundSize: 'cover'
-        }
-    }
-
-    isElementVisible() {
-        if (this.parallaxElemRef && this.parallaxElemRef.current) {
-            const position: DOMRect = this.parallaxElemRef.current.getBoundingClientRect();
+    const isElementVisible = (): boolean => {
+        if (parallaxElemRef && parallaxElemRef.current) {
+            const position: DOMRect = parallaxElemRef.current.getBoundingClientRect();
             if (position.top < window.innerHeight && position.bottom >= 0) {
                 return true;
             }
@@ -45,79 +35,93 @@ class Parallax extends Component<ParallaxProp, ParallaxState> {
         return false;
     }
 
-    updateBackgroundSize() {
-        const elementHeight = this.parallaxElemRef.current!.scrollHeight;
+    const updateBackgroundSize = (): void => {
+        const elementHeight = parallaxElemRef.current!.scrollHeight;
 
         if (elementHeight > window.innerHeight) {
-            this.setState({ backgroundSize: `auto ${elementHeight}px` });
+            setBackgroundStyle((prevBackgroundStyle) => { 
+                return {
+                    ...prevBackgroundStyle, 
+                    backgroundSize: `auto ${elementHeight}px` 
+                }
+            });
         } else {
-            this.setState({ backgroundSize: 'cover' });
+            setBackgroundStyle((prevBackgroundStyle) => { 
+                return {
+                    ...prevBackgroundStyle, 
+                    backgroundSize: 'cover' 
+                }
+            });
         }
     }
 
-    updatePosition() {
-        if (!this.isElementVisible()) {
-            return;
-        }
-        const newTop = this.getNewTop();
-        this.setState({ backgroundPositionY: `${newTop}px` });
+    const getTopOffset = (): number => {
+        return window.innerHeight * speed;
     }
 
-    getTopOffset() {
-        return window.innerHeight * this.props.speed;
-    }
-
-    getNewTop() {
+    const getNewTop = (): number => {
         const bottomPageOffset = window.scrollY + window.innerHeight;
-        const intoElementOffset = bottomPageOffset - this.parallaxElemRef.current!.offsetTop;
-        const newTop = this.topOffset - intoElementOffset * this.props.speed;
+        const intoElementOffset = bottomPageOffset - parallaxElemRef.current!.offsetTop;
+        const newTop = topOffset.current - intoElementOffset * speed;
         return newTop;
     }
 
-    handleScroll() {
-        this.updatePosition();
-    }
-
-    handleResize() {
-        this.topOffset = this.getTopOffset();
-        this.updateBackgroundSize();
-        this.updatePosition();
-    }
-
-    addEventListener() {
-        window.addEventListener('scroll', this.handleScroll);
-        window.addEventListener('resize', this.handleResize);
-    }
-
-    removeEventListener() {
-        window.removeEventListener('scroll', this.handleScroll);
-        window.removeEventListener('resize', this.handleResize);
-    }
-
-    componentDidMount() {
-        this.topOffset = this.getTopOffset();
-        this.height = this.parallaxElemRef.current!.clientHeight;
-
-        if (this.height > window.innerHeight) {
-            this.parallaxElemRef.current!.style.backgroundSize = `auto ${this.height}`;
+    const updatePosition = (): void => {
+        if (!isElementVisible()) {
+            return;
         }
-        this.parallaxElemRef.current!.style.backgroundPositionY = `${this.getNewTop()}px`;
+        const newTop = getNewTop();
+        setBackgroundStyle(prevBackgroundStyle => { 
+            return {
+                ...prevBackgroundStyle,
+                backgroundPositionY: `${newTop}px` 
+            }
+        });
+    }
+
+    const handleScroll = (): void => {
+        updatePosition();
+    }
+    const handleScrollThrottled = throttle(handleScroll, throttleTime);
+
+    const handleResize = (): void => {
+        topOffset.current = getTopOffset();
+        updateBackgroundSize();
+        updatePosition();
+    }
+    const handleResizeThrottled = throttle(handleResize, throttleTime);
+
+    const addEventListener = (): void => {
+        window.addEventListener('scroll', handleScrollThrottled);
+        window.addEventListener('resize', handleResizeThrottled);
+    }
+
+    const removeEventListener = (): void => {
+        window.removeEventListener('scroll', handleScrollThrottled);
+        window.removeEventListener('resize', handleResizeThrottled);
+    }
+
+    useEffect(() => {
+        topOffset.current = getTopOffset();
+        height.current = parallaxElemRef.current!.clientHeight;
+
+        if (height.current > window.innerHeight) {
+            parallaxElemRef.current!.style.backgroundSize = `auto ${height.current}`;
+        }
+        parallaxElemRef.current!.style.backgroundPositionY = `${getNewTop()}px`;
         
-        this.addEventListener();
-    }
+        addEventListener();
 
-    componentWillUnmount() {
-        this.removeEventListener();
-    }
+        return () => {
+            removeEventListener();
+        };
+    }, []);
 
-    render() {
-        const { img } = this.props;
-        return (
-            <ParallaxContainer ref={this.parallaxElemRef} style={{...this.state}} backgroundImage={img}>
-                {this.props.children}
-            </ParallaxContainer>
-        )
-    }
+    return (
+        <ParallaxContainer ref={parallaxElemRef} style={{...backgroundStyle}} backgroundImage={img}>
+            {children}
+        </ParallaxContainer>
+    )
 }
 
 export default Parallax;

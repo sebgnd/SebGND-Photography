@@ -41,3 +41,10 @@ Endpoints | Description
 /categories?offset={offset}&k={k} | Get k categories from offset
 /categories/{id} | Get specific categories (id, displayName, thumbnail)
 /categories/{id}/images | Get images for the specified category (exif, id, category, lense, camera)
+
+## Front end z-indexes
+Class | z-index
+------|--------
+TopNavigation | 500
+MobileNavigation | 499
+Backdrop | 498

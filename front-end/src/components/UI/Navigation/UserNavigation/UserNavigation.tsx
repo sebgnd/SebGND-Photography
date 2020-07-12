@@ -1,41 +1,50 @@
-import React, { Component, Fragment } from 'react';
-import { Link, withRouter, RouteComponentProps } from 'react-router-dom';
+import React, { useEffect, useState, FunctionComponent, useRef } from 'react';
+import { throttle } from 'lodash';
 
 import TopNavigation from './TopNavigation/TopNavigation';
 import MobileNavigation from './MobileNavigation/MobileNavigation'
+import Backdrop from '../../Backdrop/Backdrop';
 
-import styles from './UserNavigation.module.css';
+const UserNavigation: FunctionComponent = () => {
+    const [mobileNavOpened, setMobileNavOpened] = useState<boolean>(false);
+    const mobileOpenedRef = useRef<boolean>(false);
 
-interface UserNavigationState {
-    mobileNavOpened: boolean;
-}
+    const maxPixelForMobile: number = 850;
+    const throttleTime: number = 200;
 
-class UserNavigation extends Component<RouteComponentProps, UserNavigationState> {
-    constructor(props: RouteComponentProps) {
-        super(props);
+    useEffect(() => {
+        window.addEventListener('resize', toggleMobileOnResizeThrottled);
 
-        this.toggleMobileNav = this.toggleMobileNav.bind(this);
-        this.state = {
-            mobileNavOpened: false
+        return () => {
+            window.removeEventListener('resize', toggleMobileOnResizeThrottled);
+        }
+    }, []);
+
+    const toggleMobileOnResize = () => {
+        const width: number = window.innerWidth;
+        if (width > maxPixelForMobile && mobileOpenedRef.current) {
+            toggleMobileNav();
         }
     }
 
-    toggleMobileNav() {
-        this.setState(prevState => {
-            return { mobileNavOpened: !prevState.mobileNavOpened }
+    const toggleMobileOnResizeThrottled = throttle(toggleMobileOnResize, throttleTime);
+
+    const toggleMobileNav = () => {
+        setMobileNavOpened((prevMobileNavOpened: boolean) => {
+            mobileOpenedRef.current = !prevMobileNavOpened;
+            return !prevMobileNavOpened;
         });
     }
 
-    render() {
-        const topNav = `${styles.navigation} ${styles.top}`;
-
-        return (
+    return (
+        <>
             <nav>
-                <TopNavigation onToggleMobile={this.toggleMobileNav} />
-                <MobileNavigation clicked={this.toggleMobileNav} opened={this.state.mobileNavOpened} />
+                <TopNavigation onToggleMobile={toggleMobileNav} />
+                <MobileNavigation clicked={toggleMobileNav} opened={mobileNavOpened} />
             </nav>
-        );
-    }
-}
+            <Backdrop show={mobileNavOpened} onClick={toggleMobileNav} />
+        </>
+    )
+} 
 
-export default withRouter(UserNavigation);
+export default UserNavigation;

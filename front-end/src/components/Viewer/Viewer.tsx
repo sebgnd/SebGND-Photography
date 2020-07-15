@@ -79,8 +79,8 @@ const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, 
             setAppInfo({ loading: false, error: false });
             setViewerInfo({ 
                 image: current,
-                previousImageId: previous ? previous.id : null,
-                nextImageId: next ? next.id : null
+                previousImageId: next ? next.id : null,
+                nextImageId: previous ? previous.id : null
              });
         } catch (err) {
             setAppInfo({ loading: false, error: true });

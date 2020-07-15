@@ -47,4 +47,4 @@ Class | z-index
 ------|--------
 TopNavigation | 500
 MobileNavigation | 499
-Backdrop | 498
+Backdrop | 400

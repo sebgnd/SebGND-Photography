@@ -1,19 +1,20 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, MouseEvent } from 'react';
 import styles from './RoundButton.module.css';
 import { StringNullableChain } from 'lodash';
 
 interface ArrowButtonProp {
-    onClick: () => void;
-    fontAwesomeClass: string;
+    onClick: (event: MouseEvent) => void;
+    icon: string;
+    disabled?: boolean;
 }
 
 
-const ArrowButton: FunctionComponent<ArrowButtonProp> = ({ onClick, fontAwesomeClass }) => {
+const ArrowButton: FunctionComponent<ArrowButtonProp> = ({ onClick, icon, disabled = false }) => {
     return (
-        <button className={styles.roundButton} onClick={onClick}>
+        <button disabled={disabled} className={styles.roundButton} onClick={(event) => onClick(event)}>
             <div className={styles.iconContainer}>
                 <div className={styles.icon}>
-                    <i className={fontAwesomeClass} />
+                    <i className={`fas fa-${icon}`} />
                 </div>
             </div>
         </button>

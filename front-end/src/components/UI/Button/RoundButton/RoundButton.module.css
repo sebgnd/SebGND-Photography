@@ -17,6 +17,11 @@
     cursor: pointer;
 }
 
+.roundButton:disabled:hover {
+    transform: scale(1);
+    cursor: not-allowed;
+}
+
 .roundButton:focus {
     outline: none;
 }

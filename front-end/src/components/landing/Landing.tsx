@@ -6,7 +6,7 @@ const Landing: FunctionComponent = () => {
     return (
         <div className={styles.landingContainer}>
             <div className={styles.landingButtonContainer}>
-                <Button variant="classic" size="medium" onClick={() => {}}>See this photo</Button>
+                <Button variant="classic" size="medium" label="See this photo" onClick={() => {}} />
             </div>
         </div>
     )

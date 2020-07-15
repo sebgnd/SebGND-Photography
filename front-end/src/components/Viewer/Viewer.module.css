@@ -1,4 +1,14 @@
+.fixedContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
 .viewerContainer {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -7,8 +17,16 @@
 
 .arrow {
     flex-basis: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 410;
 }
 
 .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-basis: 80%;
+    z-index: 410;
 }

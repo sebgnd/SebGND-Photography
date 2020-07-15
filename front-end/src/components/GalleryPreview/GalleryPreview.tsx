@@ -31,7 +31,7 @@ const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {
             </div>
             <div className={styles.row}>
                 <div className={styles.buttonContainer}>
-                    <Button size="medium" variant="classic" onClick={goToGalleries}>See all galleries</Button>
+                    <Button size="medium" variant="classic" onClick={goToGalleries} label="See all galleries" />
                 </div>
             </div>
         </div>

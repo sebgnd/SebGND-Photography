@@ -16,7 +16,7 @@ export default class CategoryThumbnail {
     static format(json: any): CategoryThumbnail {
         const { image: thumbnailImage } = json.thumbnail;
         const category = new Category(json.id, json.displayName);
-        const image = new Image(thumbnailImage.id, category, new Date(thumbnailImage.uploadDate));
+        const image = new Image(thumbnailImage.id, thumbnailImage.width, thumbnailImage.height, category, new Date(thumbnailImage.uploadDate));
 
         return new CategoryThumbnail(image, category);
     }

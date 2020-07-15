@@ -22,17 +22,17 @@ export default class Image {
     private _width: number = 0;
     private _height: number = 0;
 
-    constructor(id: number, category: Category, uploadDate: Date) {
+    constructor(id: number, width: number, height: number, category: Category, uploadDate: Date) {
         this._id = id;
         this._uploadDate = uploadDate;
         this._category = category;
+        this._width = width;
+        this._height = height;
 
         this._aperture = null;
         this._iso = null;
         this._shutterSpeed = null;
         this._focalLength = null;
-        this._width = 0;
-        this._height = 0;
     }
 
     clone(): Image {
@@ -41,23 +41,27 @@ export default class Image {
     }
 
     static format(json: any): Image {
-        const uploadDate = new Date(json.uploadDate);
-        const imageBuilder = new ImageBuilder(json.id, uploadDate);
-        
-        imageBuilder.setAperture(json.aperture)
-            .setFocalLength(json.focalLength)
-            .setIso(json.iso)
-            .setShutterSpeed(json.shutterSpeed)
-            .setHeight(json.height)
-            .setWidth(json.width);
-
-        if (json.category) {
+        try {
             const { id, displayName } = json.category;
             const category = new Category(id, displayName);
-            imageBuilder.setCategory(category);
-        }
+            const uploadDate = new Date(json.uploadDate);
+            const imageBuilder = new ImageBuilder(json.id, category, uploadDate);
+            
+            imageBuilder
+                .setHeight(json.height)
+                .setWidth(json.width);
 
-        return imageBuilder.build();
+            if (json.aperture && json.focalLength && json.shutterSpeed && json.iso) {
+                imageBuilder.setAperture(json.aperture)
+                    .setFocalLength(json.focalLength)
+                    .setIso(json.iso)
+                    .setShutterSpeed(json.shutterSpeed)
+            }
+
+            return imageBuilder.build();
+        } catch (err) {
+            throw err;
+        }
     }
 
     hasExif(): boolean {

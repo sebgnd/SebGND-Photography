@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styles from './Backdrop.module.css';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 
 interface BackdropProps {
     show: boolean;

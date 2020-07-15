@@ -1,6 +1,7 @@
 import Builder from '../interface/Builder';
 import Image from './Image';
 import Category from '../category/Category';
+import BuilderError from '../error/BuilderError';
 
 export default class ImageBuilder implements Builder<Image> {
     private _id: number;
@@ -15,10 +16,10 @@ export default class ImageBuilder implements Builder<Image> {
     private _width: number = 0;
     private _height: number = 0;
 
-    constructor(id: number, uploadDate: Date) {
+    constructor(id: number, category: Category, uploadDate: Date) {
         this._id = id;
         this._uploadDate = uploadDate;
-        this._category = new Category();
+        this._category = category;
     }
 
     setIso(iso: number) {
@@ -57,13 +58,18 @@ export default class ImageBuilder implements Builder<Image> {
     }
 
     build(): Image {
-        const image = new Image(this._id, this._category, this._uploadDate);
+        if (this._width === 0 || this._height === 0) {
+            throw new BuilderError(["height", "width"]);
+        }
+        const image = new Image(this._id, this._width, this._height, this._category, this._uploadDate);
+
         image.aperture = this._aperture;
         image.focalLength = this._focalLength;
         image.shutterSpeed = this._shutterSpeed;
         image.iso = this._iso;
         image.width = this._width;
         image.height = this._height;
+        
         return image;
     }
 

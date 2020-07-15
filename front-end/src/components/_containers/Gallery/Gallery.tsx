@@ -1,5 +1,5 @@
-import React, { Component, MouseEvent } from 'react';
-import { RouteComponentProps, withRouter, Route, Switch } from 'react-router-dom';
+import React, { MouseEvent, FunctionComponent, useState, useEffect } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import ImageList from '../../ImageList/ImageList';
 import Viewer from '../../Viewer/Viewer';
 
@@ -10,75 +10,78 @@ import ImageService from '../../../helper/image/ImageService';
 
 interface RouteParams {
     id: string;
+    imageId?: string
 }
 
-interface GalleryState {
+interface GalleryInfo {
     category: Category;
     images: Image[];
+}
+
+interface AppInfo {
     error: boolean,
     loading: boolean
 }
 
-class Gallery extends Component<RouteComponentProps<RouteParams>, GalleryState> {
-    constructor(props: RouteComponentProps<RouteParams>) {
-        super(props);
+type GalleryProps = RouteComponentProps<RouteParams>;
 
-        this.handleImageClick = this.handleImageClick.bind(this);
-    }
-
-    state = {  
+const Gallery: FunctionComponent<GalleryProps> = ({ match, history }) => {
+    
+    const [galleryInfo, setGalleryInfo] = useState<GalleryInfo>({
         category: new Category(),
         images: [],
-        error: false,
-        loading: true
-    }
-    
-    async fetchGallery(categoryId: string) {
+    });
+    const [appInfo, setAppInfo] = useState<AppInfo>({
+        error: false, 
+        loading: false, 
+    })
+
+    const fetchGallery = async (categoryId: string) => {
         const categoryService = new CategoryService();
         const imageService = new ImageService();
+
+        setAppInfo({ error: false, loading: true });
+
         try {
             const category: Category = await categoryService.get(categoryId);
             const images: Image[] = await imageService.getFromCategory(categoryId);
 
-            this.setState({ 
-                error: false, 
-                loading: false, 
-                images, 
-                category 
-            });
+            setGalleryInfo({ images, category });
+            setAppInfo({ error: false, loading: false });
 
         } catch (e) {
-            this.setState({ error: true, loading: false });
+            setAppInfo({ error: true, loading: false });
         }
     }
 
-    handleImageClick(event: MouseEvent, imageId: string, categoryId: string) {
-        this.props.history.push(`/gallery/${categoryId}/${imageId}`);
+    const handleImageClick = (event: MouseEvent, imageId: string, categoryId: string) => {
+        history.push(`/gallery/${match.params.id}/${imageId}`);
     }
 
-    componentDidMount() {
-        this.fetchGallery(this.props.match.params.id);
+    const handleClose = () => {
+        history.replace(`/gallery/${match.params.id}`);
     }
 
-    render() {
-        return (
-            <>
-                <ImageList 
-                    images={this.state.images} 
-                    category={this.state.category}
-                    onImageClick={this.handleImageClick}
-                />
-                {/*
-                    <Switch>
-                        <Route exact={true} path="/gallery/:id/:imageId">
-                            <Viewer />
-                        </Route>
-                    </Switch>
-                */}
-            </>
+    useEffect(() => {
+        fetchGallery(match.params.id);
+    }, [])
 
-        )
-    }
-}
+    return (
+        <>
+            <ImageList 
+                images={galleryInfo.images} 
+                category={galleryInfo.category}
+                onImageClick={handleImageClick}
+            />
+            {(match.params.imageId && galleryInfo.images.length) && (
+                <Viewer 
+                    categoryId={match.params.id}
+                    imageId={parseInt(match.params.imageId)} 
+                    onClose={() => handleClose()} />
+            )}
+        </>
+
+    )
+} 
 
 export default withRouter(Gallery);

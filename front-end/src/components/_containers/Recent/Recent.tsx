@@ -1,92 +1,107 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, FunctionComponent, useState, useEffect, MouseEvent } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import Spinner from '../../UI/Spinner/Spinner';
 import Image from '../../../helper/image/Image';
 import RecentList from '../../RecentList/RecentList';
 import ImageService from '../../../helper/image/ImageService';
 import withEndScroll, { EndScrollProps } from '../../HOC/withEndScroll';
-import { isCompositeComponent } from 'react-dom/test-utils';
+import Viewer from '../../Viewer/Viewer';
 
-interface RecentState {
-    images: Image[];
+interface RecentInfo {
+    images: Image[]
+}
+
+interface RouteParams {
+    imageId?: string;
+}
+
+interface AppInfo {
     error: boolean;
     loading: boolean;
+    finishedLoading: boolean;
     errorMessage: string;
-    nbImagesLoaded: number;
 }
 
 const NB_IMAGE_PER_FETCH: number = 5;
 const MIN_TIME_BETWEEN_FETCH: number = 250;
 
-class Recent extends Component<EndScrollProps, RecentState> {
-    constructor(props: EndScrollProps) {
-        super(props)
-        this.fetchImages = this.fetchImages.bind(this);
-        this.setState = this.setState.bind(this);
-    }
+type RecentProps = RouteComponentProps<RouteParams> & EndScrollProps;
 
-    state = {
-        images: [],
+const Recent: FunctionComponent<RecentProps> = ({ endWindowReached, match, history }) => {
+    const [recentInfo, setRecentInfo] = useState<RecentInfo>({
+        images: []
+    });
+    const [appInfo, setAppInfo] = useState<AppInfo>({
         error: false,
-        loading: false,
         errorMessage: '',
-        nbImagesLoaded: 0,
-    }
+        finishedLoading: false,
+        loading: false
+    });
 
-    async fetchImages() {
-        if (this.state.loading) {
+    const fetchImages = async () => {
+        if (appInfo.loading || appInfo.finishedLoading) {
             return;
         }
 
         const imageService = new ImageService();
         try {
-            this.setState({ loading: true });
-            const { nbImagesLoaded, images } = this.state;
-            const newImages: Image[] = await imageService.getKFromOffset(NB_IMAGE_PER_FETCH, nbImagesLoaded);
+            setAppInfo({ ...appInfo, loading: true, error: false });
+            const newImages: Image[] = await imageService.getKFromOffset(NB_IMAGE_PER_FETCH, recentInfo.images.length);
 
             setTimeout(() => {
-                this.setState(prevState => {
-                    return {
-                        loading: false, 
-                        error: false,
-                        images: [...prevState.images, ...newImages], 
-                        nbImagesLoaded: prevState.nbImagesLoaded + newImages.length 
-                    }
-                });
+                if(newImages.length !== 0) {
+                    setAppInfo({ ...appInfo, loading: false });
+                    setRecentInfo(prevRecentInfo => {
+                        return { 
+                            images: [...prevRecentInfo.images, ...newImages] 
+                        }
+                    });
+                } else {
+                    setAppInfo({ ...appInfo, loading: false, finishedLoading: true });
+                }
             }, MIN_TIME_BETWEEN_FETCH)
 
         } catch (e) {
-            this.setState({ loading: false, error: true, errorMessage: e.message});
+            setAppInfo({ ...appInfo, loading: false, error: true, errorMessage: e.message});
         }
     }
 
-    componentDidMount() {
-        this.fetchImages();
+    const handleClose = () => {
+        history.replace('/recent');
     }
 
-    componentDidUpdate(prevProps: EndScrollProps, prevState: RecentState) {
-        const { endWindowReached } = this.props;
-        
-        if (endWindowReached !== prevProps.endWindowReached && endWindowReached) {
-            if (this.state === prevState) {
-                this.fetchImages();
-            }
+    const handleGalleryClick = (event: MouseEvent, categoryId: string) => {
+        history.push(`/gallery/${categoryId}`);
+    }
+
+    const handleImageClick = (event: MouseEvent, imageId: string) => {
+        history.push(`/recent/${imageId}`);
+    }
+
+    useEffect(() => {
+        fetchImages();
+    }, []);
+
+    useEffect(() => {
+        if (endWindowReached && !appInfo.finishedLoading) {
+            fetchImages();
         }
-    }
+    }, [endWindowReached])
 
-    render() {
-        return (
-            <Fragment>
-                <RecentList images={this.state.images} />
-                { this.state.loading && (
-                    <Spinner center={true} />
-                )}
-            </Fragment>
-        )
-    }
-}
-
-const log = () => {
-    console.log('Trigger');
+    return (
+        <Fragment>
+            <RecentList images={recentInfo.images} onGalleryClick={handleGalleryClick} onImageClick={handleImageClick} />
+            { appInfo.loading && (
+                <Spinner centerHorizontal={true} />
+            )}
+            {(match.params.imageId) && (
+                <Viewer 
+                    imageId={parseInt(match.params.imageId)}
+                    onClose={() => handleClose()}
+                />
+            )}
+        </Fragment>
+    )
 }
 
 export default withEndScroll(Recent);

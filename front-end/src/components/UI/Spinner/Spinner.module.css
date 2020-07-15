@@ -15,6 +15,15 @@
 }
 
 .spinnerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinnerCenterHorizontal {
     width: 100%;
-    text-align: center;
+}
+
+.spinnerCenterVertical {
+    height: 100%;
 }

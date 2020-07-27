@@ -1,5 +1,5 @@
 // Style
-import { StyledInput, StyledTextArea, TextFieldContainer, LabelContainer } from './text-field-style';
+import { StyledInput, StyledTextArea, TextFieldContainer, LabelContainer, ErrorContainer, LabelErrorContainer } from './text-field-style';
 import { Label } from '../Label/Label';
 
 // Date / Logic
@@ -13,18 +13,19 @@ interface TextFieldProps {
     id: string;
     inputType: string;
     value?: string;
-    error?: boolean;
+    hasError?: boolean;
     onBlur?(e: TextFieldEvent): void;
     onChange?(e: TextFieldEvent): void;
     label?: string;
     placeholder?: string;
     hideContent?: boolean;
     required?: boolean;
-    errorMessage?: string;
+    errorMessage?: string | null | undefined;
+    form?: string;
 }
 
 const TextField: FunctionComponent<TextFieldProps> = (props) => {
-    const { id, label, placeholder, hideContent, error, onBlur, onChange, inputType } = props;
+    const { id, label, placeholder, hideContent, hasError, onBlur, onChange, inputType, errorMessage } = props;
 
     const getFieldType = () => {
         if (TYPES.includes(inputType)) {
@@ -35,30 +36,35 @@ const TextField: FunctionComponent<TextFieldProps> = (props) => {
 
     return (
         <TextFieldContainer>
+            <LabelErrorContainer>
                 {label && (
                     <LabelContainer>
                         <Label htmlFor={id}>{label}</Label>
                     </LabelContainer>
                 )}
-                {getFieldType() === TYPES[0] && (
-                    <StyledInput 
-                        name={id} 
-                        id={id} 
-                        error={error ? error : false} 
-                        placeholder={placeholder} 
-                        type={hideContent ? "password" : "text"} 
-                        onBlur={onBlur} 
-                        onChange={onChange}/>
+                {hasError && (
+                    <ErrorContainer>{errorMessage}</ErrorContainer>
                 )}
-                {getFieldType() === TYPES[1] && (
-                    <StyledTextArea 
-                        name={id} 
-                        id={id} 
-                        error={error ? error : false} 
-                        placeholder={placeholder} 
-                        onBlur={onBlur}
-                        onChange={onChange}/>
-                )}
+            </LabelErrorContainer>
+            {getFieldType() === TYPES[0] && (
+                <StyledInput 
+                    name={id} 
+                    id={id} 
+                    error={hasError ? hasError : false} 
+                    placeholder={placeholder} 
+                    type={hideContent ? "password" : "text"} 
+                    onBlur={onBlur} 
+                    onChange={onChange}/>
+            )}
+            {getFieldType() === TYPES[1] && (
+                <StyledTextArea 
+                    name={id} 
+                    id={id} 
+                    error={hasError ? hasError : false} 
+                    placeholder={placeholder} 
+                    onBlur={onBlur}
+                    onChange={onChange}/>
+            )}
         </TextFieldContainer>
     )
 } 

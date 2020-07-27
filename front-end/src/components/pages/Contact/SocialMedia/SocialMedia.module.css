@@ -1,0 +1,21 @@
+.socialMediaContainer {
+    width: auto;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+.socialMediaTitle {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.socialMediaButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonContainer {
+    margin: 0 35px;
+}

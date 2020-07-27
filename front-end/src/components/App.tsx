@@ -2,13 +2,13 @@ import * as React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 // Components
-import Home from './_containers/Home/Home';
-import Contact from './_containers/Contact/Contact';
-import Recent from './_containers/Recent/Recent';
-import Galleries from './_containers/Galleries/Galleries';
-import Gallery from './_containers/Gallery/Gallery';
-import Viewer from './_containers/Viewer/Viewer';
-import Playground from './_containers/Playground/Playground';
+import Home from './pages/Home/Home';
+import Contact from './pages/Contact/Contact';
+import Recent from './pages/Recent/Recent';
+import Galleries from './pages/Galleries/Galleries';
+import Gallery from './pages/Gallery/Gallery';
+import Viewer from './pages/Viewer/Viewer';
+import Playground from './pages/Playground/Playground';
 import UserNavigation from './UI/Navigation/UserNavigation/UserNavigation';
 
 // Utils

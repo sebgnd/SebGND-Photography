@@ -4,14 +4,34 @@
     background-color: black;
 }
 
-.big {
+.bigWidth {
     width: 80%;
 }
 
-.medium {
+.mediumWidth {
     width: 50%;
 }
 
-.small {
+.smallWidth {
     width: 30%;
+}
+
+.tinyWidth {
+    width: 15%;
+}
+
+.bigHeight {
+    height: 80%;
+}
+
+.mediumHeight {
+    height: 50%;
+}
+
+.smallHeight {
+    height: 30%;
+}
+
+.tinyHeight {
+    height: 15%;
 }

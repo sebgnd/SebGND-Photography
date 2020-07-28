@@ -6,28 +6,19 @@
 1. Add comments
 1. Create Footer component
 
-1. Finish User Website
-    1. Recent Page
-        1. Make Loader in the center of the page
-        
-    1. Contact Page
-        1. SocialMedia Component
-        1. ContactForm Component
+1. Finish User Website    
+    1. Viewer
+        1. Fix z-index 
+    1. Implement Redux and Saga
+    1. Handle errors display
+    1. Services
+        1. Implement status handling (500, 400, 200, etc ...)
     
-    1. Recent Page / Gallery Page
-        1. Add router to show Slider on top of page with backdrop
         
-1. Remove automatic redirect on GalleryButton / RecentImage / SingleImage
 1. Add UserLayout / AdminLayout
-1. Find how to represent the thumbnail (For Home and Galleries component)
-1. Optimize render for RecentImage
-1. Create backdrop
-1. Remove navigation bar when clicked outside
-1. Look at HOC for Gallery and Recent (both loads images and will have current, nextId, prevId => load on scroll for recent ?)
 
 ### Backend:
 1. Check destroy return value 
-1. CreatedAt and UpdatedAt don't work
 
 ## Current API:
 Endpoints | Description

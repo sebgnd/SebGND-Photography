@@ -7,7 +7,6 @@ import Contact from './pages/Contact/Contact';
 import Recent from './pages/Recent/Recent';
 import Galleries from './pages/Galleries/Galleries';
 import Gallery from './pages/Gallery/Gallery';
-import Viewer from './pages/Viewer/Viewer';
 import Playground from './pages/Playground/Playground';
 import UserNavigation from './UI/Navigation/UserNavigation/UserNavigation';
 

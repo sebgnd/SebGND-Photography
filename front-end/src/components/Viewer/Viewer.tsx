@@ -64,13 +64,11 @@ const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, 
     }
 
     const fetchImage = async (id: number) => {
-        const imagesService = new ImageService();
-
         setAppInfo({ loading: true, error: false });
 
         try {
             const sameCategory: boolean = categoryId ? true : false;
-            const images: (Image | null)[] = await imagesService.getWithAdjacent(id, sameCategory);
+            const images: (Image | null)[] = await ImageService.getWithAdjacent(id, sameCategory);
 
             const previous: Image | null = images[0];
             const current: Image | null = images[1];
@@ -102,8 +100,8 @@ const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, 
                     <div className={styles.image}>
                         <ViewerImage 
                             imageId={viewerInfo.image.id.toString()} 
-                            src={viewerInfo.image.getUrl('medium_res')} 
-                            imageInfo={viewerInfo.image.toExifString()} 
+                            src={ImageService.getUrl(viewerInfo.image, 'medium_res')} 
+                            imageInfo={ImageService.getExifString(viewerInfo.image)} 
                         />
                     </div>
                     <div className={styles.arrow}>

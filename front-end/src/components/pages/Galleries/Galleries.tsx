@@ -3,7 +3,6 @@ import GalleryList from './GalleryList/GalleryList';
 
 import Image from '../../../helper/image/Image';
 import Category from '../../../helper/category/Category';
-import HttpRequest from '../../../helper/http/HttpRequest';
 import CategoryService from '../../../helper/category/CategoryService';
 import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
 
@@ -24,9 +23,10 @@ class Galleries extends Component {
 
     async fetchGalleries() {
         try {
-            const categoryService = new CategoryService();
-            const thumbnails: CategoryThumbnail[] = await categoryService.getAllThumbnail();
+            const thumbnails: CategoryThumbnail[] = await CategoryService.getAllThumbnail();
             
+            console.log(thumbnails);
+
             this.setState({
                 error: false,
                 loading: false,
@@ -34,6 +34,7 @@ class Galleries extends Component {
             })
 
         } catch (e) {
+            console.log(e);
             this.setState({
                 error: true,
                 loading: false,

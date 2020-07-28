@@ -5,6 +5,7 @@ import GalleryTitle from './GalleryTitle/GalleryTitle';
 import styles from './ImageList.module.css';
 
 import Image from '../../../../helper/image/Image';
+import ImageService from '../../../../helper/image/ImageService';
 import Category from '../../../../helper/category/Category';
 
 interface ImageListProps {
@@ -21,7 +22,7 @@ const ImageList: FunctionComponent<ImageListProps> = ({ images, category, onImag
                 {images.map(image => {
                     return <SingleImage 
                                 key={image.id} 
-                                src={image.getUrl('thumbnail_medium')} 
+                                src={ImageService.getUrl(image, 'thumbnail_medium')} 
                                 imageId={image.id.toString()}
                                 categoryId={image.category.id}
                                 onClick={onImageClick}

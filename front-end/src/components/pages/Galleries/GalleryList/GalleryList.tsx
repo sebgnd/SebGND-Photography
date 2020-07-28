@@ -3,7 +3,7 @@ import Image from '../../../../helper/image/Image';
 import { GalleryButton } from '../../../UI/Button';
 
 import styles from './GalleryList.module.css';
-import Category from '../../../../helper/category/Category';
+import CategoryService from '../../../../helper/category/CategoryService';
 import CategoryThumbnail from '../../../../helper/category/CategoryThumbnail';
 
 interface GalleriesListProps {
@@ -17,7 +17,7 @@ const GalleriesList: FunctionComponent<GalleriesListProps> = ({ thumbnails }) =>
                 return (
                     <div key={thumbnail.category.id} className={styles.galleryButtonContainer}>
                         <GalleryButton
-                            src={thumbnail.getUrl('thumbnail_medium')}
+                            src={CategoryService.getThumbnailUrl(thumbnail, 'thumbnail_medium')}
                             imageId={thumbnail.image ? thumbnail.image.id.toString() : '-1'}
                             categoryId={thumbnail.category.id}
                             categoryDisplayName={thumbnail.category.displayName}   

@@ -43,10 +43,9 @@ const Recent: FunctionComponent<RecentProps> = ({ endWindowReached, match, histo
             return;
         }
 
-        const imageService = new ImageService();
         try {
             setAppInfo({ ...appInfo, loading: true, error: false });
-            const newImages: Image[] = await imageService.getKFromOffset(NB_IMAGE_PER_FETCH, recentInfo.images.length);
+            const newImages: Image[] = await ImageService.getKFromOffset(NB_IMAGE_PER_FETCH, recentInfo.images.length);
 
             setTimeout(() => {
                 if(newImages.length !== 0) {

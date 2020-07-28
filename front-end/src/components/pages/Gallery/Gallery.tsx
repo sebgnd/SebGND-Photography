@@ -28,7 +28,10 @@ type GalleryProps = RouteComponentProps<RouteParams>;
 const Gallery: FunctionComponent<GalleryProps> = ({ match, history }) => {
     
     const [galleryInfo, setGalleryInfo] = useState<GalleryInfo>({
-        category: new Category(),
+        category: {
+            id: '',
+            displayName: ''
+        },
         images: [],
     });
     const [appInfo, setAppInfo] = useState<AppInfo>({
@@ -37,14 +40,11 @@ const Gallery: FunctionComponent<GalleryProps> = ({ match, history }) => {
     })
 
     const fetchGallery = async (categoryId: string) => {
-        const categoryService = new CategoryService();
-        const imageService = new ImageService();
-
         setAppInfo({ error: false, loading: true });
 
         try {
-            const category: Category = await categoryService.get(categoryId);
-            const images: Image[] = await imageService.getFromCategory(categoryId);
+            const category: Category = await CategoryService.get(categoryId);
+            const images: Image[] = await ImageService.getFromCategory(categoryId);
 
             setGalleryInfo({ images, category });
             setAppInfo({ error: false, loading: false });

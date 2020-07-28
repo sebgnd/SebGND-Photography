@@ -6,9 +6,6 @@ import Landing from './Landing/Landing';
 import GalleriesPreview from './GalleryPreview/GalleryPreview';
 import About from './About/About';
 
-import Image from '../../../helper/image/Image';
-import HttpRequest from '../../../helper/http/HttpRequest';
-import Category from '../../../helper/category/Category';
 import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
 import CategoryService from '../../../helper/category/CategoryService';
 
@@ -29,9 +26,8 @@ class Home extends Component<{}, HomeState> {
 
     async fetchGalleries() {
         try {
-            const categoryService = new CategoryService();
-            const thumbnails: CategoryThumbnail[] = await categoryService.getKThumbnail(3);
-
+            const thumbnails: CategoryThumbnail[] = await CategoryService.getKThumbnail(3);
+            
             this.setState({
                 error: false,
                 loading: false,

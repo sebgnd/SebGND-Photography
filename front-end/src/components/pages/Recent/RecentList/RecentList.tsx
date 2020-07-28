@@ -1,6 +1,9 @@
 import React, { FunctionComponent, MouseEvent } from 'react';
-import Image from '../../../../helper/image/Image';
 import { RecentImage } from '../../../UI/Image';
+
+import Image from '../../../../helper/image/Image';
+import ImageService from '../../../../helper/image/ImageService';
+
 import styles from './RecentList.module.css';
 
 interface RecentListProp {
@@ -15,9 +18,9 @@ const RecentList: FunctionComponent<RecentListProp> = ({ images, onImageClick, o
             { images.map(image => {
                 return <RecentImage 
                             key={image.id} 
-                            src={image.getUrl('small_res')} 
-                            date={image.getFormatedDate()} 
-                            imageType={image.getImageType()} 
+                            src={ImageService.getUrl(image, 'small_res')} 
+                            date={ImageService.getFormatedDate(image)} 
+                            imageType={ImageService.getImageType(image)} 
                             imageId={image.id.toString()} 
                             categoryId={image.category.id} 
                             categoryDisplayName={image.category.displayName}

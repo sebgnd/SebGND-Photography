@@ -8,11 +8,18 @@ import ContactForm from './ContactForm/ContactForm';
 import Validation, { withoutSpecialCharacter, notEmpty, maxLength, ValidationResponse } from '../../../helper/form/Validation';
 import FormField from '../../../helper/form/FormField';
 import FieldValidator from '../../../helper/form/FieldValidator';
+import MessageService from '../../../helper/message/MessageService';
 
 interface ContactInput {
     name: FormField;
     message: FormField;
     [key: string]: FormField;
+}
+
+interface AppInfo {
+    loading: boolean,
+    error: boolean,
+    dataSent: boolean
 }
 
 const Contact: FunctionComponent = () => {
@@ -40,6 +47,12 @@ const Contact: FunctionComponent = () => {
         };
     })
 
+    const [appInfo, setAppInfo] = useState<AppInfo>({
+        loading: false,
+        error: false,
+        dataSent: false
+    });
+
     const handleChange = (event: FormEvent<HTMLInputElement>) => {
         const { currentTarget } = event;
         const { value, name } = currentTarget;
@@ -66,7 +79,7 @@ const Contact: FunctionComponent = () => {
         return newContactInput;
     }
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const fields: FormField[] = Object.keys(contactInput).map(key => {
@@ -85,7 +98,27 @@ const Contact: FunctionComponent = () => {
             
             setContactInput(newContactInput);
         } else {
-            // Update the state
+            try {
+                setAppInfo({ ...appInfo, loading: true });
+
+                const message = contactInput.message.value;
+                const name = contactInput.name.value;
+                const messageSent = await MessageService.sendMessage(message, name);
+
+                setAppInfo({
+                    loading: false,
+                    dataSent: true,
+                    error: false
+                })
+
+                console.log(messageSent);
+            } catch (err) {
+                setAppInfo({
+                    loading: false,
+                    dataSent: false,
+                    error: true
+                })
+            }
         }
     }
 

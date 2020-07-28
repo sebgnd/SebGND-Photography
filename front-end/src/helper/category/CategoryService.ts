@@ -1,4 +1,5 @@
 import HttpRequest from '../http/HttpRequest';
+import HttpResponse from '../http/HttpResponse';
 import Category from './Category';
 import CategoryThumbnail from './CategoryThumbnail';
 import ImageService from '../image/ImageService';
@@ -6,8 +7,8 @@ import ImageService from '../image/ImageService';
 export default class CategoryService {
     static async get(id: string): Promise<Category> {
         try {
-            const data: any = await HttpRequest.getData(`http://localhost:8000/categories/${id}`);
-            return this.format(data);
+            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories/${id}`);
+            return this.format(response.data);
         
         } catch (e) {
             throw e;
@@ -16,8 +17,8 @@ export default class CategoryService {
 
     static async getThumbnail(id: string): Promise<CategoryThumbnail> {
         try {
-            const data: any = await HttpRequest.getData(`http://localhost:8000/categories/${id}`);
-            return this.formatWithThumbnail(data);
+            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories/${id}`);
+            return this.formatWithThumbnail(response.data);
         
         } catch (e) {
             throw e;
@@ -26,8 +27,8 @@ export default class CategoryService {
 
     static async getKThumbnail(k: number): Promise<CategoryThumbnail[]> {
         try {
-            const data = await HttpRequest.getData(`http://localhost:8000/categories?offset=0&k=${k}`);
-            return data.map((category: any) => {
+            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories?offset=0&k=${k}`);
+            return response.data.map((category: any) => {
                 return this.formatWithThumbnail(category)
             });
 
@@ -38,9 +39,9 @@ export default class CategoryService {
 
     static async getAllThumbnail(): Promise<CategoryThumbnail[]> {
         try {
-            const data = await HttpRequest.getData('http://localhost:8000/categories');
-            return data.map((cateogory: any) => {
-                return this.formatWithThumbnail(cateogory)
+            const response: HttpResponse = await HttpRequest.get('http://localhost:8000/categories');
+            return response.data.map((category: any) => {
+                return this.formatWithThumbnail(category)
             });
         
         } catch (e) {

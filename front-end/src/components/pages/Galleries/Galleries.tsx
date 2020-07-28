@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, FunctionComponent, useState, useEffect } from 'react';
 import GalleryList from './GalleryList/GalleryList';
 
 import Image from '../../../helper/image/Image';
@@ -6,36 +6,33 @@ import Category from '../../../helper/category/Category';
 import CategoryService from '../../../helper/category/CategoryService';
 import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
 
-interface GalleriesState {
-    thumbnails: CategoryThumbnail[];
-    error: boolean,
-    loading: boolean,
-    errorMessage: string
+interface AppInfo {
+    error: boolean;
+    loading: boolean;
+    errorMessage: string;
 }
 
-class Galleries extends Component {
-    state = {
-        thumbnails: [],
+const Galleries: FunctionComponent = () => {
+    const [thumbnails, setThumbnails] = useState<CategoryThumbnail[]>([]);
+    const [appInfo, setAppInfo] = useState<AppInfo>({
         error: false,
         loading: true,
         errorMessage: ''
-    }
+    });
 
-    async fetchGalleries() {
+    const fetchGalleries = async () => {
         try {
             const thumbnails: CategoryThumbnail[] = await CategoryService.getAllThumbnail();
-            
-            console.log(thumbnails);
 
-            this.setState({
+            setThumbnails(thumbnails);
+            setAppInfo({
+                ...appInfo,
                 error: false,
                 loading: false,
-                thumbnails
             })
 
         } catch (e) {
-            console.log(e);
-            this.setState({
+            setAppInfo({
                 error: true,
                 loading: false,
                 errorMessage: e.message
@@ -43,15 +40,13 @@ class Galleries extends Component {
         }
     }
 
-    componentDidMount() {
-        this.fetchGalleries();
-    }
+    useEffect(() => {
+        fetchGalleries();
+    }, [])
 
-    render() {
-        return (
-            <GalleryList thumbnails={this.state.thumbnails} />
-        )
-    }
+    return (
+        <GalleryList thumbnails={thumbnails} />
+    )
 }
 
 export default Galleries;

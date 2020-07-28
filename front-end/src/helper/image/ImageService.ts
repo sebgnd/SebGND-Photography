@@ -5,8 +5,8 @@ import Image from './Image';
 export default class ImageService {
     static async getFromCategory(id: string): Promise<Image[]> {
         try {
-            const data: any = await HttpRequest.getData(`http://localhost:8000/categories/${id}/images`);    
-            return data.map((image: any) => this.format(image));
+            const response: any = await HttpRequest.get(`http://localhost:8000/categories/${id}/images`);    
+            return response.data.map((image: any) => this.format(image));
             
         } catch (e) {
             throw e;
@@ -15,8 +15,8 @@ export default class ImageService {
 
     static async getKFromOffset(k: number, offset: number): Promise<Image[]> {
         try {
-            const data: any = await HttpRequest.getData(`http://localhost:8000/images?offset=${offset}&k=${k}`);         
-            return data.map((image: any) => this.format(image));
+            const response: any = await HttpRequest.get(`http://localhost:8000/images?offset=${offset}&k=${k}`);         
+            return response.data.map((image: any) => this.format(image));
 
         } catch (e) {
             throw e;
@@ -25,8 +25,8 @@ export default class ImageService {
 
     static async get(id: number): Promise<Image> {
         try {
-            const data: any = await HttpRequest.getData(`http://localhost:8000/images/${id}`);         
-            return this.format(data);
+            const response: any = await HttpRequest.get(`http://localhost:8000/images/${id}`);         
+            return this.format(response.data);
 
         } catch (e) {
             throw e;
@@ -36,7 +36,7 @@ export default class ImageService {
     static async getWithAdjacent(id: number, sameCategory: boolean = false): Promise<(Image | null)[]> {
         try {
             const categoryString: string = sameCategory ? 'true' : 'false';
-            const data: any = await HttpRequest.getData(`http://localhost:8000/images/${id}?withAdjacent=true&sameCategory=${categoryString}`);         
+            const data: any = await HttpRequest.get(`http://localhost:8000/images/${id}?withAdjacent=true&sameCategory=${categoryString}`);         
 
             const current: Image = this.format(data.image);
             const previous: Image | null = data.previous ? this.format(data.previous) : null;

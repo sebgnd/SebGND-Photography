@@ -27,3 +27,7 @@
 .spinnerCenterVertical {
     height: 100%;
 }
+
+.fullScreen {
+    height: calc(100vh - 81px);
+}

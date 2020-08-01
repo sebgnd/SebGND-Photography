@@ -5,7 +5,7 @@ export default interface Image {
     width: number;
     height: number;
     category: Category;
-    uploadDate: Date
+    uploadDate: string;
     
     aperture?: string | null;
     iso?: number | null;

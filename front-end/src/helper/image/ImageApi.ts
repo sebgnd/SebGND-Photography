@@ -7,7 +7,11 @@ export default class ImageApi {
     static async getFromCategory(id: string): Promise<Image[]> {
         try {
             const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories/${id}/images`);    
-            return response.data.map((image: any) => ImageService.format(image));
+            if (response.status === 200) {
+                return response.data.map((image: any) => ImageService.format(image));
+            } else {
+                throw new Error(response.data.error.message);
+            }
             
         } catch (e) {
             throw e;
@@ -16,9 +20,12 @@ export default class ImageApi {
 
     static async getKFromOffset(k: number, offset: number): Promise<Image[]> {
         try {
-            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images?offset=${offset}&k=${k}`);         
-            return response.data.map((image: any) => ImageService.format(image));
-
+            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images?offset=${offset}&k=${k}`);     
+            if (response.status === 200) {
+                return response.data.map((image: any) => ImageService.format(image));
+            } else {
+                throw new Error(response.data.error.message);
+            }
         } catch (e) {
             throw e;
         }

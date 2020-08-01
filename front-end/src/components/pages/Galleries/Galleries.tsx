@@ -1,8 +1,10 @@
 import React, { Component, FunctionComponent, useState, useEffect } from 'react';
-import GalleryList from './GalleryList/GalleryList';
+import { useSelector, useDispatch } from 'react-redux';
 
-import CategoryApi from '../../../helper/category/CategoryApi';
-import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
+import { selectAllCategoryThumbnails, selectCategoryStatus } from '../../../redux/selectors/categorySelector';
+import { fetchCategoryThumbnails } from '../../../redux/slices/categorySlice';
+
+import GalleryList from './GalleryList/GalleryList';
 
 interface AppInfo {
     error: boolean;
@@ -11,39 +13,16 @@ interface AppInfo {
 }
 
 const Galleries: FunctionComponent = () => {
-    const [thumbnails, setThumbnails] = useState<CategoryThumbnail[]>([]);
-    const [appInfo, setAppInfo] = useState<AppInfo>({
-        error: false,
-        loading: true,
-        errorMessage: ''
-    });
-
-    const fetchGalleries = async () => {
-        try {
-            const thumbnails: CategoryThumbnail[] = await CategoryApi.getAllThumbnail();
-
-            setThumbnails(thumbnails);
-            setAppInfo({
-                ...appInfo,
-                error: false,
-                loading: false,
-            })
-
-        } catch (e) {
-            setAppInfo({
-                error: true,
-                loading: false,
-                errorMessage: e.message
-            })
-        }
-    }
+    const dispatch = useDispatch();
+    const thumbnails = useSelector(selectAllCategoryThumbnails);
+    const status = useSelector(selectCategoryStatus);
 
     useEffect(() => {
-        fetchGalleries();
-    }, [])
+        dispatch(fetchCategoryThumbnails())
+    }, []);
 
     return (
-        <GalleryList thumbnails={thumbnails} />
+        <GalleryList status={status} thumbnails={thumbnails} />
     )
 }
 

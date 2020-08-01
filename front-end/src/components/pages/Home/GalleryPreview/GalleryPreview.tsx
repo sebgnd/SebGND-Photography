@@ -1,22 +1,24 @@
 import React, { FunctionComponent } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom'
+
+import { Title } from '../../../Styled/text';
 import { Button } from '../../../UI/Button';
 import GalleryPreviewList from './GalleryPreviewList/GalleryPreviewList';
-import { Title } from '../../../Styled/text';
+import Spinner from '../../../UI/Spinner/Spinner';
 
 import styles from './GalleryPreview.module.css';
 
-import Category from '../../../../helper/category/Category';
 import Paths from '../../../../helper/Paths';
 import CategoryThumbnail from '../../../../helper/category/CategoryThumbnail';
 
 interface GalleriesPreviewProps extends RouteComponentProps {
     thumbnails: CategoryThumbnail[];
+    status: string;
 }
 
-const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {
+const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = ({ thumbnails, status, history }) => {
     const goToGalleries = () => {
-        props.history.push(Paths.gallery());
+        history.push(Paths.gallery());
     }
 
     return (
@@ -27,7 +29,11 @@ const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = (props) => {
                 </div>
             </div>
             <div className={styles.row}>
-                <GalleryPreviewList thumbnails={props.thumbnails} />
+                {(status == 'loading') ? (
+                    <Spinner centerHorizontal />
+                ) : (
+                    <GalleryPreviewList thumbnails={thumbnails} />
+                )}
             </div>
             <div className={styles.row}>
                 <div className={styles.buttonContainer}>

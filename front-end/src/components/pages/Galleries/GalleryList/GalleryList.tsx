@@ -5,26 +5,34 @@ import { GalleryButton } from '../../../UI/Button';
 import styles from './GalleryList.module.css';
 import CategoryService from '../../../../helper/category/CategoryService';
 import CategoryThumbnail from '../../../../helper/category/CategoryThumbnail';
+import Spinner from '../../../UI/Spinner/Spinner';
 
 interface GalleriesListProps {
     thumbnails: CategoryThumbnail[];
+    status: string;
 }
 
-const GalleriesList: FunctionComponent<GalleriesListProps> = ({ thumbnails }) => {
+const GalleriesList: FunctionComponent<GalleriesListProps> = ({ thumbnails, status }) => {
     return (
         <div className={styles.listContainer}>
-            {thumbnails.map(thumbnail => {
-                return (
-                    <div key={thumbnail.category.id} className={styles.galleryButtonContainer}>
-                        <GalleryButton
-                            src={CategoryService.getThumbnailUrl(thumbnail, 'thumbnail_medium')}
-                            imageId={thumbnail.image ? thumbnail.image.id.toString() : '-1'}
-                            categoryId={thumbnail.category.id}
-                            categoryDisplayName={thumbnail.category.displayName}   
-                        />
-                    </div>
-                )
-            })}
+            {(status === 'loading') ? (
+                <Spinner centerHorizontal centerVertical fullScreen />
+            ) : (
+                <>
+                    {thumbnails.map(thumbnail => {
+                        return (
+                            <div key={thumbnail.category.id} className={styles.galleryButtonContainer}>
+                                <GalleryButton
+                                    src={CategoryService.getThumbnailUrl(thumbnail, 'thumbnail_medium')}
+                                    imageId={thumbnail.image ? thumbnail.image.id.toString() : '-1'}
+                                    categoryId={thumbnail.category.id}
+                                    categoryDisplayName={thumbnail.category.displayName}   
+                                />
+                            </div>
+                        )
+                    })}
+                </>
+            )}
         </div>
     )
 }

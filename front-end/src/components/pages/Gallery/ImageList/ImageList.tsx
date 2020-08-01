@@ -1,7 +1,8 @@
 import React, { FunctionComponent, Fragment, MouseEvent } from 'react';
+
 import { SingleImage } from '../../../UI/Image';
 import GalleryTitle from './GalleryTitle/GalleryTitle';
-
+import Spinner from '../../../UI/Spinner/Spinner';
 import styles from './ImageList.module.css';
 
 import Image from '../../../../helper/image/Image';
@@ -10,25 +11,37 @@ import Category from '../../../../helper/category/Category';
 
 interface ImageListProps {
     images: Image[];
-    category: Category;
+    category: Category | null;
     onImageClick: (event: MouseEvent, imageId: string, categoryId: string) => void;
+    categoryStatus: string;
+    imagesStatus: string;
 }
 
-const ImageList: FunctionComponent<ImageListProps> = ({ images, category, onImageClick }) => {
+const ImageList: FunctionComponent<ImageListProps> = ({ images, category, categoryStatus, imagesStatus, onImageClick }) => {
+    const isLoading = categoryStatus === 'loading' && imagesStatus === 'loading';
+
     return (
         <Fragment>
-            <GalleryTitle title={category.displayName} />
-            <div className={styles.listContainer}>
-                {images.map(image => {
-                    return <SingleImage 
-                                key={image.id} 
-                                src={ImageService.getUrl(image, 'thumbnail_medium')} 
-                                imageId={image.id.toString()}
-                                categoryId={image.category.id}
-                                onClick={onImageClick}
-                            />
-                })}
-            </div>
+            {isLoading ? (
+                <Spinner centerVertical centerHorizontal fullScreen />
+            ) : (
+                <>
+                    <GalleryTitle title={category ? category.displayName : 'Gallery'} />
+                    <div className={styles.listContainer}>
+                        {images.map(image => {
+                            return (
+                                <SingleImage 
+                                    key={image.id} 
+                                    src={ImageService.getUrl(image, 'thumbnail_medium')} 
+                                    imageId={image.id.toString()}
+                                    categoryId={image.category.id}
+                                    onClick={onImageClick}
+                                />
+                            )
+                        })}
+                    </div>
+                </>  
+            )}
         </Fragment>
     )
 }

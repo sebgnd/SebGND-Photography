@@ -4,17 +4,22 @@ import styles from './Spinner.module.css';
 interface SpinnerProps {
     centerHorizontal?: boolean;
     centerVertical?: boolean;
+    fullScreen?: boolean;
     zIndex?: number;
 }
 
-const Spinner: FunctionComponent<SpinnerProps> = ({ centerHorizontal = false, centerVertical = false, zIndex }) => {
+const Spinner: FunctionComponent<SpinnerProps> = ({ centerHorizontal = false, centerVertical = false, fullScreen = false, zIndex }) => {
     const getClassNames = () => {
         const classes = [styles.spinnerContainer];
         if (centerHorizontal) {
             classes.push(styles.spinnerCenterHorizontal);
         }
         if (centerVertical) {
-            classes.push(styles.spinnerCenterVertical);
+            if (fullScreen) {
+                classes.push(styles.fullScreen);
+            } else {
+                classes.push(styles.spinnerCenterVertical);
+            }
         }
         return classes.join(' ');
     }

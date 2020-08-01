@@ -3,9 +3,8 @@ import Image from './Image';
 export default class ImageService {
     static format(json: any): Image {
         const { id: categoryId, displayName } = json.category;
-        const { id, width, height } = json;
+        const { id, width, height, uploadDate } = json;
         const category = { id: categoryId, displayName }
-        const uploadDate = new Date(json.uploadDate);
 
         return {
             id,
@@ -35,7 +34,8 @@ export default class ImageService {
     }
 
     static getFormatedDate(image: Image): string {
-        return image.uploadDate.toLocaleDateString('en-us', {
+        const date = new Date(image.uploadDate);
+        return date.toLocaleDateString('en-us', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',

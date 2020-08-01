@@ -1,12 +1,15 @@
-import React, { useEffect, Fragment, FunctionComponent, useState } from 'react';
+import React, { useEffect, Fragment, FunctionComponent } from 'react';
 import Parallax from '../../UI/Parallax/Parallax';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Landing from './Landing/Landing';
 import GalleriesPreview from './GalleryPreview/GalleryPreview';
 import About from './About/About';
 
-import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
-import CategoryApi from '../../../helper/category/CategoryApi';
+import { RootState } from '../../../redux/types';
+import { fetchCategoryThumbnails } from '../../../redux/slices/categorySlice';
+import { selectCategoryStatus, selectAllCategoryThumbnails } from '../../../redux/selectors/categorySelector';
+
 
 interface AppInfo {
     error: boolean;
@@ -15,36 +18,12 @@ interface AppInfo {
 }
 
 const Home: FunctionComponent = () => {
-    const [thumbnails, setThumbnails] = useState<CategoryThumbnail[]>([]);
-    const [appInfo, setAppInfo] = useState<AppInfo>({
-        error: false,
-        errorMessage: '',
-        loading: true,
-    });
-
-
-
-    const fetchGalleries = async () => {
-        try {
-            const newThumbnails: CategoryThumbnail[] = await CategoryApi.getKThumbnail(3);
-            
-            setAppInfo({
-                ...appInfo,
-                loading: false,
-            });
-            setThumbnails(newThumbnails);
-
-        } catch (e) {
-            setAppInfo({
-                error: true,
-                loading: false,
-                errorMessage: e.message
-            })
-        }
-    }
+    const dispatch = useDispatch();
+    const thumbnails = useSelector(selectAllCategoryThumbnails);
+    const status = useSelector(selectCategoryStatus);
 
     useEffect(() => {
-        fetchGalleries();
+        dispatch(fetchCategoryThumbnails(3));
     }, [])
 
     return (
@@ -52,7 +31,10 @@ const Home: FunctionComponent = () => {
             <Parallax img="images/parallax-1.jpg" speed={0.5}>
                 <Landing />
             </Parallax>
-            <GalleriesPreview thumbnails={thumbnails} />
+            <GalleriesPreview 
+                status={status} 
+                thumbnails={thumbnails} 
+            />
             <Parallax img="images/parallax-2.jpg" speed={0.5} >
                 <About />
             </Parallax>

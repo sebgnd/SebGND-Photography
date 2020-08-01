@@ -1,5 +1,4 @@
-import React, { Component, FormEvent, Fragment } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, Fragment, FunctionComponent, useState } from 'react';
 import Parallax from '../../UI/Parallax/Parallax';
 
 import Landing from './Landing/Landing';
@@ -7,59 +6,58 @@ import GalleriesPreview from './GalleryPreview/GalleryPreview';
 import About from './About/About';
 
 import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
-import CategoryService from '../../../helper/category/CategoryService';
+import CategoryApi from '../../../helper/category/CategoryApi';
 
-interface HomeState {
-    thumbnails: CategoryThumbnail[];
+interface AppInfo {
     error: boolean;
     loading: boolean;
     errorMessage: string;
 }
 
-class Home extends Component<{}, HomeState> {
-    state = {
-        thumbnails: [],
+const Home: FunctionComponent = () => {
+    const [thumbnails, setThumbnails] = useState<CategoryThumbnail[]>([]);
+    const [appInfo, setAppInfo] = useState<AppInfo>({
         error: false,
         errorMessage: '',
         loading: true,
-    }
+    });
 
-    async fetchGalleries() {
+
+
+    const fetchGalleries = async () => {
         try {
-            const thumbnails: CategoryThumbnail[] = await CategoryService.getKThumbnail(3);
+            const newThumbnails: CategoryThumbnail[] = await CategoryApi.getKThumbnail(3);
             
-            this.setState({
-                error: false,
+            setAppInfo({
+                ...appInfo,
                 loading: false,
-                thumbnails
             });
+            setThumbnails(newThumbnails);
 
         } catch (e) {
-            this.setState({
+            setAppInfo({
                 error: true,
                 loading: false,
                 errorMessage: e.message
-            });
+            })
         }
     }
 
-    componentDidMount() {
-        this.fetchGalleries();
-    }
+    useEffect(() => {
+        fetchGalleries();
+    }, [])
 
-    render() {
-        return (
-            <Fragment>
-                <Parallax img="images/parallax-1.jpg" speed={0.5}>
-                    <Landing />
-                </Parallax>
-                <GalleriesPreview thumbnails={this.state.thumbnails} />
-                <Parallax img="images/parallax-2.jpg" speed={0.5} >
-                    <About />
-                </Parallax>
-            </Fragment>
-        )
-    }
+    return (
+        <Fragment>
+            <Parallax img="images/parallax-1.jpg" speed={0.5}>
+                <Landing />
+            </Parallax>
+            <GalleriesPreview thumbnails={thumbnails} />
+            <Parallax img="images/parallax-2.jpg" speed={0.5} >
+                <About />
+            </Parallax>
+        </Fragment>
+    )
 }
 
 export default Home;

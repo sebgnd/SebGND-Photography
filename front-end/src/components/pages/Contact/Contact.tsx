@@ -8,7 +8,7 @@ import ContactForm from './ContactForm/ContactForm';
 import Validation, { withoutSpecialCharacter, notEmpty, maxLength, ValidationResponse } from '../../../helper/form/Validation';
 import FormField from '../../../helper/form/FormField';
 import FieldValidator from '../../../helper/form/FieldValidator';
-import MessageService from '../../../helper/message/MessageService';
+import MessageApi from '../../../helper/message/MessageApi';
 
 interface ContactInput {
     name: FormField;
@@ -103,7 +103,7 @@ const Contact: FunctionComponent = () => {
 
                 const message = contactInput.message.value;
                 const name = contactInput.name.value;
-                const messageSent = await MessageService.sendMessage(message, name);
+                const messageSent = await MessageApi.sendMessage(message, name);
 
                 setAppInfo({
                     loading: false,

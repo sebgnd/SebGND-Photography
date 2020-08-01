@@ -5,8 +5,8 @@ import Viewer from '../../Viewer/Viewer';
 
 import Image from '../../../helper/image/Image';
 import Category from '../../../helper/category/Category';
-import CategoryService from '../../../helper/category/CategoryService';
-import ImageService from '../../../helper/image/ImageService';
+import CategoryApi from '../../../helper/category/CategoryApi';
+import ImageApi from '../../../helper/image/ImageApi';
 
 interface RouteParams {
     id: string;
@@ -43,8 +43,8 @@ const Gallery: FunctionComponent<GalleryProps> = ({ match, history }) => {
         setAppInfo({ error: false, loading: true });
 
         try {
-            const category: Category = await CategoryService.get(categoryId);
-            const images: Image[] = await ImageService.getFromCategory(categoryId);
+            const category: Category = await CategoryApi.get(categoryId);
+            const images: Image[] = await ImageApi.getFromCategory(categoryId);
 
             setGalleryInfo({ images, category });
             setAppInfo({ error: false, loading: false });

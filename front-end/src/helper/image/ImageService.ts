@@ -1,60 +1,6 @@
-import HttpRequest from '../http/HttpRequest';
-import HttpResponse from '../http/HttpResponse';
-import Category from '../category/Category';
 import Image from './Image';
 
 export default class ImageService {
-    static async getFromCategory(id: string): Promise<Image[]> {
-        try {
-            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories/${id}/images`);    
-            return response.data.map((image: any) => this.format(image));
-            
-        } catch (e) {
-            throw e;
-        }
-    }
-
-    static async getKFromOffset(k: number, offset: number): Promise<Image[]> {
-        try {
-            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images?offset=${offset}&k=${k}`);         
-            return response.data.map((image: any) => this.format(image));
-
-        } catch (e) {
-            throw e;
-        }
-    }
-
-    static async get(id: number): Promise<Image> {
-        try {
-            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images/${id}`);         
-            return this.format(response.data);
-
-        } catch (e) {
-            throw e;
-        }
-    }
-
-    static async getWithAdjacent(id: number, sameCategory: boolean = false): Promise<(Image | null)[]> {
-        try {
-            const categoryString: string = sameCategory ? 'true' : 'false';
-            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images/${id}?withAdjacent=true&sameCategory=${categoryString}`);         
-            const { data } = response;
-
-            const current: Image = this.format(data.image);
-            const previous: Image | null = data.previous ? this.format(data.previous) : null;
-            const next: Image | null = data.next ? this.format(data.next) : null;
-
-            return [
-                previous,
-                current,
-                next
-            ];
-
-        } catch (e) {
-            throw e;
-        }
-    }
-
     static format(json: any): Image {
         const { id: categoryId, displayName } = json.category;
         const { id, width, height } = json;

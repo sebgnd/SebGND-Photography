@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import Spinner from '../../UI/Spinner/Spinner';
 import Image from '../../../helper/image/Image';
 import RecentList from './RecentList/RecentList';
-import ImageService from '../../../helper/image/ImageService';
+import ImageApi from '../../../helper/image/ImageApi';
 import withEndScroll, { EndScrollProps } from '../../HOC/withEndScroll';
 import Viewer from '../../Viewer/Viewer';
 
@@ -45,7 +45,7 @@ const Recent: FunctionComponent<RecentProps> = ({ endWindowReached, match, histo
 
         try {
             setAppInfo({ ...appInfo, loading: true, error: false });
-            const newImages: Image[] = await ImageService.getKFromOffset(NB_IMAGE_PER_FETCH, recentInfo.images.length);
+            const newImages: Image[] = await ImageApi.getKFromOffset(NB_IMAGE_PER_FETCH, recentInfo.images.length);
 
             setTimeout(() => {
                 if(newImages.length !== 0) {

@@ -9,6 +9,7 @@ import { RoundButton } from '../UI/Button';
 import Spinner from '../UI/Spinner/Spinner';
 
 import Image from '../../helper/image/Image';
+import ImageApi from '../../helper/image/ImageApi';
 import ImageService from '../../helper/image/ImageService';
 
 interface ViewerProps extends RouteComponentProps {
@@ -68,7 +69,7 @@ const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, 
 
         try {
             const sameCategory: boolean = categoryId ? true : false;
-            const images: (Image | null)[] = await ImageService.getWithAdjacent(id, sameCategory);
+            const images: (Image | null)[] = await ImageApi.getWithAdjacent(id, sameCategory);
 
             const previous: Image | null = images[0];
             const current: Image | null = images[1];

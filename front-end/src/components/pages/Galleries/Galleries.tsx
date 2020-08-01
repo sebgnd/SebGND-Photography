@@ -1,9 +1,7 @@
 import React, { Component, FunctionComponent, useState, useEffect } from 'react';
 import GalleryList from './GalleryList/GalleryList';
 
-import Image from '../../../helper/image/Image';
-import Category from '../../../helper/category/Category';
-import CategoryService from '../../../helper/category/CategoryService';
+import CategoryApi from '../../../helper/category/CategoryApi';
 import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
 
 interface AppInfo {
@@ -22,7 +20,7 @@ const Galleries: FunctionComponent = () => {
 
     const fetchGalleries = async () => {
         try {
-            const thumbnails: CategoryThumbnail[] = await CategoryService.getAllThumbnail();
+            const thumbnails: CategoryThumbnail[] = await CategoryApi.getAllThumbnail();
 
             setThumbnails(thumbnails);
             setAppInfo({

@@ -1,4 +1,5 @@
-import React, { FunctionComponent, FormEvent, useState, useEffect } from 'react';
+import React, { FunctionComponent, FormEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import style from './Contact.module.css';
 
 import SocialMedia from './SocialMedia/SocialMedia';
@@ -8,18 +9,13 @@ import ContactForm from './ContactForm/ContactForm';
 import Validation, { withoutSpecialCharacter, notEmpty, maxLength, ValidationResponse } from '../../../helper/form/Validation';
 import FormField from '../../../helper/form/FormField';
 import FieldValidator from '../../../helper/form/FieldValidator';
-import MessageApi from '../../../helper/message/MessageApi';
+
+import { postContactMessage } from '../../../redux/slices/contactSlice';
 
 interface ContactInput {
     name: FormField;
     message: FormField;
     [key: string]: FormField;
-}
-
-interface AppInfo {
-    loading: boolean,
-    error: boolean,
-    dataSent: boolean
 }
 
 const Contact: FunctionComponent = () => {
@@ -45,13 +41,8 @@ const Contact: FunctionComponent = () => {
                 validations: messageValidations   
             }
         };
-    })
-
-    const [appInfo, setAppInfo] = useState<AppInfo>({
-        loading: false,
-        error: false,
-        dataSent: false
     });
+    const dispatch = useDispatch();
 
     const handleChange = (event: FormEvent<HTMLInputElement>) => {
         const { currentTarget } = event;
@@ -98,27 +89,15 @@ const Contact: FunctionComponent = () => {
             
             setContactInput(newContactInput);
         } else {
-            try {
-                setAppInfo({ ...appInfo, loading: true });
+            const message = contactInput.message.value;
+            const name = contactInput.name.value;
 
-                const message = contactInput.message.value;
-                const name = contactInput.name.value;
-                const messageSent = await MessageApi.sendMessage(message, name);
-
-                setAppInfo({
-                    loading: false,
-                    dataSent: true,
-                    error: false
+            dispatch(
+                postContactMessage({ 
+                    message, 
+                    name 
                 })
-
-                console.log(messageSent);
-            } catch (err) {
-                setAppInfo({
-                    loading: false,
-                    dataSent: false,
-                    error: true
-                })
-            }
+            );
         }
     }
 

@@ -6,8 +6,8 @@ import Landing from './Landing/Landing';
 import GalleriesPreview from './GalleryPreview/GalleryPreview';
 import About from './About/About';
 
-import { RootState } from '../../../redux/types';
 import { fetchCategoryThumbnails } from '../../../redux/slices/categorySlice';
+import { imagesEmptied } from '../../../redux/slices/imageSlice';
 import { selectCategoryStatus, selectAllCategoryThumbnails } from '../../../redux/selectors/categorySelector';
 
 
@@ -24,6 +24,7 @@ const Home: FunctionComponent = () => {
 
     useEffect(() => {
         dispatch(fetchCategoryThumbnails(3));
+        dispatch(imagesEmptied())
     }, [])
 
     return (

@@ -6,7 +6,7 @@ import RecentList from './RecentList/RecentList';
 import Viewer from '../../Viewer/Viewer';
 import withEndScroll, { EndScrollProps } from '../../HOC/withEndScroll';
 
-import { fetchKImagesFromOffset, imagesEmptied, fetchImagesFromCategory } from '../../../redux/slices/imagesSlice';
+import { fetchKImagesFromOffset, imagesEmptied, fetchImagesFromCategory } from '../../../redux/slices/imageSlice';
 import { selectAllImages, selectImagesStatus, selectAllImagesLoaded } from '../../../redux/selectors/imageSelector';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -25,6 +25,10 @@ const Recent: FunctionComponent<RecentProps> = ({ endWindowReached, match, histo
     const minTimeBetweenFetch: number = 250;
     const nbImagePerFetch: number = 5;
 
+    const handleClose = () => history.replace('/recent');
+    const handleGalleryClick = (event: MouseEvent, categoryId: string) =>  history.push(`/gallery/${categoryId}`);
+    const handleImageClick = (event: MouseEvent, imageId: string) => history.push(`/recent/${imageId}`);
+
     const fetchImages = async () => {
         if (status === 'loading' || finishedLoading) {
             return;
@@ -36,18 +40,6 @@ const Recent: FunctionComponent<RecentProps> = ({ endWindowReached, match, histo
                 offset: images.length
             })
         );
-    }
-
-    const handleClose = () => {
-        history.replace('/recent');
-    }
-
-    const handleGalleryClick = (event: MouseEvent, categoryId: string) => {
-        history.push(`/gallery/${categoryId}`);
-    }
-
-    const handleImageClick = (event: MouseEvent, imageId: string) => {
-        history.push(`/recent/${imageId}`);
     }
 
     useEffect(() => {

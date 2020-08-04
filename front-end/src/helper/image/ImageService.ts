@@ -12,11 +12,18 @@ export default class ImageService {
             width,
             height,
             uploadDate,
-            aperture: json.aperture ? json.aperture : null,
-            focalLength: json.focalLength ? json.focalLength : null,
-            iso: json.iso ? json.iso : null,
-            shutterSpeed: json.shutterSpeed ? json.shutterSpeed : null,
+            aperture: json.aperture,
+            focalLength: json.focalLength,
+            iso: json.iso,
+            shutterSpeed: json.shutterSpeed,
         };
+    }
+
+    static hasAllInfo(image: Image) {
+        return image.aperture !== undefined 
+            && image.iso !== undefined 
+            && image.shutterSpeed !== undefined 
+            && image.focalLength !== undefined;
     }
 
     static hasExif(image: Image): boolean {

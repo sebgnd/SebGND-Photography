@@ -3,14 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { selectAllCategoryThumbnails, selectCategoryStatus } from '../../../redux/selectors/categorySelector';
 import { fetchCategoryThumbnails } from '../../../redux/slices/categorySlice';
+import { imagesEmptied } from '../../../redux/slices/imageSlice';
 
 import GalleryList from './GalleryList/GalleryList';
-
-interface AppInfo {
-    error: boolean;
-    loading: boolean;
-    errorMessage: string;
-}
 
 const Galleries: FunctionComponent = () => {
     const dispatch = useDispatch();
@@ -19,6 +14,7 @@ const Galleries: FunctionComponent = () => {
 
     useEffect(() => {
         dispatch(fetchCategoryThumbnails())
+        dispatch(imagesEmptied());
     }, []);
 
     return (

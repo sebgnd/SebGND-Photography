@@ -1,16 +1,19 @@
-import React, { Component, FunctionComponent, useEffect, useState, useRef } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { initial } from 'lodash'
-import styles from './Viewer.module.css';
 
 import { ViewerImage } from '../UI/Image';
 import Backdrop from '../UI/Backdrop/Backdrop';
 import { RoundButton } from '../UI/Button';
 import Spinner from '../UI/Spinner/Spinner';
+import styles from './Viewer.module.css';
 
-import Image from '../../helper/image/Image';
-import ImageApi from '../../helper/image/ImageApi';
 import ImageService from '../../helper/image/ImageService';
+
+import { selectSelectedImage, selectNextId, selectPreviousId, selectAllImagesLoaded, selectImageById, selectImagesStatus } from '../../redux/selectors/imageSelector';
+import { fetchImageWithAdjacent, imageSelected } from '../../redux/slices/imageSlice';
+import { RootState } from '../../redux/types';
 
 interface ViewerProps extends RouteComponentProps {
     categoryId?: string;
@@ -18,34 +21,22 @@ interface ViewerProps extends RouteComponentProps {
     onClose: Function;
 }
 
-interface ViewerState {
-    image: Image | null;
-    nextImageId: number | null;
-    previousImageId: number | null;
-}
-
-interface AppInfo {
-    loading: boolean;
-    error: boolean;
-}
-
 const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, history }) => {
-    const [viewerInfo, setViewerInfo] = useState<ViewerState>({ 
-        image: null, 
-        nextImageId: null, 
-        previousImageId: null,
-    });
-    const [appInfo, setAppInfo] = useState<AppInfo>({
-        loading: false,
-        error: false
-    });
+    const dispatch = useDispatch();
+    const [showLoading, setShowLoading] = useState(true);
+    const currentImage = useSelector(selectSelectedImage);
+    const nextImageId = useSelector(selectNextId);
+    const previousImageId = useSelector(selectPreviousId);
+    const allImagesLoaded = useSelector(selectAllImagesLoaded);
+    const image = useSelector((state: RootState) => selectImageById(state, imageId))
 
     const handleClickDirection = async (newImageId: number | null) => {
         if (newImageId === null) {
             return;
         }
 
-        await fetchImage(newImageId);
+        // Fetch the new image
+        fetchImage(newImageId);
 
         // Updating the new url
         const urlParameters = history.location.pathname.split('/');
@@ -57,34 +48,33 @@ const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, 
 
     const isButtonDisabled = (direction: string) => {
         if (direction === 'left') {
-            return viewerInfo.previousImageId === null;
+            return nextImageId === null;
         } else if (direction === 'right') {
-            return viewerInfo.nextImageId === null;
+            return previousImageId === null;
         }
         return true;
     }
 
-    const fetchImage = async (id: number) => {
-        setAppInfo({ loading: true, error: false });
+    const fetchImage = (id: number) => {
+        const sameCategory: boolean = categoryId ? true : false;
 
-        try {
-            const sameCategory: boolean = categoryId ? true : false;
-            const images: (Image | null)[] = await ImageApi.getWithAdjacent(id, sameCategory);
-
-            const previous: Image | null = images[0];
-            const current: Image | null = images[1];
-            const next: Image | null = images[2];
-
-            setAppInfo({ loading: false, error: false });
-            setViewerInfo({ 
-                image: current,
-                previousImageId: next ? next.id : null,
-                nextImageId: previous ? previous.id : null
-             });
-        } catch (err) {
-            setAppInfo({ loading: false, error: true });
+        if (image && allImagesLoaded && ImageService.hasAllInfo(image)) {
+            dispatch(imageSelected(id));
+        } else {
+            dispatch(
+                fetchImageWithAdjacent({ 
+                    id, 
+                    sameCategory 
+                })
+            );
         }
     }
+
+    useEffect(() => {
+        if (showLoading && currentImage && currentImage.id === imageId) {
+            setShowLoading(false);
+        }
+    }, [currentImage])
 
     useEffect(() => {
         fetchImage(imageId);
@@ -93,25 +83,25 @@ const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, 
     return (
         <div className={styles.fixedContainer}>
             <Backdrop show={true} onClick={() => onClose()} />
-            {(viewerInfo.image) ? (
-                <div className={styles.viewerContainer}>
-                    <div className={styles.arrow}>
-                        <RoundButton disabled={isButtonDisabled('left')} icon="arrow-left" onClick={() => handleClickDirection(viewerInfo.previousImageId)} />
-                    </div>
-                    <div className={styles.image}>
-                        <ViewerImage 
-                            imageId={viewerInfo.image.id.toString()} 
-                            src={ImageService.getUrl(viewerInfo.image, 'medium_res')} 
-                            imageInfo={ImageService.getExifString(viewerInfo.image)} 
-                        />
-                    </div>
-                    <div className={styles.arrow}>
-                        <RoundButton disabled={isButtonDisabled('right')} icon="arrow-right" onClick={() => handleClickDirection(viewerInfo.nextImageId)} />
-                    </div>
+            <div className={styles.viewerContainer}>
+                <div className={styles.arrow}>
+                    <RoundButton disabled={isButtonDisabled('left')} icon="arrow-left" onClick={() => handleClickDirection(nextImageId)} />
                 </div>
-            ) : (
-                <Spinner centerHorizontal={true} centerVertical={true} />
-            )}
+                <div className={styles.image}>
+                    {(currentImage && !showLoading) ? (
+                        <ViewerImage 
+                            imageId={currentImage.id.toString()} 
+                            src={ImageService.getUrl(currentImage, 'medium_res')} 
+                            imageInfo={ImageService.getExifString(currentImage)} 
+                        />
+                    ) : (
+                        <Spinner centerHorizontal={true} centerVertical={true} />
+                    )}
+                </div>
+                <div className={styles.arrow}>
+                    <RoundButton disabled={isButtonDisabled('right')} icon="arrow-right" onClick={() => handleClickDirection(previousImageId)} />
+                </div>
+            </div>
         </div>
     );
 }

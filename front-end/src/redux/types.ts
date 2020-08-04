@@ -7,7 +7,7 @@ import Category from '../helper/category/Category';
 
 // Loading / Error State
 export interface FetchingState {
-    status: 'idle' | 'loading' | 'submitting',
+    status: 'idle' | 'loading' | 'submitting' | 'failed' | 'success',
     error: string | undefined,
 }
 
@@ -26,4 +26,43 @@ export interface CategoryAdditionalState {
 }
 export type CategoryState = CategoryAdditionalState & FetchingState & EntityState<CategoryThumbnail>;
 
+// Image fetching params / types
+export interface FetchImageWithAdjacentParams {
+    id: number;
+    sameCategory: boolean;
+}
+
+export interface FetchKImagesParams {
+    k: number;
+    offset: number
+}
+
+export interface ImageWithAdjacent {
+    previousId: number | null;
+    current: Image | null;
+    nextId: number | null
+}
+
+export interface Exif {
+    iso?: number;
+    shutterSpeed?: string;
+    focalLength?: string;
+    aperture?: string;
+}
+
+export interface UpdateImagePayload {
+    id: number;
+    exif: Exif;
+}
+
+// Contact slice
+
+export type ContactState = FetchingState;
+
+export interface PostMessageParams {
+    name: string;
+    message: string;
+}
+
+// Mains state/ store type
 export type RootState = ReturnType<typeof store.getState>

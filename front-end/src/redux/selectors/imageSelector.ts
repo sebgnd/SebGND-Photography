@@ -1,5 +1,5 @@
 import { RootState } from '../types';
-import { imagesAdapter } from '../slices/imagesSlice';
+import { imagesAdapter } from '../slices/imageSlice';
 
 export const selectImagesStatus = (state: RootState) => state.image.status;
 export const selectImagesError = (state: RootState) => state.image.error;

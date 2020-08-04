@@ -10,10 +10,10 @@
     1. Viewer
         1. Fix z-index 
     1. Redux
-        1. Improve
-        1. Implement in the viewer (use ids array to get next and previous)
+        1. Improve (check everythin and viewer implementation (values already inside state))
     1. Implement Saga
     1. Handle errors display
+    1. Improve loading display 
     1. Services
         1. Implement status handling (500, 400, 200, etc ...)
     

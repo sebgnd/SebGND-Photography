@@ -1,15 +1,12 @@
-import React, { FunctionComponent, MouseEvent } from 'react';
-
-import Paths from '../../../../helper/Paths';
-import Image from '../../../../helper/image/Image';
+import React, { FunctionComponent, MouseEvent, useState } from 'react';
 
 import AdaptedImage from './AdaptedImage';
 import { Text } from '../../../Styled/text';
 import { ButtonContainerWidthWidth } from '../../../Styled/container';
 import { Button } from '../../Button';
+import ImageFade from '../ImageFade/ImageFade';
 
 import styles from './RecentImage.module.css';
-import Category from '../../../../helper/category/Category';
 
 interface RecentImageProp {
     date: string;
@@ -22,7 +19,16 @@ interface RecentImageProp {
     onGalleryClick: (event: MouseEvent, categoryId: string) => void;
 }
 
-const RecentImage: FunctionComponent<RecentImageProp> = ({ src, date, imageType, imageId, categoryId, categoryDisplayName, onImageClick, onGalleryClick }) => {
+const RecentImage: FunctionComponent<RecentImageProp> = ({ 
+    src, 
+    date, 
+    imageType, 
+    imageId, 
+    categoryId, 
+    categoryDisplayName, 
+    onImageClick, 
+    onGalleryClick 
+}) => {
     const isPortrait = imageType === 'portrait';
     
     return (
@@ -44,7 +50,7 @@ const RecentImage: FunctionComponent<RecentImageProp> = ({ src, date, imageType,
             <div className={styles.imageContainer}>
                 <ButtonContainerWidthWidth width="100%" onClick={(event) => onImageClick(event, imageId)}>
                     { isPortrait && (
-                        <img className={styles.fillerImage} src={src} alt={imageId} />
+                        <ImageFade className={styles.fillerImage} src={src} alt={imageId} />
                     )}
                     <AdaptedImage type={imageType} src={src} alt={imageId} />
                 </ButtonContainerWidthWidth>

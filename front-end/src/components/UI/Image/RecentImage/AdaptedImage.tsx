@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
+import ImageFade from '../ImageFade/ImageFade';
 
-const AdaptedImage = styled('img')<{ type: string }>`
+const AdaptedImage = styled(ImageFade)<{ type: string }>`
     ${ props => props.type === 'landscape' && css`
         position: relative;
         border-radius: 15px;

@@ -14,6 +14,7 @@ import ImageService from '../../helper/image/ImageService';
 import { selectSelectedImage, selectNextId, selectPreviousId, selectAllImagesLoaded, selectImageById, selectImagesStatus } from '../../redux/selectors/imageSelector';
 import { fetchImageWithAdjacent, imageSelected } from '../../redux/slices/imageSlice';
 import { RootState } from '../../redux/types';
+import Image from '../../helper/image/Image';
 
 interface ViewerProps extends RouteComponentProps {
     categoryId?: string;
@@ -22,21 +23,20 @@ interface ViewerProps extends RouteComponentProps {
 }
 
 const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, history }) => {
-    const dispatch = useDispatch();
     const [showLoading, setShowLoading] = useState(true);
-    const currentImage = useSelector(selectSelectedImage);
-    const nextImageId = useSelector(selectNextId);
-    const previousImageId = useSelector(selectPreviousId);
-    const allImagesLoaded = useSelector(selectAllImagesLoaded);
-    const image = useSelector((state: RootState) => selectImageById(state, imageId))
 
+    const dispatch = useDispatch();
+    const currentImage: Image | null = useSelector(selectSelectedImage);
+    const nextImageId: number | null = useSelector(selectNextId);
+    const previousImageId: number | null = useSelector(selectPreviousId);
+    const allImagesLoaded: boolean = useSelector(selectAllImagesLoaded);
+    const image: Image | undefined = useSelector((state: RootState) => selectImageById(state, imageId))
+
+    // Update the url on direction click
     const handleClickDirection = async (newImageId: number | null) => {
         if (newImageId === null) {
             return;
         }
-
-        // Fetch the new image
-        fetchImage(newImageId);
 
         // Updating the new url
         const urlParameters = history.location.pathname.split('/');
@@ -55,6 +55,8 @@ const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, 
         return true;
     }
 
+    // If info not present in state => fetch image
+    // Else select the image from the state
     const fetchImage = (id: number) => {
         const sameCategory: boolean = categoryId ? true : false;
 
@@ -70,15 +72,20 @@ const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, 
         }
     }
 
+    // Change loading to false when the selected image update
+    // (to not see previous selected image on component mount)
+    // Run only once
     useEffect(() => {
         if (showLoading && currentImage && currentImage.id === imageId) {
             setShowLoading(false);
         }
-    }, [currentImage])
+    }, [currentImage]);
 
+    // Fetch image on load and when image update
+    // Updated when imageId route param props change
     useEffect(() => {
         fetchImage(imageId);
-    }, []);
+    }, [image]);
 
     return (
         <div className={styles.fixedContainer}>

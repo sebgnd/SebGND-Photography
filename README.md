@@ -7,8 +7,6 @@
 1. Create Footer component
 
 1. Finish User Website    
-    1. Viewer
-        1. Fix z-index 
     1. Redux
         1. Improve (check everythin and viewer implementation (values already inside state))
     1. Implement Saga

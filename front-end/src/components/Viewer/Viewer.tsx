@@ -82,7 +82,6 @@ const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, 
 
     return (
         <div className={styles.fixedContainer}>
-            <Backdrop show={true} onClick={() => onClose()} />
             <div className={styles.viewerContainer}>
                 <div className={styles.arrow}>
                     <RoundButton disabled={isButtonDisabled('left')} icon="arrow-left" onClick={() => handleClickDirection(nextImageId)} />
@@ -102,6 +101,7 @@ const Viewer: FunctionComponent<ViewerProps> = ({ imageId, categoryId, onClose, 
                     <RoundButton disabled={isButtonDisabled('right')} icon="arrow-right" onClick={() => handleClickDirection(previousImageId)} />
                 </div>
             </div>
+            <Backdrop show={true} onClick={() => onClose()} />
         </div>
     );
 }

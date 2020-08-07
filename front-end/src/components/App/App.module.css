@@ -1,0 +1,24 @@
+.routeEnter {
+    opacity: 0;
+}
+
+.routeEnterActive {
+    opacity: 1;
+    transition: opacity 0.5 linear;
+}
+  
+.routeExit {
+    opacity: 1;
+}
+  
+.routeExitActive {
+    opacity: 0;
+    transition: opacity 0.5 linear;
+}
+
+.page {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 81px;
+}

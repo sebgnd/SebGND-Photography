@@ -18,6 +18,7 @@ const Parallax: FunctionComponent<ParallaxProp> = ({ img, speed, children }) => 
     const topOffset = useRef<number>(0);
     const height = useRef<number>(0);
 
+    const [backgroundLoaded, setBackgroundLoaded] = useState<boolean>(false);
     const [backgroundStyle, setBackgroundStyle] = useState<BackgroundStyle>({
         backgroundPositionY: '',
         backgroundSize: 'cover'
@@ -91,6 +92,15 @@ const Parallax: FunctionComponent<ParallaxProp> = ({ img, speed, children }) => 
     }
     const handleResizeThrottled = throttle(handleResize, throttleTime);
 
+    const handleBackgroundLoad = () => {
+        const image = new Image();
+        
+        image.src = img;
+        image.onload = () => {
+            setBackgroundLoaded(true);
+        }
+    }
+
     const addEventListener = (): void => {
         window.addEventListener('scroll', handleScrollThrottled);
         window.addEventListener('resize', handleResizeThrottled);
@@ -110,6 +120,7 @@ const Parallax: FunctionComponent<ParallaxProp> = ({ img, speed, children }) => 
         }
         parallaxElemRef.current!.style.backgroundPositionY = `${getNewTop()}px`;
         
+        handleBackgroundLoad();
         addEventListener();
 
         return () => {
@@ -118,7 +129,7 @@ const Parallax: FunctionComponent<ParallaxProp> = ({ img, speed, children }) => 
     }, []);
 
     return (
-        <ParallaxContainer ref={parallaxElemRef} style={{...backgroundStyle}} backgroundImage={img}>
+        <ParallaxContainer ref={parallaxElemRef} style={{...backgroundStyle}} backgroundImage={img} opacity={backgroundLoaded ? 1 : 0}>
             {children}
         </ParallaxContainer>
     )

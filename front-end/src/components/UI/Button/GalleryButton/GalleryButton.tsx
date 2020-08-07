@@ -3,12 +3,11 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { Text } from '../../../Styled/text';
 import { ButtonContainer } from '../../../Styled/container';
+import ImageFade from '../../Image/ImageFade/ImageFade';
 
 import styles from './GalleryButton.module.css';
 
 import Paths from '../../../../helper/Paths';
-import Image from '../../../../helper/image/Image';
-import Category from '../../../../helper/category/Category';
 
 interface GalleryButtonProp extends RouteComponentProps {
     src: string;
@@ -28,7 +27,7 @@ const GalleryButton: FunctionComponent<GalleryButtonProp> = ({ src, imageId, cat
             <div className={styles.galleryButtonWrapper}>
                 <ButtonContainer onClick={() => goToGallery()}>
                     <div className={styles.galleryImage}>
-                        <img className={styles.image} src={src} alt={imageId} />
+                        <ImageFade className={styles.image} src={src} alt={imageId} />
                     </div>
 
                     <div id="gallery-name" className={styles.galleryName}>

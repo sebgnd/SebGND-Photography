@@ -4,22 +4,26 @@
 
 ### Frontend:
 1. Add comments
-1. Create Footer component
 
 1. Finish User Website    
     1. Redux
         1. Improve (check everythin and viewer implementation (values already inside state))
-    1. Implement Saga
     1. Handle errors display
     1. Improve loading display 
     1. Services
         1. Implement status handling (500, 400, 200, etc ...)
-    
-        
+    1. Implement Saga
+
+1. Create Footer component
 1. Add UserLayout / AdminLayout
+1. Start admin website
+
+1. (OPTIONAL) Implement SVG when images are not loaded yet
+    
 
 ### Backend:
 1. Check destroy return value 
+1. Resize image + handle image upload to database
 
 ## Current API:
 Endpoints | Description

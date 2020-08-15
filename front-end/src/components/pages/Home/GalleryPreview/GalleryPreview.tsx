@@ -18,10 +18,6 @@ interface GalleriesPreviewProps extends RouteComponentProps {
 }
 
 const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = ({ thumbnails, status, history }) => {
-    const goToGalleries = () => {
-        history.push(Paths.gallery());
-    }
-
     return (
         <div className={styles.galleriesPreviewContainer}>
             <div className={styles.row}>
@@ -42,7 +38,7 @@ const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = ({ thumbnails
             </div>
             <div className={styles.row}>
                 <div className={styles.buttonContainer}>
-                    <Button size="medium" variant="classic" onClick={goToGalleries} label="See all galleries" />
+                    <Button size="medium" variant="classic" to="/gallery" label="See all galleries" />
                 </div>
             </div>
         </div>

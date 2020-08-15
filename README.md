@@ -8,8 +8,6 @@
 1. Finish User Website    
     1. Redux
         1. Improve (check everythin and viewer implementation (values already inside state))
-    1. Improve loading display 
-    1. Add to props in buttons
     1. Services
         1. Implement status handling (500, 400, 200, etc ...)
     1. Implement Saga

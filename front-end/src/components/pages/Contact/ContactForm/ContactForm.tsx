@@ -18,16 +18,12 @@ interface FormProps {
 }
 
 const ContactForm: FunctionComponent<FormProps & RouteComponentProps> = ({ nameField, messageField, history, status, onChange, onSubmit }) => {
-    const handleClick = () => {
-        history.push('/');
-    }
-
     return (
         <div className={style.contactFormContainer}>
             {status === 'success' ? (
                 <>
                     <h2>Thank you for your message</h2>
-                    <Button variant="classic" size="medium" label="Return home" onClick={handleClick} />
+                    <Button variant="classic" size="medium" label="Return home" to="/" />
                 </>
             ) : (
                 <>
@@ -39,7 +35,7 @@ const ContactForm: FunctionComponent<FormProps & RouteComponentProps> = ({ nameF
                         status === 'failed' ? (
                             <div className={style.infoContainer}>
                                 <ErrorMessage message="The message couldn't be sent" centerHorizontal />
-                                <Button variant="classic" size="medium" label="Return home" onClick={handleClick} />
+                                <Button variant="classic" size="medium" label="Return home" to="/" />
                             </div>
                         ) : (
                             <>

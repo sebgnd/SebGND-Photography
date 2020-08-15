@@ -1,4 +1,5 @@
 import React, { FunctionComponent, MouseEvent } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import StyledButton from './button-style';
 
 interface ButtonProp {
@@ -7,13 +8,14 @@ interface ButtonProp {
     variant: string;
     size: string;
     label: string;
+    to?: string;
 }
 
 const VARIANTS = ['classic', 'light'];
 
 const SIZES = ['medium', 'small', 'big'];
 
-const Button: FunctionComponent<ButtonProp> = ({ variant, size, onClick, label, type }) => {
+const Button: FunctionComponent<ButtonProp & RouteComponentProps> = ({ variant, size, onClick, label, type, history, to }) => {
     const setVariant = (variant: string) => {
         return VARIANTS.includes(variant) ? variant : VARIANTS[0];
     }
@@ -22,16 +24,25 @@ const Button: FunctionComponent<ButtonProp> = ({ variant, size, onClick, label, 
         return SIZES.includes(size) ? size : SIZES[0];
     }
 
+    const handleClick = (event: MouseEvent) => {
+        if (onClick) {
+            onClick(event);
+        }
+        if (to) {
+            history.push(to);
+        }
+    }
+
     return (
         <StyledButton 
             type={type}
             size={setSize(size)} 
             variant={setVariant(variant)} 
-            onClick={onClick}
+            onClick={(event) => handleClick(event)}
         >
             {label}
         </StyledButton>
     )
 }
 
-export default Button;
+export default withRouter(Button);

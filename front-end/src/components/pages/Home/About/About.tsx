@@ -27,7 +27,7 @@ const About: FunctionComponent<RouteComponentProps> = (props) => {
                             include technology, video games, cars, cinema … I am studying in Computer Science.
                         </Text>
                         <div className={styles.contactButtonContainer}>
-                            <Button variant="clasic" size="medium" onClick={goToContact} label="Contact me" />
+                            <Button variant="clasic" size="medium" to="/contact" label="Contact me" />
                         </div>
                     </div>
                     <div className={`${styles.textContainer} ${styles.gear}`}>

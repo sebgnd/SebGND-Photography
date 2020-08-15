@@ -5,7 +5,6 @@ import {
     ActionReducerMapBuilder, 
     PayloadAction, 
     EntityAdapter,
-    Middleware,
 } from '@reduxjs/toolkit';
 import { rejectCaseReducer, pendingCaseReducer, fulfilledCaseReducer } from '../reducers';
 import { 
@@ -15,7 +14,6 @@ import {
     FetchImageWithAdjacentParams,
     FetchKImagesParams,
     ImageWithAdjacent,
-    Exif,
     UpdateImagePayload
 } from '../types';
 
@@ -33,7 +31,9 @@ const initialState: ImagesState = imagesAdapter.getInitialState<ImageAdditionalS
     nextId: null,
     previousId: null,
     selected: null,
-    allLoaded: false
+    allLoaded: false,
+    sortBy: 'id',
+    sortOrder: 'DESC'
 });
 
 // Fetching data from apis

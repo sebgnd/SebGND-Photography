@@ -1,4 +1,4 @@
-import React, { MouseEvent, FunctionComponent, useState, useEffect } from 'react';
+import React, { MouseEvent, FunctionComponent, useLayoutEffect, useEffect } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 

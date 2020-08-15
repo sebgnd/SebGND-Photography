@@ -11,4 +11,6 @@ export default interface Image {
     iso?: number | null;
     shutterSpeed?: string | null;
     focalLength?: string | null;
+    
+    [key: string]: any
 }

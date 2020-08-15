@@ -64,8 +64,7 @@
   }
 
   #root {
-    height: 100vh;
-    padding-top: 81px;
+    min-height: 100vh;
     box-sizing: border-box;
   }
   

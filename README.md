@@ -14,8 +14,7 @@
         1. Implement status handling (500, 400, 200, etc ...)
     1. Implement Saga
 
-1. Create Footer component
-1. Add UserLayout / AdminLayout
+1. Add AdminLayout
 1. Start admin website
 
 1. (OPTIONAL) Implement SVG when images are not loaded yet

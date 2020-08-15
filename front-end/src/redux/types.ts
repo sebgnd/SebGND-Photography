@@ -13,6 +13,8 @@ export interface FetchingState {
 
 // Images State
 export interface ImageAdditionalState {
+    sortBy: string;
+    sortOrder: string;
     nextId: number | null,
     previousId: number | null,
     selected: Image | null,

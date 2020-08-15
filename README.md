@@ -8,7 +8,7 @@
 1. Finish User Website    
     1. Redux
         1. Improve (check everythin and viewer implementation (values already inside state))
-    1. Handle errors display
+    1. Handle errors display for contact
     1. Improve loading display 
     1. Services
         1. Implement status handling (500, 400, 200, etc ...)

@@ -1,0 +1,15 @@
+.errorMessageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #858585;
+}
+
+.errorMessageContainer i {
+    font-size: 1em;
+    margin-right: 10px;
+}
+
+.errorMessageContainer p {
+    color: inherit;
+}

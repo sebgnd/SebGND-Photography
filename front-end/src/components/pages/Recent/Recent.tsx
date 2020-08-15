@@ -5,6 +5,7 @@ import Spinner from '../../UI/Spinner/Spinner';
 import RecentList from './RecentList/RecentList';
 import Viewer from '../../Viewer/Viewer';
 import withEndScroll, { EndScrollProps } from '../../HOC/withEndScroll';
+import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 
 import { fetchKImagesFromOffset, imagesEmptied, fetchImagesFromCategory } from '../../../redux/slices/imageSlice';
 import { selectAllImages, selectImagesStatus, selectAllImagesLoaded } from '../../../redux/selectors/imageSelector';
@@ -43,7 +44,9 @@ const Recent: FunctionComponent<RecentProps> = ({ endWindowReached, match, histo
     }
 
     useEffect(() => {
-        dispatch(imagesEmptied());
+        dispatch(
+            imagesEmptied()
+        );
     }, []);
 
     useEffect(() => {
@@ -62,7 +65,10 @@ const Recent: FunctionComponent<RecentProps> = ({ endWindowReached, match, histo
         <Fragment>
             <RecentList images={images} onGalleryClick={handleGalleryClick} onImageClick={handleImageClick} />
             { status === 'loading' && (
-                <Spinner centerHorizontal={true} />
+                <Spinner centerHorizontal centerVertical fullScreen={images.length === 0} />
+            )}
+            { status === 'failed' && (
+                <ErrorMessage centerHorizontal centerVertical fullScreen={images.length === 0} message="Couln't load images" />
             )}
             {(match.params.imageId) && (
                 <Viewer 

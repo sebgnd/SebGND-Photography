@@ -4,6 +4,7 @@ import { SingleImage } from '../../../UI/Image';
 import GalleryTitle from './GalleryTitle/GalleryTitle';
 import Spinner from '../../../UI/Spinner/Spinner';
 import styles from './ImageList.module.css';
+import ErrorMessage from '../../../UI/ErrorMessage/ErrorMessage';
 
 import Image from '../../../../helper/image/Image';
 import ImageService from '../../../../helper/image/ImageService';
@@ -19,28 +20,33 @@ interface ImageListProps {
 
 const ImageList: FunctionComponent<ImageListProps> = ({ images, category, categoryStatus, imagesStatus, onImageClick }) => {
     const isLoading = categoryStatus === 'loading' && imagesStatus === 'loading';
+    const hasFailed = categoryStatus === 'failed' || imagesStatus === 'failed';
 
     return (
         <Fragment>
             {isLoading ? (
                 <Spinner centerVertical centerHorizontal fullScreen />
             ) : (
-                <>
-                    <GalleryTitle title={category ? category.displayName : 'Gallery'} />
-                    <div className={styles.listContainer}>
-                        {images.map(image => {
-                            return (
-                                <SingleImage 
-                                    key={image.id} 
-                                    src={ImageService.getUrl(image, 'thumbnail_medium')} 
-                                    imageId={image.id.toString()}
-                                    categoryId={image.category.id}
-                                    onClick={onImageClick}
-                                />
-                            )
-                        })}
-                    </div>
-                </>  
+                hasFailed ? (
+                    <ErrorMessage centerVertical centerHorizontal fullScreen message="Couldn't load images" />
+                ) : (
+                    <>
+                        <GalleryTitle title={category ? category.displayName : 'Gallery'} />
+                        <div className={styles.listContainer}>
+                            {images.map(image => {
+                                return (
+                                    <SingleImage 
+                                        key={image.id} 
+                                        src={ImageService.getUrl(image, 'thumbnail_medium')} 
+                                        imageId={image.id.toString()}
+                                        categoryId={image.category.id}
+                                        onClick={onImageClick}
+                                    />
+                                )
+                            })}
+                        </div>
+                    </> 
+                ) 
             )}
         </Fragment>
     )

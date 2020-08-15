@@ -1,0 +1,11 @@
+.centerHorizontal {
+    width: 100%;
+}
+
+.centerVertical {
+    height: 100%;
+}
+
+.fullScreen {
+    height: calc(100vh - 81px - 70px);
+}

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import style from './Contact.module.css';
 
 import SocialMedia from './SocialMedia/SocialMedia';
@@ -11,6 +11,7 @@ import FormField from '../../../helper/form/FormField';
 import FieldValidator from '../../../helper/form/FieldValidator';
 
 import { postContactMessage } from '../../../redux/slices/contactSlice';
+import { selectContactStatus } from '../../../redux/selectors/contactSelector';
 
 interface ContactInput {
     name: FormField;
@@ -43,6 +44,7 @@ const Contact: FunctionComponent = () => {
         };
     });
     const dispatch = useDispatch();
+    const status = useSelector(selectContactStatus);
 
     const handleChange = (event: FormEvent<HTMLInputElement>) => {
         const { currentTarget } = event;
@@ -110,6 +112,7 @@ const Contact: FunctionComponent = () => {
                 onSubmit={handleSubmit}
                 nameField={contactInput.name}
                 messageField={contactInput.message}
+                status={status}
             />
         </div>
     )

@@ -1,32 +1,23 @@
 import React, { FunctionComponent } from 'react';
 import styles from './Spinner.module.css';
 
+import withCentering, { WithCenteringProps } from '../../HOC/withCentering';
+
 interface SpinnerProps {
-    centerHorizontal?: boolean;
-    centerVertical?: boolean;
-    fullScreen?: boolean;
     zIndex?: number;
 }
 
-const Spinner: FunctionComponent<SpinnerProps> = ({ centerHorizontal = false, centerVertical = false, fullScreen = false, zIndex }) => {
-    const getClassNames = () => {
-        const classes = [styles.spinnerContainer];
-        if (centerHorizontal) {
-            classes.push(styles.spinnerCenterHorizontal);
-        }
-        if (centerVertical) {
-            if (fullScreen) {
-                classes.push(styles.fullScreen);
-            } else {
-                classes.push(styles.spinnerCenterVertical);
-            }
-        }
-        return classes.join(' ');
-    }
+const Spinner: FunctionComponent<SpinnerProps & WithCenteringProps> = ({ 
+    centerHorizontal = false,
+    centerVertical = false,
+    zIndex,
+    centeringClass
+}) => {
+
     return (
         <>
             {(centerHorizontal || centerVertical) ? (
-                <div className={getClassNames()} style={{ zIndex }}>
+                <div className={[styles.spinnerContainer, centeringClass].join(' ')} style={{ zIndex }}>
                     <div className={styles.spinner} />
                 </div>
             ) : (
@@ -36,4 +27,4 @@ const Spinner: FunctionComponent<SpinnerProps> = ({ centerHorizontal = false, ce
     )
 }
 
-export default Spinner;
+export default withCentering(Spinner);

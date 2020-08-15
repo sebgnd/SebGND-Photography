@@ -9,6 +9,7 @@ import FormField from '../../../../helper/form/FormField';
 interface FormProps {
     nameField: FormField;
     messageField: FormField;
+    status: string;
     onChange: (event: FormEvent<HTMLInputElement>) => void;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }

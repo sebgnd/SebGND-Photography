@@ -1,4 +1,4 @@
-import React, { FunctionComponent, FormEvent, useState } from 'react';
+import React, { FunctionComponent, FormEvent, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './Contact.module.css';
 
@@ -10,7 +10,7 @@ import Validation, { withoutSpecialCharacter, notEmpty, maxLength, ValidationRes
 import FormField from '../../../helper/form/FormField';
 import FieldValidator from '../../../helper/form/FieldValidator';
 
-import { postContactMessage } from '../../../redux/slices/contactSlice';
+import { postContactMessage, statusResetted } from '../../../redux/slices/contactSlice';
 import { selectContactStatus } from '../../../redux/selectors/contactSelector';
 
 interface ContactInput {
@@ -102,6 +102,14 @@ const Contact: FunctionComponent = () => {
             );
         }
     }
+
+    useEffect(() => {
+        if (status !== 'idle') {
+            dispatch(
+                statusResetted()
+            )
+        }
+    }, [])
 
     return (
         <div className={style.contactContainer}>

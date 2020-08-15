@@ -7,7 +7,7 @@ import Viewer from '../../Viewer/Viewer';
 import withEndScroll, { EndScrollProps } from '../../HOC/withEndScroll';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 
-import { fetchKImagesFromOffset, imagesEmptied, fetchImagesFromCategory } from '../../../redux/slices/imageSlice';
+import { fetchKImagesFromOffset, imagesEmptied } from '../../../redux/slices/imageSlice';
 import { selectAllImages, selectImagesStatus, selectAllImagesLoaded } from '../../../redux/selectors/imageSelector';
 import { useDispatch, useSelector } from 'react-redux';
 

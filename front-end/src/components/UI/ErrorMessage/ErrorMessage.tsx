@@ -4,11 +4,20 @@ import withCentering, { WithCenteringProps } from '../../HOC/withCentering'
 
 interface ErrorMessageProps {
     message: string;
+    color?: 'default' | 'white' | 'black';
 }
 
-const ErrorMessage: FunctionComponent<ErrorMessageProps & WithCenteringProps> = ({ message, centeringClass }) => {
+const ErrorMessage: FunctionComponent<ErrorMessageProps & WithCenteringProps> = ({ message, color, centeringClass }) => {
+    const getColor = () => {
+        switch (color) {
+            case 'white': return '#FFFFFF';
+            case 'black': return '#000000';
+            default: return '#858585'
+        }
+    }
+
     return (
-        <div className={[styles.errorMessageContainer, centeringClass].join(' ')}>
+        <div style={{ color: getColor() }} className={[styles.errorMessageContainer, centeringClass].join(' ')}>
             <i className="fas fa-exclamation-circle" />
             <p>{message}</p>
         </div>

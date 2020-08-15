@@ -14,7 +14,7 @@ export type CenteredProp = {
 export type WithCenteringProps = CenteredProp & CenteringProps;
 
 const withCentering = <P extends object>(WrappedComponent: ComponentType<P & CenteringProps>) => {
-    const EnhancedComponent: FunctionComponent<P & WithCenteringProps> = (props: P & WithCenteringProps) => {
+    const ComponentWithCentering: FunctionComponent<P & WithCenteringProps> = (props: P & WithCenteringProps) => {
         const [centeringClass, setCenteringClass] = useState<string>('');
 
         const getClassNames = () => {
@@ -44,7 +44,7 @@ const withCentering = <P extends object>(WrappedComponent: ComponentType<P & Cen
         )
     }
 
-    return EnhancedComponent;
+    return ComponentWithCentering;
 }
 
 export default withCentering;

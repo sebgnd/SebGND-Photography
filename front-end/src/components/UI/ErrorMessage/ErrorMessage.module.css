@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #858585;
 }
 
 .errorMessageContainer i {

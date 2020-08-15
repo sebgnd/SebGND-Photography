@@ -3,10 +3,18 @@
     100% { transform: rotate(360deg); }
 }
 
-.spinner {
-    display: inline-block;
+.normal {
     width: 60px;
     height: 60px;
+}
+
+.small {
+    width: 35px;
+    height: 35px;
+}
+
+.spinner {
+    display: inline-block;
     border: 5px solid #f3f3f3;
     border-top-color: #6b6b6b;
     border-radius: 50%;

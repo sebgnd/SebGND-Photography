@@ -1,8 +1,11 @@
 import React, { FunctionComponent, FormEvent } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import style from './ContactForm.module.css';
 
 import { TextField } from '../../../UI/Form';
 import { Button } from '../../../UI/Button';
+import Spinner from '../../../UI/Spinner/Spinner';
+import ErrorMessage from '../../../UI/ErrorMessage/ErrorMessage';
 
 import FormField from '../../../../helper/form/FormField';
 
@@ -14,34 +17,62 @@ interface FormProps {
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 }
 
-const ContactForm: FunctionComponent<FormProps> = ({ nameField, messageField, onChange, onSubmit }) => {
+const ContactForm: FunctionComponent<FormProps & RouteComponentProps> = ({ nameField, messageField, history, status, onChange, onSubmit }) => {
+    const handleClick = () => {
+        history.push('/');
+    }
+
     return (
         <div className={style.contactFormContainer}>
-            <h2>Send me a message!</h2>
-            <form className={style.contactForm} id="contactForm" onSubmit={onSubmit}>
-                <TextField 
-                    hasError={nameField.error !== null}
-                    errorMessage={nameField.error}
-                    id="name" 
-                    inputType="text-input"
-                    placeholder="Your name ..." 
-                    onChange={(event: FormEvent<HTMLInputElement>) => onChange(event)} 
-                />
-                <TextField 
-                    hasError={messageField.error !== null}
-                    errorMessage={messageField.error}
-                    id="message"
-                    inputType="text-area" 
-                    placeholder="Your message ..." 
-                    form="contactForm" 
-                    onChange={(event: FormEvent<HTMLInputElement>) => onChange(event)} 
-                />
-                <div className={style.submitContainer}>
-                    <Button variant="classic" size="medium" label="Send" type="submit" />
-                </div>
-            </form>
+            {status === 'success' ? (
+                <>
+                    <h2>Thank you for your message</h2>
+                    <Button variant="classic" size="medium" label="Return home" onClick={handleClick} />
+                </>
+            ) : (
+                <>
+                    {status === 'submitting' ? (
+                        <div className={style.infoContainer}>
+                            <Spinner centerHorizontal size="small" />
+                        </div>
+                    ) : (
+                        status === 'failed' ? (
+                            <div className={style.infoContainer}>
+                                <ErrorMessage message="The message couldn't be sent" centerHorizontal />
+                                <Button variant="classic" size="medium" label="Return home" onClick={handleClick} />
+                            </div>
+                        ) : (
+                            <>
+                                <h2>Send me a message!</h2>
+                                <form className={style.contactForm} id="contactForm" onSubmit={onSubmit}>
+                                    <TextField 
+                                        hasError={nameField.error !== null}
+                                        errorMessage={nameField.error}
+                                        id="name" 
+                                        inputType="text-input"
+                                        placeholder="Your name ..." 
+                                        onChange={(event: FormEvent<HTMLInputElement>) => onChange(event)} 
+                                    />
+                                    <TextField 
+                                        hasError={messageField.error !== null}
+                                        errorMessage={messageField.error}
+                                        id="message"
+                                        inputType="text-area" 
+                                        placeholder="Your message ..." 
+                                        form="contactForm" 
+                                        onChange={(event: FormEvent<HTMLInputElement>) => onChange(event)} 
+                                    />
+                                    <div className={style.submitContainer}>
+                                        <Button variant="classic" size="medium" label="Send" type="submit" />
+                                    </div>
+                                </form>
+                            </>
+                        )
+                    )}
+                </>
+            )}
         </div>
     )
 }
 
-export default ContactForm;
+export default withRouter(ContactForm);

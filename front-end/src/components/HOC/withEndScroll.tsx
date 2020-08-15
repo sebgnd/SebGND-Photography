@@ -5,7 +5,7 @@ export interface EndScrollProps {
 }
 
 const withEndScroll = <P extends object>(WrappedComponent: ComponentType<P>, action: Function | undefined = undefined) => {
-    const EnhancedComponent: FunctionComponent<P & EndScrollProps> = (props: P & EndScrollProps) => {
+    const ComponentWithEndScroll: FunctionComponent<P & EndScrollProps> = (props: P & EndScrollProps) => {
         const [endWindowReached, setEndWindowReached] = useState(false);
         const endWindowRef = useRef(false);
 
@@ -45,7 +45,7 @@ const withEndScroll = <P extends object>(WrappedComponent: ComponentType<P>, act
         )
     }
 
-    return EnhancedComponent;
+    return ComponentWithEndScroll;
 }
 
 export default withEndScroll;

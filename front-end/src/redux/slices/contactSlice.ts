@@ -18,10 +18,17 @@ export const postContactMessage = createAsyncThunk(
     }
 )
 
+const resetStatus = (state: ContactState) => {
+    state.status = 'idle';
+    state.error = '';
+}
+
 const contactSlice = createSlice({
     name: 'contact',
     initialState,
-    reducers: {},
+    reducers: { 
+        statusResetted: resetStatus 
+    },
     extraReducers: (builder: ActionReducerMapBuilder<ContactState>) => {
         builder
             .addCase(postContactMessage.fulfilled, fulfilledCaseWithSuccesReducer)
@@ -30,6 +37,6 @@ const contactSlice = createSlice({
     }
 });
 
-export const {  } = contactSlice.actions;
+export const { statusResetted } = contactSlice.actions;
 
 export default contactSlice.reducer;

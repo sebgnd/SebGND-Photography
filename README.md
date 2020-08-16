@@ -6,15 +6,11 @@
 1. Add comments
 
 1. Finish User Website    
-    1. Redux
-        1. Improve (check everythin and viewer implementation (values already inside state))
-    1. Services
-        1. Implement status handling (500, 400, 200, etc ...)
-    1. Implement Saga
 
 1. Add AdminLayout
 1. Start admin website
 
+1. (OPTIONAL) Implement Saga
 1. (OPTIONAL) Implement SVG when images are not loaded yet
     
 

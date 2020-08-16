@@ -3,14 +3,7 @@ import HttpResponse from './HttpResponse';
 export default class HttpRequest {
     static async get(url: string): Promise<HttpResponse> {
         try {
-            const response: Response = await fetch(url);
-            const data = await response.json();
-            const { status } = response;
-
-            return {
-                status,
-                data
-            };
+            return await this.send(url);
         } catch (err) {
             throw err;
         }
@@ -25,14 +18,26 @@ export default class HttpRequest {
         };
 
         try {
+            return await this.send(url, options);
+        } catch (err) {
+            throw err;
+        }
+    }
+ 
+    private static async send(url: string, options?: RequestInit): Promise<HttpResponse> {
+        try {
             const response: Response = await fetch(url, options);
             const data = await response.json();
-            const { status } = response;
-    
-            return {
-                status,
-                data
-            }; 
+
+            if (response.ok) {
+                const { status } = response;
+                return {
+                    status,
+                    data
+                };
+            } else {
+                throw new Error(data.error.message);
+            }
         } catch (err) {
             throw err;
         }

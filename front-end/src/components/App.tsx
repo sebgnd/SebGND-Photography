@@ -11,6 +11,7 @@ import Playground from './pages/Playground/Playground';
 
 // Layouts
 import UserLayout from './layouts/UserLayout';
+import AdminLayout from './layouts/AdminLayout';
 
 
 class App extends React.Component {
@@ -19,6 +20,9 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <Switch>
+                    <Route path="/admin">
+                        <AdminLayout />
+                    </Route>
                     <Route path="/">
                         <UserLayout>
                             <Route exact={true} path="/" component={Home} />

@@ -1,0 +1,33 @@
+.topNavigation {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 100px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    box-sizing: border-box;
+    z-index: 500;
+    height: 125px;
+}
+
+.normalNavigation {
+    display: block;
+}
+
+.navigationItems {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+@media (max-width: 1050px) {
+    .normalNavigation {
+        display: none;
+    }
+
+    .topNavigation {
+        padding: 0 50px;
+    }
+}

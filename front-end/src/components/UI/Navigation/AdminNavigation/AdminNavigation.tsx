@@ -1,24 +1,34 @@
-import * as React from 'react';
-import './user-navigation.css';
+import React, { FunctionComponent, useState } from 'react';
 
-class AdminNavigation extends React.Component {
+import TopNavigation from './TopNavigation/TopNavigation';
+import { INavItem } from '../NavigationItem/NavigationItem';
 
-    public render() {
-        return (
-            <nav>
-                <div className="side-menu" id="left">
-                    <a href="">Home</a>
-                    <a href="galleries">Galleries</a>
-                </div>
-                <a id="center-menu" href=""><img src="res/logo.png" alt="logo"/></a>
-                <a id="hamburger-menu"><i className="fas fa-bars"></i></a>
-                <div className="side-menu" id="right">
-                    <a href="recent">Recent</a>
-                    <a href="contact">Contact</a>
-                </div>
-            </nav>
-        );
+const AdminNavigation: FunctionComponent = () => {
+    const [moreNavOpen, setMoreNavOpen] = useState<boolean>(false);
+
+    const moreItems: INavItem[] = [
+        { url: '/admin/password', name: 'Change password' },
+    ];
+    const normalItems = [
+        { url: '/admin/home', name: 'Home' },
+        { url: '/admin/gallery-settings', name: 'Gallery Settings' },
+        { url: '/admin/messages', name: 'Messages' }
+    ];
+
+    const toggleMoreNav = () => {
+        setMoreNavOpen(prevMoreNavOpen => !prevMoreNavOpen);
     }
+
+    return (
+        <nav>
+            <TopNavigation 
+                moreItems={moreItems} 
+                normalItems={normalItems} 
+                onMoreClick={toggleMoreNav}
+                isMoreOpen={moreNavOpen}
+            />
+        </nav>
+    )
 }
 
 export default AdminNavigation;

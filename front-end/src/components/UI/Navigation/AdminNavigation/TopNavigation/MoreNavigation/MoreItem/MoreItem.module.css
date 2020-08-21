@@ -1,0 +1,13 @@
+.moreItem {
+    width: 100%;
+    padding: 15px 0;
+    font-family: "CooperHewitt Medium";
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    transition: background-color .25s;
+}
+
+.moreItem:hover {
+    background-color: #EEEEEE;
+}

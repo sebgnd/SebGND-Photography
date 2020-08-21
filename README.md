@@ -7,7 +7,6 @@
 
 1. Finish User Website    
 
-1. Add AdminLayout
 1. Start admin website
 
 1. (OPTIONAL) Implement Saga

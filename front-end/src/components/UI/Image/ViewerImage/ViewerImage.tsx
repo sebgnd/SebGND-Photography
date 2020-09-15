@@ -14,7 +14,12 @@ const ViewerImage: FunctionComponent<ViewerImageProp> = ({ imageInfo, imageId, s
     return (
         <div className={styles.viewerImageContainer}>
             <div className={styles.viewerImageWrapper}>
-                <ImageFade className={styles.image} src={src} alt={imageId} />
+                <ImageFade 
+                    className={styles.image} 
+                    src={src} 
+                    alt={imageId} 
+                    transitionTime={.15} 
+                />
                 <div className={styles.imageInfo}>
                     <Text size="medium" color="black" weight="normal">{imageInfo}</Text>
                 </div>

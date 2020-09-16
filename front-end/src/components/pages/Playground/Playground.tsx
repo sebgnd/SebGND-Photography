@@ -17,8 +17,11 @@ const Playground: FunctionComponent = () => {
     return (
         <Fragment>
             <DataTable 
+                withSeparator
                 datas={images}
                 style={{ width: '50%' }}
+                onRowDelete={(event: MouseEvent, image: Image) => console.log(`Deleting image ${image.id}`)}
+                onRowClick={(event: MouseEvent, image: Image) => console.log(`Clicking image ${image.id}`)}
                 renderRow={(image: Image) => (
                     <div style={{ display: 'flex', }}>
                         <p>{image.id}</p>

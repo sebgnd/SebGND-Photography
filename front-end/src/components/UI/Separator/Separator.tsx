@@ -2,15 +2,11 @@ import React, { FunctionComponent } from 'react';
 import style from './Separator.module.css';
 
 interface SeparatorProp {
-    size: string;
-    orientation?: string;
+    size: 'small' | 'medium' | 'big' | 'tiny';
+    orientation?: 'vertical' | 'horizontal';
 }
 
 const Separator: FunctionComponent<SeparatorProp> = ({ size, orientation = 'horizontal' }) => {
-    const orientations = ['vertical', 'horizontal'];
-    const sizes = ['small', 'medium', 'big', 'tiny'];
-    const separatorClasses = [style.separator];
-
     const classes: any = {
         horizontal: {
             tiny: 'tinyWidth',
@@ -25,13 +21,10 @@ const Separator: FunctionComponent<SeparatorProp> = ({ size, orientation = 'hori
             big: 'bigHeight'
         }
     }
+    const separatorClasses = [style.separator];
+    const styleClass = classes[orientation][size];
 
-    if (sizes.includes(size) && orientations.includes(orientation)) {
-        const styleClass = classes[orientation][size];
-        separatorClasses.push(style[styleClass]);
-    } else {
-        separatorClasses.push(style.mediumWidth);
-    }
+    separatorClasses.push(style[styleClass]);
 
     return (
         <div className={separatorClasses.join(' ')} />

@@ -2,7 +2,7 @@ import React, { FunctionComponent, MouseEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styles from './RoundButton.module.css';
 
-interface ArrowButtonProp {
+interface RoundButtonProp {
     onClick?: (event: MouseEvent) => void;
     icon: string;
     disabled?: boolean;
@@ -11,7 +11,7 @@ interface ArrowButtonProp {
 }
 
 
-const ArrowButton: FunctionComponent<ArrowButtonProp & RouteComponentProps> = ({ onClick, icon, disabled = false, isBranding = false, to, history }) => {
+const RoundButton: FunctionComponent<RoundButtonProp & RouteComponentProps> = ({ onClick, icon, disabled = false, isBranding = false, to, history }) => {
     const handleClick = (event: MouseEvent) => {
         if (onClick) {
             onClick(event);
@@ -31,4 +31,4 @@ const ArrowButton: FunctionComponent<ArrowButtonProp & RouteComponentProps> = ({
     )
 }
 
-export default withRouter(ArrowButton);
+export default withRouter(RoundButton);

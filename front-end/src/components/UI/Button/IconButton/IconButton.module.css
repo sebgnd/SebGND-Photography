@@ -1,0 +1,21 @@
+.iconButton {
+    transform: none;
+    transition: transform .25s;
+    margin: 5px;
+}
+
+.small {
+    size: .75em;
+}
+
+.medium {
+    size: 1.25em;
+}
+
+.big {
+    size: 2em;
+}
+
+.iconButton:hover {
+    transform: scale(1.1) translateY(-2.5px);
+}

@@ -1,11 +1,15 @@
 import React, { ComponentClass, FunctionComponent, MouseEvent, CSSProperties, ReactNode } from 'react';
 import styles from './DataTable.module.css';
 
+import Separator from '../Separator/Separator';
+import IconButton from '../Button/IconButton/IconButton';
+
 type RowActionFunction = (event: MouseEvent, data: any) => void;
 type ActionType = 'select' | 'delete' | 'click'; 
 
 interface DataTableProps {
     datas: any[];
+    withSeparator?: boolean;
     columnNames?: string[];
     className?: string;
     style?: CSSProperties,
@@ -21,6 +25,7 @@ const DataTable: FunctionComponent<DataTableProps> = ({
     className,
     datas,
     style,
+    withSeparator,
     renderRow, 
     onRowClick,
     onRowDelete,
@@ -58,31 +63,38 @@ const DataTable: FunctionComponent<DataTableProps> = ({
     return (
         <div style={style} className={[styles.dataTable, className].join(' ')}>
             <div className={styles.data}>
-                {datas.map(data => (
-                    <div className={dataRowClassNames}>
-                        {onRowSelect && (
+                {datas.map((data: any, index: number) => (
+                    <>
+                        <div className={dataRowClassNames}>
+                            {onRowSelect && (
+                                <div 
+                                    onClick={(event: MouseEvent) => handleClick(event, data, 'select')}
+                                    className={styles.dataAction}
+                                >
+                                    X
+                                </div>
+                            )}
                             <div 
-                                onClick={(event: MouseEvent) => handleClick(event, data, 'select')}
-                                className={styles.dataAction}
+                                style={{ flexBasis: `${100 - nbDataAction * 5}%` }}
+                                onClick={(event: MouseEvent) => handleClick(event, data, 'click')}
                             >
-                                X
+                                {renderRow(data)}
                             </div>
-                        )}
-                        <div 
-                            style={{ flexBasis: `${100 - nbDataAction * 5}%` }}
-                            onClick={(event: MouseEvent) => handleClick(event, data, 'click')}
-                        >
-                            {renderRow(data)}
+                            {onRowDelete && (
+                                <div className={styles.dataAction}>
+                                    <IconButton 
+                                        icon="times" 
+                                        onClick={(event: MouseEvent) => handleClick(event, data, 'delete')}
+                                        size="small"
+                                        color="red"
+                                    />
+                                </div>
+                            )}
                         </div>
-                        {onRowDelete && (
-                            <div 
-                                onClick={(event: MouseEvent) => handleClick(event, data, 'delete')}
-                                className={styles.dataAction}
-                            >
-                                X
-                            </div>
+                        {(withSeparator && index !== datas.length - 1) && (
+                            <Separator orientation="horizontal" size="medium" />
                         )}
-                    </div>
+                    </>
                 ))} 
             </div>
         </div>

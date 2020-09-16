@@ -8,26 +8,3 @@
     flex-direction: column;
     text-align: center;
 }
-
-.dataRow {
-    padding: 15px;
-    display: flex;
-    flex-direction: row;
-}
-
-.dataRowHoverable {
-    cursor: pointer;
-    background-color: transparent;  
-    transition: background-color .25s;
-}
-
-.dataRowHoverable:hover {
-    background-color: #F9F9F9;
-}
-
-.dataAction {
-    flex-basis: 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}

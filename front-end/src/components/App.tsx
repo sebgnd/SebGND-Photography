@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
-// Components
+// User Components
 import Home from './pages/Home/Home';
 import Contact from './pages/Contact/Contact';
 import Recent from './pages/Recent/Recent';
 import Galleries from './pages/Galleries/Galleries';
 import Gallery from './pages/Gallery/Gallery';
 import Playground from './pages/Playground/Playground';
+
+// Admin Components
+import AdminHome from './pages/Admin/Home/Home';
 
 // Layouts
 import UserLayout from './layouts/UserLayout';
@@ -21,7 +24,9 @@ class App extends React.Component {
             <BrowserRouter>
                 <Switch>
                     <Route path="/admin">
-                        <AdminLayout />
+                        <AdminLayout>
+                            <Route exact={true} path="/admin/home" component={AdminHome} />
+                        </AdminLayout>
                     </Route>
                     <Route path="/">
                         <UserLayout>

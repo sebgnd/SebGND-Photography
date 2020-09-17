@@ -1,10 +1,12 @@
-import React, { MouseEvent, FunctionComponent, Fragment, useEffect } from 'react';
+import React, { MouseEvent, FunctionComponent, Fragment, useEffect, ChangeEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from '../../../helper/image/Image';
+import ImageService from '../../../helper/image/ImageService';
 import { selectAllImages, selectImagesStatus } from '../../../redux/selectors/imageSelector';
 import { fetchImagesFromCategory } from '../../../redux/slices/imageSlice';
 
 import DataTable from '../../UI/DataTable/DataTable';
+import ImageRow from '../../UI/DataTable/ImageRow/ImageRow';
 
 const Playground: FunctionComponent = () => {
     const images = useSelector(selectAllImages);
@@ -22,11 +24,12 @@ const Playground: FunctionComponent = () => {
                 style={{ width: '50%' }}
                 onRowDelete={(event: MouseEvent, image: Image) => console.log(`Deleting image ${image.id}`)}
                 onRowClick={(event: MouseEvent, image: Image) => console.log(`Clicking image ${image.id}`)}
+                onRowSelect={(event: ChangeEvent<HTMLInputElement>, image: Image) => console.log(`Image ${image.id} ${event.currentTarget.checked ? 'selected' : 'not selected'}`)}
                 renderRow={(image: Image) => (
-                    <div style={{ display: 'flex', }}>
-                        <p>{image.id}</p>
-                        <p>{image.category.displayName}</p>
-                    </div>
+                    <ImageRow 
+                        image={image}
+                        properties={['uploadDate']}
+                    />
                 )}
             />
         </Fragment>

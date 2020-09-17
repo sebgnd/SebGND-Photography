@@ -10,7 +10,8 @@ const TYPES: string[] = ['text-input', 'text-area'];
 type TextFieldEvent = FormEvent<HTMLInputElement> | FormEvent<HTMLTextAreaElement>
 
 interface TextFieldProps {
-    id: string;
+    name: string;
+    id?: string;
     inputType: string;
     value?: string;
     hasError?: boolean;
@@ -24,9 +25,18 @@ interface TextFieldProps {
     form?: string;
 }
 
-const TextField: FunctionComponent<TextFieldProps> = (props) => {
-    const { id, label, placeholder, hideContent, hasError, onBlur, onChange, inputType, errorMessage } = props;
-
+const TextField: FunctionComponent<TextFieldProps> = ({ 
+    id, 
+    name, 
+    label, 
+    placeholder, 
+    hideContent, 
+    hasError, 
+    onBlur, 
+    onChange, 
+    inputType, 
+    errorMessage 
+}) => {
     const getFieldType = () => {
         if (TYPES.includes(inputType)) {
             return inputType;
@@ -39,7 +49,7 @@ const TextField: FunctionComponent<TextFieldProps> = (props) => {
             <LabelErrorContainer>
                 {label && (
                     <LabelContainer>
-                        <Label htmlFor={id}>{label}</Label>
+                        <Label htmlFor={id || name}>{label}</Label>
                     </LabelContainer>
                 )}
                 {hasError && (
@@ -48,8 +58,8 @@ const TextField: FunctionComponent<TextFieldProps> = (props) => {
             </LabelErrorContainer>
             {getFieldType() === TYPES[0] && (
                 <StyledInput 
-                    name={id} 
-                    id={id} 
+                    name={name} 
+                    id={id || name} 
                     error={hasError ? hasError : false} 
                     placeholder={placeholder} 
                     type={hideContent ? "password" : "text"} 
@@ -58,8 +68,8 @@ const TextField: FunctionComponent<TextFieldProps> = (props) => {
             )}
             {getFieldType() === TYPES[1] && (
                 <StyledTextArea 
-                    name={id} 
-                    id={id} 
+                    name={name} 
+                    id={id || name} 
                     error={hasError ? hasError : false} 
                     placeholder={placeholder} 
                     onBlur={onBlur}

@@ -7,6 +7,7 @@
 1. Create checkbox component
 1. Create icon button
 1. Maybe merge IconButton and RoundButton (IconButton with border props ?)
+1. Create a type file with all type (Functions type from DataRow for example)
 
 1. User Website
     1. Improve performance when changing ImageFade

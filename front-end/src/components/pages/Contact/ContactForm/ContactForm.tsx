@@ -44,7 +44,7 @@ const ContactForm: FunctionComponent<FormProps & RouteComponentProps> = ({ nameF
                                     <TextField 
                                         hasError={nameField.error !== null}
                                         errorMessage={nameField.error}
-                                        id="name" 
+                                        name="name" 
                                         inputType="text-input"
                                         placeholder="Your name ..." 
                                         onChange={(event: FormEvent<HTMLInputElement>) => onChange(event)} 
@@ -52,7 +52,7 @@ const ContactForm: FunctionComponent<FormProps & RouteComponentProps> = ({ nameF
                                     <TextField 
                                         hasError={messageField.error !== null}
                                         errorMessage={messageField.error}
-                                        id="message"
+                                        name="message"
                                         inputType="text-area" 
                                         placeholder="Your message ..." 
                                         form="contactForm" 

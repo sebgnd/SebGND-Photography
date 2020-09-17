@@ -18,6 +18,20 @@ export default class ImageApi {
         }
     }
 
+    static async getAll(): Promise<Image[]> {
+        try {
+            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images`);    
+            if (response.status === 200) {
+                return response.data.map((image: any) => ImageService.format(image));
+            } else {
+                throw new Error(response.data.error.message);
+            }
+            
+        } catch (e) {
+            throw e;
+        }
+    }
+
     static async getKFromOffset(k: number, offset: number): Promise<Image[]> {
         try {
             const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images?offset=${offset}&k=${k}`);     

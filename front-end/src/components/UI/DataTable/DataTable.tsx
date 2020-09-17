@@ -1,12 +1,8 @@
-import React, { ComponentClass, FunctionComponent, MouseEvent, CSSProperties, ReactNode } from 'react';
+import React, { Fragment, FunctionComponent, MouseEvent, CSSProperties, ReactNode, ChangeEvent } from 'react';
 import styles from './DataTable.module.css';
 
 import Separator from '../Separator/Separator';
-import DataRow from './DataRow/DataRow';
-import { render } from '@testing-library/react';
-
-type RowActionFunction = (event: MouseEvent, data: any) => void;
-type ActionType = 'select' | 'delete' | 'click'; 
+import DataRow, { ClickActionFunction, SelectActionFunction } from './DataRow/DataRow';
 
 interface DataTableProps {
     datas: any[];
@@ -16,9 +12,9 @@ interface DataTableProps {
     style?: CSSProperties,
 
     renderRow: (row: any) => ReactNode;
-    onRowClick?: RowActionFunction;
-    onRowDelete?: RowActionFunction;
-    onRowSelect?: RowActionFunction;
+    onRowClick?: ClickActionFunction;
+    onRowDelete?: ClickActionFunction;
+    onRowSelect?: SelectActionFunction;
 }
 
 const DataTable: FunctionComponent<DataTableProps> = ({ 
@@ -36,7 +32,7 @@ const DataTable: FunctionComponent<DataTableProps> = ({
         <div style={style} className={[styles.dataTable, className].join(' ')}>
             <div className={styles.data}>
                 {datas.map((data: any, index: number) => (
-                    <>
+                    <Fragment key={`dataTable-${index}`}>
                         <DataRow 
                             data={data}
                             render={renderRow}
@@ -47,7 +43,7 @@ const DataTable: FunctionComponent<DataTableProps> = ({
                         {(withSeparator && index !== datas.length - 1) && (
                             <Separator orientation="horizontal" size="medium" />
                         )}
-                    </>
+                    </Fragment>
                 ))} 
             </div>
         </div>

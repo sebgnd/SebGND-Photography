@@ -1,11 +1,10 @@
 import React, { FunctionComponent, FormEvent, ChangeEvent } from 'react';
+import styles from './Checkbox.module.css';
 
 interface CheckboxProps {
-    id: string;
+    id?: string;
     name: string;
-    form?: string;
     label?: string;
-    labelPosition?: 'vertical' | 'horizontal'; 
     checked?: boolean;
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
     onBlur?: (event: FormEvent<HTMLInputElement>) => void;
@@ -15,21 +14,26 @@ const Checkbox: FunctionComponent<CheckboxProps> = ({
     id,
     name,
     label = '',
-    labelPosition = 'horizontal',
     checked,
-    form,
     onChange,
     onBlur
 }) => {
     return (
-        <input 
-            id={id}
-            name={name}
-            form={form}
-            checked={checked} 
-            onChange={onChange}
-            onBlur={onBlur} 
-        />
+        <div className={styles.checkbox}>
+            <input 
+                type="checkbox"
+                id={id || name}
+                name={name}
+                checked={checked} 
+                onChange={onChange}
+                onBlur={onBlur} 
+            />
+            {label && (
+                <label className={styles.checkboxLabel}>
+                    <p>{label}</p>
+                </label>
+            )}
+        </div>
     )
 }
 

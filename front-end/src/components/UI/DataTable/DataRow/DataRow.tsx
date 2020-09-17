@@ -1,20 +1,23 @@
-import React, { FunctionComponent, ReactNode, MouseEvent } from 'react';
+import React, { FunctionComponent, ReactNode, MouseEvent, ChangeEvent } from 'react';
 import styles from './DataRow.module.css';
+
+import Checkbox from '../../Form/Checkbox/Checkbox';
 import IconButton from '../../Button/IconButton/IconButton';
 
-type ActionFunction = (event: MouseEvent, data: any) => void;
-type ActionType = 'select' | 'delete' | 'click'; 
+export type ClickActionFunction = (event: MouseEvent, data: any) => void;
+export type SelectActionFunction = (event: ChangeEvent<HTMLInputElement>, data: any) => void;
+export type ActionType = 'select' | 'delete' | 'click'; 
 
 interface DataRowProps {
     data: any;
     render: (row: any) => ReactNode;
-    onClick?: ActionFunction;
-    onDelete?: ActionFunction;
-    onSelect?: ActionFunction;
+    onClick?: ClickActionFunction;
+    onDelete?: ClickActionFunction;
+    onSelect?: SelectActionFunction;
 }
 
 const DataRow: FunctionComponent<DataRowProps> = ({ data, render, onClick, onDelete, onSelect }) => {
-    const getNbDataAction = (dataActions: (ActionFunction | undefined)[]) => {
+    const getNbDataAction = (dataActions: (ClickActionFunction | SelectActionFunction | undefined)[]) => {
         let nbDataAction = 0;
 
         for (let dataAction of dataActions) {
@@ -26,13 +29,13 @@ const DataRow: FunctionComponent<DataRowProps> = ({ data, render, onClick, onDel
         return nbDataAction;
     }
 
-    const handleClick = (event: MouseEvent, data: any, actionType: ActionType) => {
+    const handleClick = (event: MouseEvent | ChangeEvent, data: any, actionType: ActionType) => {
         if (actionType === 'select' && onSelect) {
-            onSelect(event, data);
+            onSelect(event as ChangeEvent<HTMLInputElement>, data);
         } else if (actionType === 'delete' && onDelete) {
-            onDelete(event, data);
+            onDelete(event as MouseEvent, data);
         } else {
-            if (onClick) onClick(event, data);
+            if (onClick) onClick(event as MouseEvent, data);
         }
     }
 
@@ -46,11 +49,11 @@ const DataRow: FunctionComponent<DataRowProps> = ({ data, render, onClick, onDel
     return (
         <div className={dataRowClassNames}>
             {onSelect && (
-                <div 
-                    onClick={(event: MouseEvent) => handleClick(event, data, 'select')}
-                    className={styles.dataAction}
-                >
-                    X
+                <div className={styles.dataAction}>
+                    <Checkbox 
+                        name={'test'} 
+                        onChange={(event) => handleClick(event, data, 'select')}
+                    />
                 </div>
             )}
             <div 

@@ -6,7 +6,7 @@ const UserLayout: FunctionComponent = ({ children }) => {
     return (
         <>
             <AdminNavigation />
-            <div id="admin" style={{ paddingTop: '125px', paddingBottom: '70px' }}>
+            <div id="admin" style={{ paddingTop: '140px', paddingBottom: '70px' }}>
                 {children}
             </div>
         </>

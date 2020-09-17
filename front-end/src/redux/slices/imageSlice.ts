@@ -19,6 +19,7 @@ import {
 
 import Image from '../../helper/image/Image';
 import ImageApi from '../../helper/image/ImageApi';
+import { createPartiallyEmittedExpression } from 'typescript';
 
 // Setting the adapter and initial state
 export const imagesAdapter: EntityAdapter<Image> = createEntityAdapter<Image>({
@@ -76,6 +77,14 @@ export const fetchKImagesFromOffset = createAsyncThunk(
     'image/fetchKImagesFromOffset', 
     async ({ k, offset }: FetchKImagesParams): Promise<Image[]> => {
         const images: Image[] = await ImageApi.getKFromOffset(k, offset);
+        return images;
+    }
+)
+
+export const fetchAllImage = createAsyncThunk(
+    'image/fetchAllImage',
+    async (): Promise<Image[]> => {
+        const images: Image[] = await ImageApi.getAll();
         return images;
     }
 )
@@ -163,14 +172,21 @@ const imagesSlice = createSlice({
                     }
                 }
             })
+            .addCase(fetchAllImage.fulfilled, (state, action: PayloadAction<Image[]>) => {
+                fulfilledCaseReducer(state, action);
+                imagesAdapter.setAll(state, action.payload);
+                state.allLoaded = true;
+            })
             .addCase(fetchImagesFromCategory.pending, pendingCaseReducer)
             .addCase(fetchImage.pending, pendingCaseReducer)
             .addCase(fetchKImagesFromOffset.pending, pendingCaseReducer)
             .addCase(fetchImageWithAdjacent.pending, pendingCaseReducer)
+            .addCase(fetchAllImage.pending, pendingCaseReducer)
             .addCase(fetchImagesFromCategory.rejected, rejectCaseReducer)
             .addCase(fetchImage.rejected, rejectCaseReducer)
             .addCase(fetchKImagesFromOffset.rejected, rejectCaseReducer)
-            .addCase(fetchImageWithAdjacent.rejected, rejectCaseReducer);
+            .addCase(fetchImageWithAdjacent.rejected, rejectCaseReducer)
+            .addCase(fetchAllImage.rejected, rejectCaseReducer);
     }
 });
 

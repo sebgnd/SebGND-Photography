@@ -4,8 +4,7 @@
 
 ### Frontend:
 1. Add comments
-1. Create checkbox component
-1. Create icon button
+1. Pagination for DataTable
 1. Maybe merge IconButton and RoundButton (IconButton with border props ?)
 1. Create a type file with all type (Functions type from DataRow for example)
 
@@ -23,6 +22,7 @@
     
 
 ### Backend:
+1. Implement better pagination
 1. Check destroy return value 
 1. Resize image + handle image upload to database
 1. Implement security

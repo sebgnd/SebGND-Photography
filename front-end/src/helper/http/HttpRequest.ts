@@ -33,7 +33,7 @@ export default class HttpRequest {
                 const { status } = response;
                 return {
                     status,
-                    data
+                    result: data
                 };
             } else {
                 throw new Error(data.error.message);

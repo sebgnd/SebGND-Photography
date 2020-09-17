@@ -18,7 +18,8 @@ export interface ImageAdditionalState {
     nextId: number | null,
     previousId: number | null,
     selected: Image | null,
-    allLoaded: boolean
+    allLoaded: boolean,
+    currentPage: number
 }
 export type ImagesState = ImageAdditionalState & FetchingState & EntityState<Image>;
 
@@ -32,11 +33,6 @@ export type CategoryState = CategoryAdditionalState & FetchingState & EntityStat
 export interface FetchImageWithAdjacentParams {
     id: number;
     sameCategory: boolean;
-}
-
-export interface FetchKImagesParams {
-    k: number;
-    offset: number
 }
 
 export interface ImageWithAdjacent {
@@ -64,6 +60,13 @@ export type ContactState = FetchingState;
 export interface PostMessageParams {
     name: string;
     message: string;
+}
+
+// Other
+
+export interface FetchFromPageParams {
+    page: number;
+    itemsPerPage: number
 }
 
 // Mains state/ store type

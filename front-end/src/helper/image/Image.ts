@@ -14,3 +14,10 @@ export default interface Image {
     
     [key: string]: any
 }
+
+export interface ImagesWithPagination {
+    images: Image[];
+    hasNext: boolean;
+    total: number;
+    page: number;
+}

@@ -10,7 +10,7 @@ export default class MessageApi {
                 name
             }
             const response: HttpResponse = await HttpRequest.post('http://localhost:8000/messages', body);
-            return MessageService.format(response.data);
+            return MessageService.format(response.result);
 
         } catch (err) {
             throw err;

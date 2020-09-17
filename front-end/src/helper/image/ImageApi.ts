@@ -1,18 +1,14 @@
 import HttpRequest from '../http/HttpRequest';
 import HttpResponse from '../http/HttpResponse';
 import ImageService from './ImageService';
-import Image from './Image';
+import Image, { ImagesWithPagination } from './Image';
 
 export default class ImageApi {
-    static async getFromCategory(id: string): Promise<Image[]> {
+    static async get(id: number): Promise<Image> {
         try {
-            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories/${id}/images`);    
-            if (response.status === 200) {
-                return response.data.map((image: any) => ImageService.format(image));
-            } else {
-                throw new Error(response.data.error.message);
-            }
-            
+            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images/${id}`);         
+            return ImageService.format(response.result);
+
         } catch (e) {
             throw e;
         }
@@ -22,9 +18,9 @@ export default class ImageApi {
         try {
             const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images`);    
             if (response.status === 200) {
-                return response.data.map((image: any) => ImageService.format(image));
+                return response.result.map((image: any) => ImageService.format(image));
             } else {
-                throw new Error(response.data.error.message);
+                throw new Error(response.result.error.message);
             }
             
         } catch (e) {
@@ -32,24 +28,35 @@ export default class ImageApi {
         }
     }
 
-    static async getKFromOffset(k: number, offset: number): Promise<Image[]> {
+    static async getPage(page: number, itemsPerPage: number = 5): Promise<ImagesWithPagination> {
         try {
-            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images?offset=${offset}&k=${k}`);     
+            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images?page=${page}&itemsPerPage=${itemsPerPage}`);     
             if (response.status === 200) {
-                return response.data.map((image: any) => ImageService.format(image));
+                const images = response.result.data.map((image: any) => ImageService.format(image));
+                const { hasNext, total, page } = response.result;
+                return {
+                    images, 
+                    hasNext,
+                    total,
+                    page
+                }
             } else {
-                throw new Error(response.data.error.message);
+                throw new Error(response.result.error.message);
             }
         } catch (e) {
             throw e;
         }
     }
 
-    static async get(id: number): Promise<Image> {
+    static async getFromCategory(id: string): Promise<Image[]> {
         try {
-            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images/${id}`);         
-            return ImageService.format(response.data);
-
+            const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories/${id}/images`);    
+            if (response.status === 200) {
+                return response.result.map((image: any) => ImageService.format(image));
+            } else {
+                throw new Error(response.result.error.message);
+            }
+            
         } catch (e) {
             throw e;
         }
@@ -59,11 +66,11 @@ export default class ImageApi {
         try {
             const categoryString: string = sameCategory ? 'true' : 'false';
             const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/images/${id}?withAdjacent=true&sameCategory=${categoryString}`);         
-            const { data } = response;
+            const { result } = response;
 
-            const current: Image = ImageService.format(data.image);
-            const previous: Image | null = data.previous ? ImageService.format(data.previous) : null;
-            const next: Image | null = data.next ? ImageService.format(data.next) : null;
+            const current: Image = ImageService.format(result.image);
+            const previous: Image | null = result.previous ? ImageService.format(result.previous) : null;
+            const next: Image | null = result.next ? ImageService.format(result.next) : null;
 
             return [
                 previous,

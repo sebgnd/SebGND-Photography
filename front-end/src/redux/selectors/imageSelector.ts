@@ -11,6 +11,7 @@ export const selectAllImagesLoaded: Selector<RootState, boolean> = (state: RootS
 export const selectSelectedImage: Selector<RootState, Image | null> = (state: RootState) => state.image.selected;
 export const selectPreviousId: Selector<RootState, number | null> = (state: RootState) => state.image.previousId;
 export const selectNextId: Selector<RootState, number | null> = (state: RootState) => state.image.nextId;
+export const selectCurrentPage: Selector<RootState, number> = (state: RootState) => state.image.currentPage;
 
 export const {
     selectAll: selectAllImages,

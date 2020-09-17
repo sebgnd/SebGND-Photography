@@ -12,14 +12,13 @@ import {
     ImageAdditionalState, 
     FetchingState,
     FetchImageWithAdjacentParams,
-    FetchKImagesParams,
+    FetchFromPageParams,
     ImageWithAdjacent,
     UpdateImagePayload
 } from '../types';
 
-import Image from '../../helper/image/Image';
+import Image, { ImagesWithPagination } from '../../helper/image/Image';
 import ImageApi from '../../helper/image/ImageApi';
-import { createPartiallyEmittedExpression } from 'typescript';
 
 // Setting the adapter and initial state
 export const imagesAdapter: EntityAdapter<Image> = createEntityAdapter<Image>({
@@ -34,7 +33,8 @@ const initialState: ImagesState = imagesAdapter.getInitialState<ImageAdditionalS
     selected: null,
     allLoaded: false,
     sortBy: 'id',
-    sortOrder: 'DESC'
+    sortOrder: 'DESC',
+    currentPage: 0
 });
 
 // Fetching data from apis
@@ -73,11 +73,12 @@ export const fetchImageWithAdjacent = createAsyncThunk(
     }
 )
 
-export const fetchKImagesFromOffset = createAsyncThunk(
-    'image/fetchKImagesFromOffset', 
-    async ({ k, offset }: FetchKImagesParams): Promise<Image[]> => {
-        const images: Image[] = await ImageApi.getKFromOffset(k, offset);
-        return images;
+export const fetchImagesFromPage = createAsyncThunk(
+    'image/fetchImagesFromPage', 
+    async ({ page, itemsPerPage }: FetchFromPageParams): Promise<ImagesWithPagination> => {
+        const result: ImagesWithPagination = await ImageApi.getPage(page, itemsPerPage);
+        console.log(result);
+        return result;
     }
 )
 
@@ -143,13 +144,15 @@ const imagesSlice = createSlice({
                 fulfilledCaseReducer(state, action);
                 state.selected = action.payload;
             })
-            .addCase(fetchKImagesFromOffset.fulfilled, (state, action: PayloadAction<Image[]>) => {
+            .addCase(fetchImagesFromPage.fulfilled, (state, action: PayloadAction<ImagesWithPagination>) => {
                 fulfilledCaseReducer(state, action);
-                if (action.payload.length !== 0) {
-                    imagesAdapter.upsertMany(state, action.payload);
-                } else {
-                    state.allLoaded = true;
-                }
+
+                if (action.payload.images.length !== 0) {
+                    imagesAdapter.upsertMany(state, action.payload.images);
+                } 
+
+                state.allLoaded = !action.payload.hasNext;
+                state.currentPage = action.payload.page;
             })
             .addCase(fetchImageWithAdjacent.fulfilled, (state, action: PayloadAction<ImageWithAdjacent | null>) => {
                 fulfilledCaseReducer(state, action);
@@ -179,12 +182,12 @@ const imagesSlice = createSlice({
             })
             .addCase(fetchImagesFromCategory.pending, pendingCaseReducer)
             .addCase(fetchImage.pending, pendingCaseReducer)
-            .addCase(fetchKImagesFromOffset.pending, pendingCaseReducer)
+            .addCase(fetchImagesFromPage.pending, pendingCaseReducer)
             .addCase(fetchImageWithAdjacent.pending, pendingCaseReducer)
             .addCase(fetchAllImage.pending, pendingCaseReducer)
             .addCase(fetchImagesFromCategory.rejected, rejectCaseReducer)
             .addCase(fetchImage.rejected, rejectCaseReducer)
-            .addCase(fetchKImagesFromOffset.rejected, rejectCaseReducer)
+            .addCase(fetchImagesFromPage.rejected, rejectCaseReducer)
             .addCase(fetchImageWithAdjacent.rejected, rejectCaseReducer)
             .addCase(fetchAllImage.rejected, rejectCaseReducer);
     }

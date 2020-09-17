@@ -7,8 +7,8 @@ import Viewer from '../../Viewer/Viewer';
 import withEndScroll, { EndScrollProps } from '../../HOC/withEndScroll';
 import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
 
-import { fetchKImagesFromOffset, imagesEmptied } from '../../../redux/slices/imageSlice';
-import { selectAllImages, selectImagesStatus, selectAllImagesLoaded } from '../../../redux/selectors/imageSelector';
+import { fetchImagesFromPage, imagesEmptied } from '../../../redux/slices/imageSlice';
+import { selectAllImages, selectImagesStatus, selectAllImagesLoaded, selectCurrentPage } from '../../../redux/selectors/imageSelector';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface RouteParams {
@@ -22,6 +22,7 @@ const Recent: FunctionComponent<RecentProps> = ({ endWindowReached, match, histo
     const images = useSelector(selectAllImages);
     const status = useSelector(selectImagesStatus);
     const finishedLoading = useSelector(selectAllImagesLoaded);
+    const currentPage = useSelector(selectCurrentPage);
 
     const minTimeBetweenFetch: number = 250;
     const nbImagePerFetch: number = 5;
@@ -36,9 +37,9 @@ const Recent: FunctionComponent<RecentProps> = ({ endWindowReached, match, histo
         }
 
         dispatch(
-            fetchKImagesFromOffset({ 
-                k: nbImagePerFetch, 
-                offset: images.length
+            fetchImagesFromPage({ 
+                page: currentPage + 1, 
+                itemsPerPage: nbImagePerFetch
             })
         );
     }

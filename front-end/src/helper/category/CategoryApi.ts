@@ -8,7 +8,7 @@ export default class CategoryApi {
     static async get(id: string): Promise<Category> {
         try {
             const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories/${id}`);
-            return CategoryService.format(response.data);
+            return CategoryService.format(response.result);
         
         } catch (e) {
             throw e;
@@ -18,7 +18,7 @@ export default class CategoryApi {
     static async getThumbnail(id: string): Promise<CategoryThumbnail> {
         try {
             const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories/${id}`);
-            return CategoryService.formatWithThumbnail(response.data);
+            return CategoryService.formatWithThumbnail(response.result);
         
         } catch (e) {
             throw e;
@@ -28,7 +28,7 @@ export default class CategoryApi {
     static async getKThumbnail(k: number): Promise<CategoryThumbnail[]> {
         try {
             const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories?offset=0&k=${k}`);
-            return response.data.map((category: any) => {
+            return response.result.map((category: any) => {
                 return CategoryService.formatWithThumbnail(category)
             });
 
@@ -40,7 +40,7 @@ export default class CategoryApi {
     static async getAllThumbnail(): Promise<CategoryThumbnail[]> {
         try {
             const response: HttpResponse = await HttpRequest.get('http://localhost:8000/categories');
-            return response.data.map((category: any) => {
+            return response.result.map((category: any) => {
                 return CategoryService.formatWithThumbnail(category)
             });
         

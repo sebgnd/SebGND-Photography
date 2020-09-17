@@ -5,8 +5,9 @@
 ### Frontend:
 1. Add comments
 1. Pagination for DataTable
-1. Maybe merge IconButton and RoundButton (IconButton with border props ?)
 1. Create a type file with all type (Functions type from DataRow for example)
+1. Add types file to helper folders (image, ...)
+1. Find out how to handle pagination in redux (if page has been loaded or not)
 
 1. User Website
     1. Improve performance when changing ImageFade
@@ -22,7 +23,6 @@
     
 
 ### Backend:
-1. Implement better pagination
 1. Check destroy return value 
 1. Resize image + handle image upload to database
 1. Implement security

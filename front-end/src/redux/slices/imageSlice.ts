@@ -106,6 +106,7 @@ const emptyImageReducer = (state: ImagesState) => {
     imagesAdapter.setAll(state, []);
     state.allLoaded = false;
     state.status = 'idle';
+    state.currentPage = 0;
 }
 
 const selectImageReducer = (state: ImagesState, action: PayloadAction<number>) => {

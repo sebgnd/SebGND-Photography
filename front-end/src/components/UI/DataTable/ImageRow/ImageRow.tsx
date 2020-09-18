@@ -5,54 +5,32 @@ import ImageService from '../../../../helper/image/ImageService';
 import styles from './ImageRow.module.css';
 
 interface ImageRowProps {
-    image: Image;
-    properties?: string[];
+    imgUrl: string;
+    imgId: number;
+    imgUploadDate: string;
+    categoryName: string;
 }
 
 const ImageRow: FunctionComponent<ImageRowProps> = ({
-    image,
-    properties
+    imgId,
+    imgUrl,
+    imgUploadDate,
+    categoryName
 }) => {
-    const nbProperties = properties
-        ? properties.filter((property: string) => {
-            return image[property] !== undefined;
-        }).length  
-        : 0;
-
-    const basisValue = 100 / (nbProperties + 3);
-    const flexBasis = `${basisValue}%`;
-    const { id, category } = image;
-
     return (
         <div className={styles.imageRow}>
-            <div style={{ flexBasis }}>
-                <img src={ImageService.getUrl(image, 'thumbnail_small')} alt={id.toString()}/>
+            <div className={styles.imageRowCol}>
+                <img src={imgUrl} alt={imgId.toString()}/>
             </div>
-            <div style={{ flexBasis }}>
-                <p>{id}</p>
+            <div className={styles.imageRowCol}>
+                <p>{imgId}</p>
             </div>
-            <div style={{ flexBasis }}>
-                <p>{category.displayName}</p>
+            <div className={styles.imageRowCol}>
+                <p>{categoryName}</p>
             </div>
-            {properties && (
-                <>
-                    {properties.map((property: string) => {
-                        if (image[property]) {
-                            return (
-                                <div style={{ flexBasis }}>
-                                    <p>
-                                        {property === 'uploadDate' 
-                                            ? new Date(image[property]).toLocaleDateString()
-                                            : image[property]
-                                        }
-                                    </p>
-                                </div>
-                            )
-                        }
-                        return null;
-                    })}
-                </>
-            )}
+            <div className={styles.imageRowCol}>
+                <p>{imgUploadDate}</p>
+            </div>
         </div>
     )
 }

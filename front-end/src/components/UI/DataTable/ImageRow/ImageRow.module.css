@@ -3,3 +3,7 @@
     align-items: center;
     align-content: space-between;
 }
+
+.imageRowCol {
+    flex-basis: 25%;
+}

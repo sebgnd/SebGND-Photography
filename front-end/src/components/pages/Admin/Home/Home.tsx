@@ -10,6 +10,7 @@ import DataTable from '../../../UI/DataTable/DataTable';
 import ImageRow from '../../../UI/DataTable/ImageRow/ImageRow';
 
 import Image from '../../../../helper/image/Image';
+import ImageService from '../../../../helper/image/ImageService';
 
 const Home: FunctionComponent = () => {
     const dispatch = useDispatch();
@@ -31,8 +32,10 @@ const Home: FunctionComponent = () => {
                 onRowSelect={(event: ChangeEvent<HTMLInputElement>, image: Image) => console.log(`Image ${image.id} ${event.currentTarget.checked ? 'selected' : 'not selected'}`)}
                 renderRow={(image: Image) => (
                     <ImageRow 
-                        image={image}
-                        properties={['uploadDate']}
+                        imgId={image.id}
+                        imgUploadDate={new Date(image.uploadDate).toLocaleDateString()}
+                        imgUrl={ImageService.getUrl(image, 'thumbnail_small')}
+                        categoryName={image.category.displayName}
                     />
                 )}
             />

@@ -12,12 +12,11 @@ import {
     ImageAdditionalState, 
     FetchingState,
     FetchImageWithAdjacentParams,
-    FetchFromPageParams,
-    ImageWithAdjacent,
+    FetchPageParams,
     UpdateImagePayload
 } from '../types';
 
-import Image, { ImagesWithPagination } from '../../helper/image/Image';
+import Image, { ImagesWithPagination, ImageWithAdjacent } from '../../helper/image/Image';
 import ImageApi from '../../helper/image/ImageApi';
 
 // Setting the adapter and initial state
@@ -75,9 +74,8 @@ export const fetchImageWithAdjacent = createAsyncThunk(
 
 export const fetchImagesFromPage = createAsyncThunk(
     'image/fetchImagesFromPage', 
-    async ({ page, itemsPerPage }: FetchFromPageParams): Promise<ImagesWithPagination> => {
+    async ({ page, itemsPerPage }: FetchPageParams): Promise<ImagesWithPagination> => {
         const result: ImagesWithPagination = await ImageApi.getPage(page, itemsPerPage);
-        console.log(result);
         return result;
     }
 )

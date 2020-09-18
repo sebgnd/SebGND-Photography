@@ -21,3 +21,16 @@ export interface ImagesWithPagination {
     total: number;
     page: number;
 }
+
+export interface ImageWithAdjacent {
+    previousId: number | null;
+    current: Image | null;
+    nextId: number | null
+}
+
+export interface Exif {
+    iso?: number;
+    shutterSpeed?: string;
+    focalLength?: string;
+    aperture?: string;
+}

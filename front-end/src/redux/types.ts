@@ -1,7 +1,7 @@
 import { EntityState } from '@reduxjs/toolkit';
 import store from './index';
 
-import Image from '../helper/image/Image';
+import Image, { Exif } from '../helper/image/Image';
 import CategoryThumbnail from '../helper/category/CategoryThumbnail';
 import Category from '../helper/category/Category';
 
@@ -35,19 +35,6 @@ export interface FetchImageWithAdjacentParams {
     sameCategory: boolean;
 }
 
-export interface ImageWithAdjacent {
-    previousId: number | null;
-    current: Image | null;
-    nextId: number | null
-}
-
-export interface Exif {
-    iso?: number;
-    shutterSpeed?: string;
-    focalLength?: string;
-    aperture?: string;
-}
-
 export interface UpdateImagePayload {
     id: number;
     exif: Exif;
@@ -64,7 +51,7 @@ export interface PostMessageParams {
 
 // Other
 
-export interface FetchFromPageParams {
+export interface FetchPageParams {
     page: number;
     itemsPerPage: number
 }

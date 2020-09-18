@@ -18,6 +18,9 @@
     1. Messages page
     1. Change password
 
+1. Redux
+    1. Check how to select image, load all data 
+
 1. (OPTIONAL) Implement Saga
 1. (OPTIONAL) Implement SVG when images are not loaded yet
     

@@ -4,7 +4,8 @@ import styles from './RoundButton.module.css';
 
 interface RoundButtonProp {
     onClick?: (event: MouseEvent) => void;
-    icon: string;
+    icon?: string;
+    letter: 
     disabled?: boolean;
     isBranding?: boolean;
     to?: string;

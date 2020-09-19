@@ -1,3 +1,13 @@
+.dataTableContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.dataTablePagination {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
 .dataTable {
     background-color: white;
     height: auto;

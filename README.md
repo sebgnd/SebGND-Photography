@@ -3,17 +3,22 @@
 ## Todos:
 
 ### Frontend:
-1. Add comments
 1. Pagination for DataTable
-1. Create a type file with all type (Functions type from DataRow for example)
-1. Add types file to helper folders (image, ...)
 1. Find out how to handle pagination in redux (if page has been loaded or not)
+1. Modal component
+1. Create a type file with all type (Functions type from DataRow for example)
 
 1. User Website
     1. Improve performance when changing ImageFade
 
 1. Admin Website
     1. Home page
+        1. ActionMenu
+            1. Upload
+            1. Delete
+            1. Filter
+        1. Finish DataTable
+        1. ImageInformation
     1. Gallery Settings page
     1. Messages page
     1. Change password
@@ -21,6 +26,7 @@
 1. Redux
     1. Check how to select image, load all data 
 
+1. (OPTIONAL) Add comments
 1. (OPTIONAL) Implement Saga
 1. (OPTIONAL) Implement SVG when images are not loaded yet
     

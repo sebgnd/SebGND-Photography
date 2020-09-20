@@ -1,7 +1,6 @@
 .roundButton {
     border-radius: 50%;
     background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
     display: inline-block;
     transform: none;
     border: none;
@@ -11,21 +10,23 @@
 
 .small {
     font-size: 1em !important;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.15);
     height: 30px;
     width: 30px;
 }
 
 .medium {
     font-size: 2em !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
     height: 55px;
     width: 55px;
 }
 
-.bgColor:hover {
+.active {
     background-color: #e3e3e3;
 }
 
-.active {
+.bgColor:hover {
     background-color: #f2f2f2;
 }
 
@@ -34,11 +35,12 @@
 }
 
 .roundButton:hover {
-    transform: scale(1.05);
+    cursor: pointer;
 }
 
 .roundButton:disabled:hover {
     transform: scale(1);
+    background-color: white;
     cursor: not-allowed;
 }
 

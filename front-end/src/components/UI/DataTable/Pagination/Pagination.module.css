@@ -3,3 +3,80 @@
     flex-direction: row;
     align-items: center;
 }
+
+.page {
+    transition: all 200ms;
+    margin: 0 2px;
+    overflow: visible;
+}
+
+.morePage {
+    font-family: "CooperHewitt Medium";
+    font-size: 1.2em;
+    color: black;
+    margin: 0 10px;
+    padding: 0;
+}
+
+/* MORE PAGE TRANSITIONS */
+
+.moreEnter {
+    max-width: 0px;
+    opacity: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.moreEnterActive {
+    max-width: 30px;
+    opacity: 1;
+    margin: 0 10px;
+    overflow: hidden;
+    transition: all 200ms;
+}
+
+.moreExit {
+    overflow: hidden;
+    max-width: 30px;
+    opacity: 1;
+    margin: 0 10px;
+}
+
+.moreExitActive {
+    max-width: 0px;
+    overflow: hidden;
+    opacity: 0;
+    margin: 0;
+    transition: all 200ms;
+}
+
+/* PAGE TRANSITIONS */
+
+.pageEnter {
+    transform: translateY(20px);
+    opacity: 0;
+    max-width: 0;
+    overflow: visible;
+}
+
+.pageEnterActive {
+    transform: translateY(0);
+    opacity: 1;
+    max-width: 50px;
+    overflow: visible;
+    transition: all 200ms;
+}
+
+.pageExit {
+    opacity: 1;
+    max-width: 50px;
+    overflow: visible;
+}
+
+.pageExitActive {
+    opacity: 0;
+    max-width: 0;
+    margin: 0;
+    overflow: visible;
+    transition: all 200ms;
+}

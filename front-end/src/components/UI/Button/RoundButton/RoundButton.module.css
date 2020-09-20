@@ -1,20 +1,40 @@
 .roundButton {
-    height: 55px;
-    width: 55px;
     border-radius: 50%;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
     display: inline-block;
-    font-size: 2em;
     transform: none;
     border: none;
-    transition: .25s transform;
+    transition: .25s transform, .25s background-color;
     overflow: hidden;
+}
+
+.small {
+    font-size: 1em !important;
+    height: 30px;
+    width: 30px;
+}
+
+.medium {
+    font-size: 2em !important;
+    height: 55px;
+    width: 55px;
+}
+
+.bgColor:hover {
+    background-color: #e3e3e3;
+}
+
+.active {
+    background-color: #f2f2f2;
+}
+
+.scale:hover {
+    transform: scale(1.05);
 }
 
 .roundButton:hover {
     transform: scale(1.05);
-    cursor: pointer;
 }
 
 .roundButton:disabled:hover {
@@ -26,16 +46,22 @@
     outline: none;
 }
 
-.iconContainer {
+.contentContainer {
     display: inline-block;
     height: 100%;
     width: 100%;
 }
 
-.icon {
+.content {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.content p {
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
 }

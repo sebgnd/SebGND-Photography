@@ -1,11 +1,13 @@
 .dataTableContainer {
     display: flex;
     flex-direction: column;
+    margin: 0px 10px;
 }
 
 .dataTablePagination {
     display: flex;
     flex-direction: row-reverse;
+    padding: 10px;
 }
 
 .dataTable {
@@ -13,7 +15,6 @@
     height: auto;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    margin: 0px 10px;
     display: flex;
     flex-direction: column;
     text-align: center;

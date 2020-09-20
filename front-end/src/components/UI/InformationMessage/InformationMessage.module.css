@@ -1,14 +1,14 @@
-.errorMessageContainer {
+.informationMessageContainer {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.errorMessageContainer i {
+.informationMessageContainer i {
     font-size: 1em;
     margin-right: 10px;
 }
 
-.errorMessageContainer p {
+.informationMessageContainer p {
     color: inherit;
 }

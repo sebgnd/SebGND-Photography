@@ -4,7 +4,7 @@ import { SingleImage } from '../../../UI/Image';
 import GalleryTitle from './GalleryTitle/GalleryTitle';
 import Spinner from '../../../UI/Spinner/Spinner';
 import styles from './ImageList.module.css';
-import ErrorMessage from '../../../UI/ErrorMessage/ErrorMessage';
+import InformationMessage from '../../../UI/InformationMessage/InformationMessage';
 
 import Image from '../../../../helper/image/Image';
 import ImageService from '../../../../helper/image/ImageService';
@@ -28,7 +28,7 @@ const ImageList: FunctionComponent<ImageListProps> = ({ images, category, catego
                 <Spinner centerVertical centerHorizontal fullScreen />
             ) : (
                 hasFailed ? (
-                    <ErrorMessage centerVertical centerHorizontal fullScreen message="Couldn't load images" />
+                    <InformationMessage messageType="error" centerVertical centerHorizontal fullScreen message="Couldn't load images" />
                 ) : (
                     <>
                         <GalleryTitle title={category ? category.displayName : 'Gallery'} />

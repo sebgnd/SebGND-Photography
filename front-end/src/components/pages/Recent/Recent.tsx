@@ -5,7 +5,7 @@ import Spinner from '../../UI/Spinner/Spinner';
 import RecentList from './RecentList/RecentList';
 import Viewer from '../../Viewer/Viewer';
 import withEndScroll, { EndScrollProps } from '../../HOC/withEndScroll';
-import ErrorMessage from '../../UI/ErrorMessage/ErrorMessage';
+import InformationMessage from '../../UI/InformationMessage/InformationMessage';
 
 import { fetchImagesFromPage, imagesEmptied } from '../../../redux/slices/imageSlice';
 import { selectAllImages, selectImagesStatus, selectAllImagesLoaded, selectCurrentPage } from '../../../redux/selectors/imageSelector';
@@ -69,7 +69,7 @@ const Recent: FunctionComponent<RecentProps> = ({ endWindowReached, match, histo
                 <Spinner centerHorizontal centerVertical fullScreen={images.length === 0} />
             )}
             { status === 'failed' && (
-                <ErrorMessage centerHorizontal centerVertical fullScreen={images.length === 0} message="Couln't load images" />
+                <InformationMessage messageType="error" centerHorizontal centerVertical fullScreen={images.length === 0} message="Couln't load images" />
             )}
             {(match.params.imageId) && (
                 <Viewer 

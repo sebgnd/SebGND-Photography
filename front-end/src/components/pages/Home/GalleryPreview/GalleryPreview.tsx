@@ -5,7 +5,7 @@ import { Title } from '../../../Styled/text';
 import { Button } from '../../../UI/Button';
 import GalleryPreviewList from './GalleryPreviewList/GalleryPreviewList';
 import Spinner from '../../../UI/Spinner/Spinner';
-import ErrorMessage from '../../../UI/ErrorMessage/ErrorMessage';
+import InformationMessage from '../../../UI/InformationMessage/InformationMessage';
 
 import styles from './GalleryPreview.module.css';
 
@@ -30,7 +30,7 @@ const GalleriesPreview: FunctionComponent<GalleriesPreviewProps> = ({ thumbnails
                     <Spinner centerHorizontal />
                 ) : (
                     (status === 'failed') ? (
-                        <ErrorMessage centerHorizontal message="Couldn't load galleries" />
+                        <InformationMessage centerHorizontal messageType="error" message="Couldn't load galleries" />
                     ) : (
                         <GalleryPreviewList thumbnails={thumbnails} />
                     )

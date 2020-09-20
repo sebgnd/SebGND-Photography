@@ -5,7 +5,7 @@ import style from './ContactForm.module.css';
 import { TextField } from '../../../UI/Form';
 import { Button } from '../../../UI/Button';
 import Spinner from '../../../UI/Spinner/Spinner';
-import ErrorMessage from '../../../UI/ErrorMessage/ErrorMessage';
+import InformationMessage from '../../../UI/InformationMessage/InformationMessage';
 
 import FormField from '../../../../helper/form/FormField';
 
@@ -34,7 +34,7 @@ const ContactForm: FunctionComponent<FormProps & RouteComponentProps> = ({ nameF
                     ) : (
                         status === 'failed' ? (
                             <div className={style.infoContainer}>
-                                <ErrorMessage message="The message couldn't be sent" centerHorizontal />
+                                <InformationMessage messageType="error" message="The message couldn't be sent" centerHorizontal />
                                 <Button variant="classic" size="medium" label="Return home" to="/" />
                             </div>
                         ) : (

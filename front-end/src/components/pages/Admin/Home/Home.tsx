@@ -1,21 +1,26 @@
-import React, { FunctionComponent, useEffect, MouseEvent, ChangeEvent, useState } from 'react';
+import React, { FunctionComponent, useEffect, ChangeEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectAllImages, selectImagesStatus } from '../../../../redux/selectors/imageSelector';
-import { fetchAllImage } from '../../../../redux/slices/imageSlice';
+import { selectAllImages, selectSelectedImage } from '../../../../redux/selectors/imageSelector';
+import { fetchAllImage, fetchImage } from '../../../../redux/slices/imageSlice';
 
 import { FlexContainer } from '../../../Styled/container';
 import ActionMenu from './ActionMenu/ActionMenu';
-import DataTable from '../../../UI/DataTable/DataTable';
-import ImageRow from '../../../UI/DataTable/ImageRow/ImageRow';
+import ImageInformation from './ImageInformation/ImageInformation';
+import ImageList from './ImageList/ImageList';
 
 import Image from '../../../../helper/image/Image';
-import ImageService from '../../../../helper/image/ImageService';
 
 const Home: FunctionComponent = () => {
     const dispatch = useDispatch();
     const images = useSelector(selectAllImages);
-    const [page, setPage] = useState(1);
+    const selectedImage = useSelector(selectSelectedImage);
+
+    const selectImage = (imageId: number) => {
+        dispatch(
+            fetchImage(imageId)
+        )
+    }
 
     useEffect(() => {
         dispatch(fetchAllImage());
@@ -24,27 +29,13 @@ const Home: FunctionComponent = () => {
     return (
         <FlexContainer alignItems="flex-start" justifyContent="flex-start" >
             <ActionMenu />
-            <DataTable 
-                withSeparator
-                withPagination
-
-                datas={images}
-                style={{ width: '50%' }}
-                itemsPerPage={7}
-
-                onRowDelete={(event: MouseEvent, image: Image) => console.log(`Deleting image ${image.id}`)}
-                onRowClick={(event: MouseEvent, image: Image) => console.log(`Clicking image ${image.id}`)}
-                onRowSelect={(event: ChangeEvent<HTMLInputElement>, image: Image) => console.log(`Image ${image.id} ${event.currentTarget.checked ? 'selected' : 'not selected'}`)}
-                
-                renderRow={(image: Image) => (
-                    <ImageRow 
-                        imgId={image.id}
-                        imgUploadDate={new Date(image.uploadDate).toLocaleDateString()}
-                        imgUrl={ImageService.getUrl(image, 'thumbnail_small')}
-                        categoryName={image.category.displayName}
-                    />
-                )}
+            <ImageList
+                images={images}
+                onImageClick={(_, image: Image) => selectImage(image.id)}
+                onImageDelete={(_, image: Image) => console.log(`Deleting ${image.id}`)}
+                onImageSelect={(e: ChangeEvent<HTMLInputElement>, image: Image) => console.log(`${e.target.checked ? 'Selecting' : 'Unselecting'} ${image.id}`)}
             />
+            <ImageInformation image={selectedImage} />
         </FlexContainer>
     )
 }

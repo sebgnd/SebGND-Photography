@@ -6,7 +6,7 @@ import styles from './GalleryList.module.css';
 import CategoryService from '../../../../helper/category/CategoryService';
 import CategoryThumbnail from '../../../../helper/category/CategoryThumbnail';
 import Spinner from '../../../UI/Spinner/Spinner';
-import ErrorMessage from '../../../UI/ErrorMessage/ErrorMessage';
+import InformationMessage from '../../../UI/InformationMessage/InformationMessage';
 
 interface GalleriesListProps {
     thumbnails: CategoryThumbnail[];
@@ -20,7 +20,7 @@ const GalleriesList: FunctionComponent<GalleriesListProps> = ({ thumbnails, stat
                 <Spinner centerHorizontal centerVertical fullScreen />
             ) : (
                 (status === 'failed' ? (
-                    <ErrorMessage centerHorizontal centerVertical fullScreen message="Couldn't load galleries"  />
+                    <InformationMessage messageType="error" centerHorizontal centerVertical fullScreen message="Couldn't load galleries"  />
                 ) : (
                     <>
                         {thumbnails.map(thumbnail => {

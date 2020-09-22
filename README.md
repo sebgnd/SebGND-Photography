@@ -3,6 +3,8 @@
 ## Todos:
 
 ### Frontend:
+1. Fix pagination when no space to start or end at current page
+1. Create ButtonGroup component for admin home (filters)
 1. Find out how to handle pagination in redux (if page has been loaded or not)
 1. Modal component
 1. Create a type file with all type (Functions type from DataRow for example)
@@ -17,8 +19,6 @@
             1. Upload
             1. Delete
             1. Filter
-        1. Finish DataTable
-        1. ImageInformation
     1. Gallery Settings page
     1. Messages page
     1. Change password

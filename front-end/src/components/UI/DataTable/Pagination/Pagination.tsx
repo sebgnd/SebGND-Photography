@@ -97,7 +97,7 @@ const Pagination: FunctionComponent<PaginationProps> = ({
         updatePageRange(currentPage, pageAtATime);
     }, [currentPage]);
 
-    const renderPagesWithoutUnmount = () => {
+    const renderPages = () => {
         const pages = [];
         const { start, last } = pageRange;
 
@@ -170,7 +170,7 @@ const Pagination: FunctionComponent<PaginationProps> = ({
             </CSSTransition>
 
 
-            {renderPagesWithoutUnmount()}
+            {renderPages()}
 
             <CSSTransition
                 in={pageRange.last !== (maxPage - 1)}

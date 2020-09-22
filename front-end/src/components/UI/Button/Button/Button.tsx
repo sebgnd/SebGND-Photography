@@ -1,47 +1,53 @@
 import React, { FunctionComponent, MouseEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import StyledButton from './button-style';
+import styles from './Button.module.css';
 
 interface ButtonProp {
     onClick?: (event: MouseEvent) => void;
-    type?: "button" | "submit" | "reset" | undefined;
-    variant: string;
-    size: string;
+    type?: 'button' | 'submit' | 'reset';
+    variant: 'classic' | 'light';
+    size: 'medium' | 'small' | 'big';
     label: string;
+    color?: string;
     to?: string;
+    fullWidth?: boolean;
 }
 
-const VARIANTS = ['classic', 'light'];
-
-const SIZES = ['medium', 'small', 'big'];
-
-const Button: FunctionComponent<ButtonProp & RouteComponentProps> = ({ variant, size, onClick, label, type, history, to }) => {
-    const setVariant = (variant: string) => {
-        return VARIANTS.includes(variant) ? variant : VARIANTS[0];
-    }
-
-    const setSize = (size: string) => {
-        return SIZES.includes(size) ? size : SIZES[0];
-    }
-
+const Button: FunctionComponent<ButtonProp & RouteComponentProps> = ({ 
+    variant, 
+    size, 
+    label, 
+    type, 
+    history, 
+    to,
+    color = 'white',
+    fullWidth,
+    onClick, 
+}) => {
     const handleClick = (event: MouseEvent) => {
-        if (onClick) {
-            onClick(event);
+        if (onClick) onClick(event);
+        if (to) history.push(to);
+    }
+
+    const getClassName = () => {
+        const classes = [styles.button, styles[size], styles[variant]];
+        if (fullWidth) {
+            classes.push(styles.fullWidth);
         }
-        if (to) {
-            history.push(to);
-        }
+        return classes.join(' ');
     }
 
     return (
-        <StyledButton 
-            type={type}
-            size={setSize(size)} 
-            variant={setVariant(variant)} 
+        <button 
+            className={getClassName()}
             onClick={(event) => handleClick(event)}
+            type={type}
+            style={{
+                backgroundColor: color
+            }}
         >
             {label}
-        </StyledButton>
+        </button>
     )
 }
 

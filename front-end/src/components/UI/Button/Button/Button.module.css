@@ -1,0 +1,59 @@
+.button {
+    display: inline-block;
+    border: none;
+    font-family: "CooperHewitt Medium";
+    text-decoration: none;
+    transform: none;
+    margin: 5px;
+
+    height: auto;
+    cursor: pointer;
+    width: auto;
+}
+
+.small {
+    font-size: .8em;
+}
+
+.medium {
+    font-size: 1em;
+}
+
+.big {
+    font-size: 1.2em;
+}
+
+.light {
+    font-weight: bold;
+    padding: 5px;
+    min-height: auto;
+    color: #7E7E7E;
+    transition: color .25s;
+}
+
+.light:hover {
+    color: black;
+}
+
+.classic {
+    min-width: 125px;
+    font-weight: 'normal';
+    padding: .75rem 1.5rem;
+    min-height: 30px;
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.10);
+    transition: transform .5s;
+}
+
+.classic:hover {
+    transform: scale(1.025);
+}
+
+.button:focus {
+    outline: 0;
+}
+
+.fullWidth {
+    width: 100%;
+}

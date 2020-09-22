@@ -140,7 +140,7 @@ const DataTable: FunctionComponent<DataTableProps> = ({
                         currentPage={currentPage ? currentPage : page}
                         maxPage={Math.floor((totalItems | datas.length) / itemsPerPage)}
                         onPageClick={handlePageClick}
-                        pageAtATime={3}
+                        pageAtATime={5}
                     />
                 </div>
             )}

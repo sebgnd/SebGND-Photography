@@ -1,3 +1,5 @@
+/* ---- REGULAR BUTTON ------ */
+
 .button {
     display: inline-block;
     border: none;
@@ -9,6 +11,7 @@
     height: auto;
     cursor: pointer;
     width: auto;
+    box-sizing: border-box;
 }
 
 .small {
@@ -37,7 +40,7 @@
 
 .classic {
     min-width: 125px;
-    font-weight: 'normal';
+    font-weight: normal;
     padding: .75rem 1.5rem;
     min-height: 30px;
     color: black;

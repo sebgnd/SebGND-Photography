@@ -1,0 +1,60 @@
+.dropdown {
+    min-width: 125px;
+    font-weight: normal;
+    font-family: "CooperHewitt Medium";
+    min-height: 30px;
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.10);
+    margin: 5px;
+    transition: transform .5s;
+}
+
+.dropdown:hover {
+    transform: scale(1.025);
+}
+
+.button {
+    font-weight: normal;
+    font-size: inherit;
+    font-family: inherit;
+    width: 100%;
+    background-color: transparent;
+    padding: .75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+}
+
+.button:focus {
+    outline: 0;
+}
+
+.dropdownMenu {
+    width: 100%;
+    overflow: hidden;
+    transition: max-height 250ms;
+    text-align: center;
+}
+
+.dropdownButton {
+    font-size: inherit;
+    font-family: inherit;
+    width: 100%;
+    transition: background-color .25s;
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+    padding: .75rem 1.5rem;
+}
+
+.dropdownButton:hover {
+    background-color: #f0f0f0;
+}
+
+.dropdownButton:focus {
+    outline: 0;
+}
+
+.fullWidth {
+    width: 100%;
+}

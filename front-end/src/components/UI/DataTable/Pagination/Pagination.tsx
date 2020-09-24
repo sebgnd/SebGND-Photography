@@ -3,6 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import styles from './Pagination.module.css';
 
 import RoundButton from '../../Button/RoundButton/RoundButton';
+import { current } from '@reduxjs/toolkit';
 
 export type PageClickFunction = (page: number) => void;
 
@@ -14,7 +15,7 @@ interface PaginationProps {
 }
 
 interface PaginationRange {
-    start: number;
+    first: number;
     last: number;
 }
 
@@ -25,8 +26,8 @@ const Pagination: FunctionComponent<PaginationProps> = ({
     onPageClick
 }) => {
     const [pageRange, setPageRange] = useState<PaginationRange>({
-        start: 2,
-        last: 2
+        first: 0,
+        last: 0
     });
 
     const handlePageClick = (newPage: number) => {
@@ -42,13 +43,14 @@ const Pagination: FunctionComponent<PaginationProps> = ({
 
     // Get amount page to display between 1 and maxPage 
     const getAmountOfIntermediatePage = (page: number, pageAmount: number) => {
+        const nbOverflowingPages = pageAmount + 1 === maxPage ? 1 : 2;
+
         if (pageAmount >= maxPage - 1) {
-            const offset = pageAmount + 1 === maxPage ? 1 : 2;
-            return Math.max(maxPage - offset, 0);
+            return Math.max(maxPage - nbOverflowingPages, 0);
         } 
         return (
-            page - (pageAmount - 1) < 1 || 
-            page + (pageAmount - 1) > maxPage
+            page - (pageAmount - 2) <= 1 ||
+            page + (pageAmount - 2) >= maxPage
         ) 
             ? pageAmount - 1
             : pageAmount;
@@ -56,40 +58,41 @@ const Pagination: FunctionComponent<PaginationProps> = ({
     }
 
     const isBetweenPageRange = (page: number) => {
-        const { start: startPage, last: lastPage } = pageRange;
+        const { first: firstPage, last: lastPage } = pageRange;
 
-        return page > startPage && page < lastPage;
+        return page > firstPage && page < lastPage;
     }
 
     const updatePageRange = (page: number, pageAmount: number) => {
         // Don't update page range if inside it
-        // Only update it if clicked on start or last page from range
+        // Only update it if clicked on first or last page from range
         if (isBetweenPageRange(page)) {
             return;
         }
 
         const nbIntermediatePages = getAmountOfIntermediatePage(page, pageAmount);
-        let startPage = 2;
+        const previousPage = currentPage;
+        let firstPage = 2;
 
-        // If we don't have space to display pageAmout => we are on one of the side (near 1 or maxPage)
-        // Else we shift the page range to either left or right 
-        // depending on the previous page (now current) and new page (page in parameters)
-        if (
-            page - (pageAmount - 1) < 1 || 
-            page + (pageAmount - 1) > maxPage
-        ) {
-            startPage = page - pageAmount < 1
+        const potentialStart =  page - (pageAmount - 2);
+        const potentialEnd = page + (pageAmount - 2);
+
+        if (potentialStart <= 1 || potentialEnd >= maxPage) {
+            // If we don't have space to display pageAmout => we are on one of the side (near 1 or maxPage)
+            firstPage = potentialStart <= 1
                 ? 2
                 : maxPage - nbIntermediatePages
         } else {
-            startPage = page < currentPage
+            // Else we shift the page range to either left or right 
+            // depending on the previous page (now current) and new page (page in parameters)
+            firstPage = page < previousPage
                 ? page - 1
                 : page - pageAmount + 2;
         }
 
         setPageRange({ 
-            start: startPage, 
-            last: startPage + (nbIntermediatePages - 1)
+            first: firstPage, 
+            last: firstPage + (nbIntermediatePages - 1)
         });
     }
 
@@ -99,14 +102,14 @@ const Pagination: FunctionComponent<PaginationProps> = ({
 
     const renderPages = () => {
         const pages = [];
-        const { start, last } = pageRange;
+        const { first, last } = pageRange;
 
         for (let page = 1; page < maxPage; page++) {
             const key = `page-${page}`;
 
             pages.push(
                 <CSSTransition
-                    in={page >= start && page <= last}
+                    in={page >= first && page <= last}
                     key={key}
                     classNames={{
                         enterActive: styles.pageEnterActive,
@@ -155,7 +158,7 @@ const Pagination: FunctionComponent<PaginationProps> = ({
                 />
             </div>
             <CSSTransition
-                in={pageRange.start !== 2}
+                in={pageRange.first !== 2}
                 unmountOnExit={true}
                 mountOnEnter={true}
                 timeout={200}

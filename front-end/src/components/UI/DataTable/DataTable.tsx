@@ -134,7 +134,7 @@ const DataTable: FunctionComponent<DataTableProps> = ({
                     ))} 
                 </div>
             </div>
-            {(withPagination && datas.length) && (
+            {(withPagination && datas.length !== 0) && (
                 <div className={styles.dataTablePagination}>
                     <Pagination 
                         currentPage={currentPage ? currentPage : page}

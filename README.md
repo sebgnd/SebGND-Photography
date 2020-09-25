@@ -21,7 +21,7 @@
     1. Change password
 
 1. Redux
-    1. Refactor
+    1. Refactor category and improve image slices
     1. Check how to select image, load all data 
     1. Implement loading for fetching single image or mulitple images
     1. Find out how to handle pagination in redux (if page has been loaded or not)

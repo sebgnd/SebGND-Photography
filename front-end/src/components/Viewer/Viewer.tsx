@@ -11,7 +11,7 @@ import styles from './Viewer.module.css';
 
 import ImageService from '../../helper/image/ImageService';
 
-import { selectSelectedImage, selectNextId, selectPreviousId, selectAllImagesLoaded, selectImageById } from '../../redux/selectors/imageSelector';
+import { selectSelectedImage, selectNextId, selectPreviousId, selectAllImagesLoaded, selectImageById } from '../../redux/selectors/image-selector';
 import { fetchImageWithAdjacent, imageSelected } from '../../redux/slices/image';
 import { RootState } from '../../redux/types';
 import Image from '../../helper/image/Image';

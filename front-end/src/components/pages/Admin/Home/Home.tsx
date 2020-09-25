@@ -2,10 +2,10 @@ import React, { FunctionComponent, useEffect, ChangeEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Redux
-import { selectSelectedImage, selectFilteredImage, selectImagesStatus, selectFilters } from '../../../../redux/selectors/imageSelector';
+import { selectSelectedImage, selectFilteredImage, selectImagesStatus, selectFilters } from '../../../../redux/selectors/image-selector';
 import { fetchAllImage, fetchImage, imagesFiltered } from '../../../../redux/slices/image';
 
-import { selectAllCategories, selectCategoryById } from '../../../../redux/selectors/categorySelector';
+import { selectAllCategories, selectCategoryById } from '../../../../redux/selectors/category-selector';
 import { fetchCategoryThumbnails } from '../../../../redux/slices/category';
 
 import { RootState } from '../../../../redux/types';

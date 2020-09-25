@@ -11,7 +11,7 @@ import FormField from '../../../helper/form/FormField';
 import FieldValidator from '../../../helper/form/FieldValidator';
 
 import { postContactMessage, statusResetted } from '../../../redux/slices/contact';
-import { selectContactStatus } from '../../../redux/selectors/contactSelector';
+import { selectContactStatus } from '../../../redux/selectors/contact-selector';
 
 interface ContactInput {
     name: FormField;

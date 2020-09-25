@@ -8,7 +8,7 @@ import withEndScroll, { EndScrollProps } from '../../HOC/withEndScroll';
 import InformationMessage from '../../UI/InformationMessage/InformationMessage';
 
 import { fetchImagesFromPage, imagesEmptied } from '../../../redux/slices/image';
-import { selectAllImages, selectImagesStatus, selectAllImagesLoaded, selectCurrentPage } from '../../../redux/selectors/imageSelector';
+import { selectAllImages, selectImagesStatus, selectAllImagesLoaded, selectCurrentPage } from '../../../redux/selectors/image-selector';
 import { useDispatch, useSelector } from 'react-redux';
 
 interface RouteParams {

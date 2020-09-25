@@ -8,7 +8,7 @@ import About from './About/About';
 
 import { fetchCategoryThumbnails } from '../../../redux/slices/category';
 import { imagesEmptied } from '../../../redux/slices/image';
-import { selectCategoryStatus, selectAllCategoryThumbnails } from '../../../redux/selectors/categorySelector';
+import { selectCategoryStatus, selectAllCategoryThumbnails } from '../../../redux/selectors/category-selector';
 
 
 interface AppInfo {

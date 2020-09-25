@@ -2,7 +2,7 @@ import React, { MouseEvent, FunctionComponent, Fragment, useEffect, ChangeEvent 
 import { useSelector, useDispatch } from 'react-redux';
 import Image from '../../../helper/image/Image';
 import ImageService from '../../../helper/image/ImageService';
-import { selectAllImages, selectImagesStatus } from '../../../redux/selectors/imageSelector';
+import { selectAllImages, selectImagesStatus } from '../../../redux/selectors/image-selector';
 import { fetchImagesFromCategory } from '../../../redux/slices/image';
 
 import DataTable from '../../UI/DataTable/DataTable';

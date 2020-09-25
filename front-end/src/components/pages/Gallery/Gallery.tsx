@@ -6,8 +6,8 @@ import { RootState } from '../../../redux/types';
 import { fetchImagesFromCategory } from '../../../redux/slices/image';
 import { fetchCategory, categorySelected } from '../../../redux/slices/category';
 
-import { selectAllImages, selectImagesStatus } from '../../../redux/selectors/imageSelector';
-import { selectCategoryStatus, selectCurrentCategory, selectCategoryById } from '../../../redux/selectors/categorySelector';
+import { selectAllImages, selectImagesStatus } from '../../../redux/selectors/image-selector';
+import { selectCategoryStatus, selectCurrentCategory, selectCategoryById } from '../../../redux/selectors/category-selector';
 
 import ImageList from './ImageList/ImageList';
 import Viewer from '../../Viewer/Viewer';

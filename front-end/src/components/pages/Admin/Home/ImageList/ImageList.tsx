@@ -21,8 +21,8 @@ const ImageList: FunctionComponent<ImageListProps> = ({ images, status, onImageD
             withSeparator
             withPagination
             
-            loading={status === 'loading'}
-            error={status === 'failed'}
+            loading={(status === 'loading' && images.length === 0)}
+            error={(status === 'failed' && images.length === 0)}
             datas={images}
             className={styles.imageList}
             itemsPerPage={7}

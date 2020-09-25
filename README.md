@@ -3,10 +3,7 @@
 ## Todos:
 
 ### Frontend:
-1. Add no items in DataTable when empty
-1. Find out how to handle pagination in redux (if page has been loaded or not)
 1. Modal component
-1. Create a type file with all type (Functions type from DataRow for example)
 1. Improve Pagination component (transitions, positionning)
 1. Add size to DropdownButton
 
@@ -24,7 +21,10 @@
     1. Change password
 
 1. Redux
+    1. Refactor
     1. Check how to select image, load all data 
+    1. Implement loading for fetching single image or mulitple images
+    1. Find out how to handle pagination in redux (if page has been loaded or not)
 
 1. (OPTIONAL) Add comments
 1. (OPTIONAL) Implement Saga

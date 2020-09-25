@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useRef, useState, useEffect } from 'react';
+import _ from 'lodash';
 import styles from './DropdownButton.module.css';
 
 import Separator from '../../../UI/Separator/Separator';
@@ -11,20 +12,24 @@ export interface DropdownButtonOption {
     label: string;
 }
 
+type Sizes = 'small' | 'big' | 'medium';
+
 interface DropdownButtonProps {
     options: DropdownButtonOption[];
-    onClick: (e: React.MouseEvent, value: any) => void;
-    size: 'small' | 'big' | 'medium';
-    fullWidth?: boolean;
+    size: Sizes;
     label: string;
+    activeValue?: any;
+    fullWidth?: boolean;
+    onClick: (e: React.MouseEvent, value: any) => void;
 }
 
 const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
     options, 
-    onClick,
     size,
     fullWidth,
-    label
+    label,
+    activeValue,
+    onClick,
 }) => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -74,14 +79,19 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
                 {(options.length !== 0) ? (
                     <>
                         <Separator size="big" />
-                        {options.map((option: DropdownButtonOption) => (
-                            <button
-                                onClick={(e: React.MouseEvent) => handleClick(e, option.value)}
-                                className={styles.dropdownButton}
-                            >
-                                {option.label}
-                            </button>
-                        ))}
+                        {options.map((option: DropdownButtonOption) => {
+                            if (_.isEqual(option.value, activeValue)) {
+                                return null;
+                            }
+                            return (
+                                <button
+                                    onClick={(e: React.MouseEvent) => handleClick(e, option.value)}
+                                    className={styles.dropdownButton}
+                                >
+                                    {option.label}
+                                </button> 
+                            )
+                        })}
                     </>
                 ) : (
                     <InformationMessage noIcon messageType="information" size="small" message="No option." />

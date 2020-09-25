@@ -62,21 +62,66 @@ const imageSlice = createSlice({
     },
     extraReducers: (builder: ActionReducerMapBuilder<ImagesState>) => {
         builder
-            .addCase(fetchImagesFromCategory.fulfilled, fetchImagesFromCategoryFulfilledReducer)
-            .addCase(fetchImage.fulfilled, fetchImageFulfilledReducer)
-            .addCase(fetchImagesFromPage.fulfilled, fetchImagesFromPageFulfilledReducer)
-            .addCase(fetchImageWithAdjacent.fulfilled, fetchImageWithAdjacentFulfilledReducer)
-            .addCase(fetchAllImage.fulfilled, fetchAllImageFulfilledReducer)
-            .addCase(fetchImagesFromCategory.pending, pendingCaseReducer)
-            .addCase(fetchImage.pending, pendingCaseReducer)
-            .addCase(fetchImagesFromPage.pending, pendingCaseReducer)
-            .addCase(fetchImageWithAdjacent.pending, pendingCaseReducer)
-            .addCase(fetchAllImage.pending, pendingCaseReducer)
-            .addCase(fetchImagesFromCategory.rejected, rejectCaseReducer)
-            .addCase(fetchImage.rejected, rejectCaseReducer)
-            .addCase(fetchImagesFromPage.rejected, rejectCaseReducer)
-            .addCase(fetchImageWithAdjacent.rejected, rejectCaseReducer)
-            .addCase(fetchAllImage.rejected, rejectCaseReducer);
+            .addCase(
+                fetchImagesFromCategory.fulfilled, 
+                fetchImagesFromCategoryFulfilledReducer
+            )
+            .addCase(
+                fetchImage.fulfilled, 
+                fetchImageFulfilledReducer
+            )
+            .addCase(
+                fetchImagesFromPage.fulfilled, 
+                fetchImagesFromPageFulfilledReducer
+            )
+            .addCase(
+                fetchImageWithAdjacent.fulfilled, 
+                fetchImageWithAdjacentFulfilledReducer
+            )
+            .addCase(
+                fetchAllImage.fulfilled, 
+                fetchAllImageFulfilledReducer
+            )
+            .addCase(
+                fetchImagesFromCategory.pending, 
+                pendingCaseReducer
+            )
+            .addCase(
+                fetchImage.pending, 
+                pendingCaseReducer
+            )
+            .addCase(
+                fetchImagesFromPage.pending, 
+                pendingCaseReducer
+            )
+            .addCase(
+                fetchImageWithAdjacent.pending,
+                 pendingCaseReducer
+             )
+            .addCase(
+                fetchAllImage.pending, 
+                pendingCaseReducer
+            )
+            .addCase(
+                fetchImagesFromCategory.rejected, 
+                rejectCaseReducer
+            )
+            .addCase(
+                fetchImage.rejected, 
+                rejectCaseReducer
+            )
+            .addCase(
+                fetchImagesFromPage.rejected, 
+                rejectCaseReducer
+            )
+            .addCase(
+                fetchImageWithAdjacent.rejected, 
+                rejectCaseReducer
+            )
+            .addCase(
+                fetchAllImage.rejected, 
+                rejectCaseReducer
+            );
     }
 });
 

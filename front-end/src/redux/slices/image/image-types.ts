@@ -1,6 +1,6 @@
 import { EntityState } from '@reduxjs/toolkit';
-import Image, { Exif } from '../../../helper/image/Image';
 import { FetchingState } from '../../types';
+import Image, { Exif } from '../../../helper/image/Image';
 
 export interface ImageFilterOptions {
     categoryId: string | undefined;

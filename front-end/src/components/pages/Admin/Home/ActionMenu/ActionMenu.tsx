@@ -2,16 +2,38 @@ import React, { FunctionComponent, useState } from 'react';
 import styles from './ActionMenu.module.css';
 
 import Button from '../../../../UI/Button/Button/Button';
-import ButtonGroup from '../../../../UI/Button/DropdownButton/DropdownButton';
+import ButtonGroup, { DropdownButtonOption } from '../../../../UI/Button/DropdownButton/DropdownButton';
 
 import Category from '../../../../../helper/category/Category';
 
 interface ActionMenuProps {
     categories: Category[];
+    selectedCategory?: Category;
+
     onFilterCategory: (categoryId: string) => void;
+    onUpload: () => void;
+    onDeleteSelected: () => void;
 }
 
-const ActionMenu: FunctionComponent<ActionMenuProps> = ({ categories, onFilterCategory }) => {
+const ActionMenu: FunctionComponent<ActionMenuProps> = ({ 
+    categories,
+    selectedCategory,
+    onFilterCategory,
+    onUpload,
+    onDeleteSelected
+}) => {
+    const getOptions = () => {
+        const allCategoryOption: DropdownButtonOption = { value: undefined, label: 'All categories' };
+        const options: DropdownButtonOption[] = categories.map((category) => {
+            return {
+                label: category.displayName,
+                value: category.id
+            }
+        });
+        options.push(allCategoryOption);
+
+        return options;
+    }
     return (
         <div className={styles.actionMenuContainer}>
             <div className={styles.actionMenu}>
@@ -25,11 +47,9 @@ const ActionMenu: FunctionComponent<ActionMenuProps> = ({ categories, onFilterCa
                     <ButtonGroup 
                         fullWidth
                         size="medium"
-                        label="All categories"  
-                        options={categories.map((category: Category) => ({
-                            label: category.displayName,
-                            value: category.id
-                        }))}
+                        activeValue={selectedCategory?.id}
+                        label={selectedCategory ? selectedCategory.displayName : 'All categories'}  
+                        options={getOptions()}
                         onClick={(e, value) => onFilterCategory(value)}
                     />
                 </div>

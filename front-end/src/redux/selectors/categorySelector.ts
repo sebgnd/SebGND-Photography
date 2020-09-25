@@ -14,11 +14,14 @@ export const {
     selectById: selectCatagoryThumbnailById
 } = categoryAdapter.getSelectors((state: RootState) => state.category);
 
-const categoryByIdSelector: ParametricSelector<RootState, string, Category | undefined> = (state: RootState, categoryId: string) => {
-    return state.category.entities[categoryId]?.category
+const categoryByIdSelector: ParametricSelector<RootState, string | undefined, Category | undefined> = (state: RootState, categoryId?: string) => {
+    if (categoryId) {
+        return state.category.entities[categoryId]?.category
+    }
+    return undefined;
 };
 
-export const selectCategoryById = createSelector<RootState, string, Category | undefined, Category | undefined>(
+export const selectCategoryById = createSelector<RootState, string | undefined, Category | undefined, Category | undefined>(
     [categoryByIdSelector],
     (category: Category | undefined) => {
         return category;

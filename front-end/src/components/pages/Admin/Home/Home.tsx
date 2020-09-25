@@ -1,18 +1,16 @@
-import React, { FunctionComponent, useEffect, ChangeEvent, useState } from 'react';
+import React, { FunctionComponent, useEffect, ChangeEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Redux
-
-import { selectSelectedImage, selectFilteredImage, selectImagesStatus } from '../../../../redux/selectors/imageSelector';
+import { selectSelectedImage, selectFilteredImage, selectImagesStatus, selectFilters } from '../../../../redux/selectors/imageSelector';
 import { fetchAllImage, fetchImage, imagesFiltered } from '../../../../redux/slices/image';
 
-import { selectAllCategories } from '../../../../redux/selectors/categorySelector';
+import { selectAllCategories, selectCategoryById } from '../../../../redux/selectors/categorySelector';
 import { fetchCategoryThumbnails } from '../../../../redux/slices/category';
 
 import { RootState } from '../../../../redux/types';
 
 // Components
-
 import { FlexContainer } from '../../../Styled/container';
 import ActionMenu from './ActionMenu/ActionMenu';
 import ImageInformation from './ImageInformation/ImageInformation';
@@ -26,7 +24,10 @@ const Home: FunctionComponent = () => {
     const images = useSelector(selectFilteredImage);
     const imagesStatus = useSelector(selectImagesStatus);
     const selectedImage = useSelector(selectSelectedImage);
+    const filters = useSelector(selectFilters);
+
     const categories = useSelector(selectAllCategories);
+    const selectedCategory = useSelector((state: RootState) => selectCategoryById(state, filters.categoryId))
 
     const handleFilter = (categoryId: string) => {
         dispatch(
@@ -44,10 +45,6 @@ const Home: FunctionComponent = () => {
     }
 
     useEffect(() => {
-        console.log(images)
-    }, [images])
-
-    useEffect(() => {
         dispatch(fetchAllImage());
         dispatch(fetchCategoryThumbnails());
     }, [])
@@ -56,7 +53,10 @@ const Home: FunctionComponent = () => {
         <FlexContainer alignItems="flex-start" justifyContent="flex-start" >
             <ActionMenu 
                 categories={categories} 
+                selectedCategory={selectedCategory}
                 onFilterCategory={(categoryId: string) => handleFilter(categoryId)}
+                onUpload={() => console.log('Uploading')}
+                onDeleteSelected={() => console.log('Deleting')}
             />
             <ImageList
                 images={images}

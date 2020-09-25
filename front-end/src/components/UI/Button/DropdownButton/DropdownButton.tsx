@@ -62,7 +62,7 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
     }, [showDropdown])
 
     return (
-        <div ref={dropdownRef} className={`${styles.dropdown} ${fullWidth ? styles.fullWidth : ''}`}>
+        <div ref={dropdownRef} className={`${styles.dropdown} ${styles[size]} ${fullWidth ? styles.fullWidth : ''}`}>
             <button 
                 className={styles.button}
                 onClick={() => toggleDropdownMenu()}

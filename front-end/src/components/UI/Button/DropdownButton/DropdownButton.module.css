@@ -14,6 +14,18 @@
     transform: scale(1.025);
 }
 
+.small {
+    font-size: .8em;
+}
+
+.medium {
+    font-size: 1em;
+}
+
+.big {
+    font-size: 1.2em;
+}
+
 .button {
     font-weight: normal;
     font-size: inherit;

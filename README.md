@@ -5,7 +5,6 @@
 ### Frontend:
 1. Modal component
 1. Improve Pagination component (transitions, positionning)
-1. Add size to DropdownButton
 
 1. User Website
     1. Improve performance when changing ImageFade

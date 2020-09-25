@@ -3,8 +3,8 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { RootState } from '../../../redux/types';
-import { fetchImagesFromCategory } from '../../../redux/slices/imageSlice';
-import { fetchCategory, categorySelected } from '../../../redux/slices/categorySlice';
+import { fetchImagesFromCategory } from '../../../redux/slices/image';
+import { fetchCategory, categorySelected } from '../../../redux/slices/category';
 
 import { selectAllImages, selectImagesStatus } from '../../../redux/selectors/imageSelector';
 import { selectCategoryStatus, selectCurrentCategory, selectCategoryById } from '../../../redux/selectors/categorySelector';

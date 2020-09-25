@@ -10,7 +10,7 @@ import Validation, { withoutSpecialCharacter, notEmpty, maxLength, ValidationRes
 import FormField from '../../../helper/form/FormField';
 import FieldValidator from '../../../helper/form/FieldValidator';
 
-import { postContactMessage, statusResetted } from '../../../redux/slices/contactSlice';
+import { postContactMessage, statusResetted } from '../../../redux/slices/contact';
 import { selectContactStatus } from '../../../redux/selectors/contactSelector';
 
 interface ContactInput {

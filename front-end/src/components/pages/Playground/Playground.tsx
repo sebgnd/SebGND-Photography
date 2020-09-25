@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Image from '../../../helper/image/Image';
 import ImageService from '../../../helper/image/ImageService';
 import { selectAllImages, selectImagesStatus } from '../../../redux/selectors/imageSelector';
-import { fetchImagesFromCategory } from '../../../redux/slices/imageSlice';
+import { fetchImagesFromCategory } from '../../../redux/slices/image';
 
 import DataTable from '../../UI/DataTable/DataTable';
 import ImageRow from '../../UI/DataTable/ImageRow/ImageRow';

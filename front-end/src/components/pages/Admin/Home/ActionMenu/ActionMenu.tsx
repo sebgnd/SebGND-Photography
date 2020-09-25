@@ -1,10 +1,17 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import styles from './ActionMenu.module.css';
 
 import Button from '../../../../UI/Button/Button/Button';
 import ButtonGroup from '../../../../UI/Button/DropdownButton/DropdownButton';
 
-const ActionMenu: FunctionComponent = () => {
+import Category from '../../../../../helper/category/Category';
+
+interface ActionMenuProps {
+    categories: Category[];
+    onFilterCategory: (categoryId: string) => void;
+}
+
+const ActionMenu: FunctionComponent<ActionMenuProps> = ({ categories, onFilterCategory }) => {
     return (
         <div className={styles.actionMenuContainer}>
             <div className={styles.actionMenu}>
@@ -19,13 +26,11 @@ const ActionMenu: FunctionComponent = () => {
                         fullWidth
                         size="medium"
                         label="All categories"  
-                        options={[
-                            { value: 'landscape', label: "Landscape" },
-                            { value: 'landscape', label: "Landscape" },
-                            { value: 'landscape', label: "Landscape" },
-                            { value: 'landscape', label: "Landscape" },
-                        ]}
-                        onClick={(e, value) => console.log(value)}
+                        options={categories.map((category: Category) => ({
+                            label: category.displayName,
+                            value: category.id
+                        }))}
+                        onClick={(e, value) => onFilterCategory(value)}
                     />
                 </div>
                 <div className={styles.buttonContainer}>

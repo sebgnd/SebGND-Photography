@@ -6,8 +6,8 @@ import Landing from './Landing/Landing';
 import GalleriesPreview from './GalleryPreview/GalleryPreview';
 import About from './About/About';
 
-import { fetchCategoryThumbnails } from '../../../redux/slices/categorySlice';
-import { imagesEmptied } from '../../../redux/slices/imageSlice';
+import { fetchCategoryThumbnails } from '../../../redux/slices/category';
+import { imagesEmptied } from '../../../redux/slices/image';
 import { selectCategoryStatus, selectAllCategoryThumbnails } from '../../../redux/selectors/categorySelector';
 
 

@@ -7,7 +7,7 @@ import Viewer from '../../Viewer/Viewer';
 import withEndScroll, { EndScrollProps } from '../../HOC/withEndScroll';
 import InformationMessage from '../../UI/InformationMessage/InformationMessage';
 
-import { fetchImagesFromPage, imagesEmptied } from '../../../redux/slices/imageSlice';
+import { fetchImagesFromPage, imagesEmptied } from '../../../redux/slices/image';
 import { selectAllImages, selectImagesStatus, selectAllImagesLoaded, selectCurrentPage } from '../../../redux/selectors/imageSelector';
 import { useDispatch, useSelector } from 'react-redux';
 

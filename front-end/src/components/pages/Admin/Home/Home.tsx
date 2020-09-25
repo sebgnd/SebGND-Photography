@@ -1,8 +1,17 @@
-import React, { FunctionComponent, useEffect, ChangeEvent } from 'react';
+import React, { FunctionComponent, useEffect, ChangeEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectAllImages, selectSelectedImage } from '../../../../redux/selectors/imageSelector';
-import { fetchAllImage, fetchImage } from '../../../../redux/slices/imageSlice';
+// Redux
+
+import { selectSelectedImage, selectFilteredImage } from '../../../../redux/selectors/imageSelector';
+import { fetchAllImage, fetchImage, imagesFiltered } from '../../../../redux/slices/image';
+
+import { selectAllCategories } from '../../../../redux/selectors/categorySelector';
+import { fetchCategoryThumbnails } from '../../../../redux/slices/category';
+
+import { RootState } from '../../../../redux/types';
+
+// Components
 
 import { FlexContainer } from '../../../Styled/container';
 import ActionMenu from './ActionMenu/ActionMenu';
@@ -13,8 +22,19 @@ import Image from '../../../../helper/image/Image';
 
 const Home: FunctionComponent = () => {
     const dispatch = useDispatch();
-    const images = useSelector(selectAllImages);
+    
+    const images = useSelector(selectFilteredImage);
     const selectedImage = useSelector(selectSelectedImage);
+    const categories = useSelector(selectAllCategories);
+
+    const handleFilter = (categoryId: string) => {
+        dispatch(
+            imagesFiltered({
+                property: 'categoryId',
+                value: categoryId
+            })
+        )
+    }
 
     const selectImage = (imageId: number) => {
         dispatch(
@@ -23,12 +43,20 @@ const Home: FunctionComponent = () => {
     }
 
     useEffect(() => {
+        console.log(images)
+    }, [images])
+
+    useEffect(() => {
         dispatch(fetchAllImage());
+        dispatch(fetchCategoryThumbnails());
     }, [])
 
     return (
         <FlexContainer alignItems="flex-start" justifyContent="flex-start" >
-            <ActionMenu />
+            <ActionMenu 
+                categories={categories} 
+                onFilterCategory={(categoryId: string) => handleFilter(categoryId)}
+            />
             <ImageList
                 images={images}
                 onImageClick={(_, image: Image) => selectImage(image.id)}

@@ -2,8 +2,8 @@ import React, { Component, FunctionComponent, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectAllCategoryThumbnails, selectCategoryStatus } from '../../../redux/selectors/categorySelector';
-import { fetchCategoryThumbnails } from '../../../redux/slices/categorySlice';
-import { imagesEmptied } from '../../../redux/slices/imageSlice';
+import { fetchCategoryThumbnails } from '../../../redux/slices/category';
+import { imagesEmptied } from '../../../redux/slices/image';
 
 import GalleryList from './GalleryList/GalleryList';
 

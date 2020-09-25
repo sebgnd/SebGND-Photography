@@ -3,7 +3,7 @@ import CategoryThumbnail from '../../helper/category/CategoryThumbnail';
 
 import { createSelector, Selector, ParametricSelector } from '@reduxjs/toolkit';
 import { RootState } from '../types';
-import { categoryAdapter } from '../slices/categorySlice';
+import { categoryAdapter } from '../slices/category/slice';
 
 export const selectCategoryStatus: Selector<RootState, string> = (state: RootState) => state.category.status;
 export const selectCategoryError: Selector<RootState, string | undefined> = (state: RootState) => state.category.error;
@@ -28,10 +28,8 @@ export const selectCategoryById = createSelector<RootState, string, Category | u
 export const selectAllCategories = createSelector<RootState, CategoryThumbnail[], Category[]>(
     [selectAllCategoryThumbnails],
     (thumbnails: CategoryThumbnail[]) => {
-        const categories: Category[] = [];
-        thumbnails.forEach(thumbnail => {
-            const { category } = thumbnail;
-            categories.push(category);
+        const categories: Category[] = thumbnails.map(thumbnail => {
+            return thumbnail.category;
         });
         return categories;
     }

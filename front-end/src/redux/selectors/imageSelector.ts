@@ -1,6 +1,7 @@
 import Image from '../../helper/image/Image';
 import { RootState } from '../types';
-import { imagesAdapter } from '../slices/imageSlice';
+import { ImageFilterOptions } from '../slices/image/types';
+import { imagesAdapter } from '../slices/image/slice';
 import { Selector, createSelector } from '@reduxjs/toolkit';
 
 export const selectSortOrder: Selector<RootState, string> = (state: RootState) => state.image.sortOrder;
@@ -12,11 +13,26 @@ export const selectSelectedImage: Selector<RootState, Image | null> = (state: Ro
 export const selectPreviousId: Selector<RootState, number | null> = (state: RootState) => state.image.previousId;
 export const selectNextId: Selector<RootState, number | null> = (state: RootState) => state.image.nextId;
 export const selectCurrentPage: Selector<RootState, number> = (state: RootState) => state.image.currentPage;
+export const selectFilters: Selector<RootState, ImageFilterOptions> = (state: RootState) => state.image.filters;
 
 export const {
     selectAll: selectAllImages,
     selectById: selectImageById,
 } = imagesAdapter.getSelectors((state: RootState) => state.image);
+
+export const selectFilteredImage = createSelector(
+    [selectAllImages, selectFilters],
+    (images: Image[], filters: ImageFilterOptions) => {
+        const { categoryId } = filters;
+        
+        if (categoryId) {
+            return images.filter((image: Image) => {
+                return image.category.id === categoryId;
+            })
+        }
+        return images;
+    }
+)
 
 export const selectAmountImageByCategory = createSelector(
     [selectAllImages, (state: RootState, categoryId: string) => categoryId],

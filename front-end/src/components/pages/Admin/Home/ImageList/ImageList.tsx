@@ -19,7 +19,7 @@ const ImageList: FunctionComponent<ImageListProps> = ({ images, onImageDelete, o
         <DataTable 
             withSeparator
             withPagination
-
+            
             datas={images}
             className={styles.imageList}
             itemsPerPage={7}

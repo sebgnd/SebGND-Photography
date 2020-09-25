@@ -1,5 +1,5 @@
-import imagesSlice from './slice';
-import * as imagesThunks from './thunks';
+import imagesSlice from './image-slice';
+import * as imagesThunks from './image-thunks';
 
 export const { imagesEmptied, imageExifUpdated, imageSelected, imagesFiltered } = imagesSlice.actions;
 export const { 

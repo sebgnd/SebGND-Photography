@@ -2,7 +2,7 @@ import { createSlice, createEntityAdapter, ActionReducerMapBuilder, EntityAdapte
 import { rejectCaseReducer, pendingCaseReducer } from '../../reducers';
 
 // Types
-import { ImagesState, ImageAdditionalState } from './types';
+import { ImagesState, ImageAdditionalState } from './image-types';
 import { FetchingState } from '../../types';
 
 import Image from '../../../helper/image/Image';
@@ -16,15 +16,15 @@ import {
     fetchImageWithAdjacentFulfilledReducer,
     fetchAllImageFulfilledReducer,
     selectImageReducer
-} from './reducers/imageReducer';
-import { filterByReducer } from './reducers/filterReducer';
+} from './reducers/image-reducer';
+import { filterByReducer } from './reducers/filter-reducer';
 import {
     fetchImage,
     fetchImageWithAdjacent,
     fetchImagesFromPage,
     fetchAllImage,
     fetchImagesFromCategory,
-} from './thunks';
+} from './image-thunks';
 
 // Setting the adapter and initial state
 export const imagesAdapter: EntityAdapter<Image> = createEntityAdapter<Image>({
@@ -51,7 +51,7 @@ const initialState: ImagesState = imagesAdapter.getInitialState<ImageAdditionalS
 });
 
 // Main images slice
-const imagesSlice = createSlice({
+const imageSlice = createSlice({
     name: 'image',
     initialState,
     reducers: {
@@ -80,4 +80,4 @@ const imagesSlice = createSlice({
     }
 });
 
-export default imagesSlice;
+export default imageSlice;

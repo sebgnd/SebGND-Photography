@@ -1,8 +1,8 @@
 import { createSlice, ActionReducerMapBuilder } from '@reduxjs/toolkit';
-import { ContactState } from './types';
+import { ContactState } from './contact-types';
 import { submittingCaseReducer, rejectCaseReducer, fulfilledCaseWithSuccesReducer } from '../../reducers';
-import { resetStatusReducer } from './reducers/messageReducer';
-import { postContactMessage } from './thunks';
+import { resetStatusReducer } from './reducers/message-reducer';
+import { postContactMessage } from './contact-thunks';
 
 const initialState: ContactState = {
     status: 'idle',

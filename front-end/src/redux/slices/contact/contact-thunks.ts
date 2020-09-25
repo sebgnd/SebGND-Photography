@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import Message from '../../../helper/message/Message';
 import MessageApi from '../../../helper/message/MessageApi';
-import { PostMessageParams } from './types';
+import { PostMessageParams } from './contact-types';
 
 export const postContactMessage = createAsyncThunk(
     'contact/postContactMessage',

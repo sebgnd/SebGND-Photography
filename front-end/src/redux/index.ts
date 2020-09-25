@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import imagesReducer from './slices/image';
+import imageReducer from './slices/image';
 import categoryReducer from './slices/category';
 import contactReducer from './slices/contact';
 
 const store = configureStore({
     reducer: {
-        image: imagesReducer,
+        image: imageReducer,
         category: categoryReducer,
         contact: contactReducer
     }

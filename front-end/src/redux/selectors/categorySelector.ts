@@ -3,7 +3,7 @@ import CategoryThumbnail from '../../helper/category/CategoryThumbnail';
 
 import { createSelector, Selector, ParametricSelector } from '@reduxjs/toolkit';
 import { RootState } from '../types';
-import { categoryAdapter } from '../slices/category/slice';
+import { categoryAdapter } from '../slices/category/category-slice';
 
 export const selectCategoryStatus: Selector<RootState, string> = (state: RootState) => state.category.status;
 export const selectCategoryError: Selector<RootState, string | undefined> = (state: RootState) => state.category.error;

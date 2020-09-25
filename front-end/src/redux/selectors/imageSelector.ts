@@ -1,7 +1,7 @@
 import Image from '../../helper/image/Image';
 import { RootState } from '../types';
-import { ImageFilterOptions } from '../slices/image/types';
-import { imagesAdapter } from '../slices/image/slice';
+import { ImageFilterOptions } from '../slices/image/image-types';
+import { imagesAdapter } from '../slices/image/image-slice';
 import { Selector, createSelector } from '@reduxjs/toolkit';
 
 export const selectSortOrder: Selector<RootState, string> = (state: RootState) => state.image.sortOrder;

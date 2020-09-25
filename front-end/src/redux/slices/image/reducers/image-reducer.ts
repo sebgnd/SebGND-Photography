@@ -1,7 +1,7 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
-import { ImagesState,  UpdateImagePayload } from '../types';
+import { ImagesState,  UpdateImagePayload } from '../image-types';
 import { fulfilledCaseReducer } from '../../../reducers';
-import { imagesAdapter } from '../slice';
+import { imagesAdapter } from '../image-slice';
 import Image, { ImagesWithPagination, ImageWithAdjacent } from '../../../../helper/image/Image';
 
 // Regular reducer

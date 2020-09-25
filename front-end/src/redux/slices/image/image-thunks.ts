@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { FetchImageWithAdjacentParams } from './types';
+import { FetchImageWithAdjacentParams } from './image-types';
 import { FetchPageParams } from '../../types';
 import Image, { ImageWithAdjacent, ImagesWithPagination } from '../../../helper/image/Image';
 import ImageApi from '../../../helper/image/ImageApi';

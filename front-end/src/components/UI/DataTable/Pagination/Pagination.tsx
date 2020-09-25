@@ -98,7 +98,7 @@ const Pagination: FunctionComponent<PaginationProps> = ({
 
     useEffect(() => {
         updatePageRange(currentPage, pageAtATime);
-    }, [currentPage]);
+    }, [currentPage, maxPage]);
 
     const renderPages = () => {
         const pages = [];
@@ -157,40 +157,44 @@ const Pagination: FunctionComponent<PaginationProps> = ({
                     active={currentPage === 1}
                 />
             </div>
-            <CSSTransition
-                in={pageRange.first !== 2}
-                unmountOnExit={true}
-                mountOnEnter={true}
-                timeout={200}
-                classNames={{
-                    enter: styles.moreEnter,
-                    enterActive: styles.moreEnterActive,
-                    exit: styles.moreExit,
-                    exitActive: styles.moreExitActive
-                }}
-            >
-                <span className={styles.morePage}>...</span>
-            </CSSTransition>
 
+            {(maxPage > 2) && (
+                <>
+                    <CSSTransition
+                        in={pageRange.first !== 2}
+                        unmountOnExit={true}
+                        mountOnEnter={true}
+                        timeout={200}
+                        classNames={{
+                            enter: styles.moreEnter,
+                            enterActive: styles.moreEnterActive,
+                            exit: styles.moreExit,
+                            exitActive: styles.moreExitActive
+                        }}
+                    >
+                        <span className={styles.morePage}>...</span>
+                    </CSSTransition>
+                    
+                    {renderPages()}
 
-            {renderPages()}
+                    <CSSTransition
+                        in={pageRange.last !== (maxPage - 1)}
+                        unmountOnExit={true}
+                        mountOnEnter={true}
+                        timeout={200}
+                        classNames={{
+                            enter: styles.moreEnter,
+                            enterActive: styles.moreEnterActive,
+                            exit: styles.moreExit,
+                            exitActive: styles.moreExitActive
+                        }}
+                    >
+                        <span className={styles.morePage}>...</span>
+                    </CSSTransition>
+                </>
+            )}
 
-            <CSSTransition
-                in={pageRange.last !== (maxPage - 1)}
-                unmountOnExit={true}
-                mountOnEnter={true}
-                timeout={200}
-                classNames={{
-                    enter: styles.moreEnter,
-                    enterActive: styles.moreEnterActive,
-                    exit: styles.moreExit,
-                    exitActive: styles.moreExitActive
-                }}
-            >
-                <span className={styles.morePage}>...</span>
-            </CSSTransition>
-
-            {maxPage !== 1 && (
+            {maxPage > 1 && (
                 <div className={styles.page}>
                     <RoundButton  
                         onClick={() => handlePageClick(maxPage)}

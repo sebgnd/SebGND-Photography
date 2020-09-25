@@ -1,9 +1,9 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
-import { CategoryState } from '../types';
+import { CategoryState } from '../category-types';
 import CategoryThumbnail from '../../../../helper/category/CategoryThumbnail';
 import Category from '../../../../helper/category/Category';
 import { fulfilledCaseReducer } from '../../../reducers';
-import { categoryAdapter } from '../slice';
+import { categoryAdapter } from '../category-slice';
 
 export const selectCategoryReducer = (state: CategoryState, action: PayloadAction<string>) => {
     const id = action.payload;

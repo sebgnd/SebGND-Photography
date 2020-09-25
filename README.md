@@ -3,6 +3,7 @@
 ## Todos:
 
 ### Frontend:
+1. Add no items in DataTable when empty
 1. Find out how to handle pagination in redux (if page has been loaded or not)
 1. Modal component
 1. Create a type file with all type (Functions type from DataRow for example)

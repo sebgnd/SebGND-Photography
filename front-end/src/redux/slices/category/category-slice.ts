@@ -5,11 +5,11 @@ import {
     selectCategoryReducer, 
     fetchCategoryThumbnailsFulfilledReducer, 
     fetchCategoryFulfilledReducer 
-} from './reducers/categoryReducer';
+} from './reducers/category-reducer';
 
-import { fetchCategoryThumbnails, fetchCategory } from './thunks';
+import { fetchCategoryThumbnails, fetchCategory } from './category-thunks';
 
-import { CategoryState, CategoryAdditionalState } from './types';
+import { CategoryState, CategoryAdditionalState } from './category-types';
 import { FetchingState } from '../../types';
 
 import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';

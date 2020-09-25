@@ -56,6 +56,7 @@ const DataTable: FunctionComponent<DataTableProps> = ({
 }) => {
     const [tableDatas, setTableDatas] = useState<any[]>([]);
     const [page, setPage] = useState<number>(1);
+    const maxPage = Math.ceil((totalItems | datas.length) / itemsPerPage);
 
     const isControlledComponent = () => {
         const controlledProps = [totalItems, currentPage, onPageClick];
@@ -89,17 +90,31 @@ const DataTable: FunctionComponent<DataTableProps> = ({
         if (totalItems && totalItems === datas.length) {
             setTableDatas(datas);
         } else {
-            const startIndex = (currentPage || page) * itemsPerPage;
+            const startIndex = ((currentPage || page) - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage <= datas.length
                 ? startIndex + itemsPerPage
                 : datas.length;
+
+            console.log(startIndex, endIndex);
 
             setTableDatas(datas.slice(startIndex, endIndex));
         }
     }
 
     useEffect(() => {
-        updatePaginationItems();
+        if (withPagination) {
+            updatePaginationItems();
+        } else {
+            setTableDatas(datas);
+        }
+
+        if (currentPage && currentPage > maxPage) {
+            handlePageClick(1);
+        } else {
+            if (page > maxPage) {
+                setPage(1);
+            }
+        }
     }, [currentPage, page, datas])
 
     useEffect(() => {
@@ -138,7 +153,7 @@ const DataTable: FunctionComponent<DataTableProps> = ({
                 <div className={styles.dataTablePagination}>
                     <Pagination 
                         currentPage={currentPage ? currentPage : page}
-                        maxPage={Math.floor((totalItems | datas.length) / itemsPerPage)}
+                        maxPage={maxPage}
                         onPageClick={handlePageClick}
                         pageAtATime={5}
                     />

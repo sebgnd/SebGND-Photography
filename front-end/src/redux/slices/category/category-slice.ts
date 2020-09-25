@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter, ActionReducerMapBuilder, EntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, ActionReducerMapBuilder, EntityAdapter, AnyAction } from '@reduxjs/toolkit';
 import { rejectCaseReducer, pendingCaseReducer } from '../../reducers';
 
 import { 
@@ -20,6 +20,14 @@ export const categoryAdapter: EntityAdapter<CategoryThumbnail> = createEntityAda
     sortComparer: (a, b) => a.category.id.localeCompare(b.category.id)
 });
 
+const isRejectedAction = (action: AnyAction): action is AnyAction => {
+    return action.type.endsWith('rejected') && action.type.startsWith('category');
+}
+
+const isPendingAction = (action: AnyAction): action is AnyAction => {
+    return action.type.endsWith('pending') && action.type.startsWith('category');
+}
+
 const initialState: CategoryState = categoryAdapter.getInitialState<CategoryAdditionalState & FetchingState>({
     status: 'idle',
     error: '',
@@ -36,11 +44,8 @@ const categorySlice = createSlice({
         builder
             .addCase(fetchCategoryThumbnails.fulfilled, fetchCategoryThumbnailsFulfilledReducer)
             .addCase(fetchCategory.fulfilled, fetchCategoryFulfilledReducer)
-            .addCase(fetchCategory.pending, pendingCaseReducer)
-            .addCase(fetchCategoryThumbnails.pending, pendingCaseReducer)
-            .addCase(fetchCategory.rejected, rejectCaseReducer)
-            .addCase(fetchCategoryThumbnails.rejected, rejectCaseReducer)
-
+            .addMatcher(isRejectedAction, rejectCaseReducer)
+            .addMatcher(isPendingAction, pendingCaseReducer);
     }
 });
 

@@ -1,4 +1,4 @@
-import { createSlice, ActionReducerMapBuilder } from '@reduxjs/toolkit';
+import { createSlice, ActionReducerMapBuilder, AnyAction } from '@reduxjs/toolkit';
 import { ContactState } from './contact-types';
 import { submittingCaseReducer, rejectCaseReducer, fulfilledCaseWithSuccesReducer } from '../../reducers';
 import { resetStatusReducer } from './reducers/message-reducer';
@@ -9,6 +9,13 @@ const initialState: ContactState = {
     error: '',
 };
 
+const isRejectedAction = (action: AnyAction): action is AnyAction => {
+    return action.type.endsWith('rejected') && action.type.startsWith('contact');
+}
+
+const isPendingAction = (action: AnyAction): action is AnyAction => {
+    return action.type.endsWith('pending') && action.type.startsWith('contact');
+}
 
 const contactSlice = createSlice({
     name: 'contact',
@@ -18,9 +25,12 @@ const contactSlice = createSlice({
     },
     extraReducers: (builder: ActionReducerMapBuilder<ContactState>) => {
         builder
-            .addCase(postContactMessage.fulfilled, fulfilledCaseWithSuccesReducer)
-            .addCase(postContactMessage.rejected, rejectCaseReducer)
-            .addCase(postContactMessage.pending, submittingCaseReducer)
+            .addCase(
+                postContactMessage.fulfilled, 
+                fulfilledCaseWithSuccesReducer
+            )
+            .addMatcher(isRejectedAction, rejectCaseReducer)
+            .addMatcher(isPendingAction, submittingCaseReducer)
     }
 });
 

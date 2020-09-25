@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter, ActionReducerMapBuilder, EntityAdapter } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, ActionReducerMapBuilder, EntityAdapter, AnyAction } from '@reduxjs/toolkit';
 import { rejectCaseReducer, pendingCaseReducer } from '../../reducers';
 
 // Types
@@ -50,6 +50,14 @@ const initialState: ImagesState = imagesAdapter.getInitialState<ImageAdditionalS
     }
 });
 
+const isRejectedAction = (action: AnyAction): action is AnyAction => {
+    return action.type.endsWith('rejected') && action.type.startsWith('image');
+}
+
+const isPendingAction = (action: AnyAction): action is AnyAction => {
+    return action.type.endsWith('pending') && action.type.startsWith('image');
+}
+
 // Main images slice
 const imageSlice = createSlice({
     name: 'image',
@@ -82,46 +90,8 @@ const imageSlice = createSlice({
                 fetchAllImage.fulfilled, 
                 fetchAllImageFulfilledReducer
             )
-            .addCase(
-                fetchImagesFromCategory.pending, 
-                pendingCaseReducer
-            )
-            .addCase(
-                fetchImage.pending, 
-                pendingCaseReducer
-            )
-            .addCase(
-                fetchImagesFromPage.pending, 
-                pendingCaseReducer
-            )
-            .addCase(
-                fetchImageWithAdjacent.pending,
-                 pendingCaseReducer
-             )
-            .addCase(
-                fetchAllImage.pending, 
-                pendingCaseReducer
-            )
-            .addCase(
-                fetchImagesFromCategory.rejected, 
-                rejectCaseReducer
-            )
-            .addCase(
-                fetchImage.rejected, 
-                rejectCaseReducer
-            )
-            .addCase(
-                fetchImagesFromPage.rejected, 
-                rejectCaseReducer
-            )
-            .addCase(
-                fetchImageWithAdjacent.rejected, 
-                rejectCaseReducer
-            )
-            .addCase(
-                fetchAllImage.rejected, 
-                rejectCaseReducer
-            );
+            .addMatcher(isPendingAction, pendingCaseReducer)
+            .addMatcher(isRejectedAction, rejectCaseReducer)
     }
 });
 

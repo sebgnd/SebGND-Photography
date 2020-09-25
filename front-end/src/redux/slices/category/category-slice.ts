@@ -3,19 +3,19 @@ import { rejectCaseReducer, pendingCaseReducer } from '../../reducers';
 
 import { 
     selectCategoryReducer, 
-    fetchCategoryThumbnailsFulfilledReducer, 
+    fetchCategoriesFulfilledReducer, 
     fetchCategoryFulfilledReducer 
 } from './reducers/category-reducer';
 
-import { fetchCategoryThumbnails, fetchCategory } from './category-thunks';
+import { fetchCategories, fetchCategory } from './category-thunks';
 
 import { CategoryState, CategoryAdditionalState } from './category-types';
 import { FetchingState } from '../../types';
 
-import CategoryThumbnail from '../../../helper/category/CategoryThumbnail';
+import { CategoryWithThumbnail } from '../../../helper/category/Category';
 
 // Setting the adapter and initial state
-export const categoryAdapter: EntityAdapter<CategoryThumbnail> = createEntityAdapter<CategoryThumbnail>({
+export const categoryAdapter: EntityAdapter<CategoryWithThumbnail> = createEntityAdapter<CategoryWithThumbnail>({
     selectId: categoryThumbnail => categoryThumbnail.category.id,
     sortComparer: (a, b) => a.category.id.localeCompare(b.category.id)
 });
@@ -42,7 +42,7 @@ const categorySlice = createSlice({
     },
     extraReducers: (builder: ActionReducerMapBuilder<CategoryState>) => {
         builder
-            .addCase(fetchCategoryThumbnails.fulfilled, fetchCategoryThumbnailsFulfilledReducer)
+            .addCase(fetchCategories.fulfilled, fetchCategoriesFulfilledReducer)
             .addCase(fetchCategory.fulfilled, fetchCategoryFulfilledReducer)
             .addMatcher(isRejectedAction, rejectCaseReducer)
             .addMatcher(isPendingAction, pendingCaseReducer);

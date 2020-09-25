@@ -1,15 +1,15 @@
 import React, { FunctionComponent } from 'react';
-import Image from '../../../../helper/image/Image';
-import { GalleryButton } from '../../../UI/Button';
-
 import styles from './GalleryList.module.css';
-import CategoryService from '../../../../helper/category/CategoryService';
-import CategoryThumbnail from '../../../../helper/category/CategoryThumbnail';
+
+import { GalleryButton } from '../../../UI/Button';
 import Spinner from '../../../UI/Spinner/Spinner';
 import InformationMessage from '../../../UI/InformationMessage/InformationMessage';
 
+import CategoryService from '../../../../helper/category/CategoryService';
+import { CategoryWithThumbnail } from '../../../../helper/category/Category';
+
 interface GalleriesListProps {
-    thumbnails: CategoryThumbnail[];
+    thumbnails: CategoryWithThumbnail[];
     status: string;
 }
 

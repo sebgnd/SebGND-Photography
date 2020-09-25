@@ -2,11 +2,11 @@ import React, { FunctionComponent } from 'react';
 import { GalleryButton } from '../../../../UI/Button';
 import styles from './GalleryPreviewList.module.css';
 
-import CategoryThumbnail from '../../../../../helper/category/CategoryThumbnail';
+import { CategoryWithThumbnail } from '../../../../../helper/category/Category';
 import CategoryService from '../../../../../helper/category/CategoryService';
 
 interface GalleryPreviewListProps {
-    thumbnails: CategoryThumbnail[]
+    thumbnails: CategoryWithThumbnail[]
 }
 
 const GalleryPreviewList: FunctionComponent<GalleryPreviewListProps> = ({ thumbnails }) => {

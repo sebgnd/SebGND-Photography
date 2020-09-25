@@ -9,11 +9,10 @@ import InformationMessage from '../../../UI/InformationMessage/InformationMessag
 
 import styles from './GalleryPreview.module.css';
 
-import Paths from '../../../../helper/Paths';
-import CategoryThumbnail from '../../../../helper/category/CategoryThumbnail';
+import { CategoryWithThumbnail } from '../../../../helper/category/Category';
 
 interface GalleriesPreviewProps extends RouteComponentProps {
-    thumbnails: CategoryThumbnail[];
+    thumbnails: CategoryWithThumbnail[];
     status: string;
 }
 

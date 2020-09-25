@@ -2,7 +2,7 @@ import React, { Component, FunctionComponent, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectAllCategoryThumbnails, selectCategoryStatus } from '../../../redux/selectors/category-selector';
-import { fetchCategoryThumbnails } from '../../../redux/slices/category';
+import { fetchCategories } from '../../../redux/slices/category';
 import { imagesEmptied } from '../../../redux/slices/image';
 
 import GalleryList from './GalleryList/GalleryList';
@@ -13,7 +13,7 @@ const Galleries: FunctionComponent = () => {
     const status = useSelector(selectCategoryStatus);
 
     useEffect(() => {
-        dispatch(fetchCategoryThumbnails())
+        dispatch(fetchCategories())
         dispatch(imagesEmptied());
     }, []);
 

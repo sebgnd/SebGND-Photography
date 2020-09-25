@@ -1,5 +1,4 @@
-import Category from '../../helper/category/Category';
-import CategoryThumbnail from '../../helper/category/CategoryThumbnail';
+import Category, { CategoryWithThumbnail } from '../../helper/category/Category';
 
 import { createSelector, Selector, ParametricSelector } from '@reduxjs/toolkit';
 import { RootState } from '../types';
@@ -28,9 +27,9 @@ export const selectCategoryById = createSelector<RootState, string | undefined, 
     }
 );
 
-export const selectAllCategories = createSelector<RootState, CategoryThumbnail[], Category[]>(
+export const selectAllCategories = createSelector<RootState, CategoryWithThumbnail[], Category[]>(
     [selectAllCategoryThumbnails],
-    (thumbnails: CategoryThumbnail[]) => {
+    (thumbnails: CategoryWithThumbnail[]) => {
         const categories: Category[] = thumbnails.map(thumbnail => {
             return thumbnail.category;
         });

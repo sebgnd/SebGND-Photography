@@ -1,5 +1,4 @@
-import Category from './Category';
-import CategoryThumbnail from './CategoryThumbnail';
+import Category, { CategoryWithThumbnail } from './Category';
 import ImageService from '../image/ImageService';
 
 export default class CategoryService {
@@ -10,7 +9,7 @@ export default class CategoryService {
         };
     }
 
-    static formatWithThumbnail(json: any): CategoryThumbnail {
+    static formatWithThumbnail(json: any): CategoryWithThumbnail {
         const category = this.format(json);
         const image = ImageService.format({ category, ...json.thumbnail.image });
         
@@ -20,7 +19,7 @@ export default class CategoryService {
         }
     }
 
-    static getThumbnailUrl(categoryThumbnail: CategoryThumbnail, resolutionType: string): string {
+    static getThumbnailUrl(categoryThumbnail: CategoryWithThumbnail, resolutionType: string): string {
         const thumbnailTypes = ['thumbnail_medium', 'thumbnail_small'];
         const { image } = categoryThumbnail;
 

@@ -6,7 +6,7 @@ import Landing from './Landing/Landing';
 import GalleriesPreview from './GalleryPreview/GalleryPreview';
 import About from './About/About';
 
-import { fetchCategoryThumbnails } from '../../../redux/slices/category';
+import { fetchCategories } from '../../../redux/slices/category';
 import { imagesEmptied } from '../../../redux/slices/image';
 import { selectCategoryStatus, selectAllCategoryThumbnails } from '../../../redux/selectors/category-selector';
 
@@ -23,7 +23,7 @@ const Home: FunctionComponent = () => {
     const status = useSelector(selectCategoryStatus);
 
     useEffect(() => {
-        dispatch(fetchCategoryThumbnails(3));
+        dispatch(fetchCategories(3));
         dispatch(imagesEmptied())
     }, [])
 

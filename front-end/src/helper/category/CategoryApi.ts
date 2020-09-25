@@ -1,7 +1,6 @@
 import HttpRequest from '../http/HttpRequest';
 import HttpResponse from '../http/HttpResponse';
-import Category from './Category';
-import CategoryThumbnail from './CategoryThumbnail';
+import Category, { CategoryWithThumbnail } from './Category';
 import CategoryService from './CategoryService';
 
 export default class CategoryApi {
@@ -15,7 +14,7 @@ export default class CategoryApi {
         } 
     }
 
-    static async getThumbnail(id: string): Promise<CategoryThumbnail> {
+    static async getThumbnail(id: string): Promise<CategoryWithThumbnail> {
         try {
             const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories/${id}`);
             return CategoryService.formatWithThumbnail(response.result);
@@ -25,7 +24,7 @@ export default class CategoryApi {
         } 
     }
 
-    static async getKThumbnail(k: number): Promise<CategoryThumbnail[]> {
+    static async getKThumbnail(k: number): Promise<CategoryWithThumbnail[]> {
         try {
             const response: HttpResponse = await HttpRequest.get(`http://localhost:8000/categories?offset=0&k=${k}`);
             return response.result.map((category: any) => {
@@ -37,7 +36,7 @@ export default class CategoryApi {
         }
     }
 
-    static async getAllThumbnail(): Promise<CategoryThumbnail[]> {
+    static async getAllThumbnail(): Promise<CategoryWithThumbnail[]> {
         try {
             const response: HttpResponse = await HttpRequest.get('http://localhost:8000/categories');
             return response.result.map((category: any) => {

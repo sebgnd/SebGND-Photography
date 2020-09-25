@@ -1,7 +1,6 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
 import { CategoryState } from '../category-types';
-import CategoryThumbnail from '../../../../helper/category/CategoryThumbnail';
-import Category from '../../../../helper/category/Category';
+import Category, { CategoryWithThumbnail } from '../../../../helper/category/Category';
 import { fulfilledCaseReducer } from '../../../reducers';
 import { categoryAdapter } from '../category-slice';
 
@@ -14,7 +13,7 @@ export const selectCategoryReducer = (state: CategoryState, action: PayloadActio
     }
 }
 
-export const fetchCategoryThumbnailsFulfilledReducer: CaseReducer<CategoryState, PayloadAction<CategoryThumbnail[]>> = (state: CategoryState, action: PayloadAction<CategoryThumbnail[]>) => {
+export const fetchCategoriesFulfilledReducer: CaseReducer<CategoryState, PayloadAction<CategoryWithThumbnail[]>> = (state: CategoryState, action: PayloadAction<CategoryWithThumbnail[]>) => {
     fulfilledCaseReducer(state, action);
     categoryAdapter.setAll(state, action.payload);
 }

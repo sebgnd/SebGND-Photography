@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import CategoryApi from '../../../helper/category/CategoryApi';
 
-export const fetchCategoryThumbnails = createAsyncThunk('category/fetchCategoryThumbnails', async (k: number | undefined) => {
+export const fetchCategories = createAsyncThunk('category/fetchCategories', async (k: number | undefined) => {
     if (k) {
         return await CategoryApi.getKThumbnail(k);
     }

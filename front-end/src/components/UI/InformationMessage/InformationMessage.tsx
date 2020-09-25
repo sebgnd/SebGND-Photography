@@ -6,6 +6,8 @@ interface InformationMessageProps {
     message: string;
     messageType: 'error' | 'information';
     color?: 'default' | 'white' | 'black';
+    size?: 'small' | 'medium';
+    noIcon?: boolean;
 }
 
 interface IconMap {
@@ -16,7 +18,9 @@ const ErrorMessage: FunctionComponent<InformationMessageProps & WithCenteringPro
     message, 
     color, 
     messageType,
-    centeringClass 
+    centeringClass,
+    size = 'medium',
+    noIcon
 }) => {
     const icons: IconMap = {
         error: 'exclamation-circle',
@@ -32,8 +36,10 @@ const ErrorMessage: FunctionComponent<InformationMessageProps & WithCenteringPro
     }
 
     return (
-        <div style={{ color: getColor() }} className={[styles.informationMessageContainer, centeringClass].join(' ')}>
-            <i className={`fas fa-${icons[messageType]}`} />
+        <div style={{ color: getColor() }} className={[styles.informationMessageContainer, centeringClass, styles[size]].join(' ')}>
+            {!noIcon && (
+                <i className={`fas fa-${icons[messageType]}`} />
+            )}
             <p>{message}</p>
         </div>
     )

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // Redux
 
-import { selectSelectedImage, selectFilteredImage } from '../../../../redux/selectors/imageSelector';
+import { selectSelectedImage, selectFilteredImage, selectImagesStatus } from '../../../../redux/selectors/imageSelector';
 import { fetchAllImage, fetchImage, imagesFiltered } from '../../../../redux/slices/image';
 
 import { selectAllCategories } from '../../../../redux/selectors/categorySelector';
@@ -24,6 +24,7 @@ const Home: FunctionComponent = () => {
     const dispatch = useDispatch();
     
     const images = useSelector(selectFilteredImage);
+    const imagesStatus = useSelector(selectImagesStatus);
     const selectedImage = useSelector(selectSelectedImage);
     const categories = useSelector(selectAllCategories);
 
@@ -59,6 +60,7 @@ const Home: FunctionComponent = () => {
             />
             <ImageList
                 images={images}
+                status={imagesStatus}
                 onImageClick={(_, image: Image) => selectImage(image.id)}
                 onImageDelete={(_, image: Image) => console.log(`Deleting ${image.id}`)}
                 onImageSelect={(e: ChangeEvent<HTMLInputElement>, image: Image) => console.log(`${e.target.checked ? 'Selecting' : 'Unselecting'} ${image.id}`)}

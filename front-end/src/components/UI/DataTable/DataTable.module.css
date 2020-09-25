@@ -19,3 +19,11 @@
     flex-direction: column;
     text-align: center;
 }
+
+.dataLoading {
+    margin: 35px 0px;
+}
+
+.noData {
+    margin: 50px 0px;
+}

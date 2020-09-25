@@ -4,8 +4,15 @@
     align-items: center;
 }
 
-.informationMessageContainer i {
+.small i, .small p {
+    font-size: 0.85em;
+}
+
+.medium i, .medium p {
     font-size: 1em;
+}
+
+.informationMessageContainer i {
     margin-right: 10px;
 }
 

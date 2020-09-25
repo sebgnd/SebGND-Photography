@@ -1,6 +1,9 @@
 import React, { FunctionComponent, useRef, useState, useEffect } from 'react';
 import styles from './DropdownButton.module.css';
+
 import Separator from '../../../UI/Separator/Separator';
+import InformationMessage from '../../InformationMessage/InformationMessage';
+
 import useEventListener from '../../../../hooks/useEventListener';
 
 export interface DropdownButtonOption {
@@ -68,17 +71,21 @@ const DropdownButton: FunctionComponent<DropdownButtonProps> = ({
                     maxHeight: !showDropdown ? 0 : dropdownMenuRef.current?.scrollHeight
                 }}
             >
-                {options.length && (
-                    <Separator size="big" />
+                {(options.length !== 0) ? (
+                    <>
+                        <Separator size="big" />
+                        {options.map((option: DropdownButtonOption) => (
+                            <button
+                                onClick={(e: React.MouseEvent) => handleClick(e, option.value)}
+                                className={styles.dropdownButton}
+                            >
+                                {option.label}
+                            </button>
+                        ))}
+                    </>
+                ) : (
+                    <InformationMessage noIcon messageType="information" size="small" message="No option." />
                 )}
-                {options.map((option: DropdownButtonOption) => (
-                    <button
-                        onClick={(e: React.MouseEvent) => handleClick(e, option.value)}
-                        className={styles.dropdownButton}
-                    >
-                        {option.label}
-                    </button>
-                ))}
             </div>
         </div>
     )

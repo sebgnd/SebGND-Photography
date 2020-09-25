@@ -70,9 +70,9 @@ const Pagination: FunctionComponent<PaginationProps> = ({
             return;
         }
 
+        let firstPage = 2;
         const nbIntermediatePages = getAmountOfIntermediatePage(page, pageAmount);
         const previousPage = currentPage;
-        let firstPage = 2;
 
         const potentialStart =  page - (pageAmount - 2);
         const potentialEnd = page + (pageAmount - 2);

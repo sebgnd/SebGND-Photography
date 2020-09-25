@@ -3,8 +3,9 @@ import styles from './DataTable.module.css';
 
 import Separator from '../Separator/Separator';
 import Pagination, { PageClickFunction } from './Pagination/Pagination';
+import InformationMessage from '../InformationMessage/InformationMessage';
 import DataRow, { ClickActionFunction, SelectActionFunction } from './DataRow/DataRow';
-import { current } from '@reduxjs/toolkit';
+import Spinner from '../Spinner/Spinner';
 
 interface DataTableBaseProps {
     datas: any[];
@@ -12,6 +13,8 @@ interface DataTableBaseProps {
     columnNames?: string[];
     className?: string;
     style?: CSSProperties;
+    loading?: boolean;
+    error?: boolean;
 
     // Pagination
     withPagination?: boolean;
@@ -45,9 +48,11 @@ const DataTable: FunctionComponent<DataTableProps> = ({
     style,
     withPagination,
     withSeparator,
+    loading,
     currentPage,
     totalItems = 0,
     itemsPerPage = 5,
+    error,
     onPageClick,
     renderRow, 
     onRowClick,
@@ -57,21 +62,6 @@ const DataTable: FunctionComponent<DataTableProps> = ({
     const [tableDatas, setTableDatas] = useState<any[]>([]);
     const [page, setPage] = useState<number>(1);
     const maxPage = Math.ceil((totalItems | datas.length) / itemsPerPage);
-
-    const isControlledComponent = () => {
-        const controlledProps = [totalItems, currentPage, onPageClick];
-        const areAllDefined = controlledProps.every((prop) => prop !== undefined);
-        const isOneDefined = controlledProps.some((prop) => prop !== undefined);
-        
-        if (areAllDefined) {
-            return true;
-        } else {
-            if (isOneDefined) {
-                throw new Error ('totalItems, currentPage and onPageClick must be defined to be a controlled component');
-            } 
-            return false;
-        }
-    }
 
     const handlePageClick = (page: number) => {
         if (onPageClick) {
@@ -95,8 +85,6 @@ const DataTable: FunctionComponent<DataTableProps> = ({
                 ? startIndex + itemsPerPage
                 : datas.length;
 
-            console.log(startIndex, endIndex);
-
             setTableDatas(datas.slice(startIndex, endIndex));
         }
     }
@@ -104,10 +92,15 @@ const DataTable: FunctionComponent<DataTableProps> = ({
     useEffect(() => {
         if (withPagination) {
             updatePaginationItems();
-        } else {
+        }
+    }, [currentPage, page, datas])
+
+    useEffect(() => {
+        if (!withPagination) {
             setTableDatas(datas);
         }
 
+        // Go back to an available page
         if (currentPage && currentPage > maxPage) {
             handlePageClick(1);
         } else {
@@ -115,7 +108,7 @@ const DataTable: FunctionComponent<DataTableProps> = ({
                 setPage(1);
             }
         }
-    }, [currentPage, page, datas])
+    }, [datas])
 
     useEffect(() => {
         if (withPagination) {
@@ -131,25 +124,43 @@ const DataTable: FunctionComponent<DataTableProps> = ({
     return (
         <div style={style} className={[styles.dataTableContainer, className].join(' ')}>
             <div className={styles.dataTable}>
-                <div className={styles.data}>
-                    {tableDatas
-                        .map((data: any, index: number) => (
-                            <Fragment key={`dataTable-${index}`}>
-                                <DataRow 
-                                    data={data}
-                                    render={renderRow}
-                                    onSelect={onRowSelect}
-                                    onDelete={onRowDelete}
-                                    onClick={onRowClick}
-                                />
-                                {(withSeparator && index !== tableDatas.length - 1) && (
-                                    <Separator orientation="horizontal" size="medium" />
-                                )}
-                            </Fragment>
-                    ))} 
-                </div>
+                {((datas.length === 0 || error) && !loading) ? (
+                    <div className={styles.noData}>
+                        {(datas.length === 0 && !error) ? (
+                            <InformationMessage messageType="information" message="No data" centerHorizontal />
+                        ) : (
+                            <InformationMessage messageType="error" message="Couldn't load the data" centerHorizontal />
+                        )}
+                    </div>
+                ) : (
+                    <>
+                        {loading ? (
+                            <div className={styles.dataLoading}>
+                                <Spinner size="normal" />
+                            </div>
+                        ) : (
+                            <div className={styles.data}>
+                                {tableDatas
+                                    .map((data: any, index: number) => (
+                                        <Fragment key={`dataTable-${index}`}>
+                                            <DataRow 
+                                                data={data}
+                                                render={renderRow}
+                                                onSelect={onRowSelect}
+                                                onDelete={onRowDelete}
+                                                onClick={onRowClick}
+                                            />
+                                            {(withSeparator && index !== tableDatas.length - 1) && (
+                                                <Separator orientation="horizontal" size="medium" />
+                                            )}
+                                        </Fragment>
+                                ))} 
+                            </div>
+                        )}
+                    </>
+                )}
             </div>
-            {(withPagination && datas.length !== 0) && (
+            {(withPagination && datas.length !== 0 && !loading) && (
                 <div className={styles.dataTablePagination}>
                     <Pagination 
                         currentPage={currentPage ? currentPage : page}

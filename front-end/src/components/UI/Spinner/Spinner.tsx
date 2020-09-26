@@ -5,7 +5,7 @@ import withCentering, { WithCenteringProps } from '../../HOC/withCentering';
 
 interface SpinnerProps {
     zIndex?: number;
-    size?: 'normal' | 'small';
+    size?: 'normal' | 'small' | 'tiny';
 }
 
 const Spinner: FunctionComponent<SpinnerProps & WithCenteringProps> = ({ 

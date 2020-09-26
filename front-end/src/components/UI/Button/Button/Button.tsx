@@ -5,8 +5,9 @@ import styles from './Button.module.css';
 interface ButtonProp {
     onClick?: (event: MouseEvent) => void;
     type?: 'button' | 'submit' | 'reset';
-    variant: 'classic' | 'light';
-    size: 'medium' | 'small' | 'big';
+    variant?: 'classic' | 'light';
+    size?: 'medium' | 'small' | 'big';
+    disabled?: boolean;
     label: string;
     color?: string;
     to?: string;
@@ -14,14 +15,15 @@ interface ButtonProp {
 }
 
 const Button: FunctionComponent<ButtonProp & RouteComponentProps> = ({ 
-    variant, 
-    size, 
+    variant = 'classic', 
+    size = 'medium', 
     label, 
     type, 
     history, 
     to,
     color = 'white',
     fullWidth,
+    disabled,
     onClick, 
 }) => {
     const handleClick = (event: MouseEvent) => {
@@ -39,6 +41,7 @@ const Button: FunctionComponent<ButtonProp & RouteComponentProps> = ({
 
     return (
         <button 
+            disabled={disabled}
             className={getClassName()}
             onClick={(event) => handleClick(event)}
             type={type}

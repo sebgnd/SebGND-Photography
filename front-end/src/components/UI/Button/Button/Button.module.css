@@ -14,6 +14,7 @@
     box-sizing: border-box;
 }
 
+
 .small {
     font-size: .8em;
 }
@@ -51,6 +52,19 @@
 
 .classic:hover {
     transform: scale(1.025);
+}
+
+.light:disabled, .classic:disabled {
+    cursor: not-allowed;
+    opacity: .75;
+}
+
+.light:disabled {
+    color: #7E7E7E !important;
+}
+
+.classic:disabled {
+    transform: none !important;
 }
 
 .button:focus {

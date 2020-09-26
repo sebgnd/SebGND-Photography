@@ -1,0 +1,48 @@
+.file {
+    width: 125px;
+    height: 125px;
+    background-color: #DCDCDC;
+    border-radius: 5px;
+    transition: opacity .25s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 15px;
+}
+
+.filePreview {
+    position: relative;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform .25s;
+}
+
+.filePreview i {
+    font-size: 2.5em;
+    color: black;
+}
+
+.fileName {
+    height: 40%;
+    text-align: center; 
+    width: 100%;
+    overflow: hidden;
+    padding: 0 7px;
+    box-sizing: border-box;
+    transition: transform .25s;
+}
+
+.fileName p {
+    overflow: hidden;
+}
+
+.loading {
+    opacity: .5;  
+}
+
+.loading * {
+    transform: scale(.85);
+}

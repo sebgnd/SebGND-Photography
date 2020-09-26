@@ -1,5 +1,6 @@
-import React, { FunctionComponent, useEffect, ChangeEvent } from 'react';
+import React, { FunctionComponent, useEffect, ChangeEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useToggle } from '../../../../hooks';
 
 // Redux
 import { selectSelectedImage, selectFilteredImage, selectImagesStatus, selectFilters } from '../../../../redux/selectors/image-selector';
@@ -15,10 +16,15 @@ import { FlexContainer } from '../../../Styled/container';
 import ActionMenu from './ActionMenu/ActionMenu';
 import ImageInformation from './ImageInformation/ImageInformation';
 import ImageList from './ImageList/ImageList';
+import UploadModal from './UploadModal/UploadModal';
 
 import Image from '../../../../helper/image/Image';
 
 const Home: FunctionComponent = () => {
+    // TEMPORARY
+    // TODO: Move file management into redux
+    const [files, setFiles] = useState<File[]>([]);
+
     const dispatch = useDispatch();
     
     const images = useSelector(selectFilteredImage);
@@ -28,6 +34,8 @@ const Home: FunctionComponent = () => {
 
     const categories = useSelector(selectAllCategories);
     const selectedCategory = useSelector((state: RootState) => selectCategoryById(state, filters.categoryId))
+
+    const [showUploadModal, toggleUploadModal] = useToggle(false);
 
     const handleFilter = (categoryId: string) => {
         dispatch(
@@ -44,6 +52,11 @@ const Home: FunctionComponent = () => {
         )
     }
 
+    const handleFileDrop = (droppedFiles: File[]) => {
+        console.log(droppedFiles);
+        setFiles(droppedFiles);
+    }
+
     useEffect(() => {
         dispatch(fetchAllImage());
         dispatch(fetchCategories());
@@ -55,8 +68,8 @@ const Home: FunctionComponent = () => {
                 categories={categories} 
                 selectedCategory={selectedCategory}
                 onFilterCategory={(categoryId: string) => handleFilter(categoryId)}
-                onUpload={() => console.log('Uploading')}
-                onDeleteSelected={() => console.log('Deleting')}
+                onUploadClick={() => toggleUploadModal()}
+                onDeleteSelectedClick={() => console.log('Deleting')}
             />
             <ImageList
                 images={images}
@@ -66,6 +79,14 @@ const Home: FunctionComponent = () => {
                 onImageSelect={(e: ChangeEvent<HTMLInputElement>, image: Image) => console.log(`${e.target.checked ? 'Selecting' : 'Unselecting'} ${image.id}`)}
             />
             <ImageInformation image={selectedImage} />
+            <UploadModal
+                loading={false}
+                isOpen={showUploadModal}
+                files={files}
+                onFilesDrop={(files: File[]) => handleFileDrop(files)}
+                onUpload={() => console.log('Uploading')}
+                onClose={() => toggleUploadModal()}
+            />
         </FlexContainer>
     )
 }

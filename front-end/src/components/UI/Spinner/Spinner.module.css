@@ -13,6 +13,11 @@
     height: 35px;
 }
 
+.tiny {
+    width: 20px;
+    height: 20px;
+}
+
 .spinner {
     display: inline-block;
     border: 5px solid #f3f3f3;

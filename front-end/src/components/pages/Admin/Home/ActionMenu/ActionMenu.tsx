@@ -11,16 +11,16 @@ interface ActionMenuProps {
     selectedCategory?: Category;
 
     onFilterCategory: (categoryId: string) => void;
-    onUpload: () => void;
-    onDeleteSelected: () => void;
+    onUploadClick: () => void;
+    onDeleteSelectedClick: () => void;
 }
 
 const ActionMenu: FunctionComponent<ActionMenuProps> = ({ 
     categories,
     selectedCategory,
     onFilterCategory,
-    onUpload,
-    onDeleteSelected
+    onUploadClick,
+    onDeleteSelectedClick
 }) => {
     const getOptions = () => {
         const allCategoryOption: DropdownButtonOption = { value: undefined, label: 'All categories' };
@@ -38,10 +38,23 @@ const ActionMenu: FunctionComponent<ActionMenuProps> = ({
         <div className={styles.actionMenuContainer}>
             <div className={styles.actionMenu}>
                 <div className={styles.buttonContainer}>
-                    <Button variant="classic" size="medium" label="Upload" color="#A5FFA5" fullWidth/>
+                    <Button 
+                        onClick={() => onUploadClick()}
+                        variant="classic" 
+                        size="medium" 
+                        label="Upload" 
+                        color="#A5FFA5" 
+                        fullWidth
+                    />
                 </div>
                 <div className={styles.buttonContainer}>
-                    <Button variant="classic" size="medium" label="Delete selected" color="#FFC6C6" fullWidth />
+                    <Button 
+                        variant="classic" 
+                        size="medium" 
+                        label="Delete selected" 
+                        color="#FFC6C6" 
+                        fullWidth 
+                    />
                 </div>
                 <div className={styles.buttonContainer}>
                     <ButtonGroup 

@@ -3,7 +3,7 @@
 ## Todos:
 
 ### Frontend:
-1. Modal component
+1. Files inside Redux
 1. Improve Pagination component (transitions, positionning)
 
 1. User Website
@@ -14,16 +14,17 @@
         1. ActionMenu
             1. Upload
             1. Delete
-            1. Filter
     1. Gallery Settings page
     1. Messages page
     1. Change password
 
 1. Redux
-    1. Refactor category and improve image slices
     1. Check how to select image, load all data 
     1. Implement loading for fetching single image or mulitple images
     1. Find out how to handle pagination in redux (if page has been loaded or not)
+
+1. Performance
+    1. Caching
 
 1. (OPTIONAL) Add comments
 1. (OPTIONAL) Implement Saga
@@ -39,6 +40,8 @@
     1. Role
     1. uuid
     1. Session key
+1. Performance
+    1. Caching requests
 
 ## Current API:
 Endpoints | Description

@@ -4,10 +4,11 @@ import { CSSTransition } from 'react-transition-group';
 
 interface BackdropProps {
     show: boolean;
+    zIndex?: number;
     onClick?: () => void;
 }
 
-const Backdrop: FunctionComponent<BackdropProps> = ({ show, onClick }) => {
+const Backdrop: FunctionComponent<BackdropProps> = ({ show, zIndex, onClick }) => {
     return (
         <>
             <CSSTransition
@@ -22,7 +23,7 @@ const Backdrop: FunctionComponent<BackdropProps> = ({ show, onClick }) => {
                 unmountOnExit
                 mountOnEnter
             >
-                <div className={styles.backdrop} onClick={onClick} />
+                <div className={styles.backdrop} style={{ zIndex }} onClick={onClick} />
             </CSSTransition>
         </>
     )

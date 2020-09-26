@@ -1,16 +1,20 @@
-import React, { MouseEvent, FunctionComponent, Fragment, useEffect, ChangeEvent } from 'react';
+import React, { MouseEvent, FunctionComponent, Fragment, useEffect, ChangeEvent, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Image from '../../../helper/image/Image';
 import ImageService from '../../../helper/image/ImageService';
 import { selectAllImages, selectImagesStatus } from '../../../redux/selectors/image-selector';
 import { fetchImagesFromCategory } from '../../../redux/slices/image';
+import { Button } from '../../UI/Button';
 
 import DataTable from '../../UI/DataTable/DataTable';
 import ImageRow from '../../UI/DataTable/ImageRow/ImageRow';
+import Modal from '../../UI/Modal/Modal';
 
 const Playground: FunctionComponent = () => {
     const images = useSelector(selectAllImages);
     const dispatch = useDispatch();
+
+    const [showModal, setShowModal] = useState(false);
     
     useEffect(() => {
         dispatch(fetchImagesFromCategory('landscape'));
@@ -18,22 +22,16 @@ const Playground: FunctionComponent = () => {
 
     return (
         <Fragment>
-            <DataTable 
-                withSeparator
-                datas={images}
-                style={{ width: '50%' }}
-                onRowDelete={(event: MouseEvent, image: Image) => console.log(`Deleting image ${image.id}`)}
-                onRowClick={(event: MouseEvent, image: Image) => console.log(`Clicking image ${image.id}`)}
-                onRowSelect={(event: ChangeEvent<HTMLInputElement>, image: Image) => console.log(`Image ${image.id} ${event.currentTarget.checked ? 'selected' : 'not selected'}`)}
-                renderRow={(image: Image) => (
-                    <ImageRow 
-                        imgId={image.id}
-                        imgUploadDate={new Date(image.uploadDate).toLocaleDateString()}
-                        imgUrl={ImageService.getUrl(image, 'thumbnail_small')}
-                        categoryName={image.category.displayName}
-                    />
-                )}
-            />
+            <Button label="Show modal" onClick={() => setShowModal(true)} />
+            <Modal 
+                title="Modal" 
+                isOpen={showModal}
+                onConfirm={() => console.log('onConfirm')}
+                onCancel={() => setShowModal(false)}
+                onClose={() => setShowModal(false)}
+            >
+                
+            </Modal>
         </Fragment>
     )
 }

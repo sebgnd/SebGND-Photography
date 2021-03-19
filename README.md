@@ -1,5 +1,21 @@
 # SebGND Photography
 
+## Todo
+### Urgent
+1. Finish File component for UploadModal
+1. Fix viewer css
+1. Fix viewer not loading image when clicking multiple times
+1. Add margin to the bottom of contact page
+1. Increase margin on columns in AdminHome page
+
+### Not Urgent
+1. Refactor redux
+1. Stop scrolling when viewer and other high z-index element are open
+1. Add smoother transition when switching image in Viewer
+1. Investigate weird loading on galleries
+1. Implement placeholders on loading images
+1. Fix link on RoundButton
+
 ## Current API:
 Endpoints | Description
 ----------|------------

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styles from './InformationMessage.module.css';
-import withCentering, { WithCenteringProps } from '../../HOC/withCentering'
+import withCentering, { CenteringProps } from '../../HOC/withCentering'
 
 interface InformationMessageProps {
     message: string;
@@ -14,11 +14,10 @@ interface IconMap {
     [key: string]: string;
 }
 
-const ErrorMessage: FunctionComponent<InformationMessageProps & WithCenteringProps> = ({ 
+const ErrorMessage: FunctionComponent<InformationMessageProps & CenteringProps> = ({ 
     message, 
     color, 
     messageType,
-    centeringClass,
     size = 'medium',
     noIcon
 }) => {
@@ -36,7 +35,7 @@ const ErrorMessage: FunctionComponent<InformationMessageProps & WithCenteringPro
     }
 
     return (
-        <div style={{ color: getColor() }} className={[styles.informationMessageContainer, centeringClass, styles[size]].join(' ')}>
+        <div style={{ color: getColor() }} className={[styles.informationMessageContainer, styles[size]].join(' ')}>
             {!noIcon && (
                 <i className={`fas fa-${icons[messageType]}`} />
             )}

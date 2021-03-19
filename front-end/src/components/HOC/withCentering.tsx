@@ -7,23 +7,18 @@ export interface CenteringProps {
     fullScreen?: boolean;
 }
 
-export type CenteredProp = {
-    centeringClass?: string;
-}
-
-export type WithCenteringProps = CenteredProp & CenteringProps;
-
 const withCentering = <P extends object>(WrappedComponent: ComponentType<P & CenteringProps>) => {
-    const ComponentWithCentering: FunctionComponent<P & WithCenteringProps> = (props: P & WithCenteringProps) => {
+    const ComponentWithCentering: FunctionComponent<P & CenteringProps> = (props: P & CenteringProps) => {
         const [centeringClass, setCenteringClass] = useState<string>('');
+        const { centerHorizontal, centerVertical } = props;
 
         const getClassNames = () => {
             const classes = [];
 
-            if (props.centerHorizontal) {
+            if (centerHorizontal) {
                 classes.push(styles.centerHorizontal);
             }
-            if (props.centerVertical) {
+            if (centerVertical) {
                 if (props.fullScreen) {
                     classes.push(styles.fullScreen);
                 } else {
@@ -40,7 +35,15 @@ const withCentering = <P extends object>(WrappedComponent: ComponentType<P & Cen
         }, [])
 
         return (
-            <WrappedComponent centeringClass={centeringClass} {...props as P} />
+            <>
+                {(centerHorizontal || centerVertical) ? (
+                    <div className={[styles.centeringContainer, centeringClass].join(' ')}>
+                        <WrappedComponent {...props as P} />
+                    </div>
+                ) : (
+                    <WrappedComponent {...props as P} />
+                )}
+            </>
         )
     }
 

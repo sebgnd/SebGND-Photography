@@ -17,6 +17,7 @@ const File: FunctionComponent<FileProps> = ({
 }) => {
     return (
         <div className={`${styles.file} ${loading ? styles.loading : ''}`}>
+            <Spinner centerHorizontal centerVertical size="small" />
             <div className={styles.filePreview}>
                 <i className={`fas fa-${previewIcon}`}></i>
             </div>

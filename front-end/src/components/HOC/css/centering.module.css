@@ -1,3 +1,9 @@
+.centeringContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .centerHorizontal {
     width: 100%;
 }

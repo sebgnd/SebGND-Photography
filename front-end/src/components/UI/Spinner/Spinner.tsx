@@ -1,31 +1,20 @@
 import React, { FunctionComponent, useState } from 'react';
 import styles from './Spinner.module.css';
 
-import withCentering, { WithCenteringProps } from '../../HOC/withCentering';
+import withCentering, { CenteringProps } from '../../HOC/withCentering';
 
 interface SpinnerProps {
     zIndex?: number;
     size?: 'normal' | 'small' | 'tiny';
 }
 
-const Spinner: FunctionComponent<SpinnerProps & WithCenteringProps> = ({ 
-    centerHorizontal = false,
-    centerVertical = false,
+const Spinner: FunctionComponent<SpinnerProps & CenteringProps> = ({ 
     zIndex,
-    centeringClass,
     size = 'normal'
 }) => {
 
     return (
-        <>
-            {(centerHorizontal || centerVertical) ? (
-                <div className={[styles.spinnerContainer, centeringClass].join(' ')} style={{ zIndex }}>
-                    <div className={[styles.spinner, styles[size]].join(' ')} />
-                </div>
-            ) : (
-                <div className={[styles.spinner, styles[size]].join(' ')} style={{ zIndex }} />
-            )}
-        </>
+        <div className={[styles.spinner, styles[size]].join(' ')} style={{ zIndex }} />
     )
 }
 

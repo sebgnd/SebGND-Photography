@@ -27,20 +27,6 @@
     margin: 15px;
 }
 
-.spinnerContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.spinnerCenterHorizontal {
-    width: 100%;
-}
-
-.spinnerCenterVertical {
-    height: 100%;
-}
-
 .fullScreen {
     height: calc(100vh - 81px);
 }

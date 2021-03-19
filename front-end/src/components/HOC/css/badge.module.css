@@ -1,0 +1,42 @@
+.componentContainer {
+    margin: 5px;
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    transform: scale(0);
+    transition: transform .25s;
+    background-color: white;
+    overflow: hidden;
+    top: -5px;
+    right: -5px;
+}
+
+.componentContainer:hover .badge, .badge:hover {
+    transform: scale(1);
+}
+
+.iconContainer {
+    height: 100%;
+    width: 100%;
+    opacity: .75;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity .25s;
+    cursor: pointer;
+}
+
+.iconContainer:hover {
+    opacity: 1;
+}
+
+.iconContainer i {
+    margin: 0;
+    padding: 0;
+    font-size: 0.8em;
+}

@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import withActionBadge, { WithActionBadgeProps } from '../../../HOC/withActionBadge';
 import styles from './File.module.css';
 
 import Spinner from '../../Spinner/Spinner';
@@ -26,4 +27,4 @@ const File: FunctionComponent<FileProps> = ({
     )
 }
 
-export default File;
+export default withActionBadge(File, { name: 'times' });

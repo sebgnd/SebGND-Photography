@@ -10,11 +10,13 @@
 
 ### Not Urgent
 1. Refactor redux
+1. Improve DataTable (more specifically the Pagination)
 1. Stop scrolling when viewer and other high z-index element are open
 1. Add smoother transition when switching image in Viewer
 1. Investigate weird loading on galleries
 1. Implement placeholders on loading images
 1. Fix link on RoundButton
+1. Add tests to all files
 
 ## Current API:
 Endpoints | Description

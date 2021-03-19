@@ -1,9 +1,10 @@
 .dropArea {
     position: relative;
     padding: 5px;
-    border-color: #8F8F8F;
-    border-style: dashed;
+    border-color: #DEDEDE;
+    border-style: solid;
     border-radius: 15px;
+    border-width: .5px;
     transition: border-color .25s;
     overflow-y: auto;
     width: 100%;

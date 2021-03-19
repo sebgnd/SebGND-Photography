@@ -1,43 +1,43 @@
-import React, { ComponentType, FunctionComponent, useEffect, useState } from 'react';
+import React, { ComponentType, FunctionComponent, useEffect, useMemo } from 'react';
+import { fulfilledCaseReducer, fulfilledCaseWithSuccesReducer } from '../../redux/reducers';
 import styles from './css/centering.module.css';
 
 export interface CenteringProps {
     centerHorizontal?: boolean;
     centerVertical?: boolean;
     fullScreen?: boolean;
+    insideContainer?: boolean,
+    zIndex?: number ;
 }
 
 const withCentering = <P extends object>(WrappedComponent: ComponentType<P & CenteringProps>) => {
     const ComponentWithCentering: FunctionComponent<P & CenteringProps> = (props: P & CenteringProps) => {
-        const [centeringClass, setCenteringClass] = useState<string>('');
-        const { centerHorizontal, centerVertical } = props;
+        const { centerHorizontal, centerVertical, fullScreen, insideContainer, zIndex = 0 } = props;
 
-        const getClassNames = () => {
-            const classes = [];
+        const classNames = useMemo(() => {
+            const classes = [styles.centeringContainer];
 
             if (centerHorizontal) {
                 classes.push(styles.centerHorizontal);
             }
             if (centerVertical) {
-                if (props.fullScreen) {
+                if (fullScreen) {
                     classes.push(styles.fullScreen);
                 } else {
                     classes.push(styles.centerVertical);
                 }
             }
+            if (insideContainer) {
+                classes.push(styles.insideContainer);
+            }
+            
             return classes.join(' ');
-        }
-
-        useEffect(() => {
-            setCenteringClass(
-                getClassNames()
-            );
-        }, [])
+        }, [centerVertical, centerHorizontal, fullScreen, insideContainer])
 
         return (
             <>
                 {(centerHorizontal || centerVertical) ? (
-                    <div className={[styles.centeringContainer, centeringClass].join(' ')}>
+                    <div style={{ zIndex }} className={[styles.centeringContainer, classNames].join(' ')}>
                         <WrappedComponent {...props as P} />
                     </div>
                 ) : (

@@ -1,8 +1,11 @@
 .file {
     width: 125px;
     height: 125px;
-    background-color: #DCDCDC;
+    border-color: #A2A2A2;
     border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    background-color: white;
     transition: opacity .25s;
     display: flex;
     flex-direction: column;
@@ -22,7 +25,8 @@
 
 .filePreview i {
     font-size: 2.5em;
-    color: black;
+    color:#A2A2A2 
+    ;
 }
 
 .fileName {

@@ -1,18 +1,18 @@
 import React, { FunctionComponent } from 'react';
 
 import Modal from '../../../../UI/Modal/Modal';
-import DropArea from '../../../../UI/DropArea/DropArea';
+import DropArea, { FileStateMap } from '../../../../UI/DropArea/DropArea';
 
 interface UploadModalProps {
     isOpen: boolean;
     loading: boolean;
-    files: File[];
+    fileStatesMap: FileStateMap;
     onUpload: () => void;
     onClose: () => void;
-    onFilesDrop: (files: File[]) => void;
+    onFilesChange: (files: File[]) => void;
 }
 
-const UploadModal: FunctionComponent<UploadModalProps> = ({ isOpen, loading, onUpload, onClose, onFilesDrop, files }) => {
+const UploadModal: FunctionComponent<UploadModalProps> = ({ isOpen, loading, fileStatesMap, onUpload, onClose, onFilesChange }) => {
     return (
         <Modal
             isOpen={isOpen}
@@ -23,9 +23,9 @@ const UploadModal: FunctionComponent<UploadModalProps> = ({ isOpen, loading, onU
             onCancel={onClose}
             onConfirm={onUpload}
         >
-            <DropArea 
-                data={files}
-                onDrop={onFilesDrop}
+            <DropArea
+                fileStatesMap={fileStatesMap}
+                onFilesChange={onFilesChange}
                 textBeforeDrop="Drop your images here." 
             />
         </Modal>

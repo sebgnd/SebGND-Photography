@@ -4,18 +4,24 @@ import styles from './DropArea.module.css';
 import InformationMessage from '../InformationMessage/InformationMessage';
 import File from './File/File';
 
+export type FileState = 'idle' | 'loading';
+
+export interface FileStateMap {
+    [name: string]: FileState;
+}
+
 interface DropAreaProps {
     textBeforeDrop: string;
-    data?: File[];
-    onDrop?: (files: File[]) => void;
+    fileStatesMap?: FileStateMap;
     extensions?: string[];
+    onFilesChange?: (files: File[]) => void;
 }
 
 const DropArea: FunctionComponent<DropAreaProps> = ({
     textBeforeDrop,
     extensions,
-    data,
-    onDrop
+    fileStatesMap,
+    onFilesChange,
 }) => {
     const [files, setFiles] = useState<File[]>([]);
     const [inDropArea, setInDropArea] = useState<boolean>(false);
@@ -28,25 +34,27 @@ const DropArea: FunctionComponent<DropAreaProps> = ({
 
     const handleDrop = (event: DragEvent<HTMLDivElement>) => {
         preventDefault(event);
-        const allFiles = data ? data : files;
-
         const { dataTransfer } = event;
         const droppedFiles = [...dataTransfer.files];
-        const existingFileNames: string[] = allFiles.map(file => file.name);
+        const fileNames: string[] = files.map(file => file.name);
 
         const filteredDroppedFiles = droppedFiles.filter(file => {
-            return !existingFileNames.includes(file.name);
+            const { name } = file;
+            let wrongExtension = false;
+
+            if (extensions && extensions.length) {
+                wrongExtension = extensions.filter((ext: string) => {
+                    return name.endsWith(ext);
+                }).length === 0;
+            }
+
+            return !fileNames.includes(name) && !wrongExtension;
         });
 
-        if (data) {
-            if (onDrop) {
-                onDrop([...allFiles, ...filteredDroppedFiles])  
-            }
-        } else {
-            setFiles(prevFiles => {
-                return [...prevFiles, ...filteredDroppedFiles]
-            }); 
-        }
+        setFiles(prevFiles => {
+            return [...prevFiles, ...filteredDroppedFiles]
+        });
+
         setInDropArea(false);
     }
 
@@ -60,22 +68,40 @@ const DropArea: FunctionComponent<DropAreaProps> = ({
         setInDropArea(false);
     }
 
-    useEffect(() => {
-        if (!data && files.length && onDrop) {
-            onDrop(files);
+    const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
+        preventDefault(event);
+
+        if (!inDropArea) setInDropArea(true);
+    }
+
+    const handleDelete = (fileName: string) => {
+        const filesFiltered = files.filter((file: File) => {
+            return file.name !== fileName;
+        });
+        setFiles(filesFiltered);
+    }
+
+    const isFileLoading = (file: File) => {
+        if (!fileStatesMap) {
+            return false;
         }
-    }, [files])
+        const { name } = file;
+
+        return fileStatesMap[name] 
+            ? fileStatesMap[name] === 'loading'
+            : false;
+    }
 
     useEffect(() => {
-        if (data) {
-            setFiles(data);
+        if (files.length && onFilesChange) {
+            onFilesChange(files);
         }
-    }, [data]);
+    }, [files]);
 
     return (
         <div 
             onDrop={(event) => handleDrop(event)}
-            onDragOver={(event) => preventDefault(event)}
+            onDragOver={(event) => handleDragOver(event)}
             onDragEnter={(event) => handleDragEnter(event)}
             onDragLeave={(event) => handleDragLeave(event)}
             className={`${styles.dropArea} ${inDropArea ? styles.greenBorder : ''}`}
@@ -90,7 +116,12 @@ const DropArea: FunctionComponent<DropAreaProps> = ({
             )}
             <div className={styles.filesContainer}>
                 {files.map(file => (
-                    <File key={file.lastModified} name={file.name} />
+                    <File
+                        key={file.name}
+                        name={file.name}
+                        loading={isFileLoading(file)}
+                        onBadgeClick={() => handleDelete(file.name)}
+                    />
                 ))}
             </div>
         </div>

@@ -10,20 +10,22 @@ interface FileProps {
     loading?: boolean;
 }
 
-const File: FunctionComponent<FileProps> = ({
+const File: FunctionComponent<FileProps & WithActionBadgeProps> = ({
     previewIcon = 'file',
     name,
-    loading = true
+    loading = false,
 }) => {
     return (
         <div className={`${styles.file} ${loading ? styles.loading : ''}`}>
-            <Spinner
-                centerHorizontal
-                centerVertical
-                insideContainer
-                size="small"
-                zIndex={500}
-            />
+            {loading && (
+                <Spinner
+                    centerHorizontal
+                    centerVertical
+                    insideContainer
+                    size="small"
+                    zIndex={500}
+                />
+            )}
             <div className={styles.filePreview}>
                 <i className={`fas fa-${previewIcon}`}></i>
             </div>

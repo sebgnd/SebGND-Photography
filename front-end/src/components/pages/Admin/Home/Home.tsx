@@ -17,6 +17,7 @@ import ActionMenu from './ActionMenu/ActionMenu';
 import ImageInformation from './ImageInformation/ImageInformation';
 import ImageList from './ImageList/ImageList';
 import UploadModal from './UploadModal/UploadModal';
+import { FileStateMap } from '../../../UI/DropArea/DropArea';
 
 import Image from '../../../../helper/image/Image';
 
@@ -53,8 +54,15 @@ const Home: FunctionComponent = () => {
     }
 
     const handleFileDrop = (droppedFiles: File[]) => {
-        console.log(droppedFiles);
         setFiles(droppedFiles);
+    }
+
+    const getFileState = () => {
+        return files.reduce((acc: FileStateMap, file) => {
+            acc[file.name] = 'loading';
+
+            return acc;
+        }, {})
     }
 
     useEffect(() => {
@@ -82,8 +90,8 @@ const Home: FunctionComponent = () => {
             <UploadModal
                 loading={false}
                 isOpen={showUploadModal}
-                files={files}
-                onFilesDrop={(files: File[]) => handleFileDrop(files)}
+                fileStatesMap={getFileState()}
+                onFilesChange={(files: File[]) => handleFileDrop(files)}
                 onUpload={() => console.log('Uploading')}
                 onClose={() => toggleUploadModal()}
             />

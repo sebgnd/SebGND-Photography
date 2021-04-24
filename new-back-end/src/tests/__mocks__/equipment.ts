@@ -23,13 +23,15 @@ export const mockCamera: Equipment = {
 	images: [],
 };
 
-export const mockCategoryServiceFactory = () => ({
+export const mockEquipmentServiceFactory = () => ({
 	create: jest.fn(() => null),
+	getByName: jest.fn(() => null),
+	getOrCreate: jest.fn(() => null),
 });
 
 export const MockEquipmentService: Provider = {
 	provide: EquipmentService,
-	useFactory: mockCategoryServiceFactory,
+	useFactory: mockEquipmentServiceFactory,
 };
 
 export const MockEquipmentRepository: Provider = getMockRepository(Equipment);

@@ -33,7 +33,7 @@ export class EquipmentService {
 	}
 
 	async getOrCreate(name: string, type: EquipmentType): Promise<Equipment> {
-		const equipment = this.getByName(name);
+		const equipment = await this.getByName(name);
 
 		if (equipment) {
 			return equipment;

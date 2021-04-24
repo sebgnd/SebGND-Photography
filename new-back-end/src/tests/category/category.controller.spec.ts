@@ -1,13 +1,10 @@
 import { Test } from '@nestjs/testing';
 import { NotFoundException } from '@nestjs/common';
 
-import { CategoryController, CategoryService } from '@models/category';
+import { CategoryController } from '@models/category/category.controller';
+import { CategoryService } from '@models/category/category.service';
 
-import {
-	mockCategory1,
-	mockCategory2,
-	MockCategoryService,
-} from '@mocks/category';
+import { mockCategory1, mockCategory2, MockCategoryService } from '@mocks/category';
 
 describe('CategoryController', () => {
 	let categoryService: CategoryService;
@@ -19,9 +16,7 @@ describe('CategoryController', () => {
 			providers: [MockCategoryService],
 		}).compile();
 
-		categoryController = moduleRef.get<CategoryController>(
-			CategoryController
-		);
+		categoryController = moduleRef.get<CategoryController>(CategoryController);
 		categoryService = moduleRef.get<CategoryService>(CategoryService);
 	});
 
@@ -47,9 +42,7 @@ describe('CategoryController', () => {
 	it('should not find the category', async () => {
 		const mockCategories = [mockCategory1, mockCategory2, mockCategory1];
 
-		jest.spyOn(categoryService, 'getAll').mockResolvedValueOnce(
-			mockCategories
-		);
+		jest.spyOn(categoryService, 'getAll').mockResolvedValueOnce(mockCategories);
 
 		const categories = await categoryController.getAll();
 
@@ -57,9 +50,7 @@ describe('CategoryController', () => {
 	});
 
 	it('should create a category', async () => {
-		jest.spyOn(categoryService, 'create').mockResolvedValueOnce(
-			mockCategory1
-		);
+		jest.spyOn(categoryService, 'create').mockResolvedValueOnce(mockCategory1);
 
 		const result = await categoryController.post({ name: 'test' });
 

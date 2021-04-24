@@ -1,21 +1,13 @@
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
-import {
-	HttpStatus,
-	INestApplication,
-	NotFoundException,
-} from '@nestjs/common';
-import {
-	CategoryService,
-	CategoryModule,
-	CreateCategoryDto,
-	Category,
-} from '@models/category';
-import {
-	mockCategoryServiceFactory,
-	mockCategory1,
-	mockCategory2,
-} from '@mocks/category';
+import { HttpStatus, INestApplication, NotFoundException } from '@nestjs/common';
+
+import { CategoryService } from '@models/category/category.service';
+import { CategoryModule } from '@models/category/category.module';
+import { CreateCategoryDto } from '@models/category/category.dto';
+import { Category } from '@models/category/category.entity';
+
+import { mockCategoryServiceFactory, mockCategory1, mockCategory2 } from '@mocks/category';
 import { mockRepositoryFactory } from '@mocks/repository';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
@@ -62,9 +54,7 @@ describe('Categories', () => {
 	it('/GET categories/:id should return a 404', async () => {
 		jest.spyOn(categoryService, 'get').mockResolvedValueOnce(null);
 
-		const notFoundResponse = JSON.stringify(
-			new NotFoundException().getResponse()
-		);
+		const notFoundResponse = JSON.stringify(new NotFoundException().getResponse());
 
 		return request(app.getHttpServer())
 			.get('/categories/0')

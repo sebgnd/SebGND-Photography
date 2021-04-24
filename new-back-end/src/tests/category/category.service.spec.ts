@@ -2,13 +2,10 @@ import { Test } from '@nestjs/testing';
 import { getRepositoryToken, getConnectionToken } from '@nestjs/typeorm';
 import { Repository, Connection, EntityManager } from 'typeorm';
 
-import { CategoryService, Category } from '@models/category';
+import { CategoryService } from '@models/category/category.service';
+import { Category } from '@models/category/category.entity';
 
-import {
-	mockCategory1,
-	mockCategory2,
-	MockCategoryRepository,
-} from '@mocks/category';
+import { mockCategory1, mockCategory2, MockCategoryRepository } from '@mocks/category';
 import { getMockConnection } from '@mocks/connection';
 
 describe('CategoryService', () => {
@@ -24,24 +21,16 @@ describe('CategoryService', () => {
 
 		const moduleRef = await Test.createTestingModule({
 			controllers: [],
-			providers: [
-				CategoryService,
-				MockCategoryRepository,
-				getMockConnection(manager),
-			],
+			providers: [CategoryService, MockCategoryRepository, getMockConnection(manager)],
 		}).compile();
 
 		categoryService = moduleRef.get<CategoryService>(CategoryService);
-		categoryRepository = moduleRef.get<Repository<Category>>(
-			getRepositoryToken(Category)
-		);
+		categoryRepository = moduleRef.get<Repository<Category>>(getRepositoryToken(Category));
 		connection = moduleRef.get<Connection>(getConnectionToken());
 	});
 
 	it('should return a category', async () => {
-		jest.spyOn(categoryRepository, 'findOne').mockResolvedValueOnce(
-			mockCategory1
-		);
+		jest.spyOn(categoryRepository, 'findOne').mockResolvedValueOnce(mockCategory1);
 
 		const category = await categoryService.get('test');
 
@@ -52,9 +41,7 @@ describe('CategoryService', () => {
 	it('should return every category', async () => {
 		const mockCategories = [mockCategory2, mockCategory1, mockCategory1];
 
-		jest.spyOn(categoryRepository, 'find').mockResolvedValueOnce(
-			mockCategories
-		);
+		jest.spyOn(categoryRepository, 'find').mockResolvedValueOnce(mockCategories);
 
 		const categories = await categoryService.getAll();
 
@@ -63,9 +50,7 @@ describe('CategoryService', () => {
 	});
 
 	it('should create a category', async () => {
-		jest.spyOn(categoryRepository, 'create').mockReturnValueOnce(
-			mockCategory1
-		);
+		jest.spyOn(categoryRepository, 'create').mockReturnValueOnce(mockCategory1);
 
 		await categoryService.create('Photo Manipulation');
 

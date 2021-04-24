@@ -2,11 +2,7 @@
 
 ## Todo
 ### Urgent
-1. Finish File component for UploadModal
-1. Fix viewer css
-1. Fix viewer not loading image when clicking multiple times
-1. Add margin to the bottom of contact page
-1. Increase margin on columns in AdminHome page
+1. Redesign file component
 
 ### Not Urgent
 1. Refactor redux
@@ -17,6 +13,9 @@
 1. Implement placeholders on loading images
 1. Fix link on RoundButton
 1. Add tests to all files
+1. Fix viewer css
+1. Fix viewer not loading image when clicking multiple times
+1. Increase margin on columns in AdminHome page
 
 ## Current API:
 Endpoints | Description

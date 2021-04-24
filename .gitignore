@@ -1,5 +1,29 @@
+# Compiled output
 front-end/node_modules
 front-end/build
 back-end/node_modules
 back-end/categories
 back-end/log
+new-back-end/node_modules
+new-back-end/categories
+new-back-end/dist
+
+# OS
+.DS_Store
+
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

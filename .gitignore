@@ -7,6 +7,7 @@ back-end/log
 new-back-end/node_modules
 new-back-end/categories
 new-back-end/dist
+new-back-end/coverage
 
 # OS
 .DS_Store

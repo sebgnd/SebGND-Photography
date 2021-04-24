@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "paths": {
+      "@root/*": ["./*"],
+      "@models/*": ["./src/models/*"],
+      "@common/*": ["./src/common/*"],
+	  "@configuration/*": ["./src/configuration/*"],
+      "@app/*": ["./src/app/*"],
+      "@tests/*": ["./src/tests/*"],
+      "@mocks/*": ["./src/tests/__mocks__/*"],
+    }
+  },
+  "exclude": [
+	  "node_modules",
+	  "dist",
+	  "coverage",
+	  "categories",
+  ]
+}

@@ -1,4 +1,5 @@
 import * as Jimp from 'jimp';
+import sizeOf from 'image-size';
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -110,34 +111,41 @@ export class ImageService {
 			throw new Error('The file must be an image in order to read the EXIF.');
 		}
 
+		const { height, width } = sizeOf(file.buffer);
+
 		try {
 			const data = await readExif(file.buffer);
 
 			const camera = `${data.image['Make']} ${data.image['Model']}`;
-			const shutterSpeed = `1/${Math.pow(2, -data.exif['ShutterSpeedValue'])}`;
+			const roundedExposureTime = Math.round(data.exif['ExposureTime']);
+			const exposureTimeInMs = 1 / data.exif['ExposureTime'];
+			const needFraction = data.exif['ExposureTime'] < 1;
+			const shutterSpeed = needFraction
+				? `1/${exposureTimeInMs}s`
+				: `${roundedExposureTime}s`;
 
 			return {
 				iso: data.exif['ISO'],
 				focalLength: `${data.exif['FocalLength']}mm`,
 				aperture: `f${data.exif['FNumber']}`,
-				height: data.exif['ImageHeight'] || 0,
-				width: data.exif['ImageWidth'] || 0,
 				lense: data.exif['LensModel'],
+				height,
+				width,
 				camera,
 				shutterSpeed,
 			};
 		} catch (err) {
-			const image = await Jimp.read(file.buffer);
-
-			return {
-				height: image.bitmap.height,
-				width: image.bitmap.width,
-			};
+			return { width, height };
 		}
 	}
 
-	async create(categoryId: string, exif: Exif) {
+	async create(categoryId: string, exif: Exif): Promise<Image> {
 		const category: Category = await this.categoryService.get(categoryId);
+
+		if (!category) {
+			throw new Error('Cannot create an image without a category');
+		}
+
 		const image = this.imageRepository.create({ category });
 
 		// If we have the iso, we can assume that we have the rest of the EXIF datas

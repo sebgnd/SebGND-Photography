@@ -33,6 +33,7 @@
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "exif": "^0.6.0",
+    "image-size": "^1.0.0",
     "install": "^0.13.0",
     "jimp": "^0.16.1",
     "mysql2": "^2.2.5",
@@ -96,7 +97,7 @@
       "@common/(.*)": [
         "<rootDir>/common/$1"
       ],
-	  "@configuration/(.*)": [
+      "@configuration/(.*)": [
         "<rootDir>/configuration/$1"
       ],
       "@app/(.*)": [

@@ -21,6 +21,14 @@ export const mockCategory2: Category = {
 	images: [],
 };
 
+export const mockCategory3: Partial<Category> = {
+	id: '160a93d4-5ba1-4310-868a-1e471712ee59',
+	createdAt: new Date('2021-04-24T16:14:29.123Z'),
+	updatedAt: new Date('2021-04-24T16:14:29.123Z'),
+	name: 'architecture',
+	displayName: 'Architecture',
+};
+
 export const mockCategoryServiceFactory = () => ({
 	get: jest.fn(() => null),
 	getAll: jest.fn(() => null),

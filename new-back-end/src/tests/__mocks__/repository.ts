@@ -6,6 +6,8 @@ export const mockRepositoryFactory = () => ({
 	findOne: jest.fn(() => null),
 	find: jest.fn(() => null),
 	create: jest.fn(() => null),
+	count: jest.fn(() => null),
+	delete: jest.fn(() => null),
 });
 
 export const getMockRepository = (Model: EntityClassOrSchema): Provider => ({

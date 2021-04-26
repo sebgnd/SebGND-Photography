@@ -461,7 +461,7 @@ describe('CategoryService', () => {
 		expect(fs.mkdirSync).toHaveBeenCalledWith(folder, { recursive: true });
 	});
 
-	it('should delete the images that have the same id and category', async () => 
+	it('should delete the images that have the same id and category', async () => {
 		jest.spyOn(configService, 'get').mockImplementation((key: string) => key);
 		jest.spyOn(fs, 'readdirSync').mockReturnValueOnce(['folder1', 'folder2', 'folder3']);
 

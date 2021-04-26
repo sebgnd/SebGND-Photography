@@ -1,4 +1,6 @@
 import * as Jimp from 'jimp';
+import * as fs from 'fs';
+import * as path from 'path';
 
 import { Test } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
@@ -10,16 +12,18 @@ import { Image } from '@models/image/image.entity';
 import { Exif } from '@models/image/types';
 
 import { EquipmentService } from '@models/equipment/equipment.service';
-import { Equipment } from '@models/equipment/equipment.entity';
 
 import { CategoryService } from '@models/category/category.service';
 import { Category } from '@models/category/category.entity';
 
 import { mockPortrait, mockLandscape, MockImageRepository } from '@mocks/image';
-import { MockCategoryService, mockCategory3, mockCategory2 } from '@mocks/category';
+import { MockCategoryService, mockCategory3 } from '@mocks/category';
 import { mockCamera, MockEquipmentService, mockLense } from '@mocks/equipment';
 import { MockConfigService } from '@mocks/config';
 import { getMockConnection } from '@mocks/connection';
+
+jest.mock('jimp');
+jest.mock('fs');
 
 describe('CategoryService', () => {
 	let imageService: ImageService;
@@ -282,30 +286,197 @@ describe('CategoryService', () => {
 	});
 
 	it('should resize an image with only height', async () => {
-		expect(true).toBeTruthy();
+		const getBufferAsync = jest.fn();
+		const quality = jest.fn(() => ({ getBufferAsync }));
+		const resize = jest.fn(() => ({ quality }));
+
+		const bitmap = {
+			data: Buffer.from('buffer'),
+			height: 1000,
+			width: 1200,
+		};
+
+		jest.spyOn(Jimp, 'read').mockResolvedValueOnce(({ bitmap, resize } as unknown) as Jimp);
+
+		const fileMocked = {
+			mimetype: 'image/jpg',
+			buffer: Buffer.from('imagebuffer'),
+		};
+
+		await imageService.resize(fileMocked as Express.Multer.File, {
+			height: 400,
+		});
+
+		const scaledWidth = (1200 * 400) / 1000;
+
+		expect(resize).toHaveBeenNthCalledWith(1, scaledWidth, 400);
+		expect(quality).toHaveBeenNthCalledWith(1, 100);
+		expect(getBufferAsync).toHaveBeenNthCalledWith(1, Jimp.MIME_JPEG);
 	});
 
 	it('should resize an image with height and width in landscape by cropping', async () => {
-		expect(true).toBeTruthy();
+		const getBufferAsync = jest.fn();
+		const secondQuality = jest.fn(() => ({ getBufferAsync }));
+		const crop = jest.fn(() => ({ quality: secondQuality }));
+		const firstQuality = jest.fn(() => ({ crop }));
+		const resize = jest.fn(() => ({ quality: firstQuality }));
+
+		const bitmap = {
+			data: Buffer.from('buffer'),
+			height: 1000,
+			width: 1200,
+		};
+
+		jest.spyOn(Jimp, 'read').mockResolvedValueOnce(({ bitmap, resize } as unknown) as Jimp);
+
+		const fileMocked = {
+			mimetype: 'image/jpg',
+			buffer: Buffer.from('imagebuffer'),
+		};
+
+		await imageService.resize(fileMocked as Express.Multer.File, {
+			height: 400,
+			width: 400,
+			crop: true,
+		});
+
+		const scaledWidth = (1200 * 400) / 1000;
+		const x = (scaledWidth - 400) / 2;
+		const y = 0;
+
+		expect(resize).toHaveBeenNthCalledWith(1, scaledWidth, 400);
+		expect(firstQuality).toHaveBeenNthCalledWith(1, 100);
+		expect(crop).toHaveBeenNthCalledWith(1, x, y, 400, 400);
+		expect(secondQuality).toHaveBeenNthCalledWith(1, 100);
+		expect(getBufferAsync).toHaveBeenNthCalledWith(1, Jimp.MIME_JPEG);
 	});
 
 	it('should resize an image with height and width in portrait by cropping', async () => {
-		expect(true).toBeTruthy();
+		const getBufferAsync = jest.fn();
+		const secondQuality = jest.fn(() => ({ getBufferAsync }));
+		const crop = jest.fn(() => ({ quality: secondQuality }));
+		const firstQuality = jest.fn(() => ({ crop }));
+		const resize = jest.fn(() => ({ quality: firstQuality }));
+
+		const bitmap = {
+			data: Buffer.from('buffer'),
+			height: 1200,
+			width: 1000,
+		};
+
+		jest.spyOn(Jimp, 'read').mockResolvedValueOnce(({ bitmap, resize } as unknown) as Jimp);
+
+		const fileMocked = {
+			mimetype: 'image/jpg',
+			buffer: Buffer.from('imagebuffer'),
+		};
+
+		await imageService.resize(fileMocked as Express.Multer.File, {
+			height: 400,
+			width: 400,
+			crop: true,
+		});
+
+		const scaledHeight = (1200 * 400) / 1000;
+		const x = 0;
+		const y = (scaledHeight - 400) / 2;
+
+		expect(resize).toHaveBeenNthCalledWith(1, 400, scaledHeight);
+		expect(firstQuality).toHaveBeenNthCalledWith(1, 100);
+		expect(crop).toHaveBeenNthCalledWith(1, x, y, 400, 400);
+		expect(secondQuality).toHaveBeenNthCalledWith(1, 100);
+		expect(getBufferAsync).toHaveBeenNthCalledWith(1, Jimp.MIME_JPEG);
 	});
 
 	it('should resize an image with height and width without cropping', async () => {
-		expect(true).toBeTruthy();
+		const getBufferAsync = jest.fn();
+		const quality = jest.fn(() => ({ getBufferAsync }));
+		const resize = jest.fn(() => ({ quality }));
+
+		const bitmap = {
+			data: Buffer.from('buffer'),
+			height: 1200,
+			width: 1000,
+		};
+
+		jest.spyOn(Jimp, 'read').mockResolvedValueOnce(({ bitmap, resize } as unknown) as Jimp);
+
+		const fileMocked = {
+			mimetype: 'image/jpg',
+			buffer: Buffer.from('imagebuffer'),
+		};
+
+		await imageService.resize(fileMocked as Express.Multer.File, {
+			height: 390,
+			width: 350,
+		});
+
+		expect(resize).toHaveBeenNthCalledWith(1, 350, 390);
+		expect(quality).toHaveBeenNthCalledWith(1, 100);
+		expect(getBufferAsync).toHaveBeenNthCalledWith(1, Jimp.MIME_JPEG);
+	});
+
+	it('should throw an error because the file is not an image', async () => {
+		const fileMocked = {
+			mimetype: 'document/pdf',
+			buffer: Buffer.from('imagebuffer'),
+		};
+
+		expect(
+			imageService.resize(fileMocked as Express.Multer.File, { height: 390 })
+		).rejects.toThrowError();
 	});
 
 	it('should save the buffer as an image', async () => {
-		expect(true).toBeTruthy();
+		jest.spyOn(fs, 'existsSync').mockReturnValueOnce(true);
+		jest.spyOn(fs, 'writeFileSync').mockImplementationOnce(() => null);
+		jest.spyOn(configService, 'get').mockImplementation((key: string) => key);
+
+		const buffer = Buffer.from('buffer');
+		const folder = path.join(
+			__dirname,
+			'..',
+			'..',
+			'..',
+			'rootDir',
+			'category',
+			'format',
+			'1.jpg'
+		);
+
+		imageService.saveFile(buffer, 'format', '1', 'category');
+
+		expect(fs.writeFileSync).toHaveBeenCalledWith(folder, buffer);
 	});
 
 	it('should create the folder before saving the image', async () => {
-		expect(true).toBeTruthy();
+		jest.spyOn(fs, 'existsSync').mockReturnValueOnce(false);
+		jest.spyOn(fs, 'writeFileSync').mockImplementationOnce(() => null);
+		jest.spyOn(configService, 'get').mockImplementation((key: string) => key);
+
+		const folder = path.join(__dirname, '..', '..', '..', 'rootDir', 'category', 'format');
+
+		imageService.saveFile(Buffer.from('buffer'), 'format', '1', 'category');
+
+		expect(fs.mkdirSync).toHaveBeenCalledWith(folder, { recursive: true });
 	});
 
-	it('should delete the images that have the same id and category', async () => {
+	it('should delete the images that have the same id and category', async () => 
+		jest.spyOn(configService, 'get').mockImplementation((key: string) => key);
+		jest.spyOn(fs, 'readdirSync').mockReturnValueOnce(['folder1', 'folder2', 'folder3']);
+
+		const folder = path.join(__dirname, '..', '..', '..', 'rootDir', 'category');
+
+		jest.spyOn(fs, 'existsSync').mockImplementation((imagePath: string) => {
+			return path.join(folder, 'folder2', '1.jpg') === imagePath;
+		});
+
+		await imageService.deleteFiles('1', 'category');
+
+		expect(fs.unlink).toHaveBeenNthCalledWith(1, path.join(folder, 'folder1', '1.jpg'));
+		expect(fs.unlink).toHaveBeenNthCalledWith(2, path.join(folder, 'folder3', '1.jpg'));
+		expect(fs.unlink).not.toHaveBeenCalledWith(path.join(folder, 'folder2', '1.jpg'));
+
 		expect(true).toBeTruthy();
 	});
 

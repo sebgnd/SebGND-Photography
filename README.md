@@ -17,6 +17,9 @@
 1. Fix viewer not loading image when clicking multiple times
 1. Increase margin on columns in AdminHome page
 
+### Backend
+1. Mock regular packages (fs, jimp, ...)
+
 ## Current API:
 Endpoints | Description
 ----------|------------

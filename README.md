@@ -19,6 +19,7 @@
 
 ### Backend
 1. Mock regular packages (fs, jimp, ...)
+1. Create JimpProvider for image resizing (maybe ExifProvider ?)
 
 ## Current API:
 Endpoints | Description
